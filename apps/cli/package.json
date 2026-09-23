@@ -19,6 +19,7 @@
     "@effect/platform-node": "4.0.0-rc.117",
     "@rat-stack/capability": "workspace:*",
     "@rat-stack/core": "workspace:*",
+    "@rat-stack/devtools": "workspace:*",
     "effect": "4.0.0-rc.117"
   },
   "devDependencies": {
