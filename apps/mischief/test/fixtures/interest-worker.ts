@@ -1,4 +1,8 @@
-import { InterestTokens, postShibaMailerLayer } from "@rat-stack/core/interest";
+import {
+  InterestMode,
+  InterestTokens,
+  postShibaMailerLayer,
+} from "@rat-stack/core/interest";
 import * as Cloudflare from "alchemy/Cloudflare";
 import { Effect, Layer, Redacted } from "effect";
 import * as FetchHttpClient from "effect/unstable/http/FetchHttpClient";
@@ -28,6 +32,7 @@ export default class InterestWorker extends Cloudflare.Worker<InterestWorker>()(
           () => index.getByName("index")
         ),
         InterestTokens.layer(Redacted.make("local-token-secret")),
+        InterestMode.layer("doi"),
         postShibaMailerLayer({
           apiKey: Redacted.make(""),
           cluster: "",
