@@ -23,8 +23,8 @@ const Step = Schema.Union([
   }),
   Schema.Struct({
     kind: Schema.Literal("verify"),
-    submission: Schema.Literals([0, 1, 2]),
-    ticket: Schema.Literals([0, 1, 2, 3, 4, 5]),
+    submission: Schema.Literals([0, 1]),
+    ticket: Schema.Literals([0, 1, 2]),
   }),
   Schema.Struct({ kind: Schema.Literal("forge") }),
   Schema.Struct({
@@ -137,7 +137,26 @@ describe("intake tickets", () => {
     "agree with the model: one submission per ticket, retries pass, expiry after 72 hours",
     { generated: steps },
     ({ generated }) =>
-      runAgainstModel(generated).pipe(Effect.provide(IntakeTicket.testLayer))
+      runAgainstModel(generated).pipe(Effect.provide(IntakeTicket.testLayer)),
+    { arbitrary: { runs: 300 } }
+  );
+
+  it.effect("pass a retry of the same submission and refuse a second one", () =>
+    Effect.gen(function* retryThenReuse() {
+      const tickets = yield* IntakeTicket;
+      const ticket = yield* tickets.mint(PAGE_TICKET_SOURCE);
+      const claims = { mintedAt: 0, source: PAGE_TICKET_SOURCE };
+
+      expect(yield* tickets.verify(ticket, "submission-a")).toStrictEqual(
+        claims
+      );
+      expect(yield* tickets.verify(ticket, "submission-a")).toStrictEqual(
+        claims
+      );
+      expect(
+        (yield* Effect.flip(tickets.verify(ticket, "submission-b"))).reason
+      ).toBe("reused");
+    }).pipe(Effect.provide(IntakeTicket.testLayer))
   );
 
   it.effect.prop(
