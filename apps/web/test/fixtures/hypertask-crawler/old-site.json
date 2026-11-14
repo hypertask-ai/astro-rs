@@ -1,0 +1,24 @@
+{
+  "files": {
+    "llms-full.txt": {
+      "bytes": 20766,
+      "sha256": "a34f49021331a541235db3a0d4d6d2d7c20a350b0b7fbec9a791a9b71b0d52e0"
+    },
+    "llms.txt": {
+      "bytes": 5817,
+      "sha256": "c09beb6493728fdee08063850759c5239277812dc6ae61472d6bdbce29fd0393"
+    },
+    "robots.txt": {
+      "bytes": 381,
+      "sha256": "b6fa885eaa7fbeb9c45ca17ba6954901c8342b3019996f3c0a41d0846fb955e6"
+    },
+    "rss.xml": {
+      "bytes": 23561,
+      "sha256": "1d4870e83bd4128ee9b4aa1180abe3d66a7d57d6622eb9483ce7600a04d1087d"
+    },
+    "sitemap-0.xml": {
+      "bytes": 3969,
+      "sha256": "78c7fe8189b708ab792b016e2ca082a73473b3cb0841774f19821bbfd8f8a80a"
+    }
+  }
+}

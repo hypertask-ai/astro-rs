@@ -4,6 +4,7 @@ import { foldkit } from "@foldkit/vite-plugin";
 import { Predicate, Schema } from "effect";
 import { defineConfig } from "vite";
 
+import { crawlerFilesPlugin } from "./crawler-files.js";
 import { readerFinalizationPlugin } from "./reader-finalization.js";
 import { readerPagesPlugin } from "./reader-pages.js";
 import { readerPrerenderOrigin } from "./src/server/prerender-origin.js";
@@ -28,6 +29,7 @@ export default defineConfig({
       },
     }),
     readerFinalizationPlugin(),
+    crawlerFilesPlugin(),
     {
       apply: "build",
       config: (config, environment) => {
