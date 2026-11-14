@@ -1,3 +1,5 @@
+import { randomBytesUnsafe } from "effect/crypto/SecureRandom";
+
 import { parseConsentCookie } from "../../consent/index.js";
 import { analyticsMode, allowsEvent } from "./gate.js";
 import type { AnalyticsMode } from "./gate.js";
@@ -39,7 +41,7 @@ const oneLine = (value: string): string =>
 const currentUrl = (): string => location.href;
 
 const newId = (): string => {
-  const bytes = crypto.getRandomValues(new Uint8Array(16));
+  const bytes = randomBytesUnsafe(16);
 
   return Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join(
     ""
