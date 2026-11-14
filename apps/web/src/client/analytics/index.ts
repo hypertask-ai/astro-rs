@@ -65,6 +65,21 @@ const pageProperties = () => {
   };
 };
 
+const consentAnnounced = (event: Event): boolean => {
+  if (!(event instanceof CustomEvent)) {
+    return false;
+  }
+
+  const detail: unknown = event.detail;
+
+  return (
+    typeof detail === "object" &&
+    detail !== null &&
+    "analytics" in detail &&
+    detail.analytics === true
+  );
+};
+
 const send = (body: string): void => {
   try {
     navigator.sendBeacon(
@@ -189,9 +204,7 @@ export const startAnalytics = (): void => {
   document.addEventListener("click", captureClick);
 
   document.addEventListener("ht:consent", (event) => {
-    const announced = (event as CustomEvent<{ analytics: boolean }>).detail;
-
-    if (announced.analytics) {
+    if (consentAnnounced(event)) {
       mode = "full";
       rememberId(visitorId());
       emit("consent_updated", { consent: "all" });
