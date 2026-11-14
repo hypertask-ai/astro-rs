@@ -1,25 +1,38 @@
 import { describe, expect, it } from "@effect/vitest";
 
-import { allowsEvent, analyticsMode } from "../src/client/analytics/gate.js";
+import {
+  allowsEvent,
+  allowsPageCount,
+  analyticsMode,
+} from "../src/client/analytics/gate.js";
 import {
   POSTHOG_TOKEN,
   capturePayload,
 } from "../src/client/analytics/payload.js";
 
 describe("analytics consent gate", () => {
-  it("counts nothing before the visitor chooses", () => {
-    expect(analyticsMode()).toBe("off");
-    expect(allowsEvent("off")).toBe(false);
+  it("counts page views and leaves, nothing else, before the visitor chooses", () => {
+    const mode = analyticsMode();
+
+    expect(mode).toBe("pageviews");
+    expect(allowsPageCount(mode)).toBe(true);
+    expect(allowsEvent(mode)).toBe(false);
   });
 
   it("counts nothing after the visitor chooses essential only", () => {
-    expect(analyticsMode("essential")).toBe("off");
-    expect(allowsEvent("off")).toBe(false);
+    const mode = analyticsMode("essential");
+
+    expect(mode).toBe("off");
+    expect(allowsPageCount(mode)).toBe(false);
+    expect(allowsEvent(mode)).toBe(false);
   });
 
   it("counts every event after the visitor chooses all", () => {
-    expect(analyticsMode("all")).toBe("full");
-    expect(allowsEvent("full")).toBe(true);
+    const mode = analyticsMode("all");
+
+    expect(mode).toBe("full");
+    expect(allowsPageCount(mode)).toBe(true);
+    expect(allowsEvent(mode)).toBe(true);
   });
 });
 
@@ -44,7 +57,7 @@ describe("PostHog capture payload", () => {
       capturePayload({
         distinctId: "visitor-1",
         event: "hp-install-copy",
-        properties: { $el_text: "Copy" },
+        properties: { $event_type: "click" },
       }).event
     ).toBe("hp-install-copy");
   });

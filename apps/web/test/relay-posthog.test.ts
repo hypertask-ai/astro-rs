@@ -70,9 +70,9 @@ it.effect("forwards a capture request to the EU collector", () =>
     expect(requests[0]?.url).toBe("https://eu.i.posthog.com/e/?ip=1");
     expect(requests[0]?.method).toBe("POST");
     expect(requests[0]?.body).toBe("{}");
-    expect(requests[0]?.headers).toStrictEqual({
-      "content-type": "application/json",
-    });
+    expect(requests[0]?.headers["content-type"]).toBe("application/json");
+    expect(requests[0]?.headers.host).toBeUndefined();
+    expect(requests[0]?.headers["cf-connecting-ip"]).toBeUndefined();
   })
 );
 

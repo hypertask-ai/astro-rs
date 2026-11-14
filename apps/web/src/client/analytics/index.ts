@@ -1,7 +1,7 @@
 import { randomBytesUnsafe } from "effect/crypto/SecureRandom";
 
 import { parseConsentCookie } from "../../consent/index.js";
-import { analyticsMode, allowsEvent } from "./gate.js";
+import { allowsEvent, allowsPageCount, analyticsMode } from "./gate.js";
 import type { AnalyticsMode } from "./gate.js";
 import { ANALYTICS_ID_KEY, RELAY_URL, capturePayload } from "./payload.js";
 
@@ -34,9 +34,6 @@ const forgetId = (): void => {
     ignore();
   }
 };
-
-const oneLine = (value: string): string =>
-  value.replaceAll(/\s+/gu, " ").trim().slice(0, 120);
 
 const currentUrl = (): string => location.href;
 
@@ -104,10 +101,6 @@ export const startAnalytics = (): void => {
     event: string,
     properties: Readonly<Record<string, string>> = {}
   ): void => {
-    if (!allowsEvent(mode)) {
-      return;
-    }
-
     send(
       JSON.stringify(
         capturePayload({
@@ -120,7 +113,7 @@ export const startAnalytics = (): void => {
   };
 
   const capturePageView = (): void => {
-    if (!allowsEvent(mode)) {
+    if (!allowsPageCount(mode)) {
       return;
     }
 
@@ -137,7 +130,7 @@ export const startAnalytics = (): void => {
   };
 
   const capturePageLeave = (): void => {
-    if (!allowsEvent(mode) || leaveSent) {
+    if (!allowsPageCount(mode) || leaveSent) {
       return;
     }
 
@@ -146,28 +139,7 @@ export const startAnalytics = (): void => {
     emit("$pageleave");
   };
 
-  const syncChoice = (): void => {
-    const next = analyticsMode(readChoice());
-
-    if (next === mode) {
-      return;
-    }
-
-    mode = next;
-
-    if (mode === "off") {
-      distinctId = undefined;
-      lastUrl = "";
-      leaveSent = false;
-      forgetId();
-
-      return;
-    }
-
-    capturePageView();
-  };
-
-  document.addEventListener("click", (event) => {
+  const captureClick = (event: MouseEvent): void => {
     if (!allowsEvent(mode)) {
       return;
     }
@@ -181,21 +153,53 @@ export const startAnalytics = (): void => {
       return;
     }
 
-    const text = oneLine(target.textContent ?? "");
-
-    const custom =
+    const named =
       target instanceof HTMLElement ? target.dataset.phCapture : undefined;
 
-    if (custom !== undefined) {
-      emit(custom, { $el_text: text });
+    emit(named ?? "$autocapture", { $event_type: "click" });
+  };
+
+  const syncChoice = (): void => {
+    const next = analyticsMode(readChoice());
+
+    if (next === mode) {
+      return;
+    }
+
+    const wasPageviews = mode === "pageviews";
+
+    mode = next;
+
+    if (mode === "off") {
+      distinctId = undefined;
+      lastUrl = "";
+      leaveSent = false;
+      forgetId();
 
       return;
     }
 
-    emit("$autocapture", { $el_text: text, $event_type: "click" });
+    if (mode === "full" && wasPageviews) {
+      rememberId(visitorId());
+    }
+
+    capturePageView();
+  };
+
+  document.addEventListener("click", captureClick);
+
+  document.addEventListener("ht:consent", (event) => {
+    const announced = (event as CustomEvent<{ analytics: boolean }>).detail;
+
+    if (announced.analytics) {
+      mode = "full";
+      rememberId(visitorId());
+      emit("consent_updated", { consent: "all" });
+    }
+
+    syncChoice();
   });
 
-  document.addEventListener("ht:consent", syncChoice);
   window.addEventListener("focus", syncChoice);
   window.addEventListener("pagehide", capturePageLeave);
   document.addEventListener("visibilitychange", () => {
