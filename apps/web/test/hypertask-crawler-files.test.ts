@@ -38,7 +38,7 @@ const readOldSite = Effect.gen(function* readOldSiteFixture() {
     `${application}/test/fixtures/hypertask-crawler/old-site.json`
   );
 
-  return Schema.decodeSync(Schema.fromJsonString(OldSiteFiles))(text);
+  return yield* Schema.decodeEffect(Schema.fromJsonString(OldSiteFiles))(text);
 });
 
 const utf8 = (text: string) => new TextEncoder().encode(text);
