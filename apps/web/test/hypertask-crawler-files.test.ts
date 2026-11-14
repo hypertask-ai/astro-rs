@@ -33,6 +33,7 @@ const servicesForTests = it.layer(services);
 
 const readOldSite = Effect.gen(function* readOldSiteFixture() {
   const fs = yield* FileSystem.FileSystem;
+
   const text = yield* fs.readFileString(
     `${application}/test/fixtures/hypertask-crawler/old-site.json`
   );
@@ -89,6 +90,7 @@ servicesForTests("hypertask crawler files", (test) => {
   test.effect("keeps hidden pages out of the sitemap", () =>
     Effect.sync(() => {
       const sitemapBytes = sitemap();
+
       const locs = [...sitemapBytes.matchAll(/<loc>(?<loc>.*?)<\/loc>/gu)].map(
         (match) => match.groups?.loc ?? ""
       );
