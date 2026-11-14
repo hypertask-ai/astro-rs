@@ -34,10 +34,12 @@ type OldHead = Readonly<
   Partial<Record<MetaKey | "canonical" | "og:url" | "title", string>>
 > & { readonly ld: readonly object[] };
 
+const parseJson = (text: string): unknown => JSON.parse(text);
+
 const oldHeads = new Map<string, OldHead>(
   Object.entries(
     // SAFETY: old-heads.json is captured from the live site with exactly this shape.
-    JSON.parse(
+    parseJson(
       readFileSync(new URL("fixtures/old-heads.json", import.meta.url), "utf-8")
     ) as Record<string, OldHead>
   )
@@ -59,8 +61,8 @@ const readMeta = (head: string): ReadonlyMap<string, string> =>
     ].map(
       (match) =>
         [
-          match.groups?.["key"] ?? "",
-          unescapeAttribute(match.groups?.["value"] ?? ""),
+          match.groups?.key ?? "",
+          unescapeAttribute(match.groups?.value ?? ""),
         ] as const
     )
   );
@@ -70,7 +72,7 @@ const readJsonLd = (head: string): readonly unknown[] =>
     ...head.matchAll(
       /<script type="application\/ld\+json">(?<json>.*?)<\/script>/gu
     ),
-  ].map((match) => JSON.parse(match.groups?.["json"] ?? "null"));
+  ].map((match) => parseJson(match.groups?.json ?? "null"));
 
 const headFor = (path: string): string => {
   const page = pageHeads.get(path);
@@ -144,7 +146,7 @@ describe("page head", () => {
   it("never loads anything from another host", () => {
     const loaded = samplePaths.flatMap((path) =>
       [...headFor(path).matchAll(/(?:src|href)="(?<url>https?:[^"]+)"/gu)].map(
-        (match) => match.groups?.["url"]
+        (match) => match.groups?.url
       )
     );
 

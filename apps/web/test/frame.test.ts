@@ -28,7 +28,7 @@ const externalLoads = (html: string): readonly (string | undefined)[] =>
       tag.includes('rel="canonical"') || tag.includes('rel="alternate"')
         ? []
         : [...tag.matchAll(/\b(?:src|href)="(?<url>https?:\/\/[^"]+)"/gu)].map(
-            (match) => match.groups?.["url"]
+            (match) => match.groups?.url
           )
     );
 
