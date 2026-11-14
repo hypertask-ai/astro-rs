@@ -1,3 +1,4 @@
+import { Option, Schema } from "effect";
 import { randomBytesUnsafe } from "effect/crypto/SecureRandom";
 
 import { parseConsentCookie } from "../../consent/index.js";
@@ -65,20 +66,14 @@ const pageProperties = () => {
   };
 };
 
-const consentAnnounced = (event: Event): boolean => {
-  if (!(event instanceof CustomEvent)) {
-    return false;
-  }
+const ConsentAnnouncedSchema = Schema.Struct({
+  analytics: Schema.Literal(true),
+});
 
-  const detail: unknown = event.detail;
+const isConsentAnnounced = Schema.decodeUnknownOption(ConsentAnnouncedSchema);
 
-  return (
-    typeof detail === "object" &&
-    detail !== null &&
-    "analytics" in detail &&
-    detail.analytics === true
-  );
-};
+const consentAnnounced = (event: Event): boolean =>
+  event instanceof CustomEvent && Option.isSome(isConsentAnnounced(event.detail));
 
 const send = (body: string): void => {
   try {
