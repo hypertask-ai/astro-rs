@@ -23,6 +23,10 @@ import {
   readerNoStoreRoutePaths,
 } from "../src/reader-routes.ts";
 import { ReaderErrorTemplate } from "../src/server/reader-error-template.ts";
+import {
+  copyInstallScripts,
+  installScriptHeaders,
+} from "./install-scripts.ts";
 import { copyReaderAssets } from "./reader-assets.ts";
 
 const encodeFlags = Effect.forEach((page: ReaderPageFlags) =>
@@ -177,6 +181,8 @@ export const finalizeReader = Effect.fn("reader.finalize")(
       `${root}/dist/reader-pages.json`
     );
 
+    yield* copyInstallScripts(`${root}/static`, clientDirectory);
+
     yield* Effect.forEach((page: (typeof pages)[number]) =>
       Effect.gen(function* finalizePage() {
         const route = page.page.path;
@@ -253,7 +259,7 @@ export const finalizeReader = Effect.fn("reader.finalize")(
 
       return yield* fs.writeFileString(
         headerPath,
-        `/*\n  X-Robots-Tag: noindex\n  X-Preview-Commit: ${commit.value}\n${generationHeader}${readerRouteHeaders(pages, false)}`
+        `/*\n  X-Robots-Tag: noindex\n  X-Preview-Commit: ${commit.value}\n${generationHeader}${readerRouteHeaders(pages, false)}${installScriptHeaders}`
       );
     }
 
@@ -261,7 +267,7 @@ export const finalizeReader = Effect.fn("reader.finalize")(
 
     return yield* fs.writeFileString(
       headerPath,
-      `/*\n${generationHeader}${routeHeaders}`
+      `/*\n${generationHeader}${routeHeaders}${installScriptHeaders}`
     );
   },
   Effect.provide(NodeServices.layer)
