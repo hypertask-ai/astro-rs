@@ -19,6 +19,11 @@
       "import": "./dist/consent.js",
       "default": "./dist/consent.js"
     },
+    "./relay-posthog": {
+      "types": "./src/relay-posthog.ts",
+      "import": "./dist/relay-posthog.js",
+      "default": "./dist/relay-posthog.js"
+    },
     "./tokenmaxx-workshop": {
       "types": "./src/tokenmaxx-workshop.ts",
       "import": "./dist/tokenmaxx-workshop.js",

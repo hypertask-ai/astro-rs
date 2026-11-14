@@ -1,4 +1,6 @@
+import { relayPostHogFromRequest } from "@rat-stack/core/relay-posthog";
 import { Effect } from "effect";
+import { FetchHttpClient } from "effect/http";
 import {
   Rendered,
   Responded,
@@ -16,6 +18,19 @@ const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
   request: Request
 ) {
   const { pathname } = new URL(request.url);
+
+  if (pathname.startsWith("/relay-8ddg/")) {
+    const relayed = yield* relayPostHogFromRequest(request).pipe(
+      Effect.provide(FetchHttpClient.layer)
+    );
+
+    return Responded(
+      new Response(relayed.body, {
+        headers: relayed.headers,
+        status: relayed.status,
+      })
+    );
+  }
 
   if (pathname !== "/") {
     return Responded(new Response("Not found", { status: 404 }));
