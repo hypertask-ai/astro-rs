@@ -19,6 +19,10 @@
     "sitemap-0.xml": {
       "bytes": 3969,
       "sha256": "78c7fe8189b708ab792b016e2ca082a73473b3cb0841774f19821bbfd8f8a80a"
+    },
+    "sitemap-index.xml": {
+      "bytes": 183,
+      "sha256": "9d4d01dde0e799d0dd8f586710b58a6fabf3dd7b4f99d833cd11080b12becdc7"
     }
   }
 }

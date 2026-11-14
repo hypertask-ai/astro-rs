@@ -1,8 +1,9 @@
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
-import { join } from "node:path";
+import path from "node:path";
 
 import { describe, expect, it } from "@effect/vitest";
+import { Schema } from "effect";
 
 import { crawlerFileHeaders } from "../scripts/crawler-files.js";
 import { publishedBlogPosts } from "../src/hypertask/blog-index.js";
@@ -19,19 +20,21 @@ import {
   sitemapPaths,
 } from "../src/hypertask/route-manifest.js";
 
-const application = join(import.meta.dirname, "..");
+const application = path.join(import.meta.dirname, "..");
 
-const oldSite = JSON.parse(
+const OldSiteFiles = Schema.Struct({
+  files: Schema.Record(
+    Schema.String,
+    Schema.Struct({ bytes: Schema.Number, sha256: Schema.String })
+  ),
+});
+
+const oldSite = Schema.decodeUnknownSync(Schema.fromJsonString(OldSiteFiles))(
   readFileSync(
-    join(application, "test/fixtures/hypertask-crawler/old-site.json"),
-    "utf8"
+    path.join(application, "test/fixtures/hypertask-crawler/old-site.json"),
+    "utf-8"
   )
-) as {
-  readonly files: Record<
-    string,
-    { readonly bytes: number; readonly sha256: string }
-  >;
-};
+);
 
 const sha256 = (bytes: Uint8Array) =>
   createHash("sha256").update(bytes).digest("hex");
@@ -58,7 +61,10 @@ describe("hypertask crawler files", () => {
 
   it("serves the crawler text files the old site serves", () => {
     for (const name of ["llms-full.txt", "llms.txt", "robots.txt"]) {
-      matchesOldSite(name, readFileSync(join(application, "static", name)));
+      matchesOldSite(
+        name,
+        readFileSync(path.join(application, "static", name))
+      );
     }
   });
 
@@ -102,8 +108,9 @@ describe("hypertask crawler files", () => {
   });
 
   it("points the sitemap index at the crawlable sitemap", () => {
-    expect(sitemapIndexXml(hypertaskOrigin)).toBe(
-      '<?xml version="1.0" encoding="UTF-8"?><sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><sitemap><loc>https://hypertask.ai/sitemap.xml</loc></sitemap></sitemapindex>'
+    matchesOldSite(
+      "sitemap-index.xml",
+      new TextEncoder().encode(sitemapIndexXml(hypertaskOrigin))
     );
   });
 
@@ -114,9 +121,13 @@ describe("hypertask crawler files", () => {
       );
     }
 
-    for (const path of ["/rss.xml", "/sitemap.xml", "/sitemap-index.xml"]) {
+    for (const crawlerPath of [
+      "/rss.xml",
+      "/sitemap-0.xml",
+      "/sitemap-index.xml",
+    ]) {
       expect(crawlerFileHeaders).toContain(
-        `${path}\n  Content-Type: application/xml\n`
+        `${crawlerPath}\n  Content-Type: application/xml\n`
       );
     }
   });

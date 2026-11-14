@@ -23,7 +23,7 @@ export const generatedCrawlerFiles = () => [
   },
   {
     content: sitemapXml(hypertaskOrigin, sitemapPaths(sitePaths())),
-    path: "/sitemap.xml",
+    path: "/sitemap-0.xml",
   },
   { content: sitemapIndexXml(hypertaskOrigin), path: "/sitemap-index.xml" },
 ];
