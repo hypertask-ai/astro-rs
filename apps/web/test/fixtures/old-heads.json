@@ -1,0 +1,688 @@
+{
+  "/": {
+    "title": "The fastest project board — Hypertask",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "description": "AI project boards, agent native. AI chat, a Kanban board, and Superhuman-style keyboard controls in one place. Your AI agents work the same board via CLI, MCP, and API.",
+    "robots": "index, follow",
+    "og:title": "The fastest project board — Hypertask",
+    "og:description": "AI project boards, agent native. AI chat, a Kanban board, and Superhuman-style keyboard controls in one place. Your AI agents work the same board via CLI, MCP, and API.",
+    "og:image": "https://hypertask.ai/hypertasklogo.avif",
+    "og:image:alt": "Hypertask — AI-powered project management for humans and AI agents",
+    "og:url": "https://hypertask.ai/",
+    "og:type": "website",
+    "og:site_name": "Hypertask",
+    "twitter:card": "summary_large_image",
+    "twitter:title": "The fastest project board — Hypertask",
+    "twitter:description": "AI project boards, agent native. AI chat, a Kanban board, and Superhuman-style keyboard controls in one place. Your AI agents work the same board via CLI, MCP, and API.",
+    "twitter:image": "https://hypertask.ai/hypertasklogo.avif",
+    "twitter:image:alt": "Hypertask — AI-powered project management for humans and AI agents",
+    "canonical": "https://hypertask.ai/",
+    "ld": [
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://hypertask.ai/#organization",
+            "name": "Hypertask",
+            "legalName": "Hypertask Lab Ltd.",
+            "url": "https://hypertask.ai",
+            "description": "Hypertask is a project management platform where humans and AI agents share one board. Native MCP server and CLI access let autonomous agents read tasks, claim work, post progress, and update tickets without a human relaying every step.",
+            "knowsAbout": [
+              "AI agents",
+              "project management",
+              "Model Context Protocol",
+              "task management",
+              "AI work attribution",
+              "asynchronous collaboration"
+            ],
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://hypertask.ai/hypertasklogo.avif"
+            },
+            "founder": {
+              "@type": "Person",
+              "@id": "https://hypertask.ai/#founder",
+              "name": "Valentin Yeo",
+              "jobTitle": "Founder"
+            },
+            "sameAs": [
+              "https://www.npmjs.com/package/@hypertask/hypertask_cli"
+            ],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer support",
+              "url": "https://hypertask.ai/contact/"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://hypertask.ai/#website",
+            "url": "https://hypertask.ai",
+            "name": "Hypertask",
+            "publisher": {
+              "@id": "https://hypertask.ai/#organization"
+            }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://hypertask.ai/#software",
+            "name": "Hypertask",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "url": "https://hypertask.ai",
+            "description": "AI-powered project management where humans and AI agents share one board. Voice-to-task, smart summaries, keyboard-first navigation, native MCP integration.",
+            "screenshot": "https://hypertask.ai/mainscreen.avif",
+            "featureList": [
+              "Shared board for humans and AI agents",
+              "Native MCP server (15 tools)",
+              "Agent-optimized CLI",
+              "Voice-to-task capture",
+              "Smart task summaries",
+              "Keyboard-first navigation",
+              "Inbox and approval gates for agent work"
+            ],
+            "publisher": {
+              "@id": "https://hypertask.ai/#organization"
+            },
+            "offers": {
+              "@type": "AggregateOffer",
+              "priceCurrency": "USD",
+              "lowPrice": "0",
+              "highPrice": "25",
+              "offerCount": "3"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "/pricing/": {
+    "title": "Hypertask Pricing — Free & Paid AI Project Management Plans",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "description": "Simple, transparent pricing for AI-powered project management. Get started free with Hypertask.",
+    "robots": "index, follow",
+    "og:title": "Hypertask Pricing — Free & Paid AI Project Management Plans",
+    "og:description": "Simple, transparent pricing for AI-powered project management. Get started free with Hypertask.",
+    "og:image": "https://hypertask.ai/hypertasklogo.avif",
+    "og:image:alt": "Hypertask — AI-powered project management for humans and AI agents",
+    "og:url": "https://hypertask.ai/pricing/",
+    "og:type": "website",
+    "og:site_name": "Hypertask",
+    "twitter:card": "summary_large_image",
+    "twitter:title": "Hypertask Pricing — Free & Paid AI Project Management Plans",
+    "twitter:description": "Simple, transparent pricing for AI-powered project management. Get started free with Hypertask.",
+    "twitter:image": "https://hypertask.ai/hypertasklogo.avif",
+    "twitter:image:alt": "Hypertask — AI-powered project management for humans and AI agents",
+    "canonical": "https://hypertask.ai/pricing/",
+    "ld": [
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://hypertask.ai/#organization",
+            "name": "Hypertask",
+            "legalName": "Hypertask Lab Ltd.",
+            "url": "https://hypertask.ai",
+            "description": "Hypertask is a project management platform where humans and AI agents share one board. Native MCP server and CLI access let autonomous agents read tasks, claim work, post progress, and update tickets without a human relaying every step.",
+            "knowsAbout": [
+              "AI agents",
+              "project management",
+              "Model Context Protocol",
+              "task management",
+              "AI work attribution",
+              "asynchronous collaboration"
+            ],
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://hypertask.ai/hypertasklogo.avif"
+            },
+            "founder": {
+              "@type": "Person",
+              "@id": "https://hypertask.ai/#founder",
+              "name": "Valentin Yeo",
+              "jobTitle": "Founder"
+            },
+            "sameAs": [
+              "https://www.npmjs.com/package/@hypertask/hypertask_cli"
+            ],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer support",
+              "url": "https://hypertask.ai/contact/"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://hypertask.ai/#website",
+            "url": "https://hypertask.ai",
+            "name": "Hypertask",
+            "publisher": {
+              "@id": "https://hypertask.ai/#organization"
+            }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://hypertask.ai/#software",
+            "name": "Hypertask",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "url": "https://hypertask.ai",
+            "description": "AI-powered project management where humans and AI agents share one board. Voice-to-task, smart summaries, keyboard-first navigation, native MCP integration.",
+            "screenshot": "https://hypertask.ai/mainscreen.avif",
+            "featureList": [
+              "Shared board for humans and AI agents",
+              "Native MCP server (15 tools)",
+              "Agent-optimized CLI",
+              "Voice-to-task capture",
+              "Smart task summaries",
+              "Keyboard-first navigation",
+              "Inbox and approval gates for agent work"
+            ],
+            "publisher": {
+              "@id": "https://hypertask.ai/#organization"
+            },
+            "offers": {
+              "@type": "AggregateOffer",
+              "priceCurrency": "USD",
+              "lowPrice": "0",
+              "highPrice": "25",
+              "offerCount": "3"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "/contact/": {
+    "title": "Contact Us - Hypertask",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "description": "Get in touch with the Hypertask team for support, partnership, or press inquiries.",
+    "robots": "index, follow",
+    "og:title": "Contact Us - Hypertask",
+    "og:description": "Get in touch with the Hypertask team for support, partnership, or press inquiries.",
+    "og:image": "https://hypertask.ai/hypertasklogo.avif",
+    "og:image:alt": "Hypertask — AI-powered project management for humans and AI agents",
+    "og:url": "https://hypertask.ai/contact/",
+    "og:type": "website",
+    "og:site_name": "Hypertask",
+    "twitter:card": "summary_large_image",
+    "twitter:title": "Contact Us - Hypertask",
+    "twitter:description": "Get in touch with the Hypertask team for support, partnership, or press inquiries.",
+    "twitter:image": "https://hypertask.ai/hypertasklogo.avif",
+    "twitter:image:alt": "Hypertask — AI-powered project management for humans and AI agents",
+    "canonical": "https://hypertask.ai/contact/",
+    "ld": [
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://hypertask.ai/#organization",
+            "name": "Hypertask",
+            "legalName": "Hypertask Lab Ltd.",
+            "url": "https://hypertask.ai",
+            "description": "Hypertask is a project management platform where humans and AI agents share one board. Native MCP server and CLI access let autonomous agents read tasks, claim work, post progress, and update tickets without a human relaying every step.",
+            "knowsAbout": [
+              "AI agents",
+              "project management",
+              "Model Context Protocol",
+              "task management",
+              "AI work attribution",
+              "asynchronous collaboration"
+            ],
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://hypertask.ai/hypertasklogo.avif"
+            },
+            "founder": {
+              "@type": "Person",
+              "@id": "https://hypertask.ai/#founder",
+              "name": "Valentin Yeo",
+              "jobTitle": "Founder"
+            },
+            "sameAs": [
+              "https://www.npmjs.com/package/@hypertask/hypertask_cli"
+            ],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer support",
+              "url": "https://hypertask.ai/contact/"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://hypertask.ai/#website",
+            "url": "https://hypertask.ai",
+            "name": "Hypertask",
+            "publisher": {
+              "@id": "https://hypertask.ai/#organization"
+            }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://hypertask.ai/#software",
+            "name": "Hypertask",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "url": "https://hypertask.ai",
+            "description": "AI-powered project management where humans and AI agents share one board. Voice-to-task, smart summaries, keyboard-first navigation, native MCP integration.",
+            "screenshot": "https://hypertask.ai/mainscreen.avif",
+            "featureList": [
+              "Shared board for humans and AI agents",
+              "Native MCP server (15 tools)",
+              "Agent-optimized CLI",
+              "Voice-to-task capture",
+              "Smart task summaries",
+              "Keyboard-first navigation",
+              "Inbox and approval gates for agent work"
+            ],
+            "publisher": {
+              "@id": "https://hypertask.ai/#organization"
+            },
+            "offers": {
+              "@type": "AggregateOffer",
+              "priceCurrency": "USD",
+              "lowPrice": "0",
+              "highPrice": "25",
+              "offerCount": "3"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "/thank-you/": {
+    "title": "Thank You - Hypertask",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "description": "Your demo has been scheduled successfully.",
+    "robots": "noindex, follow",
+    "og:title": "Thank You - Hypertask",
+    "og:description": "Your demo has been scheduled successfully.",
+    "og:image": "https://hypertask.ai/hypertasklogo.avif",
+    "og:image:alt": "Hypertask — AI-powered project management for humans and AI agents",
+    "og:url": "https://hypertask.ai/thank-you/",
+    "og:type": "website",
+    "og:site_name": "Hypertask",
+    "twitter:card": "summary_large_image",
+    "twitter:title": "Thank You - Hypertask",
+    "twitter:description": "Your demo has been scheduled successfully.",
+    "twitter:image": "https://hypertask.ai/hypertasklogo.avif",
+    "twitter:image:alt": "Hypertask — AI-powered project management for humans and AI agents",
+    "canonical": "https://hypertask.ai/thank-you/",
+    "ld": [
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://hypertask.ai/#organization",
+            "name": "Hypertask",
+            "legalName": "Hypertask Lab Ltd.",
+            "url": "https://hypertask.ai",
+            "description": "Hypertask is a project management platform where humans and AI agents share one board. Native MCP server and CLI access let autonomous agents read tasks, claim work, post progress, and update tickets without a human relaying every step.",
+            "knowsAbout": [
+              "AI agents",
+              "project management",
+              "Model Context Protocol",
+              "task management",
+              "AI work attribution",
+              "asynchronous collaboration"
+            ],
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://hypertask.ai/hypertasklogo.avif"
+            },
+            "founder": {
+              "@type": "Person",
+              "@id": "https://hypertask.ai/#founder",
+              "name": "Valentin Yeo",
+              "jobTitle": "Founder"
+            },
+            "sameAs": [
+              "https://www.npmjs.com/package/@hypertask/hypertask_cli"
+            ],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer support",
+              "url": "https://hypertask.ai/contact/"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://hypertask.ai/#website",
+            "url": "https://hypertask.ai",
+            "name": "Hypertask",
+            "publisher": {
+              "@id": "https://hypertask.ai/#organization"
+            }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://hypertask.ai/#software",
+            "name": "Hypertask",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "url": "https://hypertask.ai",
+            "description": "AI-powered project management where humans and AI agents share one board. Voice-to-task, smart summaries, keyboard-first navigation, native MCP integration.",
+            "screenshot": "https://hypertask.ai/mainscreen.avif",
+            "featureList": [
+              "Shared board for humans and AI agents",
+              "Native MCP server (15 tools)",
+              "Agent-optimized CLI",
+              "Voice-to-task capture",
+              "Smart task summaries",
+              "Keyboard-first navigation",
+              "Inbox and approval gates for agent work"
+            ],
+            "publisher": {
+              "@id": "https://hypertask.ai/#organization"
+            },
+            "offers": {
+              "@type": "AggregateOffer",
+              "priceCurrency": "USD",
+              "lowPrice": "0",
+              "highPrice": "25",
+              "offerCount": "3"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "/blog/": {
+    "title": "The Hypertask Blog — AI Agents, Async Work & Project Management",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "description": "Field notes on running humans and AI agents on one board: async work, agent orchestration, and getting out of project-management chaos.",
+    "robots": "index, follow",
+    "og:title": "The Hypertask Blog — AI Agents, Async Work & Project Management",
+    "og:description": "Field notes on running humans and AI agents on one board: async work, agent orchestration, and getting out of project-management chaos.",
+    "og:image": "https://hypertask.ai/hypertasklogo.avif",
+    "og:image:alt": "Hypertask — AI-powered project management for humans and AI agents",
+    "og:url": "https://hypertask.ai/blog/",
+    "og:type": "website",
+    "og:site_name": "Hypertask",
+    "twitter:card": "summary_large_image",
+    "twitter:title": "The Hypertask Blog — AI Agents, Async Work & Project Management",
+    "twitter:description": "Field notes on running humans and AI agents on one board: async work, agent orchestration, and getting out of project-management chaos.",
+    "twitter:image": "https://hypertask.ai/hypertasklogo.avif",
+    "twitter:image:alt": "Hypertask — AI-powered project management for humans and AI agents",
+    "canonical": "https://hypertask.ai/blog/",
+    "ld": [
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://hypertask.ai/#organization",
+            "name": "Hypertask",
+            "legalName": "Hypertask Lab Ltd.",
+            "url": "https://hypertask.ai",
+            "description": "Hypertask is a project management platform where humans and AI agents share one board. Native MCP server and CLI access let autonomous agents read tasks, claim work, post progress, and update tickets without a human relaying every step.",
+            "knowsAbout": [
+              "AI agents",
+              "project management",
+              "Model Context Protocol",
+              "task management",
+              "AI work attribution",
+              "asynchronous collaboration"
+            ],
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://hypertask.ai/hypertasklogo.avif"
+            },
+            "founder": {
+              "@type": "Person",
+              "@id": "https://hypertask.ai/#founder",
+              "name": "Valentin Yeo",
+              "jobTitle": "Founder"
+            },
+            "sameAs": [
+              "https://www.npmjs.com/package/@hypertask/hypertask_cli"
+            ],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer support",
+              "url": "https://hypertask.ai/contact/"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://hypertask.ai/#website",
+            "url": "https://hypertask.ai",
+            "name": "Hypertask",
+            "publisher": {
+              "@id": "https://hypertask.ai/#organization"
+            }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://hypertask.ai/#software",
+            "name": "Hypertask",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "url": "https://hypertask.ai",
+            "description": "AI-powered project management where humans and AI agents share one board. Voice-to-task, smart summaries, keyboard-first navigation, native MCP integration.",
+            "screenshot": "https://hypertask.ai/mainscreen.avif",
+            "featureList": [
+              "Shared board for humans and AI agents",
+              "Native MCP server (15 tools)",
+              "Agent-optimized CLI",
+              "Voice-to-task capture",
+              "Smart task summaries",
+              "Keyboard-first navigation",
+              "Inbox and approval gates for agent work"
+            ],
+            "publisher": {
+              "@id": "https://hypertask.ai/#organization"
+            },
+            "offers": {
+              "@type": "AggregateOffer",
+              "priceCurrency": "USD",
+              "lowPrice": "0",
+              "highPrice": "25",
+              "offerCount": "3"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "/blog/ai-agent-task-management/": {
+    "title": "AI Agent Task Management: The Claim, Update, Report, Close Loop — Hypertask Blog",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "description": "A practical AI agent task management workflow for agents that claim work, post updates, report results, and close tasks through CLI and MCP.",
+    "robots": "index, follow",
+    "og:title": "AI Agent Task Management: The Claim, Update, Report, Close Loop — Hypertask Blog",
+    "og:description": "A practical AI agent task management workflow for agents that claim work, post updates, report results, and close tasks through CLI and MCP.",
+    "og:image": "https://hypertask.ai/images/blog/demo-board.webp",
+    "og:image:alt": "A Hypertask board with Backlog, Todo, Doing, and Done columns shared by humans and AI agents",
+    "og:url": "https://hypertask.ai/blog/ai-agent-task-management/",
+    "og:type": "article",
+    "og:site_name": "Hypertask",
+    "article:published_time": "2026-07-07T00:00:00.000Z",
+    "article:modified_time": "2026-07-07T00:00:00.000Z",
+    "article:author": "https://hypertask.ai/about/",
+    "article:section": "AI Agents in Project Management",
+    "twitter:card": "summary_large_image",
+    "twitter:title": "AI Agent Task Management: The Claim, Update, Report, Close Loop — Hypertask Blog",
+    "twitter:description": "A practical AI agent task management workflow for agents that claim work, post updates, report results, and close tasks through CLI and MCP.",
+    "twitter:image": "https://hypertask.ai/images/blog/demo-board.webp",
+    "twitter:image:alt": "A Hypertask board with Backlog, Todo, Doing, and Done columns shared by humans and AI agents",
+    "canonical": "https://hypertask.ai/blog/ai-agent-task-management/",
+    "ld": [
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://hypertask.ai/#organization",
+            "name": "Hypertask",
+            "legalName": "Hypertask Lab Ltd.",
+            "url": "https://hypertask.ai",
+            "description": "Hypertask is a project management platform where humans and AI agents share one board. Native MCP server and CLI access let autonomous agents read tasks, claim work, post progress, and update tickets without a human relaying every step.",
+            "knowsAbout": [
+              "AI agents",
+              "project management",
+              "Model Context Protocol",
+              "task management",
+              "AI work attribution",
+              "asynchronous collaboration"
+            ],
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://hypertask.ai/hypertasklogo.avif"
+            },
+            "founder": {
+              "@type": "Person",
+              "@id": "https://hypertask.ai/#founder",
+              "name": "Valentin Yeo",
+              "jobTitle": "Founder"
+            },
+            "sameAs": [
+              "https://www.npmjs.com/package/@hypertask/hypertask_cli"
+            ],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer support",
+              "url": "https://hypertask.ai/contact/"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://hypertask.ai/#website",
+            "url": "https://hypertask.ai",
+            "name": "Hypertask",
+            "publisher": {
+              "@id": "https://hypertask.ai/#organization"
+            }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://hypertask.ai/#software",
+            "name": "Hypertask",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "url": "https://hypertask.ai",
+            "description": "AI-powered project management where humans and AI agents share one board. Voice-to-task, smart summaries, keyboard-first navigation, native MCP integration.",
+            "screenshot": "https://hypertask.ai/mainscreen.avif",
+            "featureList": [
+              "Shared board for humans and AI agents",
+              "Native MCP server (15 tools)",
+              "Agent-optimized CLI",
+              "Voice-to-task capture",
+              "Smart task summaries",
+              "Keyboard-first navigation",
+              "Inbox and approval gates for agent work"
+            ],
+            "publisher": {
+              "@id": "https://hypertask.ai/#organization"
+            },
+            "offers": {
+              "@type": "AggregateOffer",
+              "priceCurrency": "USD",
+              "lowPrice": "0",
+              "highPrice": "25",
+              "offerCount": "3"
+            }
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "headline": "AI Agent Task Management: The Claim, Update, Report, Close Loop",
+            "description": "A practical AI agent task management workflow for agents that claim work, post updates, report results, and close tasks through CLI and MCP.",
+            "datePublished": "2026-07-07T00:00:00.000Z",
+            "dateModified": "2026-07-07T00:00:00.000Z",
+            "author": {
+              "@type": "Person",
+              "name": "Valentin Yeo",
+              "url": "https://hypertask.ai/about/"
+            },
+            "publisher": {
+              "@id": "https://hypertask.ai/#organization"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://hypertask.ai/blog/ai-agent-task-management/"
+            },
+            "image": "https://hypertask.ai/images/blog/demo-board.webp",
+            "keywords": "ai-agents, task-management, mcp, cli, async-work"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://hypertask.ai/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://hypertask.ai/blog/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "AI Agent Task Management: The Claim, Update, Report, Close Loop",
+                "item": "https://hypertask.ai/blog/ai-agent-task-management/"
+              }
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is AI agent task management?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "AI agent task management is the workflow for letting AI agents operate real tasks on a shared board. The agent reads the task, claims it, posts progress, reports the result, and moves it to the next state. The goal is not just task generation. The goal is a reliable lifecycle where humans can see what agents are doing and review their output asynchronously."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How is this different from AI project management?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "AI project management is the broader system: planning, boards, workflows, agent access, attribution, reporting, and human approval. AI agent task management is the narrower execution loop inside that system. It focuses on how an individual agent handles one task from claim to close. For the broader guide, read AI agents in project management."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Should agents use CLI or MCP to update tasks?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Use MCP when the agent is working inside an interactive AI environment such as Claude Code, Cursor, or Windsurf. Use the CLI when the agent is running as a script, cron job, CI step, or autonomous loop. Both can support the same lifecycle. The choice is about the agent runtime, not about which one is universally better."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Should AI agents be allowed to close tasks themselves?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Sometimes. For low-risk tasks with deterministic validation, direct close can be fine. For code, customer-facing copy, pricing, production changes, data changes, or anything ambiguous, the safer default is for agents to move work to Review and let a human close it. Define this by task type so the rule is predictable."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How do you keep agent updates from becoming notification overload?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Anchor every update to the task and route only attention-worthy items to the inbox. Claim comments and routine status notes can be low-noise. Blockers, review requests, and human mentions should surface clearly. The inbox should help humans batch-review agent work instead of forcing them to watch agent sessions live."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

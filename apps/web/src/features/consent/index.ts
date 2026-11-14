@@ -10,7 +10,6 @@ import {
   bannerLabel,
   bannerMessage,
   rejectLabel,
-  settingsLabel,
 } from "./copy.js";
 
 const className = (style: stylex.StyleXStyles) =>
@@ -55,21 +54,6 @@ export const consentBanner = (
             [rejectLabel]
           ),
         ]
-      ),
-    ]
-  );
-
-export const cookieSettings = (h: HtmlBuilder<AppMessage>): Html =>
-  h.footer(
-    [h.Class(className(styles.settingsRow))],
-    [
-      h.button(
-        [
-          h.Type("button"),
-          h.Class(className(styles.settings)),
-          h.OnClick(Message.OpenedCookieSettings()),
-        ],
-        [settingsLabel]
       ),
     ]
   );

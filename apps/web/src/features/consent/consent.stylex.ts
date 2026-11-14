@@ -50,18 +50,4 @@ export const styles = stylex.create({
   copyTitle: {
     fontSize: "14px",
   },
-  settings: {
-    backgroundColor: "transparent",
-    borderStyle: "none",
-    borderWidth: 0,
-    color: "inherit",
-    cursor: "pointer",
-    fontFamily: "inherit",
-    fontSize: "14px",
-    paddingBlock: "8px",
-    paddingInline: 0,
-  },
-  settingsRow: {
-    padding: "16px",
-  },
 });
