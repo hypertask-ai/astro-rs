@@ -13,6 +13,7 @@ import {
   traceObservability,
   traceSettings,
 } from "../../site/src/observability.js";
+import { htmlHandling } from "./hypertask/site-rules.js";
 import { WebsiteContentManifestError } from "./website-content-manifest-error.js";
 
 const contentManifestPath = fileURLToPath(
@@ -50,7 +51,7 @@ export class Website extends Cloudflare.Website.Foldkit<Website>()(
 
     const props = {
       assets: {
-        htmlHandling: "drop-trailing-slash",
+        htmlHandling,
         runWorkerFirst: [
           "/rpc",
           "/rpc/*",

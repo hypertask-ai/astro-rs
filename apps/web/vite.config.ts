@@ -6,6 +6,7 @@ import { defineConfig } from "vite";
 
 import { readerFinalizationPlugin } from "./reader-finalization.js";
 import { readerPagesPlugin } from "./reader-pages.js";
+import { siteRulesPlugin } from "./site-rules.js";
 import { readerPrerenderOrigin } from "./src/server/prerender-origin.js";
 import type { BackendFetch } from "./src/server/rpc.js";
 import { stylexPlugin } from "./stylex.js";
@@ -28,6 +29,7 @@ export default defineConfig({
       },
     }),
     readerFinalizationPlugin(),
+    siteRulesPlugin(),
     {
       apply: "build",
       config: (config, environment) => {
