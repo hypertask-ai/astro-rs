@@ -7,36 +7,19 @@ import {
 } from "../src/client/analytics/payload.js";
 
 describe("analytics consent gate", () => {
-  it("counts page views and leaves before the visitor chooses", () => {
-    expect(analyticsMode()).toBe("pageview");
-    expect(allowsEvent("pageview", "$pageview")).toBe(true);
-    expect(allowsEvent("pageview", "$pageleave")).toBe(true);
+  it("counts nothing before the visitor chooses", () => {
+    expect(analyticsMode()).toBe("off");
+    expect(allowsEvent("off")).toBe(false);
   });
 
   it("counts nothing after the visitor chooses essential only", () => {
     expect(analyticsMode("essential")).toBe("off");
-    expect(allowsEvent("off", "$pageview")).toBe(false);
-    expect(allowsEvent("off", "$pageleave")).toBe(false);
-    expect(allowsEvent("off", "hp-install-copy")).toBe(false);
+    expect(allowsEvent("off")).toBe(false);
   });
 
-  it("counts page views, leaves, clicks and the install copy after yes", () => {
+  it("counts every event after the visitor chooses all", () => {
     expect(analyticsMode("all")).toBe("full");
-
-    for (const event of [
-      "$pageview",
-      "$pageleave",
-      "$autocapture",
-      "hp-install-copy",
-      "hp-install-tab",
-    ]) {
-      expect(allowsEvent("full", event)).toBe(true);
-    }
-  });
-
-  it("sends before consent only the two page events", () => {
-    expect(allowsEvent("pageview", "$autocapture")).toBe(false);
-    expect(allowsEvent("pageview", "hp-install-copy")).toBe(false);
+    expect(allowsEvent("full")).toBe(true);
   });
 });
 
@@ -54,5 +37,15 @@ describe("PostHog capture payload", () => {
       event: "$pageview",
       properties: { $pathname: "/" },
     });
+  });
+
+  it("keeps the install-copy click as its own event", () => {
+    expect(
+      capturePayload({
+        distinctId: "visitor-1",
+        event: "hp-install-copy",
+        properties: { $el_text: "Copy" },
+      }).event
+    ).toBe("hp-install-copy");
   });
 });

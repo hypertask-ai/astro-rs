@@ -24,4 +24,5 @@ const application = Runtime.makeApplication({
 });
 
 Runtime.hydrate(application);
+
 startAnalytics();

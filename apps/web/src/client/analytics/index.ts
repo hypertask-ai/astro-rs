@@ -1,5 +1,3 @@
-import { Effect } from "effect";
-
 import { parseConsentCookie } from "../../consent/index.js";
 import { analyticsMode, allowsEvent } from "./gate.js";
 import type { AnalyticsMode } from "./gate.js";
@@ -40,8 +38,13 @@ const oneLine = (value: string): string =>
 
 const currentUrl = (): string => location.href;
 
-const newDistinctId = (): string =>
-  Effect.runSync(Effect.sync(() => crypto.randomUUID()));
+const newId = (): string => {
+  const bytes = crypto.getRandomValues(new Uint8Array(16));
+
+  return Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join(
+    ""
+  );
+};
 
 const referringDomain = (referrer: string): string => {
   try {
@@ -63,23 +66,12 @@ const pageProperties = () => {
   };
 };
 
-const send = async (body: string): Promise<void> => {
+const send = (body: string): void => {
   try {
-    const sent = navigator.sendBeacon(
+    navigator.sendBeacon(
       RELAY_URL,
       new Blob([body], { type: "application/json" })
     );
-
-    if (sent) {
-      return;
-    }
-
-    await fetch(RELAY_URL, {
-      body,
-      headers: { "content-type": "application/json" },
-      keepalive: true,
-      method: "POST",
-    });
   } catch {
     ignore();
   }
@@ -88,29 +80,36 @@ const send = async (body: string): Promise<void> => {
 export const startAnalytics = (): void => {
   let mode: AnalyticsMode = analyticsMode(readChoice());
 
-  const distinctId =
-    (mode === "full" ? readStoredId() : undefined) ?? newDistinctId();
+  let distinctId: string | undefined;
 
   let lastUrl = "";
 
   let leaveSent = false;
 
-  if (mode === "full") {
-    rememberId(distinctId);
-  }
+  const visitorId = (): string => {
+    if (distinctId === undefined) {
+      distinctId = readStoredId() ?? newId();
+
+      if (mode === "full") {
+        rememberId(distinctId);
+      }
+    }
+
+    return distinctId;
+  };
 
   const emit = (
     event: string,
     properties: Readonly<Record<string, string>> = {}
   ): void => {
-    if (!allowsEvent(mode, event)) {
+    if (!allowsEvent(mode)) {
       return;
     }
 
-    void send(
+    send(
       JSON.stringify(
         capturePayload({
-          distinctId,
+          distinctId: visitorId(),
           event,
           properties: { ...pageProperties(), ...properties },
         })
@@ -119,18 +118,24 @@ export const startAnalytics = (): void => {
   };
 
   const capturePageView = (): void => {
-    if (lastUrl === currentUrl()) {
+    if (!allowsEvent(mode)) {
       return;
     }
 
-    lastUrl = currentUrl();
+    const url = currentUrl();
+
+    if (lastUrl === url) {
+      return;
+    }
+
+    lastUrl = url;
     leaveSent = false;
 
     emit("$pageview");
   };
 
   const capturePageLeave = (): void => {
-    if (leaveSent) {
+    if (!allowsEvent(mode) || leaveSent) {
       return;
     }
 
@@ -142,20 +147,29 @@ export const startAnalytics = (): void => {
   const syncChoice = (): void => {
     const next = analyticsMode(readChoice());
 
-    if (next === "full" && mode !== "full") {
-      rememberId(distinctId);
-    }
-
-    if (next === "off") {
-      forgetId();
+    if (next === mode) {
+      return;
     }
 
     mode = next;
+
+    if (mode === "off") {
+      distinctId = undefined;
+      lastUrl = "";
+      leaveSent = false;
+      forgetId();
+
+      return;
+    }
 
     capturePageView();
   };
 
   document.addEventListener("click", (event) => {
+    if (!allowsEvent(mode)) {
+      return;
+    }
+
     const target =
       event.target instanceof Element
         ? event.target.closest("[data-ph-capture], a, button")
@@ -167,7 +181,8 @@ export const startAnalytics = (): void => {
 
     const text = oneLine(target.textContent ?? "");
 
-    const custom = target.dataset.phCapture;
+    const custom =
+      target instanceof HTMLElement ? target.dataset.phCapture : undefined;
 
     if (custom !== undefined) {
       emit(custom, { $el_text: text });
@@ -178,7 +193,7 @@ export const startAnalytics = (): void => {
     emit("$autocapture", { $el_text: text, $event_type: "click" });
   });
 
-  window.addEventListener("ht:consent", syncChoice);
+  document.addEventListener("ht:consent", syncChoice);
   window.addEventListener("focus", syncChoice);
   window.addEventListener("pagehide", capturePageLeave);
   document.addEventListener("visibilitychange", () => {
