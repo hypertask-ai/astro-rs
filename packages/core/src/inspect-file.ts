@@ -1,4 +1,4 @@
-import { implement } from "@rat-stack/capability/implement";
+import { implement } from "@hypertask-site/capability/implement";
 
 import {
   listCafeNews,

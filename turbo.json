@@ -14,7 +14,7 @@
     "//#typecheck:tsc-scripts": {
       "outputs": []
     },
-    "@rat-stack/web#typecheck:tsc": {
+    "@hypertask-site/web#typecheck:tsc": {
       "dependsOn": ["^build", "^typecheck:tsc"],
       "outputs": []
     },
@@ -25,7 +25,7 @@
     "//#typecheck:fast-scripts": {
       "outputs": []
     },
-    "@rat-stack/web#typecheck:fast": {
+    "@hypertask-site/web#typecheck:fast": {
       "dependsOn": ["^build", "^typecheck:fast"],
       "outputs": []
     },
@@ -56,12 +56,12 @@
       ],
       "outputs": []
     },
-    "@rat-stack/web#typecheck": {
+    "@hypertask-site/web#typecheck": {
       "dependsOn": ["^build", "^typecheck"],
       "outputs": []
     },
-    "@rat-stack/infra#test": {
-      "dependsOn": ["^build", "@rat-stack/web#build", "@rat-stack/web#test"],
+    "@hypertask-site/infra#test": {
+      "dependsOn": ["^build", "@hypertask-site/web#build", "@hypertask-site/web#test"],
       "outputs": [],
       "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/apps/web/src/**"]
     }
