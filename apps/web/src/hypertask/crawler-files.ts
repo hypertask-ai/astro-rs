@@ -1,3 +1,5 @@
+import { DateTime } from "effect";
+
 import type { HypertaskBlogPost } from "./blog-index.js";
 
 export const hypertaskOrigin = "https://hypertask.ai";
@@ -19,7 +21,8 @@ const xmlText = (value: string) =>
     (character) => xmlEscapes.get(character) ?? character
   );
 
-const pubDate = (date: string) => new Date(`${date}T00:00:00Z`).toUTCString();
+const pubDate = (date: string) =>
+  DateTime.toDateUtc(DateTime.makeUnsafe(`${date}T00:00:00Z`)).toUTCString();
 
 const feedItem = (origin: string, post: HypertaskBlogPost) => {
   const link = `${origin}/blog/${post.slug}/`;
