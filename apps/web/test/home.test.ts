@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@effect/vitest";
 
-import { initialModel, Message, update } from "../src/client/home/index.js";
+import { initialModel, Message, update } from "../src/client/app/index.js";
 import { pageTitle } from "../src/features/home/copy.js";
 
 describe("home shell", () => {

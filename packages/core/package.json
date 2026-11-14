@@ -14,6 +14,11 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
+    "./consent": {
+      "types": "./src/consent.ts",
+      "import": "./dist/consent.js",
+      "default": "./dist/consent.js"
+    },
     "./tokenmaxx-workshop": {
       "types": "./src/tokenmaxx-workshop.ts",
       "import": "./dist/tokenmaxx-workshop.js",

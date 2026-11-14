@@ -2,6 +2,25 @@ export { joinInterest, JoinInterest } from "./join-interest.js";
 
 export { AppConfig } from "./app-config.js";
 
+export {
+  CONSENT_COOKIE,
+  CONSENT_MAX_AGE_SECONDS,
+  ConsentChoiceSchema,
+  ConsentStore,
+  SHARED_COOKIE_DOMAIN,
+  allowsAnalytics,
+  clearedAnalyticsDomains,
+  consentCookie,
+  consentMachine,
+  expiredCookie,
+  isAnalyticsKey,
+  parseConsentCookie,
+  runConsentMachine,
+  sharedCookieDomain,
+  type ConsentChoice,
+  type ConsentState,
+} from "./consent.js";
+
 export { ConfigService } from "./config-service.js";
 
 export { FileInspector } from "./file-inspector.js";

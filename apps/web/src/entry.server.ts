@@ -5,7 +5,7 @@ import {
   renderToString,
 } from "foldkit/experimental/server";
 
-import { initialModel } from "./client/home/index.js";
+import { initialModel } from "./client/app/model.js";
 import { view } from "./features/home/index.js";
 
 export { renderDocument } from "foldkit/experimental/server";
