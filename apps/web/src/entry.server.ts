@@ -1,4 +1,4 @@
-import { relayPostHogFromRequest } from "@rat-stack/core/relay-posthog";
+import { relayPostHogFromRequest } from "./relay-posthog.js";
 import { Effect } from "effect";
 import { FetchHttpClient } from "effect/http";
 import {

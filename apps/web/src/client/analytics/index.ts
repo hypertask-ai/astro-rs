@@ -1,7 +1,11 @@
+import { Effect } from "effect";
+
 import { parseConsentCookie } from "../../consent/index.js";
 import { analyticsMode, allowsEvent } from "./gate.js";
 import type { AnalyticsMode } from "./gate.js";
 import { ANALYTICS_ID_KEY, RELAY_URL, capturePayload } from "./payload.js";
+
+const ignore = (): void => undefined;
 
 const readChoice = () =>
   // oxlint-disable-next-line unicorn/no-document-cookie -- The shared consent cookie is the only cross-subdomain source of the visitor's choice.
@@ -19,7 +23,7 @@ const rememberId = (id: string): void => {
   try {
     localStorage.setItem(ANALYTICS_ID_KEY, id);
   } catch {
-    return;
+    ignore();
   }
 };
 
@@ -27,7 +31,7 @@ const forgetId = (): void => {
   try {
     localStorage.removeItem(ANALYTICS_ID_KEY);
   } catch {
-    return;
+    ignore();
   }
 };
 
@@ -35,6 +39,9 @@ const oneLine = (value: string): string =>
   value.replaceAll(/\s+/gu, " ").trim().slice(0, 120);
 
 const currentUrl = (): string => location.href;
+
+const newDistinctId = (): string =>
+  Effect.runSync(Effect.sync(() => crypto.randomUUID()));
 
 const referringDomain = (referrer: string): string => {
   try {
@@ -44,8 +51,8 @@ const referringDomain = (referrer: string): string => {
   }
 };
 
-const pageProperties = (): Readonly<Record<string, unknown>> => {
-  const referrer = document.referrer;
+const pageProperties = () => {
+  const { referrer } = document;
 
   return {
     $current_url: currentUrl(),
@@ -56,35 +63,36 @@ const pageProperties = (): Readonly<Record<string, unknown>> => {
   };
 };
 
-const post = (body: string): void => {
-  let sent = false;
-
+const send = async (body: string): Promise<void> => {
   try {
-    sent = navigator.sendBeacon(
+    const sent = navigator.sendBeacon(
       RELAY_URL,
       new Blob([body], { type: "application/json" })
     );
+
+    if (sent) {
+      return;
+    }
+
+    await fetch(RELAY_URL, {
+      body,
+      headers: { "content-type": "application/json" },
+      keepalive: true,
+      method: "POST",
+    });
   } catch {
-    sent = false;
+    ignore();
   }
-
-  if (sent) {
-    return;
-  }
-
-  void fetch(RELAY_URL, {
-    body,
-    headers: { "content-type": "application/json" },
-    keepalive: true,
-    method: "POST",
-  }).catch(() => undefined);
 };
 
 export const startAnalytics = (): void => {
   let mode: AnalyticsMode = analyticsMode(readChoice());
-  let distinctId =
-    (mode === "full" ? readStoredId() : undefined) ?? crypto.randomUUID();
+
+  const distinctId =
+    (mode === "full" ? readStoredId() : undefined) ?? newDistinctId();
+
   let lastUrl = "";
+
   let leaveSent = false;
 
   if (mode === "full") {
@@ -93,19 +101,18 @@ export const startAnalytics = (): void => {
 
   const emit = (
     event: string,
-    properties: Readonly<Record<string, unknown>> = {}
+    properties: Readonly<Record<string, string>> = {}
   ): void => {
     if (!allowsEvent(mode, event)) {
       return;
     }
 
-    post(
+    void send(
       JSON.stringify(
         capturePayload({
           distinctId,
           event,
           properties: { ...pageProperties(), ...properties },
-          timestamp: new Date().toISOString(),
         })
       )
     );
@@ -118,6 +125,7 @@ export const startAnalytics = (): void => {
 
     lastUrl = currentUrl();
     leaveSent = false;
+
     emit("$pageview");
   };
 
@@ -127,6 +135,7 @@ export const startAnalytics = (): void => {
     }
 
     leaveSent = true;
+
     emit("$pageleave");
   };
 
@@ -142,6 +151,7 @@ export const startAnalytics = (): void => {
     }
 
     mode = next;
+
     capturePageView();
   };
 
@@ -156,10 +166,12 @@ export const startAnalytics = (): void => {
     }
 
     const text = oneLine(target.textContent ?? "");
-    const custom = target.getAttribute("data-ph-capture");
 
-    if (custom !== null) {
+    const custom = target.dataset.phCapture;
+
+    if (custom !== undefined) {
       emit(custom, { $el_text: text });
+
       return;
     }
 
@@ -172,10 +184,12 @@ export const startAnalytics = (): void => {
   document.addEventListener("visibilitychange", () => {
     if (document.visibilityState === "hidden") {
       capturePageLeave();
+
       return;
     }
 
     leaveSent = false;
+
     syncChoice();
   });
 

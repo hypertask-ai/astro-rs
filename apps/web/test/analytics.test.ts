@@ -22,6 +22,7 @@ describe("analytics consent gate", () => {
 
   it("counts page views, leaves, clicks and the install copy after yes", () => {
     expect(analyticsMode("all")).toBe("full");
+
     for (const event of [
       "$pageview",
       "$pageleave",
@@ -40,20 +41,18 @@ describe("analytics consent gate", () => {
 });
 
 describe("PostHog capture payload", () => {
-  it("keeps the old project token and event shape", () => {
+  it("builds the capture shape with the configured token", () => {
     expect(
       capturePayload({
         distinctId: "visitor-1",
         event: "$pageview",
         properties: { $pathname: "/" },
-        timestamp: "2026-11-14T00:00:00.000Z",
       })
     ).toStrictEqual({
       api_key: POSTHOG_TOKEN,
       distinct_id: "visitor-1",
       event: "$pageview",
       properties: { $pathname: "/" },
-      timestamp: "2026-11-14T00:00:00.000Z",
     });
   });
 });

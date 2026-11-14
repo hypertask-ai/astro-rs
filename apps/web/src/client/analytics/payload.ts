@@ -9,8 +9,7 @@ export const RELAY_URL = "/relay-8ddg/e/";
 export interface CaptureInput {
   readonly distinctId: string;
   readonly event: string;
-  readonly properties: Readonly<Record<string, unknown>>;
-  readonly timestamp: string;
+  readonly properties: Readonly<Record<string, string>>;
 }
 
 export const capturePayload = (input: CaptureInput) => ({
@@ -18,5 +17,4 @@ export const capturePayload = (input: CaptureInput) => ({
   distinct_id: input.distinctId,
   event: input.event,
   properties: input.properties,
-  timestamp: input.timestamp,
 });

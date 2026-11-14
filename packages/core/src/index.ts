@@ -39,8 +39,6 @@ export { capabilities, inspectFile } from "./inspect-file.js";
 
 export { RelayMethod, relayPostHogContract } from "./contracts.js";
 
-export { relayPostHog, relayPostHogFromRequest } from "./relay-posthog.js";
-
 export { RelayPostHogError } from "./relay-posthog-error.js";
 
 export { PromptLibrary, getPrompt, listPrompts } from "./prompts.js";

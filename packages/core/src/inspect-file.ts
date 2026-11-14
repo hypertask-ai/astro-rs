@@ -10,7 +10,6 @@ import { flagCapabilities } from "./flag-capabilities.js";
 import { runInspectMachine } from "./inspect-machine.js";
 import { joinInterest } from "./join-interest.js";
 import { getPrompt, listPrompts } from "./prompts.js";
-import { relayPostHog } from "./relay-posthog.js";
 
 export const inspectFile = implement(inspectFileContract, ({ path }) =>
   runInspectMachine(path)
@@ -25,5 +24,4 @@ export const capabilities = [
   listCafeNews,
   listCafeProjects,
   ...peopleCapabilities,
-  relayPostHog,
 ] as const;

@@ -19,11 +19,6 @@
       "import": "./dist/consent.js",
       "default": "./dist/consent.js"
     },
-    "./relay-posthog": {
-      "types": "./src/relay-posthog.ts",
-      "import": "./dist/relay-posthog.js",
-      "default": "./dist/relay-posthog.js"
-    },
     "./tokenmaxx-workshop": {
       "types": "./src/tokenmaxx-workshop.ts",
       "import": "./dist/tokenmaxx-workshop.js",
@@ -88,6 +83,11 @@
       "types": "./src/contracts.ts",
       "import": "./dist/contracts.js",
       "default": "./dist/contracts.js"
+    },
+    "./relay-posthog-error": {
+      "types": "./src/relay-posthog-error.ts",
+      "import": "./dist/relay-posthog-error.js",
+      "default": "./dist/relay-posthog-error.js"
     },
     "./intake": {
       "types": "./src/intake.ts",

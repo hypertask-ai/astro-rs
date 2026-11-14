@@ -1,9 +1,8 @@
 import { implement } from "@rat-stack/capability/implement";
+import { relayPostHogContract } from "@rat-stack/core/contracts";
+import { RelayPostHogError } from "@rat-stack/core/relay-posthog-error";
 import { Effect, Schema } from "effect";
 import { HttpClient, HttpClientRequest } from "effect/http";
-
-import { relayPostHogContract } from "./contracts.js";
-import { RelayPostHogError } from "./relay-posthog-error.js";
 
 const API_HOST = "https://eu.i.posthog.com";
 
@@ -43,18 +42,22 @@ const targetHost = (path: string): string =>
 
 export const relayPostHog = implement(relayPostHogContract, (input) =>
   Effect.gen(function* relayOneRequest() {
-    const client = yield* HttpClient;
+    const client = yield* HttpClient.HttpClient;
+
     const url = `${targetHost(input.path)}/${input.path}${input.search}`;
+
     const withBody =
       input.body === undefined
         ? HttpClientRequest.make(input.method)(url)
         : HttpClientRequest.bodyUint8Array(input.body)(
             HttpClientRequest.make(input.method)(url)
           );
+
     const request = HttpClientRequest.setHeaders(
       withBody,
       requestHeaders(input.headers)
     );
+
     const response = yield* client
       .execute(request)
       .pipe(
@@ -62,6 +65,7 @@ export const relayPostHog = implement(relayPostHogContract, (input) =>
           (cause) => new RelayPostHogError({ cause, reason: "request" })
         )
       );
+
     const body = yield* response.arrayBuffer.pipe(
       Effect.mapError(
         (cause) => new RelayPostHogError({ cause, reason: "response" })
@@ -79,11 +83,14 @@ export const relayPostHog = implement(relayPostHogContract, (input) =>
 export const relayPostHogFromRequest = (request: Request) =>
   Effect.gen(function* relayFromRequest() {
     const { pathname, search } = new URL(request.url);
+
     const method = request.method.toUpperCase();
+
     const body =
       method === "GET" || method === "HEAD"
         ? undefined
         : new Uint8Array(yield* Effect.promise(() => request.arrayBuffer()));
+
     const input = yield* Schema.decodeUnknownEffect(relayPostHogContract.input)(
       {
         body,
