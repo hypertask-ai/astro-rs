@@ -6,7 +6,7 @@ import * as Schema from "effect/Schema";
 
 import { Website } from "../web/src/website.js";
 import { PreviewStage, previewResourcesAllowed } from "./src/preview.js";
-import { ratstackState } from "./src/state-store.js";
+import { siteState } from "./src/state-store.js";
 
 export const previewProgram = Effect.gen(function* previewStack() {
   yield* Schema.decodeEffect(PreviewStage)(yield* Stage).pipe(Effect.orDie);
@@ -15,7 +15,7 @@ export const previewProgram = Effect.gen(function* previewStack() {
 
   if (!previewResourcesAllowed(stack.resources)) {
     return yield* Effect.die(
-      new Error("Preview may declare only Website and RpcBackend Workers")
+      new Error("Preview may declare only the Website Worker")
     );
   }
 
@@ -23,7 +23,7 @@ export const previewProgram = Effect.gen(function* previewStack() {
 });
 
 export default Alchemy.Stack(
-  "RatStackPreview",
-  { providers: Cloudflare.providers(), state: ratstackState() },
+  "AstroRsPreview",
+  { providers: Cloudflare.providers(), state: siteState() },
   previewProgram
 );

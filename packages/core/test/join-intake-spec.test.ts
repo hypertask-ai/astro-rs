@@ -69,29 +69,6 @@ const weaker = [
 
 const flips = [
   {
-    bug: "a late delivery result overwriting the erase marker",
-    cfg: "JoinIntakeEraseSticky",
-    code: [
-      {
-        file: "apps/site/src/interest/join-contact-cell.ts",
-        guard: "if (eraseMarked && !erase) {",
-      },
-      {
-        file: "apps/site/src/interest/join-contact-store.ts",
-        guard: 'contact.pending === "erase"\n        );',
-      },
-    ],
-    guard:
-      'Refused(p) == erasedKey \\/ (EraseSticky /\\ pend = "erase" /\\ p # "erase")',
-    invariant: "EraseWins",
-    seeded: "Refused(p) == erasedKey",
-    twin: {
-      file: "apps/site/test/join-contact-cell.test.ts",
-      title:
-        "a delivery result read before an erase cannot overwrite the erase marker",
-    },
-  },
-  {
     bug: "the answer leaving before the commit",
     cfg: module,
     code: [
@@ -181,24 +158,6 @@ const flips = [
       file: "packages/core/test/intake-sweep.model.test.ts",
       title:
         "the sweep finishes every pending delivery or erase; erase wins, tombstones land first, and nothing is sent after erase or acceptance",
-    },
-  },
-  {
-    bug: "the store indexing only pending deliveries",
-    cfg: module,
-    code: [
-      {
-        file: "apps/site/src/interest/join-contact-store.ts",
-        guard: "contact.pending !== undefined",
-      },
-    ],
-    guard: 'indexed\' = (p # "none")',
-    invariant: "OwedIsFindable",
-    seeded: 'indexed\' = (p = "delivery")',
-    twin: {
-      file: "apps/site/test/join-contact-erase.test.ts",
-      title:
-        "keeps the sweep's pending index in step with each contact's marker and clears it on erase",
     },
   },
 ] as const;

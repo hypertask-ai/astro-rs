@@ -163,6 +163,7 @@ if ! pnpm turbo run check test build; then
   fail "pnpm turbo run check test build failed"
 fi
 
+if [[ -f apps/cli/package.json ]]; then
 step="CLI capability help"
 help_output="$tmp/cli-help.txt"
 if ! node apps/cli/dist/cli.js --help >"$help_output" 2>&1; then
@@ -249,4 +250,7 @@ if ! grep -Fq 'readonly acceptanceProbe' "$types_output"; then
   fail "catalog --types did not include acceptanceProbe"
 fi
 printf 'code mode: acceptanceProbe appears in catalog --types\n'
+else
+  printf 'CLI cut: skipping CLI, HTTP, MCP, and catalog smoke\n'
+fi
 printf 'cold-clone acceptance passed\n'

@@ -32,53 +32,15 @@ The base Effect plugin owns diagnostic severity. Child configs may add exact `al
   - Role: `defineContract`, `implement`, and the `toCommand`, `toHttpApi`, `toToolkit`, `toRpc`, and `toCodeMode` projections
 - **`@rat-stack/core`**:
   - Path: `packages/core`
-  - Role: Shared `inspectFile`, `search`, and `read` contracts; `inspectFile` handler, lifecycle machine, and `FileInspector`
-- **`@rat-stack/database`**:
-  - Path: `packages/database`
-  - Role: Database cartridge: the `RunLog` service and the `DatabaseVendor` choice (D1 or Hyperdrive Postgres), with each vendor's schema, migrations, and resources
-- **`@rat-stack/auth`**:
-  - Path: `packages/auth`
-  - Role: Better Auth cartridge over the chosen `DatabaseVendor`: `Auth`, `CurrentPerson`, and the RPC middleware that provides it; only `Unauthenticated` crosses the wire. `@rat-stack/auth/devtools` adds `runAsPerson`, the dev-only `rat_test_person` capability, and `testPersonLayer`
-- **`@rat-stack/flags`**:
-  - Path: `packages/flags`
-  - Role: Typed flags cartridge: scoped evidence ladders, Config and memory adapters, cartridge-owned Alchemy KV, and a default Durable Object ledger. The DO commits values, receipts, and projection markers together; alarms project to KV. Readers never call the DO. Empty KV uses Config or declared defaults; read failures follow the catalog's `failurePolicy`. `EVENTS_ENABLED` stays deploy-time Config. Core owns declarations and the `flip_feature_flag`, `record_flag_evidence`, and `read_flag_ledger` contracts. Climbs use capability approval; `off` bypasses approval but stays audited. Only the CLI mounts operator capabilities; its default composition has no live ledger. Public readers and the sandbox stay read-only. Replace both exports in `apps/site/src/flags.ts` with `Flags.defaults(eventFlags)` to remove the adapter package.
-- **`@rat-stack/events`**:
-  - Path: `packages/events`
-  - Role: Events cartridge: capture-first request analytics. `withEventCapture` records one `request` event per HTTP request into core's `EventSink` port and owns visitor ids, the visitor salt, identity modes, and query and geography redaction. `src/basin.ts` provides the Basin-backed sink and salt; `src/memory.ts` is the in-memory sink for tests. `@rat-stack/events/site` is the one seam: `apps/site/src/events.ts` is the only file outside the package that imports it, and `rat-stack-boundaries/no-cross-layer-imports` enforces that. Removal is one line in that file plus deleting the package and its `apps/site/package.json` line; `packages/events/README.md` has the steps. Core owns the `EventSink` port (no-op default), the `RawEvent` wire schemas, `@rat-stack/core/events-off`. Tests are property and model based (`it.prop`, `it.effect.prop`). `EVENTS_ENABLED` (default false) turns capture and the catalog, sink, and pipeline on, and reads `EVENTS_SINK_TOKEN` at deploy time only; off still declares the bucket, stream, and salt so their state survives. `EVENTS_IDENTITY_MODE` picks `daily` or `persistent` visitor ids
-- **`@rat-stack/turbo-cache`**:
-  - Path: `packages/turbo-cache`
-  - Role: Thin project declaration of `alchemy-turbo-cache` `0.0.0`, pinned to Git commit `a51a7ba6ea56728f89c4214befe8bf940a946e52`. The external package owns the binary-protocol Worker, lifecycle-expiring R2 bucket, team-scoped generated credentials and read-only state-to-stdin handoff. Its Git `prepare` builds exports during installation, authorized by the package-specific `allowBuilds` entry. Rat-stack supplies prefix `TurboCache`, team `rat-stack`, seven-day retention and prod-only resource retention. The Stack includes it with `yield* turboCache`. The local seam test preserves the exact three resource FQNs and credential handoff; the README records trust limits and removal steps.
-- **`@rat-stack/crash`**:
-  - Path: `packages/crash`
-  - Role: Private crash-trace archive: trace schemas, `captureCrashes`, and the R2 archive layer (`@rat-stack/crash/r2`). Mischief's tail consumer provides it in `apps/site/src/crash-tail.ts`
-- **`@rat-stack/subscriber-delivery`**:
-  - Path: `packages/subscriber-delivery`
-  - Role: External subscriber intake and confirmation adapter; implements core's job-shaped `SubscriberIntake` and `SubscriberConfirm` ports, provided by the Worker, never imported by core
-- **`@rat-stack/learn`**:
-  - Path: `packages/learn`
-  - Role: Source-derived public concept deck and the learning lifecycle. Stateless capabilities return compact progress; `@rat-stack/learn/local` owns the local JSONL adapter and capabilities. The CLI provides the filesystem platform for core's `LearnerProgress` port.
-- **`@rat-stack/motion`**:
-  - Path: `packages/motion`
-  - Role: Motion for Foldkit apps. The `src/*.pure.ts` core (Penner and CSS easings, tweens, fixed-step springs, number, tuple, OKLab colour and 2D transform interpolation) imports nothing, so consumers can vendor it. `@rat-stack/motion/foldkit` adds the Model schemas, the `Motion.Message` union, `advance`, and subscriptions for animation frames and `prefers-reduced-motion`; Foldkit and Effect are optional peers. No Worker graph imports it
-- **`@rat-stack/lore`**:
-  - Path: `packages/lore`
-  - Role: Public content graph and traversal service
-- **`@rat-stack/devtools`**:
-  - Path: `packages/devtools`
-  - Role: 🐀 devtools cartridge: `CallLog`, `record`, and the `rat_*` capabilities that list, read, dispatch, replay, and diff capability calls
+  - Role: Shared contracts, handlers, and lifecycle machines kept for the marketing site
 - **`@rat-stack/web`**:
   - Path: `apps/web`
-  - Role: Default UI bin: Foldkit on Vite, deployed through Alchemy's `Cloudflare.Website.Foldkit` as `Website` (`apps/web/src/website.ts`). Server rendering and prerendering are the default: one `foldkit({ ssr: { serverEntry, clientEntry, build: { prerender } } })` call in `vite.config.ts` builds the client bundle, the server fetch handler, and an HTML file for every path in `src/entry.server.ts`'s `prerenderPaths`. The Website serves those files, sends every other request to the handler, and the browser hydrates. System page: `.brain/areas/web.svx`. Browser `client/` Commands call an Effect `RpcClient` built from the contracts' `toRpcGroup`. The reader program mounts the document browser (`features/app.ts`, `client/docs`) as a Submodel at `/search`, where it calls `search` and `read` over that client. In production, the Worker that `@foldkit/vite-plugin` generates from `src/entry.server.ts` forwards `/rpc` through `src/server/website-bindings.ts` to the private `RpcBackend` in `apps/site/src/rpc-worker.ts`. `pnpm --filter @rat-stack/web dev` loads the `#backend` import, which resolves only under the `development` condition in `apps/web/package.json`, and serves the content capabilities in process from `src/dev/backend.ts`. In dev, `src/dev/backend.ts` runs the content capabilities under devtools: `/rpc` calls are recorded, `/__rat/rpc` serves the 🐀 overlay (`#devtools-overlay`, `src/dev/features/overlay`, ⌘K), and `/__rat/mcp` serves every `rat_*` tool to agents, with memory-Auth test people. `src/dev/client` and `src/dev/features` follow the browser rules. `test/production-bundle.test.ts` proves no `src/dev` module, no devtools code, and no test people reach a production build. Include it in the Stack with `const website = yield* Website;`
-- **`@rat-stack/cli`**:
-  - Path: `apps/cli`
-  - Role: Composition root: `stats`, `catalog`, `openapi`, `serve [--devtools]`, `mcp [--code-mode] [--devtools]` commands. Also builds the published `ratstack` npm package: `src/ratstack.ts` bundles the local learn commands and a learn-only `mcp` into `dist/npm` with Vite. `test/ratstack.e2e.test.ts` proves the package holds no devtools and serves only the learn tools
+  - Role: Foldkit site on Vite, deployed through Alchemy's `Cloudflare.Website.Foldkit` as `Website` (`apps/web/src/website.ts`). One home shell until the real pages move. Include it with `const website = yield* Website;`
 - **`@rat-stack/infra`**:
   - Path: `apps/infra`
-  - Role: Alchemy Stack: the project's cloud footprint as one Effect program
-- **`@rat-stack/site`**:
-  - Path: `apps/site`
-  - Role: Cloudflare Worker: the public site, agent discovery, and sandboxed execute surface
-  - Startup fence: `scripts/startup-budget.ts` measures Alchemy's actual upload. Follow static imports from each entry; count shared chunks once and exclude dynamic-only chunks. Hard startup ceilings are shrink-only: Mischief **1,114,000 bytes**, LearnFeedbackAuth **628,000 bytes**, Workshop **870,000 bytes**. Never raise them to accept growth. LearnFeedbackAuth's temporary raise has been retired; `apps/site/STARTUP.md` records the lazy-auth measurements. Entry bytes are evidence only; total JavaScript above **2,500,000 bytes** warns without blocking. Growing page data stays in static assets outside the startup code. Measurement and profiling: `apps/site/STARTUP.md`.
+  - Role: Alchemy Stack for this site. It declares the Website Worker and its own state store. It does not adopt ratstack.sh
+
+Cut from the template, each because this site does not use it: `apps/cli` (no CLI), `apps/site` (Joel's content worker; the marketing site is `apps/web`), `packages/auth`, `packages/database`, `packages/flags`, `packages/events`, `packages/basin`, `packages/crash`, `packages/devtools`, `packages/motion`, `packages/learn`, `packages/lore`, `packages/intake-live`, `packages/subscriber-delivery`, `packages/code-snippets`, `packages/turbo-cache`, `packages/deploy`, and `packages/check-harness`. Demo screens `cafe`, `tube`, `motion`, and `docs` went with `apps/web`’s old reader.
 
 ## Nouns
 
@@ -86,7 +48,7 @@ The base Effect plugin owns diagnostic severity. Child configs may add exact `al
   - Home: `packages/core/src/contracts.ts`
   - Runtime job: Shared name, schemas, failure, annotations, and approval setting.
 - **Capability**:
-  - Home: `packages/core/src/inspect-file.ts` or `apps/site/src/capabilities/<name>.ts`
+  - Home: `packages/core/src/inspect-file.ts`
   - Runtime job: Binds one contract to its server-side handler with `implement`.
 - **Projection**:
   - Home: `packages/capability/src/to-<surface>.ts`
@@ -110,7 +72,7 @@ The base Effect plugin owns diagnostic severity. Child configs may add exact `al
 ## Commands
 
 - **`pnpm install`**: Install workspace dependencies
-- **`pnpm sources:fetch`**: Import missing pinned code objects once before the first gate; generation stays local-only
+- **`pnpm sources:fetch`**: No teaching excerpts remain, so this prints that and exits. The CI step stays.
 - **`pnpm dev`**: Run `apps/web` under `vite dev` through portless at `http://rat-stack.localhost:1355` (worktrees get their own prefix); `portless list` shows the route
 - **`pnpm check`**: Typecheck, verify formatting, and run type-aware linting
 - **`pnpm lint`**: Type-aware lint plus format check only; `turbo run check` runs this once at the root as `//#lint`

@@ -9,6 +9,5 @@ export const previewResourcesAllowed = (
 ): boolean =>
   Object.entries(resources).every(
     ([id, resource]) =>
-      resource.Type === "Cloudflare.Worker" &&
-      (id === "Website" || id === "RpcBackend")
-  ) && Object.keys(resources).length === 2;
+      resource.Type === "Cloudflare.Worker" && id === "Website"
+  ) && Object.keys(resources).length === 1;

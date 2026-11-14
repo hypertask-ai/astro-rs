@@ -10,7 +10,7 @@ import type {
   Variable,
 } from "@oxlint/plugins";
 
-import { auditedStringRegexes } from "../apps/site/scripts/source-regex-policy.ts";
+import { auditedStringRegexes } from "./source-regex-policy.ts";
 
 type RuleContext = Context;
 
