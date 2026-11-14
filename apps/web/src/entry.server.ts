@@ -24,8 +24,10 @@ const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
       Effect.provide(FetchHttpClient.layer)
     );
 
+    const body = new Uint8Array(relayed.body);
+
     return Responded(
-      new Response(relayed.body, {
+      new Response(body.buffer, {
         headers: relayed.headers,
         status: relayed.status,
       })
