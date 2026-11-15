@@ -1,24 +1,278 @@
 {
-  "capturedAt": "2026-11-14",
+  "capturedAt": "2026-11-15",
+  "capturedWith": "curl GET https://hypertask.ai, redirects not followed, response headers recorded",
   "origin": "https://hypertask.ai",
+  "pages": ["/", "/about/", "/blog/", "/blog/ai-task-manager/", "/pricing/"],
   "answers": [
-    { "path": "/install", "status": 200, "location": null },
-    { "path": "/home2.html", "status": 301, "location": "/" },
-    { "path": "/home2.html/", "status": 301, "location": "/" },
-    { "path": "/hallmark-1", "status": 301, "location": "/" },
-    { "path": "/new-home", "status": 301, "location": "/" },
-    { "path": "/v2", "status": 301, "location": "/" },
-    { "path": "/v3-cursor", "status": 301, "location": "/" },
-    { "path": "/v3-linear", "status": 301, "location": "/" },
-    { "path": "/v3-resend", "status": 301, "location": "/" },
-    { "path": "/v3-shell", "status": 301, "location": "/" },
-    { "path": "/v3-superhuman", "status": 301, "location": "/" },
-    { "path": "/v3-vercel", "status": 301, "location": "/" },
-    { "path": "/v4", "status": 301, "location": "/" },
-    { "path": "/versions", "status": 301, "location": "/" },
-    { "path": "/features", "status": 301, "location": "/" },
-    { "path": "/features/", "status": 301, "location": "/" },
-    { "path": "/agents", "status": 301, "location": "/" },
-    { "path": "/agents/", "status": 301, "location": "/" }
+    {
+      "path": "/",
+      "status": 200,
+      "location": null,
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/install",
+      "status": 200,
+      "location": null,
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/home2.html",
+      "status": 301,
+      "location": "/",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/home2.html/",
+      "status": 301,
+      "location": "/",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/hallmark-1",
+      "status": 301,
+      "location": "/",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/new-home",
+      "status": 301,
+      "location": "/",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/v2",
+      "status": 301,
+      "location": "/",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/v3-cursor",
+      "status": 301,
+      "location": "/",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/v3-linear",
+      "status": 301,
+      "location": "/",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/v3-resend",
+      "status": 301,
+      "location": "/",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/v3-shell",
+      "status": 301,
+      "location": "/",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/v3-superhuman",
+      "status": 301,
+      "location": "/",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/v3-vercel",
+      "status": 301,
+      "location": "/",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/v4",
+      "status": 301,
+      "location": "/",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/versions",
+      "status": 301,
+      "location": "/",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/features",
+      "status": 301,
+      "location": "/",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/features/",
+      "status": 301,
+      "location": "/",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/agents",
+      "status": 301,
+      "location": "/",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/agents/",
+      "status": 301,
+      "location": "/",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/pricing",
+      "status": 308,
+      "location": "/pricing/",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/pricing/",
+      "status": 200,
+      "location": null,
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/blog",
+      "status": 308,
+      "location": "/blog/",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/blog/",
+      "status": 200,
+      "location": null,
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/about",
+      "status": 308,
+      "location": "/about/",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/about/",
+      "status": 200,
+      "location": null,
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/blog/ai-task-manager",
+      "status": 308,
+      "location": "/blog/ai-task-manager/",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "path": "/blog/ai-task-manager/",
+      "status": 200,
+      "location": null,
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      }
+    }
   ]
 }

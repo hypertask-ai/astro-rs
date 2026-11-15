@@ -2,6 +2,7 @@ import { Runtime } from "foldkit";
 
 import { view as homeView } from "../features/home/index.js";
 import { useCaseViewFor } from "../features/use-cases/index.js";
+import { startAnalytics } from "./analytics/index.js";
 import {
   initialModel,
   LoadConsent,
@@ -29,3 +30,5 @@ const application = Runtime.makeApplication({
 });
 
 Runtime.hydrate(application);
+
+startAnalytics();

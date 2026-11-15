@@ -13,4 +13,4 @@ export {
   sharedCookieDomain,
   type ConsentChoice,
   type ConsentState,
-} from "@rat-stack/core/consent";
+} from "@hypertask-site/core/consent";
