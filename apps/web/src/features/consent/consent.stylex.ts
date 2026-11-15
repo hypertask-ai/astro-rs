@@ -1,0 +1,67 @@
+import * as stylex from "@stylexjs/stylex";
+
+export const styles = stylex.create({
+  action: {
+    backgroundColor: "#ffffff14",
+    borderColor: "#ffffff4d",
+    borderRadius: "8px",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    color: "#ffffff",
+    cursor: "pointer",
+    flexBasis: 0,
+    flexGrow: 1,
+    fontFamily: "inherit",
+    fontSize: "inherit",
+    fontWeight: 600,
+    minHeight: "44px",
+    paddingBlock: "8px",
+    paddingInline: "16px",
+  },
+  actions: {
+    display: "flex",
+    gap: "12px",
+  },
+  banner: {
+    backgroundColor: "#000000",
+    borderColor: "#333333",
+    borderRadius: "12px",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    bottom: "16px",
+    boxShadow: "0 8px 32px #00000088",
+    color: "#ffffff",
+    fontSize: "14px",
+    left: "16px",
+    lineHeight: 1.5,
+    marginInline: "auto",
+    maxWidth: "680px",
+    padding: "16px",
+    position: "fixed",
+    right: "16px",
+    zIndex: 100,
+  },
+  copy: {
+    color: "#ffffff99",
+  },
+  copyText: {
+    marginBlock: "4px 12px",
+  },
+  copyTitle: {
+    fontSize: "14px",
+  },
+  settings: {
+    backgroundColor: "transparent",
+    borderStyle: "none",
+    borderWidth: 0,
+    color: "inherit",
+    cursor: "pointer",
+    fontFamily: "inherit",
+    fontSize: "14px",
+    paddingBlock: "8px",
+    paddingInline: 0,
+  },
+  settingsRow: {
+    padding: "16px",
+  },
+});

@@ -1,0 +1,24 @@
+{
+  "capturedAt": "2026-11-14",
+  "origin": "https://hypertask.ai",
+  "answers": [
+    { "path": "/install", "status": 200, "location": null },
+    { "path": "/home2.html", "status": 301, "location": "/" },
+    { "path": "/home2.html/", "status": 301, "location": "/" },
+    { "path": "/hallmark-1", "status": 301, "location": "/" },
+    { "path": "/new-home", "status": 301, "location": "/" },
+    { "path": "/v2", "status": 301, "location": "/" },
+    { "path": "/v3-cursor", "status": 301, "location": "/" },
+    { "path": "/v3-linear", "status": 301, "location": "/" },
+    { "path": "/v3-resend", "status": 301, "location": "/" },
+    { "path": "/v3-shell", "status": 301, "location": "/" },
+    { "path": "/v3-superhuman", "status": 301, "location": "/" },
+    { "path": "/v3-vercel", "status": 301, "location": "/" },
+    { "path": "/v4", "status": 301, "location": "/" },
+    { "path": "/versions", "status": 301, "location": "/" },
+    { "path": "/features", "status": 301, "location": "/" },
+    { "path": "/features/", "status": 301, "location": "/" },
+    { "path": "/agents", "status": 301, "location": "/" },
+    { "path": "/agents/", "status": 301, "location": "/" }
+  ]
+}

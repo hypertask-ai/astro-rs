@@ -1,0 +1,16 @@
+export {
+  CONSENT_COOKIE,
+  CONSENT_MAX_AGE_SECONDS,
+  ConsentChoiceSchema,
+  ConsentStore,
+  allowsAnalytics,
+  clearedAnalyticsDomains,
+  consentCookie,
+  expiredCookie,
+  isAnalyticsKey,
+  parseConsentCookie,
+  runConsentMachine,
+  sharedCookieDomain,
+  type ConsentChoice,
+  type ConsentState,
+} from "@rat-stack/core/consent";
