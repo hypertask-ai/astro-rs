@@ -6,6 +6,7 @@ import { ConsentChoiceSchema } from "../../consent/index.js";
 export const Message = defineMessageUnion({
   ChoseAll: {},
   ChoseEssential: {},
+  ClosedMenu: {},
   ConsentRecheck: {},
   ConsentResolved: {
     analyticsAllowed: Schema.Boolean,
@@ -13,7 +14,10 @@ export const Message = defineMessageUnion({
     choice: Schema.UndefinedOr(ConsentChoiceSchema),
   },
   OpenedCookieSettings: {},
+  PressedLoginKey: {},
   Ready: {},
+  Scrolled: { scrolled: Schema.Boolean },
+  ToggledMenu: {},
 });
 
 export type AppMessage = typeof Message.Type;

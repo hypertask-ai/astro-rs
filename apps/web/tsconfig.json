@@ -5,6 +5,7 @@
     "test/**/*.ts",
     "scripts/**/*.ts",
     "*.config.ts",
+    "crawler-files.ts",
     "site-rules.ts",
     "stylex.ts"
   ],

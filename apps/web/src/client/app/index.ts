@@ -1,6 +1,8 @@
 export {
   AcceptAllCookies,
   LoadConsent,
+  LoadHelpChat,
+  OpenLogin,
   RejectOptionalCookies,
 } from "./commands.js";
 

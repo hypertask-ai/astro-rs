@@ -1,6 +1,6 @@
-import { implement } from "@rat-stack/capability/implement";
-import { relayPostHogContract } from "@rat-stack/core/contracts";
-import { RelayPostHogError } from "@rat-stack/core/relay-posthog-error";
+import { implement } from "@hypertask-site/capability/implement";
+import { relayPostHogContract } from "@hypertask-site/core/contracts";
+import { RelayPostHogError } from "@hypertask-site/core/relay-posthog-error";
 import { Effect, Schema } from "effect";
 import { HttpClient, HttpClientRequest } from "effect/http";
 

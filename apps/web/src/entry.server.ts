@@ -3,14 +3,31 @@ import { FetchHttpClient } from "effect/http";
 import {
   Rendered,
   Responded,
+  renderDocument as renderFoldkitDocument,
   renderToString,
 } from "foldkit/experimental/server";
 
 import { initialModel } from "./client/app/model.js";
+import { buildHead, pageHeads, siteOrigin } from "./features/head/index.js";
 import { view } from "./features/home/index.js";
 import { relayPostHogFromRequest } from "./relay-posthog.js";
 
-export { renderDocument } from "foldkit/experimental/server";
+type RenderDocument = typeof renderFoldkitDocument;
+
+export const renderDocument: RenderDocument = (
+  application,
+  assets,
+  options
+) => {
+  const path = application.canonical?.slice(siteOrigin.length) ?? "/";
+  const page = pageHeads.get(path);
+  const head = page === undefined ? "" : buildHead(path, page);
+
+  return renderFoldkitDocument(application, assets, {
+    ...options,
+    head: `${options?.head ?? ""}${head}`,
+  });
+};
 
 export const prerenderPaths = ["/"];
 
