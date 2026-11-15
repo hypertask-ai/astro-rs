@@ -45,7 +45,7 @@ node verify/driver.mjs probe --head "${SITE_WORKER_URL:-$SITE_URL}" --base "${BA
 | F21 | Blog list | `/blog/` | H1, post cards in the same order, covers, dates and tag chips, all 59 tag links | 10 |
 | F22 | Thirty-eight blog posts | `/blog/<slug>/` for each of the 38 slugs below | Title, description, date, author, cover, body word for word, contents list, related posts at the end | 9 |
 | F23 | Fifty-nine blog tag pages | `/blog/tags/<tag>/` for each tag below | Tag name as the heading, the same posts in the same order, the same header and footer | 10 |
-| F24 | Page head and social cards | every page | The title shape live uses, the home page ending ` — Hypertask` and the other pages ending ` \| Hypertask`, the description, a canonical with the trailing slash, `robots`, Open Graph title, description, image, url, type and site name, Twitter summary card with large image, the RSS alternate link | 11 |
+| F24 | Page head and social cards | every page | The exact live title for that page, with the same ending and the same wording, no suffix added or dropped; the description, a canonical with the trailing slash, `robots`, Open Graph title, description, image, url, type and site name, Twitter summary card with large image, the RSS alternate link | 11 |
 | F25 | JSON-LD | every page | One `application/ld+json` block with Organization, WebSite and SoftwareApplication as live; blog posts add Article | 11 |
 | F26 | Fathom visits | every page | The Fathom script `https://cdn.usefathom.com/script.js` with site id `SSBYTYUQ`, once, deferred | 12 |
 | F27 | Sign up click event | any page | A click on a link whose address starts `https://app.hypertask.ai` sends `Sign up click` to Fathom; other clicks do not | 12 |
