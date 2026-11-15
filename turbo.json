@@ -61,7 +61,11 @@
       "outputs": []
     },
     "@hypertask-site/infra#test": {
-      "dependsOn": ["^build", "@hypertask-site/web#build", "@hypertask-site/web#test"],
+      "dependsOn": [
+        "^build",
+        "@hypertask-site/web#build",
+        "@hypertask-site/web#test"
+      ],
       "outputs": [],
       "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/apps/web/src/**"]
     }

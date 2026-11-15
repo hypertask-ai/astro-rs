@@ -1,5 +1,8 @@
 import { Approval } from "@hypertask-site/capability/approval";
-import { aroundHandlers, implement } from "@hypertask-site/capability/implement";
+import {
+  aroundHandlers,
+  implement,
+} from "@hypertask-site/capability/implement";
 import { Effect, Predicate } from "effect";
 
 import { auditFlagRun } from "./flag-audit.js";
