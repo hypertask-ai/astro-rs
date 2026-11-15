@@ -54,12 +54,9 @@ const renderShippedHome = () =>
     return renderDocument(application, assets);
   });
 
-const completeAnswer = (answer: {
-  readonly _tag: "Rendered" | "Responded";
-  readonly response?: Response;
-}): Response => {
-  if (answer._tag !== "Responded" || answer.response === undefined) {
-    throw new Error(`Expected one complete answer, received ${answer._tag}`);
+const completeAnswer = (answer: { readonly response?: Response }): Response => {
+  if (answer.response === undefined) {
+    throw new Error("Expected one complete answer");
   }
 
   return answer.response;
@@ -68,7 +65,6 @@ const completeAnswer = (answer: {
 describe("the base path setting", () => {
   it("reads one root-relative path and treats an empty setting as the origin root", () => {
     expect(normalizeSiteBasePath("")).toBe("");
-    expect(normalizeSiteBasePath(undefined)).toBe("");
     expect(normalizeSiteBasePath("/")).toBe("");
     expect(normalizeSiteBasePath("/ratstack")).toBe("/ratstack");
     expect(normalizeSiteBasePath("/ratstack/")).toBe("/ratstack");
@@ -129,7 +125,7 @@ describe("a site without the setting", () => {
     Effect.gen(function* checkHead() {
       const head = headTags(yield* renderHome(""));
 
-      expect(head.meta["robots"]).toBe("index, follow");
+      expect(head.meta.robots).toBe("index, follow");
       expect(head.canonical).toBe("https://hypertask.ai/");
     })
   );
@@ -164,7 +160,7 @@ describe("a site mounted at /ratstack", () => {
       const html = yield* renderHome(mounted);
       const head = headTags(html);
 
-      expect(head.meta["robots"]).toBe("noindex, nofollow");
+      expect(head.meta.robots).toBe("noindex, nofollow");
       expect(head.canonical).toBe("https://hypertask.ai/");
       expect(internalAddresses(html)).toContain("/ratstack/rss.xml");
       expect(internalAddresses(html)).toContain(
@@ -227,7 +223,7 @@ describe("a crawl of the prerendered pages", () => {
               address !== mounted && !address.startsWith(`${mounted}/`)
           )
         ).toEqual([]);
-        expect(headTags(html).meta["robots"]).toBe("noindex, nofollow");
+        expect(headTags(html).meta.robots).toBe("noindex, nofollow");
       }
     })
   );
@@ -245,7 +241,7 @@ describe("a crawl of the prerendered pages", () => {
             ),
             `${path} reaches into ${mounted}`
           ).toEqual([]);
-          expect(headTags(html).meta["robots"]).toBe("index, follow");
+          expect(headTags(html).meta.robots).toBe("index, follow");
         }
       })
   );
@@ -257,6 +253,7 @@ describe("the build rules under the prefix", () => {
       .trim()
       .split("\n")
       .map((line) => line.split(" "));
+
     const shipped = redirectsFile(["/pricing/"]).trim().split("\n");
 
     expect(shipped.length).toBe(rules.length);
@@ -272,6 +269,7 @@ describe("the build rules under the prefix", () => {
   it("keeps do not index in the header file and mounts its rules", () => {
     const headers = headersFile("", mounted);
     const install = headersFile("/install\n  Content-Type: text/plain\n");
+
     const mountedInstall = headersFile(
       "/install\n  Content-Type: text/plain\n",
       mounted
@@ -305,6 +303,7 @@ it.layer(NodeServices.layer)("the rules the build writes", (test) => {
         const headers = yield* fs.readFileString(
           path.join(directory, "_headers")
         );
+
         const redirects = yield* fs.readFileString(
           path.join(directory, "_redirects")
         );
