@@ -34,7 +34,6 @@ export const styles = stylex.create({
     justifyContent: { default: "normal", [tablet]: "end" },
     marginBottom: {
       "@media (min-width: 568px) and (max-width: 768px)": "32px",
-      [phone]: 0,
       default: 0,
     },
     marginInline: "auto",
