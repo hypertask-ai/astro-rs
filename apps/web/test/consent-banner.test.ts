@@ -55,21 +55,21 @@ const analyticsScriptSources = (html: string): readonly string[] =>
 const visibleModel: AppModel = { ...initialModel, bannerVisible: true };
 
 describe("cookie banner markup", () => {
-  it("renders hidden until the stored choice is read", () =>
+  it.effect("renders hidden until the stored choice is read", () =>
     Effect.gen(function* hiddenFirst() {
       const markup = bannerMarkup(yield* renderPage(initialModel));
 
       expect(openingTag(markup)).toMatch(/\shidden(?=["\s>])/u);
     }));
 
-  it("renders visible when the visitor has no stored choice", () =>
+  it.effect("renders visible when the visitor has no stored choice", () =>
     Effect.gen(function* shown() {
       const markup = bannerMarkup(yield* renderPage(visibleModel));
 
       expect(openingTag(markup)).not.toMatch(/\shidden(?=["\s>])/u);
     }));
 
-  it("is one labelled region named the way the old site named it", () =>
+  it.effect("is one labelled region named the way the old site named it", () =>
     Effect.gen(function* labelled() {
       const markup = bannerMarkup(yield* renderPage(visibleModel));
 
@@ -78,7 +78,7 @@ describe("cookie banner markup", () => {
       expect(bannerLabel).toBe("Cookie preferences");
     }));
 
-  it("says the old words and links the privacy policy", () =>
+  it.effect("says the old words and links the privacy policy", () =>
     Effect.gen(function* words() {
       const markup = bannerMarkup(yield* renderPage(visibleModel));
 
@@ -95,7 +95,7 @@ describe("cookie banner markup", () => {
       expect(privacyHref).toBe("/privacy/");
     }));
 
-  it("offers Accept and Reject as two equal plain buttons", () =>
+  it.effect("offers Accept and Reject as two equal plain buttons", () =>
     Effect.gen(function* buttons() {
       const markup = bannerMarkup(yield* renderPage(visibleModel));
 
@@ -106,7 +106,7 @@ describe("cookie banner markup", () => {
       expect(markup).toContain(">Reject</button>");
     }));
 
-  it("loads no analytics script before the visitor chooses", () =>
+  it.effect("loads no analytics script before the visitor chooses", () =>
     Effect.gen(function* noEarlyScript() {
       const asked = yield* renderPage(visibleModel);
       const decided = yield* renderPage(initialModel);
