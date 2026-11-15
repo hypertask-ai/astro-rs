@@ -22,14 +22,14 @@ Fence tests for cut packages are cut with them, one reason each. The lint rules 
 
 | Cut test | Reason |
 | --- | --- |
-| Code-snippets and Shiki build-only, shared Basin independence, events seam (3 boundary tests) | They resolve `@rat-stack/code-snippets`, `events` and `basin` through package folders that no longer exist. |
+| Code-snippets and Shiki build-only, shared Basin independence, events seam (3 boundary tests) | They resolve `@hypertask-site/code-snippets`, `events` and `basin` through package folders that no longer exist. |
 | Devtools in production, devtools distribution paths, dev client browser code (3 boundary tests) | They import the removed `devtools` and `auth` packages. |
 | Learn card snippets test | The `.brain/data/learn-cards` folder is cut. |
 | Content task cache test | It checks cache keys of the removed `apps/site` content reader. |
 
 Keep `apps/web`, `apps/infra`, `packages/core` and `packages/capability`. Keep exact retained pins, strict compiler settings, lint rules, formatter configuration, anti-slop rules, hooks and the complete CI check/test/build command. The lint plugin imports its audited regex policy from the retained scripts folder.
 
-Project-law and package-scope replacement belongs to HTPR-9140. Infrastructure adoption is HTPR-9131. Do not run deployment commands before those steps.
+Project-law and package-scope replacement shipped in HTPR-9140: the scope is `@hypertask-site/*` and `AGENT-FILES.md` lists the old agent files. Infrastructure adoption is HTPR-9131. Do not run deployment commands before those steps.
 
 ## Verification
 
