@@ -1,4 +1,5 @@
 import { Effect } from "effect";
+import { FetchHttpClient } from "effect/http";
 import {
   Rendered,
   Responded,
@@ -9,6 +10,7 @@ import {
 import { initialModel } from "./client/app/model.js";
 import { buildHead, pageHeads, siteOrigin } from "./features/head/index.js";
 import { view } from "./features/home/index.js";
+import { relayPostHogFromRequest } from "./relay-posthog.js";
 import { removeSiteBasePath } from "./site-base-path.js";
 import { siteBasePath, sitePreviewHeaders } from "./site-base.js";
 
@@ -36,6 +38,21 @@ const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
 ) {
   const { pathname } = new URL(request.url);
   const path = removeSiteBasePath(siteBasePath, pathname);
+
+  if (path.startsWith("/relay-8ddg/")) {
+    const relayed = yield* relayPostHogFromRequest(request).pipe(
+      Effect.provide(FetchHttpClient.layer)
+    );
+
+    const body = new Uint8Array(relayed.body);
+
+    return Responded(
+      new Response(body.buffer, {
+        headers: relayed.headers,
+        status: relayed.status,
+      })
+    );
+  }
 
   if (path !== "/") {
     return Responded(new Response("Not found", { status: 404 }));

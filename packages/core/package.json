@@ -84,6 +84,11 @@
       "import": "./dist/contracts.js",
       "default": "./dist/contracts.js"
     },
+    "./relay-posthog-error": {
+      "types": "./src/relay-posthog-error.ts",
+      "import": "./dist/relay-posthog-error.js",
+      "default": "./dist/relay-posthog-error.js"
+    },
     "./intake": {
       "types": "./src/intake.ts",
       "import": "./dist/intake.js",

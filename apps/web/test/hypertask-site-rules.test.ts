@@ -7,14 +7,15 @@ import {
   headersFile,
   htmlHandling,
   installAddress,
-  legacyAnswer,
   legacyRedirects,
+  addressAnswer,
   redirectsFile,
   securityHeaderLines,
   trailingSlashRedirects,
 } from "../src/hypertask/site-rules.js";
 
 const OldSiteAnswer = Schema.Struct({
+  headers: Schema.Record(Schema.String, Schema.String),
   location: Schema.NullOr(Schema.String),
   path: Schema.String,
   status: Schema.Int,
@@ -24,6 +25,7 @@ const OldSite = Schema.Struct({
   answers: Schema.Array(OldSiteAnswer),
   capturedAt: Schema.String,
   origin: Schema.String,
+  pages: Schema.Array(Schema.String),
 });
 
 const lines = (file: string) =>
@@ -38,35 +40,112 @@ const fixture = (path: Path.Path, name: string) =>
     name
   );
 
+const headerValues = (
+  headerLines: readonly string[]
+): Readonly<Record<string, string>> =>
+  Object.fromEntries(
+    headerLines.map((line) => {
+      const separator = line.indexOf(":");
+
+      return [
+        line.slice(0, separator).trim().toLowerCase(),
+        line.slice(separator + 1).trim(),
+      ] as const;
+    })
+  );
+
+const securityHeaders = headerValues(securityHeaderLines);
+
+const loadOldSite = Effect.gen(function* loadOldSite() {
+  const fs = yield* FileSystem.FileSystem;
+  const path = yield* Path.Path;
+
+  return yield* fs
+    .readFileString(fixture(path, "old-site.json"))
+    .pipe(
+      Effect.flatMap(Schema.decodeUnknownEffect(Schema.fromJsonString(OldSite)))
+    );
+});
+
 it.layer(NodeServices.layer)("hypertask site rules", (test) => {
-  test.effect("every old address answers as the old site does", () =>
-    Effect.gen(function* checkOldAnswers() {
-      const fs = yield* FileSystem.FileSystem;
-      const path = yield* Path.Path;
+  test.effect(
+    "every old address answers as the old site does, row by row",
+    () =>
+      Effect.gen(function* checkOldAnswers() {
+        const oldSite = yield* loadOldSite;
 
-      const oldSite = yield* fs
-        .readFileString(fixture(path, "old-site.json"))
-        .pipe(
-          Effect.flatMap(
-            Schema.decodeUnknownEffect(Schema.fromJsonString(OldSite))
-          )
-        );
+        expect(oldSite.answers.length).toBeGreaterThanOrEqual(18);
 
-      expect(oldSite.answers).toHaveLength(18);
+        const headerNames = Object.keys(securityHeaders).toSorted();
 
-      for (const answer of oldSite.answers) {
-        if (answer.path === installAddress.source) {
-          expect(legacyAnswer(answer.path)).toEqual({ kind: "passthrough" });
-          continue;
+        const pageAnswers = oldSite.answers.filter((row) => row.status === 200);
+
+        for (const row of oldSite.answers) {
+          expect(addressAnswer(row.path, oldSite.pages)).toEqual({
+            location: row.location,
+            status: row.status,
+          });
+          expect(Object.keys(row.headers).toSorted()).toEqual(headerNames);
         }
 
-        expect(legacyAnswer(answer.path)).toEqual({
-          kind: "redirect",
-          location: answer.location,
-          status: answer.status,
+        expect(pageAnswers.length).toBeGreaterThan(0);
+
+        for (const row of pageAnswers) {
+          expect(row.headers).toEqual(securityHeaders);
+        }
+      })
+  );
+
+  test.effect(
+    "the pricing page and the other pages keep their trailing slash",
+    () =>
+      Effect.gen(function* checkTrailingSlash() {
+        const oldSite = yield* loadOldSite;
+
+        expect(htmlHandling).toBe("force-trailing-slash");
+        expect(addressAnswer("/pricing", oldSite.pages)).toEqual({
+          location: "/pricing/",
+          status: 308,
         });
-      }
-    })
+        expect(addressAnswer("/blog", oldSite.pages)).toEqual({
+          location: "/blog/",
+          status: 308,
+        });
+        expect(addressAnswer("/about", oldSite.pages)).toEqual({
+          location: "/about/",
+          status: 308,
+        });
+        expect(addressAnswer("/features", oldSite.pages)).toEqual({
+          location: "/",
+          status: 301,
+        });
+        expect(legacyRedirects.at(0)?.source).toBe("/home2.html");
+      })
+  );
+
+  test.effect(
+    "an address that already ends in a slash answers without a redirect",
+    () =>
+      Effect.gen(function* checkNoRedirect() {
+        const oldSite = yield* loadOldSite;
+        const shipped = lines(redirectsFile(oldSite.pages));
+
+        expect(addressAnswer("/pricing/", oldSite.pages)).toEqual({
+          location: null,
+          status: 200,
+        });
+        expect(addressAnswer("/", oldSite.pages)).toEqual({
+          location: null,
+          status: 200,
+        });
+        expect(shipped.some((line) => line.startsWith("/pricing/ "))).toBe(
+          false
+        );
+        expect(shipped.some((line) => line.startsWith("/ "))).toBe(false);
+        expect(
+          shipped.some((line) => line.startsWith(`${installAddress.source} `))
+        ).toBe(false);
+      })
   );
 
   test.effect(
@@ -87,9 +166,6 @@ it.layer(NodeServices.layer)("hypertask site rules", (test) => {
             (line) => !line.startsWith(`${installAddress.source} `)
           )
         );
-        expect(
-          shipped.some((line) => line.startsWith(`${installAddress.source} `))
-        ).toBe(false);
       })
   );
 
@@ -103,6 +179,8 @@ it.layer(NodeServices.layer)("hypertask site rules", (test) => {
       );
 
       const shipped = headersFile("");
+
+      expect(securityHeaderLines).toHaveLength(3);
 
       for (const line of securityHeaderLines) {
         expect(oldHeaders).toContain(`  ${line}`);
@@ -129,25 +207,23 @@ it.layer(NodeServices.layer)("hypertask site rules", (test) => {
       })
   );
 
-  test.effect(
-    "the pricing page moves to its trailing-slash address and old redirects stay first",
-    () =>
-      Effect.sync(() => {
-        const migrated = trailingSlashRedirects([
-          "/pricing/",
-          "/v2/",
-          "/features/",
-          "/",
-          "/pricing/",
-        ]);
+  test.effect("old redirects run before the generated slash rules", () =>
+    Effect.sync(() => {
+      const shipped = lines(
+        redirectsFile(["/features/", "/pricing/", "/pricing/"])
+      );
 
-        expect(htmlHandling).toBe("force-trailing-slash");
-        expect(legacyAnswer("/pricing")).toEqual({ kind: "passthrough" });
-        expect(migrated).toEqual([
-          { destination: "/pricing/", source: "/pricing", status: 308 },
-        ]);
-        expect(legacyRedirects.at(0)?.source).toBe("/home2.html");
-      })
+      const slashRules = trailingSlashRedirects([
+        "/features/",
+        "/pricing/",
+        "/pricing/",
+      ]);
+
+      expect(slashRules).toEqual([
+        { destination: "/pricing/", source: "/pricing", status: 308 },
+      ]);
+      expect(shipped.at(-1)).toBe("/pricing /pricing/ 308");
+    })
   );
 
   test.effect("a prerendered page list only offers directories", () =>
