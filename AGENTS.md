@@ -96,6 +96,14 @@ Run `pnpm fix` only when you intend to rewrite files. Finish with `pnpm turbo ru
 
 Follow [ship](/skills/ship) and `skills/ship/references/project.md` for deployment commands, approval, checks, and recovery.
 
+Until cutover the new site is published at https://hypertask.ai/ratstack and the old site keeps every other address. `SITE_BASE_PATH` is the one owner of where the site is served: it sets the Vite base, the `_redirects` and `_headers` rules, the noindex markers and the single Worker route, and it is empty at the origin root.
+
+| Rule | Enforced by |
+| --- | --- |
+| The new site answers only at the base path, on one Worker route, and the live site keeps every other address | `.github/workflows/publish-ratstack.yml` deploys the `hypertask-ratstack` Worker with exactly the route `hypertask.ai/ratstack*`, records the old site's answer before the deploy, and fails the job if that answer changes |
+| Every same-site link, asset, stylesheet, font and redirect stays under the base path | `scripts/check-base-path.ts` walks the built `apps/web/dist/client` in the publish workflow and fails naming the file and the owner |
+| Every response under the base path stays out of search until cutover | the same `SITE_BASE_PATH`: `X-Robots-Tag: noindex` from `headersFile`, the Worker response header from `sitePreviewHeaders`, and the robots meta tag from `buildHead`; the publish smoke step fails without the header |
+
 ## Fence (cheating is uncomfortable)
 
 Why lives in `AGENTS.md` / `VISION.md`. The stack and hooks are the enforceable fence. Fence wins over prose.

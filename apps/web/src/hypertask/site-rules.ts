@@ -1,3 +1,6 @@
+import { noindexHeaderLine } from "../preview-marks.js";
+import { addSiteBasePath } from "../site-base-path.js";
+
 export interface LegacyRedirect {
   readonly destination: string;
   readonly source: string;
@@ -38,9 +41,8 @@ export const securityHeaderLines: readonly string[] = [
   "Referrer-Policy: strict-origin-when-cross-origin",
 ];
 
-export const securityHeadersBlock = `/*\n${securityHeaderLines
-  .map((line) => `  ${line}`)
-  .join("\n")}\n`;
+const requiredHeaderLines = (preview: boolean): readonly string[] =>
+  preview ? [...securityHeaderLines, noindexHeaderLine] : securityHeaderLines;
 
 const legacySources = new Set(
   legacyRedirects.map((redirect) => redirect.source)
@@ -76,20 +78,33 @@ export const redirectLine = (redirect: {
   readonly status: number;
 }): string => `${redirect.source} ${redirect.destination} ${redirect.status}`;
 
-export const redirectsFile = (pagePaths: readonly string[]): string =>
-  `${[
-    ...legacyRedirects.map(redirectLine),
-    ...trailingSlashRedirects(pagePaths).map(redirectLine),
-  ].join("\n")}\n`;
+export const redirectsFile = (
+  pagePaths: readonly string[],
+  basePath = ""
+): string =>
+  `${[...legacyRedirects, ...trailingSlashRedirects(pagePaths)]
+    .map((redirect) =>
+      redirectLine({
+        destination: addSiteBasePath(basePath, redirect.destination),
+        source: addSiteBasePath(basePath, redirect.source),
+        status: redirect.status,
+      })
+    )
+    .join("\n")}\n`;
 
-export const headersFile = (existing: string): string => {
-  if (existing.includes(securityHeaderLines[0] ?? "")) {
+export const headersFile = (existing: string, preview = false): string => {
+  const missing = requiredHeaderLines(preview).filter(
+    (line) => !existing.includes(line)
+  );
+
+  if (missing.length === 0) {
     return existing;
   }
 
+  const block = `/*\n${missing.map((line) => `  ${line}`).join("\n")}\n`;
   const separator = existing === "" || existing.endsWith("\n") ? "" : "\n";
 
-  return `${existing}${separator}${existing === "" ? "" : "\n"}${securityHeadersBlock}`;
+  return `${existing}${separator}${existing === "" ? "" : "\n"}${block}`;
 };
 
 export type LegacyAnswer =

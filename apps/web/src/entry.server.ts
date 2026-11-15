@@ -9,6 +9,8 @@ import {
 import { initialModel } from "./client/app/model.js";
 import { buildHead, pageHeads, siteOrigin } from "./features/head/index.js";
 import { view } from "./features/home/index.js";
+import { removeSiteBasePath } from "./site-base-path.js";
+import { siteBasePath, sitePreviewHeaders } from "./site-base.js";
 
 type RenderDocument = typeof renderFoldkitDocument;
 
@@ -19,7 +21,7 @@ export const renderDocument: RenderDocument = (
 ) => {
   const path = application.canonical?.slice(siteOrigin.length) ?? "/";
   const page = pageHeads.get(path);
-  const head = page === undefined ? "" : buildHead(path, page);
+  const head = page === undefined ? "" : buildHead(path, page, siteBasePath);
 
   return renderFoldkitDocument(application, assets, {
     ...options,
@@ -33,8 +35,9 @@ const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
   request: Request
 ) {
   const { pathname } = new URL(request.url);
+  const path = removeSiteBasePath(siteBasePath, pathname);
 
-  if (pathname !== "/") {
+  if (path !== "/") {
     return Responded(new Response("Not found", { status: 404 }));
   }
 
@@ -52,7 +55,11 @@ const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
     view,
   });
 
-  return Rendered(application);
+  const headers = sitePreviewHeaders();
+
+  return headers === undefined
+    ? Rendered(application)
+    : Rendered(application, { headers });
 });
 
 export const renderPage = (request: Request) =>
