@@ -44,10 +44,7 @@ export const blocks: readonly Prose[] = [
     kind: "paragraph",
     runs: [{ kind: "text", text: "Last updated: 3 August 2026" }],
   },
-  {
-    kind: "heading",
-    runs: [{ kind: "text", text: "Information We Collect" }],
-  },
+  { kind: "heading", text: "Information We Collect" },
   {
     kind: "paragraph",
     runs: [
@@ -75,10 +72,7 @@ export const blocks: readonly Prose[] = [
       },
     ],
   },
-  {
-    kind: "heading",
-    runs: [{ kind: "text", text: "Log Data" }],
-  },
+  { kind: "heading", text: "Log Data" },
   {
     kind: "paragraph",
     runs: [
@@ -106,10 +100,7 @@ export const blocks: readonly Prose[] = [
       },
     ],
   },
-  {
-    kind: "heading",
-    runs: [{ kind: "text", text: "Device Data" }],
-  },
+  { kind: "heading", text: "Device Data" },
   {
     kind: "paragraph",
     runs: [
@@ -148,10 +139,7 @@ export const blocks: readonly Prose[] = [
       },
     ],
   },
-  {
-    kind: "heading",
-    runs: [{ kind: "text", text: "Personal Information" }],
-  },
+  { kind: "heading", text: "Personal Information" },
   {
     kind: "paragraph",
     runs: [
@@ -169,10 +157,7 @@ export const blocks: readonly Prose[] = [
     kind: "bullet",
     runs: [{ kind: "text", text: "Email" }],
   },
-  {
-    kind: "heading",
-    runs: [{ kind: "text", text: "Transaction Data" }],
-  },
+  { kind: "heading", text: "Transaction Data" },
   {
     kind: "paragraph",
     runs: [
@@ -184,12 +169,7 @@ export const blocks: readonly Prose[] = [
   },
   {
     kind: "heading",
-    runs: [
-      {
-        kind: "text",
-        text: "Legitimate Reasons for Processing Your Personal Information",
-      },
-    ],
+    text: "Legitimate Reasons for Processing Your Personal Information",
   },
   {
     kind: "paragraph",
@@ -200,10 +180,7 @@ export const blocks: readonly Prose[] = [
       },
     ],
   },
-  {
-    kind: "heading",
-    runs: [{ kind: "text", text: "Collection and Use of Information" }],
-  },
+  { kind: "heading", text: "Collection and Use of Information" },
   {
     kind: "paragraph",
     runs: [
@@ -315,10 +292,7 @@ export const blocks: readonly Prose[] = [
       },
     ],
   },
-  {
-    kind: "heading",
-    runs: [{ kind: "text", text: "Security of Your Personal Information" }],
-  },
+  { kind: "heading", text: "Security of Your Personal Information" },
   {
     kind: "paragraph",
     runs: [
@@ -346,12 +320,7 @@ export const blocks: readonly Prose[] = [
       },
     ],
   },
-  {
-    kind: "heading",
-    runs: [
-      { kind: "text", text: "How Long We Keep Your Personal Information" },
-    ],
-  },
+  { kind: "heading", text: "How Long We Keep Your Personal Information" },
   {
     kind: "paragraph",
     runs: [
@@ -370,10 +339,7 @@ export const blocks: readonly Prose[] = [
       },
     ],
   },
-  {
-    kind: "heading",
-    runs: [{ kind: "text", text: "Children's Privacy" }],
-  },
+  { kind: "heading", text: "Children's Privacy" },
   {
     kind: "paragraph",
     runs: [
@@ -385,12 +351,7 @@ export const blocks: readonly Prose[] = [
   },
   {
     kind: "heading",
-    runs: [
-      {
-        kind: "text",
-        text: "Disclosure of Personal Information to Third Parties",
-      },
-    ],
+    text: "Disclosure of Personal Information to Third Parties",
   },
   {
     kind: "paragraph",
@@ -492,10 +453,7 @@ export const blocks: readonly Prose[] = [
     kind: "bullet",
     runs: [{ kind: "text", text: "Stripe" }],
   },
-  {
-    kind: "heading",
-    runs: [{ kind: "text", text: "Google Calendar and Google User Data" }],
-  },
+  { kind: "heading", text: "Google Calendar and Google User Data" },
   {
     kind: "paragraph",
     runs: [
@@ -558,12 +516,7 @@ export const blocks: readonly Prose[] = [
   },
   {
     kind: "heading",
-    runs: [
-      {
-        kind: "text",
-        text: "Your Rights and Controlling Your Personal Information",
-      },
-    ],
+    text: "Your Rights and Controlling Your Personal Information",
   },
   {
     kind: "paragraph",
@@ -646,10 +599,7 @@ export const blocks: readonly Prose[] = [
       },
     ],
   },
-  {
-    kind: "heading",
-    runs: [{ kind: "text", text: "Business Transfers" }],
-  },
+  { kind: "heading", text: "Business Transfers" },
   {
     kind: "paragraph",
     runs: [
@@ -659,10 +609,7 @@ export const blocks: readonly Prose[] = [
       },
     ],
   },
-  {
-    kind: "heading",
-    runs: [{ kind: "text", text: "Limits of Our Policy" }],
-  },
+  { kind: "heading", text: "Limits of Our Policy" },
   {
     kind: "paragraph",
     runs: [
@@ -672,10 +619,7 @@ export const blocks: readonly Prose[] = [
       },
     ],
   },
-  {
-    kind: "heading",
-    runs: [{ kind: "text", text: "Changes to This Policy" }],
-  },
+  { kind: "heading", text: "Changes to This Policy" },
   {
     kind: "paragraph",
     runs: [
@@ -703,10 +647,7 @@ export const blocks: readonly Prose[] = [
       },
     ],
   },
-  {
-    kind: "heading",
-    runs: [{ kind: "text", text: "Contact Us" }],
-  },
+  { kind: "heading", text: "Contact Us" },
   {
     kind: "paragraph",
     runs: [

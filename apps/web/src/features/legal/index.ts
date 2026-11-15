@@ -13,9 +13,11 @@ export type Inline =
   | Readonly<{ href: string; kind: "link"; label: string }>
   | Readonly<{ kind: "text"; text: string }>;
 
-export type ProseKind = "bullet" | "heading" | "lines" | "paragraph";
-
-export type Prose = Readonly<{ kind: ProseKind; runs: readonly Inline[] }>;
+export type Prose =
+  | Readonly<{ kind: "bullet"; runs: readonly Inline[] }>
+  | Readonly<{ kind: "heading"; text: string }>
+  | Readonly<{ kind: "lines"; runs: readonly Inline[] }>
+  | Readonly<{ kind: "paragraph"; runs: readonly Inline[] }>;
 
 export type LegalPage = Readonly<{
   blocks: readonly Prose[];
@@ -87,7 +89,7 @@ const blockAt = (
     }
 
     case "heading": {
-      return [h.h2([h.Class(classes(styles.heading))], prose(h, block.runs))];
+      return [h.h2([h.Class(classes(styles.heading))], [block.text])];
     }
 
     case "lines": {

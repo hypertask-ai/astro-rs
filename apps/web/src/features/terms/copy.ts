@@ -48,10 +48,7 @@ export const blocks: readonly Prose[] = [
       },
     ],
   },
-  {
-    kind: "heading",
-    runs: [{ kind: "text", text: "Limitations of Use" }],
-  },
+  { kind: "heading", text: "Limitations of Use" },
   {
     kind: "paragraph",
     runs: [
@@ -142,10 +139,7 @@ export const blocks: readonly Prose[] = [
       },
     ],
   },
-  {
-    kind: "heading",
-    runs: [{ kind: "text", text: "Intellectual Property" }],
-  },
+  { kind: "heading", text: "Intellectual Property" },
   {
     kind: "paragraph",
     runs: [
@@ -164,10 +158,7 @@ export const blocks: readonly Prose[] = [
       },
     ],
   },
-  {
-    kind: "heading",
-    runs: [{ kind: "text", text: "User-Generated Content" }],
-  },
+  { kind: "heading", text: "User-Generated Content" },
   {
     kind: "paragraph",
     runs: [
@@ -204,10 +195,7 @@ export const blocks: readonly Prose[] = [
       },
     ],
   },
-  {
-    kind: "heading",
-    runs: [{ kind: "text", text: "Third-Party Integrations" }],
-  },
+  { kind: "heading", text: "Third-Party Integrations" },
   {
     kind: "paragraph",
     runs: [
@@ -231,10 +219,7 @@ export const blocks: readonly Prose[] = [
       },
     ],
   },
-  {
-    kind: "heading",
-    runs: [{ kind: "text", text: "Liability" }],
-  },
+  { kind: "heading", text: "Liability" },
   {
     kind: "paragraph",
     runs: [
@@ -271,10 +256,7 @@ export const blocks: readonly Prose[] = [
       },
     ],
   },
-  {
-    kind: "heading",
-    runs: [{ kind: "text", text: "Accuracy of Materials" }],
-  },
+  { kind: "heading", text: "Accuracy of Materials" },
   {
     kind: "paragraph",
     runs: [
@@ -284,10 +266,7 @@ export const blocks: readonly Prose[] = [
       },
     ],
   },
-  {
-    kind: "heading",
-    runs: [{ kind: "text", text: "Links" }],
-  },
+  { kind: "heading", text: "Links" },
   {
     kind: "paragraph",
     runs: [
@@ -297,10 +276,7 @@ export const blocks: readonly Prose[] = [
       },
     ],
   },
-  {
-    kind: "heading",
-    runs: [{ kind: "text", text: "Right to Terminate" }],
-  },
+  { kind: "heading", text: "Right to Terminate" },
   {
     kind: "paragraph",
     runs: [
@@ -310,10 +286,7 @@ export const blocks: readonly Prose[] = [
       },
     ],
   },
-  {
-    kind: "heading",
-    runs: [{ kind: "text", text: "Severance" }],
-  },
+  { kind: "heading", text: "Severance" },
   {
     kind: "paragraph",
     runs: [
@@ -323,10 +296,7 @@ export const blocks: readonly Prose[] = [
       },
     ],
   },
-  {
-    kind: "heading",
-    runs: [{ kind: "text", text: "Governing Law" }],
-  },
+  { kind: "heading", text: "Governing Law" },
   {
     kind: "paragraph",
     runs: [
