@@ -439,7 +439,23 @@ export const blocks: readonly Prose[] = [
   },
   {
     kind: "bullet",
-    runs: [{ kind: "text", text: "Google Analytics" }],
+    runs: [
+      {
+        href: "https://posthog.com/privacy",
+        kind: "link",
+        label: "PostHog",
+      },
+    ],
+  },
+  {
+    kind: "bullet",
+    runs: [
+      {
+        href: "https://usefathom.com/privacy",
+        kind: "link",
+        label: "Fathom Analytics",
+      },
+    ],
   },
   {
     kind: "bullet",

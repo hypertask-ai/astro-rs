@@ -32,6 +32,44 @@ interface PageFacts {
   readonly visibleText: readonly string[];
 }
 
+interface WordingChange {
+  readonly links: readonly string[];
+  readonly newText: readonly string[];
+  readonly oldText: string;
+  readonly reason: string;
+}
+
+const withWordingText = (
+  visible: readonly string[],
+  change: WordingChange | undefined
+): readonly string[] =>
+  change === undefined
+    ? visible
+    : visible.flatMap((entry) =>
+        entry === change.oldText ? change.newText : [entry]
+      );
+
+const withoutWordingLinks = (
+  targets: readonly string[],
+  change: WordingChange | undefined
+): readonly string[] => {
+  if (change === undefined) {
+    return targets;
+  }
+
+  const start = targets.findIndex(
+    (target, index) =>
+      target === change.links[0] && targets[index + 1] === change.links[1]
+  );
+
+  return start === -1
+    ? targets
+    : [
+        ...targets.slice(0, start),
+        ...targets.slice(start + change.links.length),
+      ];
+};
+
 const renderView = (view: PageView) =>
   Effect.gen(function* render() {
     const application = yield* renderToString(
@@ -48,49 +86,59 @@ const renderView = (view: PageView) =>
 const comparesLivePage = (
   label: string,
   view: PageView,
-  live: PageFacts
+  live: PageFacts,
+  change?: WordingChange
 ): void => {
-  describe(`${label} against the live page`, () => {
-    it.effect("keeps every heading in the old order", () =>
-      Effect.gen(function* checkHeadings() {
-        const html = yield* renderView(view);
+  describe(
+    change === undefined
+      ? `${label} against the live page`
+      : `${label} against the live page, allowing one recorded change: ${change.reason}`,
+    () => {
+      it.effect("keeps every heading in the old order", () =>
+        Effect.gen(function* checkHeadings() {
+          const html = yield* renderView(view);
 
-        expect(headings(html)).toEqual(live.headings);
-      })
-    );
+          expect(headings(html)).toEqual(live.headings);
+        })
+      );
 
-    it.effect("keeps the old words", () =>
-      Effect.gen(function* checkText() {
-        const html = yield* renderView(view);
+      it.effect("keeps the old words", () =>
+        Effect.gen(function* checkText() {
+          const html = yield* renderView(view);
 
-        expect(visibleText(html)).toEqual(live.visibleText);
-      })
-    );
+          expect(visibleText(html)).toEqual(
+            withWordingText(live.visibleText, change)
+          );
+        })
+      );
 
-    it.effect("keeps every link target in the old order", () =>
-      Effect.gen(function* checkLinks() {
-        const html = yield* renderView(view);
+      it.effect("keeps every link target in the old order", () =>
+        Effect.gen(function* checkLinks() {
+          const html = yield* renderView(view);
 
-        expect(linkTargets(html)).toEqual(live.linkTargets);
-      })
-    );
+          expect(withoutWordingLinks(linkTargets(html), change)).toEqual(
+            live.linkTargets
+          );
+        })
+      );
 
-    it.effect("keeps every image with its alt text and loading hints", () =>
-      Effect.gen(function* checkImages() {
-        const html = yield* renderView(view);
+      it.effect("keeps every image with its alt text and loading hints", () =>
+        Effect.gen(function* checkImages() {
+          const html = yield* renderView(view);
 
-        expect(images(html)).toEqual(live.images);
-      })
-    );
+          expect(images(html)).toEqual(live.images);
+        })
+      );
 
-    it.effect("keeps the old head tags", () =>
-      Effect.gen(function* checkHead() {
-        const html = yield* renderView(view);
+      it.effect("keeps the old head tags", () =>
+        Effect.gen(function* checkHead() {
+          const html = yield* renderView(view);
 
-        expect(headTags(html)).toEqual(live.headTags);
-      })
-    );
-  });
+          expect(headTags(html)).toEqual(live.headTags);
+        })
+      );
+    }
+  );
 };
 
 describe("legal page routes", () => {
@@ -111,6 +159,19 @@ describe("legal page routes", () => {
   });
 });
 
-comparesLivePage("privacy page", privacyView, privacyLive);
+const privacyWordingChange = {
+  links: ["https://posthog.com/privacy", "https://usefathom.com/privacy"],
+  newText: ["PostHog", "Fathom Analytics"],
+  oldText: "Google Analytics",
+  reason:
+    "Valentin, 2026-11-15: we dont use GA4 we use posthog and fathon analytics, and all customer facing assets must have fathom",
+} as const satisfies WordingChange;
+
+comparesLivePage(
+  "privacy page",
+  privacyView,
+  privacyLive,
+  privacyWordingChange
+);
 
 comparesLivePage("terms page", termsView, termsLive);
