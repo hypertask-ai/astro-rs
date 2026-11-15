@@ -73,7 +73,8 @@ const ConsentAnnouncedSchema = Schema.Struct({
 const isConsentAnnounced = Schema.decodeUnknownOption(ConsentAnnouncedSchema);
 
 const consentAnnounced = (event: Event): boolean =>
-  event instanceof CustomEvent && Option.isSome(isConsentAnnounced(event.detail));
+  event instanceof CustomEvent &&
+  Option.isSome(isConsentAnnounced(event.detail));
 
 const send = (body: string): void => {
   try {
