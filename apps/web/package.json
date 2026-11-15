@@ -1,10 +1,10 @@
 {
-  "name": "@rat-stack/web",
+  "name": "@hypertask-site/web",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "portless rat-stack vite dev",
+    "dev": "portless hypertask-site vite dev",
     "typecheck": "effect-tsrs diagnostics --project tsconfig.json --strict --type-check",
     "typecheck:tsc": "tsc --noEmit -p tsconfig.json",
     "typecheck:fast": "tsrs --noEmit -p tsconfig.json",
@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "@alchemy.run/cloudflare": "2.0.0-beta.85",
-    "@rat-stack/core": "workspace:*",
+    "@hypertask-site/capability": "workspace:*",
+    "@hypertask-site/core": "workspace:*",
     "@stylexjs/stylex": "0.19.1",
     "alchemy": "2.0.0-beta.85",
     "effect": "4.1.2",
