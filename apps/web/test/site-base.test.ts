@@ -22,9 +22,19 @@ import { externalAddresses, headTags, internalAddresses } from "./home-page.js";
 
 const assets = {
   entryScript: "/assets/entry.js",
-  modulePreloads: [],
+  modulePreloads: ["/assets/chunk.js"],
   stylesheets: ["/assets/entry.css"],
 };
+
+const assetsAt = (basePath: string) => ({
+  entryScript: addSiteBasePath(basePath, assets.entryScript),
+  modulePreloads: assets.modulePreloads.map((preload) =>
+    addSiteBasePath(basePath, preload)
+  ),
+  stylesheets: assets.stylesheets.map((stylesheet) =>
+    addSiteBasePath(basePath, stylesheet)
+  ),
+});
 
 const mounted = "/ratstack";
 
@@ -38,7 +48,7 @@ const renderHome = (basePath: string) =>
       { isHydratable: false }
     );
 
-    return renderDocumentAt(basePath)(application, assets);
+    return renderDocumentAt(basePath)(application, assetsAt(basePath));
   });
 
 const renderShippedHome = () =>
