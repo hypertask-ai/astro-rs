@@ -23,7 +23,7 @@ const RecordedScript = Schema.Struct({
   graphType: Schema.NullOr(Schema.String),
   inline: Schema.String,
   order: Schema.Int,
-  place: Schema.Literal("head", "body"),
+  place: Schema.Literals(["head", "body"]),
   src: Schema.NullOr(Schema.String),
   type: Schema.NullOr(Schema.String),
 });
