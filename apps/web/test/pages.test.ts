@@ -3,12 +3,17 @@ import { Effect, Predicate } from "effect";
 import { renderToString } from "foldkit/experimental/server";
 
 import { initialModel, Message, update } from "../src/client/app/index.js";
-import { renderDocument, renderPage } from "../src/entry.server.js";
+import {
+  prerenderPaths,
+  renderDocument,
+  renderPage,
+} from "../src/entry.server.js";
 import { view as aboutView } from "../src/features/about/index.js";
 import { view as contactView } from "../src/features/contact/index.js";
 import type { PageView } from "../src/features/page/index.js";
 import { view as pricingView } from "../src/features/pricing/index.js";
 import { view as thankYouView } from "../src/features/thank-you/index.js";
+import { viewForPath } from "../src/routes.js";
 import aboutLive from "./fixtures/about-live.json" with { type: "json" };
 import contactLive from "./fixtures/contact-live.json" with { type: "json" };
 import pricingLive from "./fixtures/pricing-live.json" with { type: "json" };
@@ -97,23 +102,19 @@ const comparesLivePage = (
 };
 
 describe("page routes", () => {
-  it.effect("answers every page this step owns", () =>
-    Effect.gen(function* checkPages() {
-      for (const path of [
-        "/",
-        "/about/",
-        "/contact/",
-        "/pricing/",
-        "/thank-you/",
-      ]) {
-        const result = yield* Effect.promise(() =>
-          renderPage(new Request(`https://hypertask.ai${path}`))
-        );
+  const addresses = ["/", "/about/", "/contact/", "/pricing/", "/thank-you/"];
 
-        expect(Predicate.isTagged(result, "Rendered")).toBe(true);
-      }
-    })
-  );
+  it("prerenders every page this step owns", () => {
+    expect(prerenderPaths.toSorted()).toEqual(addresses.toSorted());
+  });
+
+  it("answers each page address with a view and nothing else", () => {
+    for (const address of addresses) {
+      expect(viewForPath(address)).toBeDefined();
+    }
+
+    expect(viewForPath("/nope/")).toBeUndefined();
+  });
 
   it.effect("sends an unknown address to the not found answer", () =>
     Effect.gen(function* checkMissing() {
