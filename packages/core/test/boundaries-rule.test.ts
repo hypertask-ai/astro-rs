@@ -83,9 +83,9 @@ describe("architecture boundary rules", () => {
       'type Client = import("effect/http/HttpClient").HttpClient;',
       'import * as client from "effect/unstable/http/HttpClient";',
       'export { HttpClientRequest } from "effect/unstable/http";',
-      'export * from "@rat-stack/subscriber-delivery";',
-      'const adapter = import("@rat-stack/subscriber-delivery");',
-      'const adapter = require("@rat-stack/subscriber-delivery");',
+      'export * from "@hypertask-site/subscriber-delivery";',
+      'const adapter = import("@hypertask-site/subscriber-delivery");',
+      'const adapter = require("@hypertask-site/subscriber-delivery");',
       'type Client = import("effect/unstable/http/HttpClient").HttpClient;',
       'import { provider } from "../../adapters/provider.js";',
       'import { provider } from "./vendor/provider.js";',
@@ -105,7 +105,7 @@ describe("architecture boundary rules", () => {
       'import { Effect } from "effect";',
       'import { types } from "xstate";',
       'import { createEffectActor } from "@xstate/effect";',
-      'import { defineContract } from "@rat-stack/capability/contract";',
+      'import { defineContract } from "@hypertask-site/capability/contract";',
       'import { SubscriberIntake } from "./interest-intake.js";',
     ]) {
       expect(lintFixture("packages/core/src", source).status).toBe(0);
@@ -223,7 +223,7 @@ describe("architecture boundary rules", () => {
     ["Cloudflare Workers", "cloudflare:workers"],
     ["server-only packages", "server-only"],
     ["server-marked modules", "./database.server.js"],
-    ["infra app modules", "@rat-stack/infra"],
+    ["infra app modules", "@hypertask-site/infra"],
   ])("blocks %s imports in feature modules", (_name, specifier) => {
     const result = lintFixture(
       "apps/cli/src/features",
@@ -265,7 +265,7 @@ describe("architecture boundary rules", () => {
     (area) => {
       const result = lintFixture(
         area,
-        'import * as contracts from "@rat-stack/core/contracts";\nimport { toRpcGroup } from "@rat-stack/capability/rpc-group";\n\nexport const browserContract = { contracts, toRpcGroup };\n'
+        'import * as contracts from "@hypertask-site/core/contracts";\nimport { toRpcGroup } from "@hypertask-site/capability/rpc-group";\n\nexport const browserContract = { contracts, toRpcGroup };\n'
       );
 
       expect(result.status).toBe(0);
@@ -282,11 +282,11 @@ describe("architecture boundary rules", () => {
   });
 
   it.each([
-    ["the core implementation barrel", "@rat-stack/core"],
+    ["the core implementation barrel", "@hypertask-site/core"],
     ["a renamed core implementation barrel", "@sample/core"],
     [
       "the capability implementation entry point",
-      "@rat-stack/capability/implement",
+      "@hypertask-site/capability/implement",
     ],
     [
       "a renamed capability implementation entry point",
@@ -636,17 +636,17 @@ describe("architecture boundary rules", () => {
   it("allows devtools in a dev folder, the CLI, and tests", () => {
     const dev = lintFixture(
       "apps/web/src/dev",
-      'import { ratTestPerson, runAsPerson } from "@rat-stack/auth/devtools";\nimport { devtools } from "@rat-stack/devtools";\n\nexport const wiring = { devtools, ratTestPerson, runAsPerson };\n'
+      'import { ratTestPerson, runAsPerson } from "@hypertask-site/auth/devtools";\nimport { devtools } from "@hypertask-site/devtools";\n\nexport const wiring = { devtools, ratTestPerson, runAsPerson };\n'
     );
 
     const cli = lintFixture(
       "apps/cli/src",
-      'import { devtools } from "@rat-stack/devtools";\n\nexport const tools = devtools;\n'
+      'import { devtools } from "@hypertask-site/devtools";\n\nexport const tools = devtools;\n'
     );
 
     const test = lintFixture(
       "apps/web/test",
-      'import { devtools } from "@rat-stack/devtools";\n\nexport const tools = devtools;\n'
+      'import { devtools } from "@hypertask-site/devtools";\n\nexport const tools = devtools;\n'
     );
 
     expect(dev.status).toBe(0);

@@ -1,4 +1,4 @@
-import { watchActor } from "@rat-stack/capability/actor-watch";
+import { watchActor } from "@hypertask-site/capability/actor-watch";
 import {
   createEffectActor,
   createEffectLogic,
@@ -24,7 +24,7 @@ export class ConsentStore extends Context.Service<
     readonly read: Effect.Effect<ConsentChoice | undefined>;
     readonly save: (choice: ConsentChoice) => Effect.Effect<void>;
   }
->()("@rat-stack/core/ConsentStore") {}
+>()("@hypertask-site/core/ConsentStore") {}
 
 const restoreConsent = createEffectLogic({
   effect: Effect.gen(function* restoreConsent() {
