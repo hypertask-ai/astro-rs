@@ -60,9 +60,9 @@ const bulletRun = (
 ): readonly Bullet[] => {
   const rest = blocks.slice(start);
   const stop = rest.findIndex((block) => block.kind !== "bullet");
-  const run = stop === -1 ? rest : rest.slice(0, stop);
+  const leading = stop === -1 ? rest : rest.slice(0, stop);
 
-  return run.filter(isBullet);
+  return leading.filter(isBullet);
 };
 
 const list = (
