@@ -13,8 +13,10 @@ export type Inline =
   | Readonly<{ href: string; kind: "link"; label: string }>
   | Readonly<{ kind: "text"; text: string }>;
 
+export type Bullet = Readonly<{ kind: "bullet"; runs: readonly Inline[] }>;
+
 export type Prose =
-  | Readonly<{ kind: "bullet"; runs: readonly Inline[] }>
+  | Bullet
   | Readonly<{ kind: "heading"; text: string }>
   | Readonly<{ kind: "lines"; runs: readonly Inline[] }>
   | Readonly<{ kind: "paragraph"; runs: readonly Inline[] }>;
@@ -50,14 +52,17 @@ const spaced = (
     index === 0 ? [run(h, entry)] : [h.br([]), run(h, entry)]
   );
 
+const isBullet = (block: Prose): block is Bullet => block.kind === "bullet";
+
 const bulletRun = (
   blocks: readonly Prose[],
   start: number
-): readonly Prose[] => {
+): readonly Bullet[] => {
   const rest = blocks.slice(start);
   const stop = rest.findIndex((block) => block.kind !== "bullet");
+  const run = stop === -1 ? rest : rest.slice(0, stop);
 
-  return stop === -1 ? rest : rest.slice(0, stop);
+  return run.filter(isBullet);
 };
 
 const list = (
