@@ -10,7 +10,6 @@
     "check": "pnpm run typecheck",
     "test": "vitest run",
     "plan": "alchemy plan",
-    "plan:live": "alchemy plan alchemy.live.ts --stage prod",
     "deploy": "alchemy deploy",
     "destroy": "alchemy destroy",
     "dev": "alchemy dev",

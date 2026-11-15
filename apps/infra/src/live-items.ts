@@ -1,4 +1,26 @@
-export const liveAccountId = "6031a7dff0d4a6469414cfa8a6dedddf";
+export type LiveSettingSurface =
+  | "github-secret"
+  | "pages-variable"
+  | "worker-secret";
+
+export interface LiveSetting {
+  readonly name: string;
+  readonly purpose: string;
+  readonly sensitive: boolean;
+  readonly surface: LiveSettingSurface;
+}
+
+export interface LiveResource {
+  readonly action: "adopt";
+  readonly declareIn: string;
+  readonly declaredInStack: false;
+  readonly logicalId: string;
+  readonly name: string;
+  readonly purpose: string;
+  readonly type: string;
+}
+
+export const liveSwitchTicket = "HTPR-9149";
 
 export const liveZoneName = "hypertask.ai";
 
@@ -10,50 +32,78 @@ export const livePagesTarget = "hypertask-website-c7j.pages.dev";
 
 export const liveDomains = ["hypertask.ai", "www.hypertask.ai"] as const;
 
-export const liveSecretNames = {
-  githubActionsOldSite: ["CLOUDFLARE_API_TOKEN"],
-  pagesProjectEnvVars: [],
-  workerSecrets: [],
-} as const;
-
-export const liveAllowedTypes = [
+export const liveResourceTypes = [
   "Cloudflare.Zone.Zone",
   "Cloudflare.Pages.Project",
   "Cloudflare.Pages.Domain",
   "Cloudflare.DNS.Record",
 ] as const;
 
-export const liveLogicalIds = [
-  "HypertaskAiZone",
-  "HypertaskWebsiteProject",
-  "ApexDomain",
-  "WwwDomain",
-  "ApexRecord",
-  "WwwRecord",
-] as const;
+export const liveResources: readonly LiveResource[] = [
+  {
+    action: "adopt",
+    declareIn: liveSwitchTicket,
+    declaredInStack: false,
+    logicalId: "HypertaskAiZone",
+    name: liveZoneName,
+    purpose: "The live DNS zone that serves hypertask.ai.",
+    type: "Cloudflare.Zone.Zone",
+  },
+  {
+    action: "adopt",
+    declareIn: liveSwitchTicket,
+    declaredInStack: false,
+    logicalId: "HypertaskWebsiteProject",
+    name: liveProjectName,
+    purpose: `The live Pages project that serves the old site from branch ${liveProjectBranch}.`,
+    type: "Cloudflare.Pages.Project",
+  },
+  {
+    action: "adopt",
+    declareIn: liveSwitchTicket,
+    declaredInStack: false,
+    logicalId: "ApexDomain",
+    name: liveDomains[0],
+    purpose:
+      "The custom domain binding that serves the apex from the Pages project.",
+    type: "Cloudflare.Pages.Domain",
+  },
+  {
+    action: "adopt",
+    declareIn: liveSwitchTicket,
+    declaredInStack: false,
+    logicalId: "WwwDomain",
+    name: liveDomains[1],
+    purpose:
+      "The custom domain binding that serves the www host from the Pages project.",
+    type: "Cloudflare.Pages.Domain",
+  },
+  {
+    action: "adopt",
+    declareIn: liveSwitchTicket,
+    declaredInStack: false,
+    logicalId: "ApexRecord",
+    name: liveZoneName,
+    purpose: `The proxied apex CNAME that points at ${livePagesTarget}.`,
+    type: "Cloudflare.DNS.Record",
+  },
+  {
+    action: "adopt",
+    declareIn: liveSwitchTicket,
+    declaredInStack: false,
+    logicalId: "WwwRecord",
+    name: `www.${liveZoneName}`,
+    purpose: `The proxied www CNAME that points at ${livePagesTarget}.`,
+    type: "Cloudflare.DNS.Record",
+  },
+];
 
-export const secretNamePattern = /^[A-Z][A-Z0-9_]*$/u;
-
-interface LiveResource {
-  readonly Type: string;
-  readonly LogicalId: string;
-  readonly RemovalPolicy: string;
-  readonly Adopt: boolean | undefined;
-}
-
-export const liveResourcesAdoptOnly = (
-  resources: Readonly<Record<string, LiveResource>>
-): boolean => {
-  const entries = Object.values(resources);
-
-  return (
-    entries.length === liveLogicalIds.length &&
-    entries.every(
-      (resource) =>
-        liveAllowedTypes.some((type) => type === resource.Type) &&
-        liveLogicalIds.some((id) => id === resource.LogicalId) &&
-        resource.RemovalPolicy === "retain" &&
-        resource.Adopt === true
-    )
-  );
-};
+export const liveSettings: readonly LiveSetting[] = [
+  {
+    name: "CLOUDFLARE_API_TOKEN",
+    purpose:
+      "The Cloudflare API token the old site deploy workflow uses to upload the build and purge the edge cache.",
+    sensitive: true,
+    surface: "github-secret",
+  },
+];
