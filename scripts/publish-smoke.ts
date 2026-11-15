@@ -44,7 +44,7 @@ const get = async (address: string): Promise<Answer> => {
   // @effect-diagnostics-next-line globalFetch:off -- This publish check fetches live addresses outside an Effect runtime, as rat-stack's other Node tools do.
   const response = await fetch(address, { redirect: "follow" });
   const body = await response.text();
-  const title = body.match(/<title>(?<title>[^<]*)<\/title>/u)?.groups?.title;
+  const title = /<title>(?<title>[^<]*)<\/title>/u.exec(body)?.groups?.title;
 
   return {
     robots: response.headers.get("x-robots-tag"),
@@ -63,7 +63,7 @@ const probe = async (address: string, remaining: number): Promise<Answer> => {
 
   await delay(waitMilliseconds);
 
-  return probe(address, remaining - 1);
+  return await probe(address, remaining - 1);
 };
 
 const walk = (current: string): readonly string[] =>
