@@ -6,20 +6,29 @@
   }
 
   html {
-    background: #ffffff;
-    color: #111111;
-    color-scheme: light;
+    background: #000000;
+    color: #fafafa;
+    color-scheme: dark;
   }
 
   body {
     margin: 0;
     font-family:
-      ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+      Roboto, sans-serif;
     line-height: 1.5;
   }
 
   :focus-visible {
-    outline: 2px solid #111111;
+    outline: 2px solid #ffffff;
     outline-offset: 3px;
   }
+}
+
+#chat-widget-btn {
+  width: 56px !important;
+  height: 56px !important;
+  border-radius: 50% !important;
+  right: max(24px, env(safe-area-inset-right)) !important;
+  bottom: max(24px, env(safe-area-inset-bottom)) !important;
 }
