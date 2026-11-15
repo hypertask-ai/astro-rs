@@ -13,10 +13,13 @@ const assets = {
 };
 
 const renderHome = Effect.fn("test.renderHome")(function* renderHome() {
-  const application = yield* renderToString({
-    init: () => ({ model: initialModel }),
-    view,
-  });
+  const application = yield* renderToString(
+    {
+      init: () => ({ model: initialModel }),
+      view,
+    },
+    { isHydratable: false }
+  );
 
   return renderDocument(application, assets);
 });
