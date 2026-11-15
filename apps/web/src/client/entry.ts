@@ -1,8 +1,8 @@
 import { Runtime } from "foldkit";
 
 import { view as homeView } from "../features/home/index.js";
-import { startAnalytics } from "./analytics/index.js";
 import { viewForPath } from "../routes.js";
+import { startAnalytics } from "./analytics/index.js";
 import {
   initialModel,
   LoadConsent,
