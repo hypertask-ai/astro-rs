@@ -9,7 +9,7 @@ const commandNames = (result: ReturnType<typeof update>): readonly string[] =>
 const resolved = (
   analyticsAllowed: boolean,
   bannerVisible: boolean,
-  choice: "all" | "essential" | undefined
+  choice?: "all" | "essential"
 ) => Message.ConsentResolved({ analyticsAllowed, bannerVisible, choice });
 
 describe("cookie consent choices", () => {
@@ -20,7 +20,7 @@ describe("cookie consent choices", () => {
   });
 
   it("asks a visitor with no stored choice", () => {
-    const asked = update(initialModel, resolved(false, true, undefined)).model;
+    const asked = update(initialModel, resolved(false, true)).model;
 
     expect(asked.bannerVisible).toBe(true);
     expect(Option.isNone(asked.choice)).toBe(true);
@@ -72,13 +72,12 @@ describe("cookie consent choices", () => {
   });
 
   it("returns focus to the footer settings button once a choice hides the banner", () => {
-    const asked = update(initialModel, resolved(false, true, undefined)).model;
+    const asked = update(initialModel, resolved(false, true)).model;
     const chosen = update(asked, resolved(false, false, "essential"));
+    const restored = update(initialModel, resolved(true, false, "all"));
 
     expect(commandNames(chosen)).toStrictEqual(["FocusCookieSettings"]);
-    expect(
-      commandNames(update(initialModel, resolved(true, false, "all")))
-    ).toStrictEqual([]);
+    expect(commandNames(restored)).toStrictEqual([]);
   });
 
   it("takes a later choice over an earlier one", () => {

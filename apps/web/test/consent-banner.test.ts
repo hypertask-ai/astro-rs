@@ -46,9 +46,11 @@ const openingTag = (markup: string): string =>
   markup.slice(0, markup.indexOf(">"));
 
 const analyticsScriptSources = (html: string): readonly string[] =>
-  [...html.matchAll(/<script[^>]*\ssrc="(?<src>[^"]+)"/gu)]
-    .map((match) => match.groups?.src ?? "")
-    .filter((src) => /analytics|fathom|posthog|relay/iu.test(src));
+  [...html.matchAll(/<script[^>]*\ssrc="(?<src>[^"]+)"/gu)].flatMap((match) => {
+    const source = match.groups?.src ?? "";
+
+    return /analytics|fathom|posthog|relay/iu.test(source) ? [source] : [];
+  });
 
 const visibleModel: AppModel = { ...initialModel, bannerVisible: true };
 

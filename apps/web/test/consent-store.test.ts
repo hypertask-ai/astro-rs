@@ -73,7 +73,7 @@ const makeJar = () => {
   const names = (): readonly string[] =>
     [...cookies.values()].map((cookie) => cookie.name).toSorted();
 
-  return { find, names, read, seed, writes, write };
+  return { find, names, read, seed, write, writes };
 };
 
 const makeStorage = (initial: Readonly<Record<string, string>>) => {
