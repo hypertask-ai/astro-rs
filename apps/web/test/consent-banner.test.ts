@@ -60,14 +60,16 @@ describe("cookie banner markup", () => {
       const markup = bannerMarkup(yield* renderPage(initialModel));
 
       expect(openingTag(markup)).toMatch(/\shidden(?=["\s>])/u);
-    }));
+    })
+  );
 
   it.effect("renders visible when the visitor has no stored choice", () =>
     Effect.gen(function* shown() {
       const markup = bannerMarkup(yield* renderPage(visibleModel));
 
       expect(openingTag(markup)).not.toMatch(/\shidden(?=["\s>])/u);
-    }));
+    })
+  );
 
   it.effect("is one labelled region named the way the old site named it", () =>
     Effect.gen(function* labelled() {
@@ -76,7 +78,8 @@ describe("cookie banner markup", () => {
       expect(openingTag(markup)).toContain('role="region"');
       expect(openingTag(markup)).toContain(`aria-label="${bannerLabel}"`);
       expect(bannerLabel).toBe("Cookie preferences");
-    }));
+    })
+  );
 
   it.effect("says the old words and links the privacy policy", () =>
     Effect.gen(function* words() {
@@ -93,7 +96,8 @@ describe("cookie banner markup", () => {
       expect(markup).toContain(`>${privacyLabel}</a>`);
       expect(privacyLabel).toBe("Privacy policy");
       expect(privacyHref).toBe("/privacy/");
-    }));
+    })
+  );
 
   it.effect("offers Accept and Reject as two equal plain buttons", () =>
     Effect.gen(function* buttons() {
@@ -104,7 +108,8 @@ describe("cookie banner markup", () => {
       expect(markup).toContain('type="button"');
       expect(markup).toContain(">Accept</button>");
       expect(markup).toContain(">Reject</button>");
-    }));
+    })
+  );
 
   it.effect("loads no analytics script before the visitor chooses", () =>
     Effect.gen(function* noEarlyScript() {
@@ -113,5 +118,6 @@ describe("cookie banner markup", () => {
 
       expect(analyticsScriptSources(asked)).toStrictEqual([]);
       expect(analyticsScriptSources(decided)).toStrictEqual([]);
-    }));
+    })
+  );
 });
