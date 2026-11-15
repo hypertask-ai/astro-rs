@@ -46,13 +46,25 @@ const attributesOf = (source: string): ReadonlyMap<string, string> =>
 const namedEntities = new Map<string, string>([
   ["amp", "&"],
   ["apos", "'"],
+  ["bull", "•"],
   ["copy", "©"],
+  ["deg", "°"],
   ["gt", ">"],
+  ["hellip", "…"],
+  ["larr", "←"],
+  ["ldquo", "“"],
+  ["lsquo", "‘"],
   ["lt", "<"],
+  ["mdash", "—"],
+  ["middot", "·"],
   ["minus", "−"],
   ["nbsp", "\u00A0"],
+  ["ndash", "–"],
   ["quot", '"'],
+  ["rarr", "→"],
+  ["rdquo", "”"],
   ["rsquo", "’"],
+  ["times", "×"],
 ]);
 
 const numericEntity = (name: string): string => {
@@ -112,7 +124,9 @@ export const headings = (html: string): readonly string[] =>
     ),
   ].map(
     (match) =>
-      `h${match.groups?.level}: ${inlineText(match.groups?.text ?? "")}`
+      `h${match.groups?.level}: ${inlineText(
+        (match.groups?.text ?? "").replaceAll(/<!--[\s\S]*?-->/gu, "")
+      )}`
   );
 
 export const linkTargets = (html: string): readonly string[] =>
@@ -126,7 +140,7 @@ export const images = (html: string): readonly HomeImage[] =>
       const attributes = attributesOf(match.groups?.attributes ?? "");
 
       return {
-        alt: attributes.get("alt") ?? "",
+        alt: decodeEntities(attributes.get("alt") ?? ""),
         fetchpriority: attributes.get("fetchpriority") ?? "",
         height: attributes.get("height") ?? "",
         loading: attributes.get("loading") ?? "",

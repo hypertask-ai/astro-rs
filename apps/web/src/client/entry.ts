@@ -1,6 +1,7 @@
 import { Runtime } from "foldkit";
 
-import { view } from "../features/home/index.js";
+import { view as homeView } from "../features/home/index.js";
+import { viewForPath } from "../routes.js";
 import {
   initialModel,
   LoadConsent,
@@ -24,7 +25,7 @@ const application = Runtime.makeApplication({
   }),
   subscriptions,
   update,
-  view,
+  view: viewForPath(window.location.pathname) ?? homeView,
 });
 
 Runtime.hydrate(application);

@@ -19,11 +19,13 @@ export const Message = defineMessageUnion({
   OpenedCookieSettings: {},
   PressedCopyInstallCommand: {},
   PressedLoginKey: {},
+  PressedTestimonialDot: { index: Schema.Number },
   Ready: {},
   ResetCopyLabel: {},
   Scrolled: { scrolled: Schema.Boolean },
   SelectedBillingPeriod: { period: BillingPeriodSchema },
   SelectedInstallTab: { tab: InstallTabSchema },
+  SelectedTestimonialSlide: { index: Schema.Number },
   ToggledMenu: {},
 });
 

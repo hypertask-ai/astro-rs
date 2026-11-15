@@ -232,7 +232,10 @@ const plan = (
     ]
   );
 
-const pricing = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
+export const pricingModule = (
+  model: AppModel,
+  h: HtmlBuilder<AppMessage>
+): Html =>
   h.div(
     [h.Class(classes(styles.pricing))],
     [
@@ -280,7 +283,7 @@ export const view = (
       frame(model, h, "home", [
         h.div(
           [h.Class(classes(styles.page))],
-          [hero(h), byoa(model, h), pricing(model, h)]
+          [hero(h), byoa(model, h), pricingModule(model, h)]
         ),
       ]),
       consentBanner(model, h),
