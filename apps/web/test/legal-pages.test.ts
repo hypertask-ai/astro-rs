@@ -1,12 +1,13 @@
 import { describe, expect, it } from "@effect/vitest";
-import { Effect, Predicate } from "effect";
+import { Effect } from "effect";
 import { renderToString } from "foldkit/experimental/server";
 
 import { initialModel } from "../src/client/app/index.js";
-import { renderDocument, renderPage } from "../src/entry.server.js";
+import { prerenderPaths, renderDocument } from "../src/entry.server.js";
 import type { PageView } from "../src/features/page/index.js";
 import { view as privacyView } from "../src/features/privacy/index.js";
 import { view as termsView } from "../src/features/terms/index.js";
+import { viewForPath } from "../src/routes.js";
 import privacyLive from "./fixtures/privacy-live.json" with { type: "json" };
 import termsLive from "./fixtures/terms-live.json" with { type: "json" };
 import {
@@ -93,17 +94,21 @@ const comparesLivePage = (
 };
 
 describe("legal page routes", () => {
-  it.effect("answers both pages this step owns", () =>
-    Effect.gen(function* checkPages() {
-      for (const path of ["/privacy/", "/terms/"]) {
-        const result = yield* Effect.promise(() =>
-          renderPage(new Request(`https://hypertask.ai${path}`))
-        );
+  const addresses = ["/privacy/", "/terms/"];
 
-        expect(Predicate.isTagged(result, "Rendered")).toBe(true);
-      }
-    })
-  );
+  it("prerenders both pages this step owns", () => {
+    expect(prerenderPaths.toSorted()).toEqual(
+      ["/", "/privacy/", "/terms/"].toSorted()
+    );
+  });
+
+  it("answers each page address with its own view", () => {
+    expect(addresses.map((address) => viewForPath(address))).toEqual([
+      privacyView,
+      termsView,
+    ]);
+    expect(viewForPath("/nope/")).toBeUndefined();
+  });
 });
 
 comparesLivePage("privacy page", privacyView, privacyLive);
