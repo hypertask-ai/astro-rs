@@ -85,6 +85,7 @@ describe("cookie consent choices", () => {
       initialModel,
       resolved(false, false, "essential")
     ).model;
+
     const reopened = update(rejected, Message.OpenedCookieSettings()).model;
 
     expect(commandNames(update(reopened, Message.ChoseAll()))).toStrictEqual([
