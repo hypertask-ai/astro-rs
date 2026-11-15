@@ -136,6 +136,16 @@ const pages = {
       "Simple, transparent pricing for AI-powered project management. Get started free with Hypertask.",
     title: "Hypertask Pricing — Free & Paid AI Project Management Plans",
   },
+  "/privacy/": {
+    description:
+      "Hypertask Lab Ltd. Privacy Policy. Learn how we collect, use, and protect your personal information.",
+    title: "Privacy Policy - Hypertask",
+  },
+  "/terms/": {
+    description:
+      "Terms of Service for Hypertask Lab Ltd. Read our terms governing the use of hypertask.ai.",
+    title: "Terms of Service - Hypertask",
+  },
   "/thank-you/": {
     description: "Your demo has been scheduled successfully.",
     noindex: true,

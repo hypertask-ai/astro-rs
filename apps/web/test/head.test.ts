@@ -91,8 +91,8 @@ const expectedMeta = (old: OldHead): ReadonlyMap<string, string> =>
   );
 
 describe("page head", () => {
-  it("covers the six sample pages", () => {
-    expect(samplePaths).toHaveLength(6);
+  it("covers the eight sample pages", () => {
+    expect(samplePaths).toHaveLength(8);
     expect([...pageHeads.keys()].toSorted()).toEqual(samplePaths.toSorted());
   });
 
