@@ -44,6 +44,44 @@ export const securityHeaderLines: readonly string[] = [
 const requiredHeaderLines = (preview: boolean): readonly string[] =>
   preview ? [...securityHeaderLines, noindexHeaderLine] : securityHeaderLines;
 
+interface HeaderBlock {
+  readonly lines: readonly string[];
+  readonly pattern: string;
+}
+
+const headerBlocks = (file: string): readonly HeaderBlock[] => {
+  const blocks: { lines: string[]; pattern: string }[] = [];
+
+  for (const raw of file.split("\n")) {
+    const line = raw.trim();
+
+    if (line === "") {
+      continue;
+    }
+
+    if (raw === line) {
+      blocks.push({ lines: [], pattern: line });
+
+      continue;
+    }
+
+    const last = blocks.at(-1);
+
+    if (last !== undefined) {
+      last.lines.push(line);
+    }
+  }
+
+  return blocks;
+};
+
+const renderHeaderBlocks = (blocks: readonly HeaderBlock[]): string =>
+  `${blocks
+    .map((block) =>
+      [block.pattern, ...block.lines.map((line) => `  ${line}`)].join("\n")
+    )
+    .join("\n\n")}\n`;
+
 const legacySources = new Set(
   legacyRedirects.map((redirect) => redirect.source)
 );
@@ -93,18 +131,29 @@ export const redirectsFile = (
     .join("\n")}\n`;
 
 export const headersFile = (existing: string, preview = false): string => {
-  const missing = requiredHeaderLines(preview).filter(
-    (line) => !existing.includes(line)
-  );
+  const required = requiredHeaderLines(preview);
+  const blocks = headerBlocks(existing);
+  const root = blocks.find((block) => block.pattern === "/*");
 
-  if (missing.length === 0) {
-    return existing;
+  if (root === undefined) {
+    const block = `/*\n${required.map((line) => `  ${line}`).join("\n")}\n`;
+    const separator = existing === "" || existing.endsWith("\n") ? "" : "\n";
+
+    return `${existing}${separator}${existing === "" ? "" : "\n"}${block}`;
   }
 
-  const block = `/*\n${missing.map((line) => `  ${line}`).join("\n")}\n`;
-  const separator = existing === "" || existing.endsWith("\n") ? "" : "\n";
+  const merged = [
+    ...root.lines,
+    ...required.filter((line) => !root.lines.includes(line)),
+  ];
 
-  return `${existing}${separator}${existing === "" ? "" : "\n"}${block}`;
+  return merged.length === root.lines.length
+    ? existing
+    : renderHeaderBlocks(
+        blocks.map((block) =>
+          block === root ? { lines: merged, pattern: block.pattern } : block
+        )
+      );
 };
 
 export type LegacyAnswer =

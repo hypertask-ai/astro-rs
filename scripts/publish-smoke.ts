@@ -41,6 +41,7 @@ const settled = (answer: Answer): boolean =>
 
 // @effect-diagnostics-next-line asyncFunction:off -- This script awaits live HTTP answers outside any Effect runtime.
 const get = async (address: string): Promise<Answer> => {
+  // @effect-diagnostics-next-line globalFetch:off -- This publish check fetches live addresses outside an Effect runtime, as rat-stack's other Node tools do.
   const response = await fetch(address, { redirect: "follow" });
   const body = await response.text();
   const title = body.match(/<title>(?<title>[^<]*)<\/title>/u)?.groups?.title;

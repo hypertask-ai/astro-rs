@@ -120,6 +120,33 @@ describe("site base path", () => {
     expect(headersFile("", false)).not.toContain("X-Robots-Tag");
   });
 
+  it("keeps every security header in the root block when another block already has it", () => {
+    const shipped =
+      "/install\n  Content-Type: text/plain; charset=utf-8\n  X-Content-Type-Options: nosniff\n";
+
+    const preview = headersFile(shipped, true);
+    const rootBlock = preview.split("\n\n").at(-1) ?? "";
+
+    for (const line of securityHeaderLines) {
+      expect(rootBlock).toContain(`  ${line}`);
+    }
+
+    expect(rootBlock).toContain("  X-Robots-Tag: noindex");
+    expect(headersFile(shipped, false).split("\n\n").at(-1)).toContain(
+      "  X-Content-Type-Options: nosniff"
+    );
+  });
+
+  it("rewrites an existing root block in place instead of adding a second one", () => {
+    const shipped = "/*\n  Strict-Transport-Security: max-age=31536000\n";
+    const preview = headersFile(shipped, true);
+
+    expect(preview).toContain("  X-Content-Type-Options: nosniff");
+    expect(preview).toContain("  X-Robots-Tag: noindex");
+    expect(preview.split("/*").length).toBe(2);
+    expect(headersFile(preview, true)).toBe(preview);
+  });
+
   it("serves every redirect inside the prefix", () => {
     const preview = redirectsFile(["/"], basePath);
 
