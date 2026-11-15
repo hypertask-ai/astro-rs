@@ -3,13 +3,13 @@ import { DateTime, Option, Schema } from "effect";
 import { ConsentChoiceSchema } from "../../consent/index.js";
 import { copyLabel } from "../../features/home/copy.js";
 
-export const InstallTabSchema = Schema.Literal(
+export const InstallTabSchema = Schema.Literals([
   "mcp",
   "cli-unix",
-  "cli-windows"
-);
+  "cli-windows",
+]);
 
-export const BillingPeriodSchema = Schema.Literal("monthly", "yearly");
+export const BillingPeriodSchema = Schema.Literals(["monthly", "yearly"]);
 
 export type InstallTab = Schema.Schema.Type<typeof InstallTabSchema>;
 
