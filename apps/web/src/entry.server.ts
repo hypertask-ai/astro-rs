@@ -41,7 +41,9 @@ const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
     view,
   });
 
-  return Rendered(application, { headers: homeAnswerHeaders });
+  return prerenderPaths.includes(pathname)
+    ? Rendered(application)
+    : Rendered(application, { headers: homeAnswerHeaders });
 });
 
 export const renderPage = (request: Request) =>
