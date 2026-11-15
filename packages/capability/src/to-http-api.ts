@@ -393,7 +393,7 @@ const provideMiddleware = (
   index: number
 ): HostMiddleware => {
   const key = HttpApiMiddleware.Service<HostMiddleware>()(
-    `@rat-stack/capability/${id}/provide/${String(index)}`,
+    `@hypertask-site/capability/${id}/provide/${String(index)}`,
     { error: hook.failure }
   );
 
@@ -423,7 +423,7 @@ const refusalMiddleware = (
   ) => Effect.Effect<HttpServerResponse.HttpServerResponse>
 ): HostMiddleware => {
   const key = HttpApiMiddleware.Service<HostMiddleware>()(
-    `@rat-stack/capability/${id}/decode-refusal`
+    `@hypertask-site/capability/${id}/decode-refusal`
   );
 
   const layer = HttpApiMiddleware.layerSchemaErrorTransform(key, (refusal) =>
