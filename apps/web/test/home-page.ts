@@ -1,0 +1,175 @@
+export interface HomeImage {
+  readonly alt: string;
+  readonly fetchpriority: string;
+  readonly height: string;
+  readonly loading: string;
+  readonly src: string;
+  readonly width: string;
+}
+
+export interface HeadTags {
+  readonly canonical: string;
+  readonly meta: Readonly<Record<string, string>>;
+  readonly title: string;
+}
+
+const comparedMetaKeys = [
+  "description",
+  "robots",
+  "og:title",
+  "og:description",
+  "og:image",
+  "og:image:alt",
+  "og:url",
+  "og:type",
+  "og:site_name",
+  "twitter:card",
+  "twitter:title",
+  "twitter:description",
+  "twitter:image",
+  "twitter:image:alt",
+] as const;
+
+const attributePattern = /(?<key>[a-z][\w:-]*)\s*=\s*"(?<value>[^"]*)"/giu;
+
+const attributesOf = (source: string): ReadonlyMap<string, string> =>
+  new Map(
+    [...source.matchAll(attributePattern)].map(
+      (match) =>
+        [
+          (match.groups?.key ?? "").toLowerCase(),
+          match.groups?.value ?? "",
+        ] as const
+    )
+  );
+
+const namedEntities: Readonly<Record<string, string>> = {
+  amp: "&",
+  apos: "'",
+  copy: "©",
+  gt: ">",
+  lt: "<",
+  minus: "−",
+  nbsp: "\u00a0",
+  quot: '"',
+  rsquo: "’",
+};
+
+const numericEntity = (name: string): string => {
+  const code = name.toLowerCase().startsWith("#x")
+    ? Number.parseInt(name.slice(2), 16)
+    : Number.parseInt(name.slice(1), 10);
+
+  return Number.isNaN(code) ? `&${name};` : String.fromCodePoint(code);
+};
+
+const decodeEntities = (value: string): string =>
+  value.replace(
+    /&(?<name>#\d+|#x[0-9a-f]+|[a-z]+);/giu,
+    (whole: string, name: string): string => {
+      const folded = name.toLowerCase();
+
+      if (name.startsWith("#")) {
+        return numericEntity(name);
+      }
+
+      return namedEntities[folded] ?? whole;
+    }
+  );
+
+const bodyOf = (html: string): string => {
+  const start = html.indexOf("<body");
+  const end = html.indexOf("</body>");
+
+  return start === -1 || end === -1 ? "" : html.slice(start, end);
+};
+
+const withoutCookieBanner = (html: string): string =>
+  html.replace(
+    /<section\b[^>]*id="cookie-consent"[^>]*>[\s\S]*?<\/section>/gu,
+    ""
+  );
+
+const withoutNoise = (html: string): string =>
+  withoutCookieBanner(bodyOf(html))
+    .replace(/<!--[\s\S]*?-->/gu, "")
+    .replace(/<(script|style|template)\b[^>]*>[\s\S]*?<\/\1>/gu, "");
+
+const inlineText = (html: string): string =>
+  decodeEntities(html.replace(/<[^>]+>/gu, " "))
+    .replace(/\s+/gu, " ")
+    .trim();
+
+export const visibleText = (html: string): readonly string[] =>
+  withoutNoise(html)
+    .replace(/<[^>]+>/gu, "\n")
+    .split("\n")
+    .map((line) => decodeEntities(line).replace(/\s+/gu, " ").trim())
+    .filter((line) => line !== "");
+
+export const headings = (html: string): readonly string[] =>
+  [
+    ...bodyOf(html).matchAll(
+      /<h(?<level>[1-6])\b[^>]*>(?<text>[\s\S]*?)<\/h[1-6]>/gu
+    ),
+  ].map(
+    (match) =>
+      `h${match.groups?.level}: ${inlineText(match.groups?.text ?? "")}`
+  );
+
+export const linkTargets = (html: string): readonly string[] =>
+  [...withoutNoise(html).matchAll(/<a\b(?<attributes>[^>]*)>/gu)].map(
+    (match) => attributesOf(match.groups?.attributes ?? "").get("href") ?? ""
+  );
+
+export const images = (html: string): readonly HomeImage[] =>
+  [...withoutNoise(html).matchAll(/<img\b(?<attributes>[^>]*)>/gu)].map(
+    (match) => {
+      const attributes = attributesOf(match.groups?.attributes ?? "");
+
+      return {
+        alt: attributes.get("alt") ?? "",
+        fetchpriority: attributes.get("fetchpriority") ?? "",
+        height: attributes.get("height") ?? "",
+        loading: attributes.get("loading") ?? "",
+        src: decodeURI(attributes.get("src") ?? ""),
+        width: attributes.get("width") ?? "",
+      };
+    }
+  );
+
+export const headTags = (html: string): HeadTags => {
+  const start = html.indexOf("<head");
+  const end = html.indexOf("</head>");
+  const head = start === -1 || end === -1 ? "" : html.slice(start, end);
+
+  const metas = new Map(
+    [...head.matchAll(/<meta\b(?<attributes>[^>]*)>/gu)].flatMap((match) => {
+      const attributes = attributesOf(match.groups?.attributes ?? "");
+      const key = attributes.get("name") ?? attributes.get("property");
+      const content = attributes.get("content");
+
+      return key === undefined || content === undefined
+        ? []
+        : [[key, decodeEntities(content)] as const];
+    })
+  );
+
+  const canonical = [...head.matchAll(/<link\b(?<attributes>[^>]*)>/gu)]
+    .map((match) => attributesOf(match.groups?.attributes ?? ""))
+    .find((attributes) => attributes.get("rel") === "canonical");
+
+  const title = /<title\b[^>]*>(?<text>[\s\S]*?)<\/title>/u.exec(head);
+
+  return {
+    canonical: decodeURI(canonical?.get("href") ?? ""),
+    meta: Object.fromEntries(
+      comparedMetaKeys.flatMap((key) => {
+        const value = metas.get(key);
+
+        return value === undefined ? [] : [[key, value] as const];
+      })
+    ),
+    title: decodeEntities(title?.groups?.text ?? "").trim(),
+  };
+};
