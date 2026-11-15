@@ -147,6 +147,10 @@ Preserve existing work. Inspect status before editing, stage only files changed 
 
 A child project replaces this section on day one with its own product rules. These rules describe the rat-stack template, not the product in a clone. Keep durable product intent in `VISION.md`.
 
+| Rule | Enforced by |
+| --- | --- |
+| Every customer facing page loads Fathom; no page names Google Analytics. | `apps/web/test/analytics-on-every-page.test.ts` |
+
 - One contract, every surface. Define schemas and metadata with `defineContract`; bind a server-side handler with `implement` and add the capability to `capabilities`. CLI, HTTP, MCP, RPC, and code mode are projections in `packages/capability`. Do not add a command, route, or tool handler that bypasses a capability.
 - Schemas are the contract. Input, output, and failure are Effect `Schema`; JSON Schema, OpenAPI, and the code-mode declarations are derived from them, never hand-written.
 - Lifecycles are machines. Finite modes, retries, and cancellation live in XState machines started with `createEffectActor`; side effects live in declared `createEffectLogic` actors, never inline.
