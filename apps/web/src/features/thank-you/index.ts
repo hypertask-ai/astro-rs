@@ -25,7 +25,7 @@ export const view = (model: AppModel, h: HtmlBuilder<AppMessage>): Document =>
           h.div(
             [h.Class(classes(styles.card))],
             [
-              h.div([h.AriaHidden(true), h.Class(classes(styles.fade))], []),
+              h.div([h.AriaHidden(true), h.Class(classes(styles.fade))]),
               h.div([h.Class(classes(styles.icon))], [copy.icon]),
               h.h1([h.Class(classes(styles.heading))], [copy.heading]),
               h.p([h.Class(classes(styles.subtitle))], [copy.subtitle]),
