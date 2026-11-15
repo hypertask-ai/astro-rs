@@ -3,12 +3,16 @@ import type { Document, HtmlBuilder } from "foldkit/html";
 
 import type { AppMessage } from "../../client/app/message.js";
 import type { AppModel } from "../../client/app/model.js";
-import { consentBanner, cookieSettings } from "../consent/index.js";
+import { consentBanner } from "../consent/index.js";
+import { frame } from "../frame/index.js";
+import { canonicalFor, pageHeads } from "../head/index.js";
 import { pageTitle } from "./copy.js";
 import { styles } from "./home.stylex.js";
 
 const className = (style: stylex.StyleXStyles) =>
   stylex.props(style).className ?? "";
+
+const homePath = "/";
 
 export const view = (
   model: AppModel,
@@ -17,13 +21,13 @@ export const view = (
   body: h.div(
     [],
     [
-      h.main(
-        [h.Class(className(styles.page))],
-        [h.h1([h.Class(className(styles.heading))], [pageTitle])]
-      ),
-      cookieSettings(h),
+      frame(model, h, "home", [
+        h.h1([h.Class(className(styles.heading))], [pageTitle]),
+      ]),
       consentBanner(model, h),
     ]
   ),
-  title: pageTitle,
+  canonical: canonicalFor(homePath),
+  ogUrl: canonicalFor(homePath),
+  title: pageHeads.get(homePath)?.title ?? pageTitle,
 });

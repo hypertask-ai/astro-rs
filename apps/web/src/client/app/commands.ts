@@ -3,6 +3,8 @@ import { Command } from "foldkit";
 
 import { runConsentMachine } from "../../consent/index.js";
 import type { ConsentState } from "../../consent/index.js";
+import { loginUrl } from "../../features/frame/copy.js";
+import { mountHelpChat } from "../../features/help-chat/index.js";
 import { BrowserConsentStore } from "./browser-consent-store.js";
 import { Message } from "./message.js";
 
@@ -27,4 +29,18 @@ export const AcceptAllCookies = Command.define("AcceptAllCookies", {
 export const RejectOptionalCookies = Command.define("RejectOptionalCookies", {
   execute: consentCommand("essential"),
   messages: [Message.ConsentResolved],
+});
+
+export const OpenLogin = Command.define("OpenLogin", {
+  execute: Effect.sync(() => {
+    window.location.assign(loginUrl);
+  }).pipe(Effect.as(Message.Ready())),
+  messages: [Message.Ready],
+});
+
+export const LoadHelpChat = Command.define("LoadHelpChat", {
+  execute: Effect.sync(() => {
+    mountHelpChat(document);
+  }).pipe(Effect.as(Message.Ready())),
+  messages: [Message.Ready],
 });

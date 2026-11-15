@@ -6,5 +6,3 @@ export const bannerMessage =
 export const acceptLabel = "Accept";
 
 export const rejectLabel = "Reject";
-
-export const settingsLabel = "Cookie settings";
