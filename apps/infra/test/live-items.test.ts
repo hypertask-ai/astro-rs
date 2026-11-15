@@ -43,6 +43,11 @@ const full = Object.fromEntries(
   liveLogicalIds.map((id) => [id, { ...base, LogicalId: id }])
 );
 
+const changed = (patch: Partial<Item>) => ({
+  ...full,
+  ApexRecord: { ...base, LogicalId: "ApexRecord", ...patch },
+});
+
 it.effect("the live stack declares only adopt-only retained items", () =>
   Effect.gen(function* checkLiveStack() {
     const compiled = yield* live.pipe(Effect.provide(services));
@@ -69,11 +74,6 @@ it("accepts the full adopt-only retained set", () => {
 });
 
 it("rejects an item that could be deleted or recreated", () => {
-  const changed = (patch: Partial<Item>) => ({
-    ...full,
-    ApexRecord: { ...base, LogicalId: "ApexRecord", ...patch },
-  });
-
   expect(liveResourcesAdoptOnly(changed({ Type: "Cloudflare.Worker" }))).toBe(
     false
   );
