@@ -27,16 +27,16 @@ The base Effect plugin owns diagnostic severity. Child configs may add exact `al
 
 ## Packages
 
-- **`@rat-stack/capability`**:
+- **`@hypertask-site/capability`**:
   - Path: `packages/capability`
   - Role: `defineContract`, `implement`, and the `toCommand`, `toHttpApi`, `toToolkit`, `toRpc`, and `toCodeMode` projections
-- **`@rat-stack/core`**:
+- **`@hypertask-site/core`**:
   - Path: `packages/core`
   - Role: Shared contracts, handlers, and lifecycle machines kept for the marketing site
-- **`@rat-stack/web`**:
+- **`@hypertask-site/web`**:
   - Path: `apps/web`
   - Role: Foldkit site on Vite, deployed through Alchemy's `Cloudflare.Website.Foldkit` as `Website` (`apps/web/src/website.ts`). One home shell until the real pages move. Include it with `const website = yield* Website;`
-- **`@rat-stack/infra`**:
+- **`@hypertask-site/infra`**:
   - Path: `apps/infra`
   - Role: Alchemy Stack for this site. It declares the Website Worker and its own state store. It does not adopt ratstack.sh
 
@@ -73,7 +73,7 @@ Cut from the template, each because this site does not use it: `apps/cli` (no CL
 
 - **`pnpm install`**: Install workspace dependencies
 - **`pnpm sources:fetch`**: No teaching excerpts remain, so this prints that and exits. The CI step stays.
-- **`pnpm dev`**: Run `apps/web` under `vite dev` through portless at `http://rat-stack.localhost:1355` (worktrees get their own prefix); `portless list` shows the route
+- **`pnpm dev`**: Run `apps/web` under `vite dev` through portless at `http://hypertask-site.localhost:1355` (worktrees get their own prefix); `portless list` shows the route
 - **`pnpm check`**: Typecheck, verify formatting, and run type-aware linting
 - **`pnpm lint`**: Type-aware lint plus format check only; `turbo run check` runs this once at the root as `//#lint`
 - **`pnpm fix`**: Apply Oxfmt and safe Oxlint fixes
@@ -95,14 +95,6 @@ Run `pnpm fix` only when you intend to rewrite files. Finish with `pnpm turbo ru
 ## Deploy
 
 Follow [ship](/skills/ship) and `skills/ship/references/project.md` for deployment commands, approval, checks, and recovery.
-
-## Release the ratstack package
-
-- `.github/workflows/ratstack-publish.yml` publishes `ratstack` to npm with trusted publishing (OIDC). No npm token exists in the repo or its secrets.
-- Bump `apps/cli/npm/ratstack/package.json` and `apps/cli/src/version.ts` together. The e2e test fails when they differ.
-- Merge to `main`, then push the tag `ratstack-v<version>` on that merged commit. The workflow refuses a tag that does not match the version or is not on `main`.
-- The workflow runs the full gate, then `npm publish` from `apps/cli/dist/npm`. npm adds provenance.
-- The npm package settings name this repo, `ratstack-publish.yml`, and the `npm` environment as the trusted publisher. Changing the workflow filename breaks publishing.
 
 ## Fence (cheating is uncomfortable)
 
@@ -141,33 +133,39 @@ Mirrors are reference material, not runtime dependencies. Exclude them from type
 
 Preserve existing work. Inspect status before editing, stage only files changed for the current task, and do not commit generated output, secrets, or populated `.agent_sources/github.com/` trees. Use the repository's existing source-control tool; do not initialize or migrate one without approval. Never pass `--no-verify` to git.
 
-`.shitrat/public-allow.json` tells the ShitRat public-push guard that `.brain/` is public content here, because the site is built from it. A child project owns that file: narrow or delete it the day its `.brain` holds anything that isn't meant to be public.
+`.shitrat/public-allow.json` tells the ShitRat public-push guard that `.brain/` is public content. It holds the template's reference notes, not site content, and this repository is private. Narrow or delete the file the day `.brain` holds anything that isn't meant to be public.
 
 ## Project law
 
-A child project replaces this section on day one with its own product rules. These rules describe the rat-stack template, not the product in a clone. Keep durable product intent in `VISION.md`.
+Product rules for the hypertask.ai marketing site. The fence rules below are enforced by lint and hooks and stay exactly as the template ships them. Product intent lives in `VISION.md`.
 
 | Rule | Enforced by |
 | --- | --- |
 | Every customer facing page loads Fathom; no page names Google Analytics. | `apps/web/test/analytics-on-every-page.test.ts` |
 
-- One contract, every surface. Define schemas and metadata with `defineContract`; bind a server-side handler with `implement` and add the capability to `capabilities`. CLI, HTTP, MCP, RPC, and code mode are projections in `packages/capability`. Do not add a command, route, or tool handler that bypasses a capability.
-- Schemas are the contract. Input, output, and failure are Effect `Schema`; JSON Schema, OpenAPI, and the code-mode declarations are derived from them, never hand-written.
-- Lifecycles are machines. Finite modes, retries, and cancellation live in XState machines started with `createEffectActor`; side effects live in declared `createEffectLogic` actors, never inline.
-- The sandbox is a surface, not a bypass. Anything reachable from a code-mode program must be a capability and goes through that capability's schemas and handler.
-- Gardener rule: add a lint rule before cleaning up a bad pattern; lint baselines only shrink. The routine is `skills/gardener`; before simplifying or replacing a design, run `skills/uncomplect`.
-- Refresh peers, versions, and tiers after every bump of Effect, Alchemy, XState, or `@xstate/effect`. On every gardener pass, refresh peers whose checked date is more than 14 days old. Report stale dates; they never block other gardener work. The repo-native `skills/gardener` pass owns the peers refresh through `skills/find-peers`: check default-branch manifests or lockfiles, record exact versions and checked dates in `.brain/data/peers.json`, and explain tiers with evidence. The content build reads our pins from manifests and filters/sorts that dataset into `.brain/resources/peers.svx`; never hand-edit generated entries. Drift is expected. Preserve every peer; show S through B in the main list and C through F in a collapsed Also seen list. Put the rubric and full ranking at the top of the report for feedback after shipping; no separate approval round is required.
+- Same address, same pages, same links, same look. The 38 blog addresses, the sitemap, the feed, the redirects and the install scripts are a public contract with search engines and installers. A change that moves or drops one is a bug, not a cleanup.
+- The site keeps its own look. Colours, sizes, fonts and corners come from the old site and arrive in the page-frame step (HTPR-9139). Never copy Rat Stack's look, and never invent a value. The 2px and 4px corner rule belongs to app.hypertask.ai, not to this site.
+- No database, no sign-in, no timed jobs, no visitor accounts. If a change needs one, stop and ask at rung 3.
+- Screens are Foldkit with StyleX styles. No React, no Tailwind, no UI kit, no chart library. Anything Rat Stack does not use stays out.
+- Blog posts are Foldkit markdown, prerendered. A post's address is its file path and never changes after publishing.
+- Feed, sitemap and crawler files are capabilities on contracts, never hand-written routes. Redirects and security headers live in the Website Worker's server rules.
+- Install scripts are static files served byte for byte. Never rewrite, reformat or re-encode them.
+- Cookie choices are an XState machine started under `createEffectActor`. No analytics tag loads before its choice is stored.
+- Fathom and the Sign up click are a Foldkit command. Analytics relays are an Effect HTTP client behind a capability.
+- Fonts and media are self-hosted files. No outside font or script tag without a written owner and reason in the ticket that adds it. The help chat script is the one kept outside script, with its reason on HTPR-9124.
+- Nothing is built or tested on our servers. Build, check, test and publish run only in GitHub-hosted Actions. Publishing happens on every merge to `main`.
+- One contract, every surface. Define schemas and metadata with `defineContract`; bind a server-side handler with `implement` and add the capability to `capabilities`. Do not add a route or tool handler that bypasses a capability.
+- Schemas are the contract. Input, output and failure are Effect `Schema`; derived documents are never hand-written.
+- Lifecycles are machines. Finite modes, retries and cancellation live in XState machines started with `createEffectActor`; side effects live in declared `createEffectLogic` actors, never inline.
+- Gardener rule: add a lint rule before cleaning up a bad pattern; lint baselines only shrink. Before replacing a design, run `skills/uncomplect`.
 - Tautological tests considered harmful.
 - Change-detector tests considered harmful.
 - Do not create regression tests for bug fixes without a genuine gap in behavior testing.
-- Prefer property and model tests over example tests. A domain rule is an `it.prop` over Effect `Arbitrary` inputs; anything with history (sessions, retries, lifecycles) is a model checked over generated command sequences. Keep example tests for seams. Plant a bug before trusting a new property: it must fail. Reference: `packages/events/test/`.
-- Errors are part of the interface. Name the failure, keep its source context, say how to fix it, and fail at the boundary. Fence messages (lint rules, content-build violations, startup failures, deploy refusals, the VCS policy) read `<what>. <why>. Fix: <step>`, and the step names a command, file, or replacement in a code span; `packages/core/test/fixtures/fence-message.ts` is the grammar the fence-message tests check. Build-time code references accumulate every independent failure before emitting assets; drift is a warning, never a fallback.
-- `packages/code-snippets` owns the build-only excerpt pipeline and ports; `/git` and `/shiki` are adapters. Worker graphs must contain neither code-snippets nor Shiki.
-- No comments in code. `no-comments/no-comments` (`scripts/oxlint-plugin-no-comments.ts`) bans them, after Lauren Tan's Dune rule: agents copy comments, and a comment that explains a workaround spreads the workaround. Say it in a name, a type, a test, a commit message, or the Brain. Two kinds survive: tool directives, with the reason inline after `--`, and a one-line `SAFETY:` invariant above a type assertion. TypeScript's `@ts-expect-error`, `@ts-ignore`, and `@ts-nocheck` count as directives here; `typescript/ban-ts-comment` decides which may stay, so write `// @ts-expect-error -- <reason>`. `--fix` deletes prose, so move anything a comment knows into a name, a test, the commit, or the Brain before running it. Plain JS files keep JSDoc blocks made only of type tags (`@param {string} command`), because that is their type syntax; Ultracite's JSDoc description rules are off for the same reason. Credit for borrowed code lives in `PROVENANCE.md`.
+- Prefer property and model tests over example tests. A domain rule is an `it.prop` over Effect `Arbitrary` inputs; anything with history is a model checked over generated command sequences. Keep example tests for seams. Plant a bug before trusting a new property: it must fail.
+- Errors are part of the interface. Name the failure, keep its source context, say how to fix it, and fail at the boundary. Fence messages read `<what>. <why>. Fix: <step>`, and the step names a command, file, or replacement in a code span; `packages/core/test/fixtures/fence-message.ts` is the grammar the fence-message tests check.
+- No comments in code. `no-comments/no-comments` (`scripts/oxlint-plugin-no-comments.ts`) bans them, after Lauren Tan's Dune rule: agents copy comments, and a comment that explains a workaround spreads the workaround. Say it in a name, a type, a test, a commit message, or the Brain. Two kinds survive: tool directives, with the reason inline after `--`, and a one-line `SAFETY:` invariant above a type assertion. TypeScript's `@ts-expect-error`, `@ts-ignore`, and `@ts-nocheck` count as directives here; `typescript/ban-ts-comment` decides which may stay, so write `// @ts-expect-error -- <reason>`. `--fix` deletes prose, so move anything a comment knows into a name, a test, the commit, or the Brain before running it. Plain JS files keep JSDoc blocks made only of type tags. Credit for borrowed code lives in `PROVENANCE.md`.
 - Diagnostic overrides are targeted and explained: `// @effect-diagnostics-next-line <rule>:off -- <reason>`. File-level overrides exist only at projection boundaries (`packages/capability/src/to-toolkit.ts`, `packages/capability/src/to-code-mode.ts`, `packages/capability/src/to-rpc.ts`) and in process-spawning test files.
-- Lint overrides follow the same rule: `// oxlint-disable-next-line <rule> -- <reason>`. Every type assertion carries a one-line `SAFETY:` comment naming the invariant it relies on. `unicorn/throw-new-error` is off because `Schema.TaggedError(...)` looks like a throw to it. Anti-slop overrides exist only where a type is erased on purpose (the projections in `packages/capability`, the sandbox RPC boundary, the lint plugin's AST walker); anywhere else, parse the value at its boundary with Effect `Schema`.
-- `no-comments/directive-reason` (`scripts/oxlint-plugin-no-comments.ts`) enforces the reason: every `oxlint-disable*` or `eslint-disable*` comment without text after `--` fails lint.
-- Hot pink is the only accent. `--accent` (#ff1493) marks borders, rules and focus rings; `--accent-text` (#c8006e, 5.7:1 on white) is the only pink text. Use it for at most one thing per screen, plus focus. News chrome uses no pink. The allowed selectors cover `:focus-visible` and copy controls; links, headings, tables and tier cells never use it. `apps/site/test/accent.test.ts` holds the allowed selectors.
+- Lint overrides follow the same rule: `// oxlint-disable-next-line <rule> -- <reason>`. Every type assertion carries a one-line `SAFETY:` comment naming the invariant it relies on. `no-comments/directive-reason` fails any `oxlint-disable*` or `eslint-disable*` comment without text after `--`.
 - Pins stay exact. A vendored dependency carries a matching `minimumReleaseAgeExclude` entry and a removal rule in `vendor/README.md`.
 
 ## Architecture
@@ -176,14 +174,14 @@ A child project replaces this section on day one with its own architecture. Reco
 
 - `rat-stack-boundaries/no-core-adapters` keeps provider adapters out of core. Core owns job-shaped ports; adapter packages implement them, and apps provide them at composition. `packages/subscriber-delivery` implements subscriber intake and confirmation; `packages/core/test/boundaries-rule.test.ts` checks the boundary.
 - `rat-stack-boundaries/no-cross-layer-imports` enforces dependency direction: `apps/cli` → `packages/core` → `packages/capability` → Effect/XState. Packages do not import apps; `packages/capability` does not import domain code; `apps/infra` owns its Stack wiring. `core` owns shared contracts and the `inspectFile` handler; each capability's owner keeps its handler beside its data or infrastructure. Core depends on `capability` for `defineContract` and `implement`.
-- `rat-stack-boundaries/no-browser-server-imports` applies to `apps/*/src/features/**` and `apps/*/src/client/**`. Browser modules may import only `@rat-stack/core/contracts` and `@rat-stack/capability/rpc-group` from these packages; they cannot import handler modules. `rat-stack-boundaries/no-feature-transport` applies to `apps/*/src/features/**`.
+- `rat-stack-boundaries/no-browser-server-imports` applies to `apps/*/src/features/**` and `apps/*/src/client/**`. Browser modules may import only `@hypertask-site/core/contracts` and `@hypertask-site/capability/rpc-group` from these packages; they cannot import handler modules. `rat-stack-boundaries/no-feature-transport` applies to `apps/*/src/features/**`.
 - `rat-stack-boundaries/no-hand-rolled-surface` keeps `Rpc.make`, `RpcGroup.make`, `HttpApi*`, `Tool.make`, and `Toolkit.make` inside `packages/capability`; everything else projects contracts. `rat-stack-boundaries/no-browser-globals-on-server` keeps `window`, `document`, `navigator`, and web storage in `apps/*/src/client/**` and `apps/*/src/features/**`.
 - `rat-stack-patterns` (`scripts/oxlint-plugin-patterns.ts`): `contract-binding-matches-name` (`const searchContract = defineContract("search", …)`), `no-module-level-mutable-state` (module `let`/`var` in `apps/*/src` and `packages/*/src` leaks across Worker requests), and `acquire-release-constructs-in-acquire-body` (build pools inside acquire, not before).
 - `packages/core/src/file-inspector.ts` is the reference service shape: a `Context.Service` class whose `make` captures its dependencies so its methods carry no requirements, with `static layer` beside it. `packages/core/src/config-service.ts` derives a service from Effect `Config` (production `layer` reads the ConfigProvider, `configLayer` takes parsed values for tests); `AppConfig` is the instance and mirrors `.env.schema`.
 - `packages/core/src/inspect-machine.ts` is the reference shape for a lifecycle: the machine owns states, declared `createEffectLogic` actors own side effects and typed failures, `join` plus `Effect.orDie` hands the outcome back to Effect. `packages/core/src/contracts.ts` owns `inspectFileContract`; `packages/core/src/inspect-file.ts` implements it and registers the capability.
 - Effect-backed machines start only under `createEffectActor`, never `createActor`. Only actions and actors declared in `setupEffect` contribute to the actor's requirements; the `xstate-effect/no-inline-effect` lint rule enforces the inline cases.
 - `packages/capability/src`: `contract.ts` defines shared contracts; `implement.ts` binds typed handlers and adds approval requirements; `to-command.ts`, `to-http-api.ts`, `to-toolkit.ts`, `to-rpc.ts`, and `to-code-mode.ts` project implemented capabilities. `to-rpc-group.ts` builds the contract-only client group; `to-rpc.ts` derives the server group from those same contracts. `catalog.ts`, `sandbox-service.ts`, and `sandbox-subprocess.ts` support code mode. `to-code-mode.ts` imports from `to-toolkit.ts`, so MCP is a prerequisite for code mode.
-- Devtools are capabilities: `devtools(capabilities)` adds the `rat_*` capabilities, and a dev composition provides the recording layer from `devtoolsLayer()` through `CallWatch` (`@rat-stack/capability/call-watch`). `implement` reads that ambient reference once per call and surrounds the approval-gated handler, so denied calls are recorded too; the default is a no-op. `CallWatch` observes calls across projections without changing their capability lists. `aroundHandlers` stays as the explicit wrapper over one capability list: drovr uses it for `writeGate` to serialize and audit approval-gated writes. Both compose because `implement` reads `CallWatch` inside the handler that `aroundHandlers` wraps; the gate runs outside the recorder. `rat_call` dispatches through `invokerFor`, the same path code mode uses. Machines report through `watchActor` (`@rat-stack/capability/actor-watch`), a no-op `ActorWatch` reference that the recorder overrides; `rat-stack-patterns/watch-effect-actors` requires the call. `devtools(capabilities, { runAs })` records each call's identity and lets `rat_call` take `as`; the composition root passes `runAsPerson` from `@rat-stack/auth/devtools`, so devtools never imports auth. `rat-stack-boundaries/no-devtools-in-production` keeps `@rat-stack/devtools` and `@rat-stack/auth/devtools` in `apps/*/src/dev/**`, `apps/cli`, and tests, and keeps everything outside an app's `dev/` folder from importing it, so a deployed entry cannot reach `rat_call` or test people. `--devtools` binds `127.0.0.1` only. Plan and tool list: `.brain/archives/projects/rat-devtools.svx`.
+- Devtools are capabilities: `devtools(capabilities)` adds the `rat_*` capabilities, and a dev composition provides the recording layer from `devtoolsLayer()` through `CallWatch` (`@hypertask-site/capability/call-watch`). `implement` reads that ambient reference once per call and surrounds the approval-gated handler, so denied calls are recorded too; the default is a no-op. `CallWatch` observes calls across projections without changing their capability lists. `aroundHandlers` stays as the explicit wrapper over one capability list: drovr uses it for `writeGate` to serialize and audit approval-gated writes. Both compose because `implement` reads `CallWatch` inside the handler that `aroundHandlers` wraps; the gate runs outside the recorder. `rat_call` dispatches through `invokerFor`, the same path code mode uses. Machines report through `watchActor` (`@hypertask-site/capability/actor-watch`), a no-op `ActorWatch` reference that the recorder overrides; `rat-stack-patterns/watch-effect-actors` requires the call. `devtools(capabilities, { runAs })` records each call's identity and lets `rat_call` take `as`; the composition root passes `runAsPerson` from `@hypertask-site/auth/devtools`, so devtools never imports auth. `rat-stack-boundaries/no-devtools-in-production` keeps `@hypertask-site/devtools` and `@hypertask-site/auth/devtools` in `apps/*/src/dev/**`, `apps/cli`, and tests, and keeps everything outside an app's `dev/` folder from importing it, so a deployed entry cannot reach `rat_call` or test people. `--devtools` binds `127.0.0.1` only. Plan and tool list: `.brain/archives/projects/rat-devtools.svx`.
 - `apps/cli/src/surfaces.ts` and `apps/cli/src/learn-surfaces.ts` are the only places projections are instantiated; `learn-surfaces.ts` stays devtools-free because the published `ratstack` bin imports it. `apps/cli/src/command.ts` maps them to subcommands; `apps/cli/src/cli.ts` is the composition root that provides `FileInspector` and `NodeServices`, and `apps/cli/src/ratstack.ts` is the composition root for the `ratstack` bin. Both share `learn-layer.ts`.
 - The [README's Keep or cut section](./README.md#keep-or-cut) lists what to delete per surface.
 
@@ -213,7 +211,5 @@ Never end a turn "waiting" without a wake. Procedure: `skills/rat-stack-mode/pri
 
 ## Boundaries and sign-off
 
-A child project replaces this section on day one with its own boundaries. This section names changes agents may make directly and changes that need owner approval.
-
-- Safe by default: adding a capability in `packages/core` and wiring it into `capabilities`; new or tightened tests; a targeted diagnostic override with a written reason; README, AGENTS.md, and `.brain/` edits; tightening a lint rule; removing a surface by following Keep or cut; any change under `apps/infra`, and `pnpm infra:deploy` once `pnpm infra:plan` shows only the intended diff and the gate passes, followed by `pnpm site:smoke`.
-- Needs owner sign-off: adding or changing a dependency version (pins are exact and CI installs cold); any edit to `oxlint.config.ts`, the diagnostics map in `tsconfig.base.json`, `lefthook.yml`, or `scripts/vcs-command-policy.js` that loosens the fence; `pnpm infra:destroy`, and a deploy whose plan replaces or deletes a resource; widening sandbox permissions or adding a runtime that reaches the network; exposing `serve` or `mcp` beyond localhost; vendoring a package as a `file:` tarball; deleting `.agent_sources/` or `vendor/`.
+- Safe by default: new or tightened tests; a targeted diagnostic override with a written reason; README, AGENTS.md, VISION.md and `.brain/` edits; tightening a lint rule; a new page or blog post under the existing address rules; any change under `apps/infra` that only plans (`pnpm infra:plan`).
+- Needs owner sign-off: adding or changing a dependency version (pins are exact and CI installs cold); any edit to `oxlint.config.ts`, the diagnostics map in `tsconfig.base.json`, `lefthook.yml`, or `scripts/vcs-command-policy.js` that loosens the fence; `pnpm infra:deploy` or `pnpm infra:destroy`, and any plan that replaces or deletes a resource; pointing the hypertask.ai domain at this site; moving, renaming or dropping a public address, redirect, sitemap entry or install script; adding a script, font or tracking tag from outside; deleting `.agent_sources/` or `vendor/`; any change that costs money.
