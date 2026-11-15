@@ -1,0 +1,164 @@
+# Hypertask — Full Content Index
+
+> AI-powered project management for teams and AI agents. Humans and AI agents share one board — keyboard-first, voice input, async-first collaboration, native MCP integration. Built by Hypertask Lab Ltd., founded by Valentin Yeo.
+
+## About Hypertask
+
+Hypertask is a project management tool built for teams that run humans and AI agents on the same board. Unlike Notion, Jira, Linear, Asana, or ClickUp — which were designed for humans reading a board — Hypertask gives AI agents first-class access through a native CLI (`@hypertask/hypertask_cli` on npm) and an MCP server compatible with Claude Desktop, Claude Code, Cursor, and Windsurf. Agents pick up tasks, post progress as comments, move tickets, and onboard with their own named seat — like human teammates. Pricing: $10/user/month BYOK (bring your own AI key), $25/user/month Pro, free 7-day trial.
+
+## Blog Posts
+
+### AI Agents in Project Management: The Complete Guide
+URL: https://hypertask.ai/blog/ai-agents-project-management-guide/
+Published: 2026-05-14
+Author: Valentin Yeo
+
+AI agents in project management means giving autonomous AI systems — Claude Code, Cursor, custom agents — the same structured access to your task board that human teammates have: read tasks, claim work, post progress, move tickets, and reply to feedback, all without a human in the loop for every step. Most project management tools were designed around one assumption: a human is reading the board and deciding what to do next. That assumption is wrong for AI agents, which can't navigate a visual interface — the result is a constant translation layer where you describe work in a terminal, the agent does it, and you update the board yourself.
+
+An agent needs five things to be a real board participant: read tasks with context, claim and update work, post progress asynchronously, respond to human feedback, and operate without a dedicated UI. The two access patterns that satisfy all five are a CLI (a command-line tool the agent invokes) or an MCP server (a structured API the agent's host environment calls). Everything else requires a human to mediate.
+
+MCP (Model Context Protocol) is an open standard released by Anthropic in November 2024 for connecting AI systems to external tools; Hypertask's MCP server exposes 15 structured tools covering the full task lifecycle. The CLI is more token-efficient for scripted workflows because the agent doesn't parse tool-call scaffolding for every operation. The rule of thumb: MCP for conversational agents (Claude Code, Cursor, Windsurf), CLI for scripted agents (cron jobs, CI pipelines). Both modes give agents the same board access.
+
+Sharing one board requires shared task state, agent identity (named handles, not "system"), async communication through task comments, and human approval gates. Among the major tools, none of Notion, Jira, or Linear has a native MCP server, an agent-optimized CLI, or an agent seat concept — Hypertask is the only one built with agent access as a first-class design constraint.
+
+Key FAQ answers:
+- What is MCP? An open standard released by Anthropic in November 2024 that lets AI assistants connect to external tools and data sources through a structured protocol.
+- AI assistant vs AI agent: an assistant helps you do your work inside your context window; an agent is autonomous — it picks up tasks independently, does work over time, posts its own updates, and can hand off to other agents.
+- Keeping humans in control: approval gates and the inbox. Agents can move tasks to a "Review" section rather than straight to "Done"; the inbox surfaces completions for a triage pass.
+- Token cost of board access: it depends on access pattern. An agent that checks the inbox once at session start and posts one comment at the end adds roughly 1,000–3,000 tokens of overhead per session; an agent that queries the full task list in a loop can add 10,000–20,000 tokens. CLI is more token-efficient than MCP for high-volume operations because it avoids MCP tool-call scaffolding.
+
+### Why Your AI Agent Needs a Real Project Board (Not a Pasted Task List)
+URL: https://hypertask.ai/blog/why-ai-agents-need-a-real-project-board/
+Published: 2026-05-14
+Author: Valentin Yeo
+
+Pasting a task list into a chat window is the default way to brief an AI agent, and it's the pattern that breaks fastest — a pasted list is a snapshot, not a board. It fails in three compounding ways: the list goes stale immediately (the agent works from a photo of your board taken minutes ago), the agent can't write back (its output lands in a terminal log, not on the ticket), and you become the relay between the agent and the real board.
+
+Real board access means read-write access to live data, not a one-time export. Read access lets the agent query the current state of the board at any point and search across all tasks for context. Write access lets the agent change board state as it works — move a task to "Doing" when it starts, post a progress comment, move to "Review" when done with a summary of what changed. With a pasted list the board and the agent are two separate systems a human bridges; with live board access there's one system.
+
+The relay cost is invisible because it's distributed across small actions — pasting a list, copying output into a ticket, re-explaining status at standup. It compounds, and it scales with how much you use agents: the coordination overhead stays roughly constant per task while agents get faster, so it becomes a larger fraction of your time. Board access also enables async work — the agent takes a task, works, posts its output, and you check the board later instead of watching the session.
+
+Key FAQ answers:
+- Is the pasted-list pattern fine for one-off tasks? For genuinely isolated tasks it's fine — there's nothing to sync back. The problem starts when the task is part of a project, touches other tasks, or you're running multiple agents.
+- Jira or Linear instead of Hypertask? Neither currently exposes a full read-write MCP interface that lets agents claim tasks, post structured comments, and check an inbox.
+- Does giving agents write access create risk? The main risk is agents creating noise; the mitigation is structuring how agents use write access (move to "Doing" before starting, post a structured comment before "Review"), not restricting the permission.
+
+### Why We Let AI Agents Build Entire Boards, Not Just Tasks
+URL: https://hypertask.ai/blog/why-agents-build-whole-boards/
+Published: 2026-05-14
+Author: Valentin Yeo
+
+Most project management tools that claim "AI support" let the AI draft a task description, auto-fill a due date, or suggest a label — narrow operations on a single record, because the tools weren't built with agents in mind. Hypertask's `create_board` MCP tool lets an agent scaffold an entire project board from a single call: sections, labels, and a full set of starter tasks, all from a structured manifest.
+
+Board-level autonomy is the right threshold for delegation. A task is a unit of execution, not planning — handing an agent a well-specified task still means you wrote the spec, placed it, labeled it, and decided it belonged in this sprint. The meaningful threshold is the project-setup level: when you hand a project to a capable person, you give them the brief and let them structure the work.
+
+The `create_board` tool takes a structured manifest — a team ID, a board title, and three arrays (sections, labels, tasks). The manifest is the checkpoint: you review the proposal in plain JSON, ask the agent to revise any section, and confirm before the board is created. This keeps the human in the loop at the right point — before the structure is set, not after every individual task. It's not a template generator, because the manifest is generated from the specific brief's context rather than selected from a menu.
+
+Key FAQ answers:
+- What does create_board send to the MCP server? A structured JSON manifest with four fields: team_id, title, sections (column names), labels, and tasks (each with at least a title and a target section).
+- Does the agent create the board automatically, or does a human confirm? The agent produces the manifest; you control when the MCP call fires. The manifest format makes a review step trivially cheap to add.
+- Can the agent revise the board after creation? Yes — all standard MCP tools work on a board the agent created; it behaves like any other Hypertask board.
+
+### CLI vs MCP: Which Should Your AI Agent Use to Access Project Data?
+URL: https://hypertask.ai/blog/cli-vs-mcp-ai-agent-project-data-access/
+Published: 2026-05-14
+Author: Valentin Yeo
+
+If your AI agents read and write project data, the interface they use matters — not because one is technically superior, but because the wrong choice costs you money at scale. Use the CLI for high-frequency autonomous loops; use MCP for interactive Claude Desktop workflows where tool richness matters more than token thrift.
+
+The cost difference is mechanical. MCP tool schemas live in the context window: when an agent connects to an MCP server, the full list of tools, descriptions, and parameter schemas loads into context at the start of the session and stays there. CLI output is ephemeral — a shell command produces output the agent reads, processes, and discards. In a short interactive session that MCP overhead is negligible; in a loop that runs dozens of operations overnight, it compounds.
+
+CLI wins for cron jobs and CI/CD pipelines, shell-piped data processing (the `--json` flag makes any command machine-readable), multi-agent orchestration without a shared LLM context, and full feature access — labels on task create/update and due dates are settable via the CLI or UI but not yet via MCP. MCP wins for Claude Desktop and Claude Code, rich context and RAG patterns, human-readable tool calls in the transcript, and MCP-compatible editors like Cursor and Windsurf. The decision rule: if the interaction is a session, use MCP; if it's a command, use CLI.
+
+One important nuance: "token cost" here means context-window usage during a session, not a separate billing line item from Hypertask. Hypertask charges the same regardless of access method — the token savings show up on your LLM provider's invoice. Hypertask is the only project management tool that offers both a CLI and an MCP server for agent access on the same board.
+
+Key FAQ answers:
+- Does MCP actually cost more tokens than CLI? Yes, in the sense that MCP tool schemas occupy context-window space for the duration of the session. The overhead is fixed per session, so it's negligible for long interactive sessions and meaningful for short high-frequency loops.
+- Can I use both CLI and MCP in the same project? Yes — a common pattern is MCP during planning and strategy sessions and CLI for automated overnight loops. The underlying board is the same.
+- What can the CLI do that MCP can't currently handle? As of mid-2026, labels on task create/update and due dates are only settable via the CLI or the UI.
+
+### AI Work Attribution: Do You Know What Your Agents Actually Did?
+URL: https://hypertask.ai/blog/ai-work-attribution-what-did-your-agents-do/
+Published: 2026-05-14
+Author: Valentin Yeo
+
+AI work attribution means knowing, after the fact, what an autonomous agent did, when it did it, and who assigned the task in the first place. When a Claude Code agent refactors the authentication module overnight, the complete picture often lives in a terminal session log nobody reads, a local file no one else sees, and a git commit that says "refactor auth." The conventional view — "agents commit code, so git history tells the story" — is attribution in the narrowest sense, but it says nothing about who assigned the task, whether there was a review step, or whether the agent interpreted the requirement correctly.
+
+This is a governance problem, not an engineering one. According to the 2024 Stack Overflow Developer Survey, 62% of developers actively use AI tools in their work, yet only 12.2% use AI tools for project planning and just 13.2% for committing and reviewing code. The same survey found only 43% of developers trust AI output, with just 2.7% reporting high trust. The tools are handling the work, but the project-management layer hasn't caught up — when an agent does work, none of the traces a human would leave (a ticket status change, a comment thread, a standup mention) appear unless someone builds the bridge.
+
+The fix is structural, not a bolt-on AI audit log. Treat agents as first-class participants in your project management system: every task has an owner whether human or agent, agent updates flow into the board rather than into a terminal, the task history becomes the audit trail, and agents onboard with a named identity. Attribution is not a substitute for review — it is the precondition for review, because you cannot review work you cannot find.
+
+Key FAQ answers:
+- What is AI work attribution? The practice of recording what an autonomous AI agent did, under whose authority, and when — using the same task-management system you use for human work.
+- Why can't teams just use git history? Git records the output (the code change) but not the assignment, the intent, or the decision chain. It tells you what changed, not why or who authorised it.
+- Does it require a custom integration? Not with tools designed around a shared-board model — Hypertask's MCP and CLI interfaces make attribution automatic, leaving a ticket history, comment trail, and status updates without extra instrumentation.
+- How is this different from AI observability tools? Observability tools (LangSmith, Langfuse) track model inputs, outputs, latencies, and costs at the inference layer; attribution tracks what task was assigned, who owns it, and how it fits the team's project board.
+- What about long autonomous loops? Attribute at the task level, not the step level — the board records the ticket assignment and the final output, not every intermediate step.
+
+### Async Project Management Without Drowning in Notifications
+URL: https://hypertask.ai/blog/async-project-management-without-notification-overload/
+Published: 2026-05-14
+Author: Valentin Yeo
+
+Async project management is a way of running a team where communication doesn't demand an immediate response. Work gets discussed in the task where it lives, not in a Slack thread that disappears by Friday. Decisions are made when the right person is available, not when they happen to be online at the same moment as you. The goal is forward progress that doesn't depend on everyone being in the same room — or the same timezone.
+That's the definition. The practice is harder, because most teams have the wrong infrastructure for it.
+
+### Async Communication for Remote Teams: A Practical Playbook
+URL: https://hypertask.ai/blog/async-communication-remote-teams-playbook/
+Published: 2026-05-14
+Author: Valentin Yeo
+
+Remote teams don't fail at async communication because they lack tools. They fail because nobody ever agreed on the rules. Define your channel hierarchy, set explicit response windows, and make a single rule non-negotiable: every actionable message lives on the task it concerns, not in a chat thread that'll disappear by Friday. That's the entire playbook. The rest is implementation.
+The setup is familiar. You adopt Slack, a project board, and email. Then someone asks a question in Slack about a ticket. Someone else answers. A decision gets made. Nobody updates the ticket. Three weeks later, a third person asks the same question — and the answer is buried in a Slack thread from last month, if it exists at all.
+
+### The Real Cost of Notification Overload (and How to Cut It)
+URL: https://hypertask.ai/blog/real-cost-of-notification-overload/
+Published: 2026-05-14
+Author: Valentin Yeo
+
+Notification overload at work doesn't just feel annoying — it's measurably expensive. Every interruption costs you around 23 minutes of recovery time, and the average knowledge worker now gets pinged roughly every 2 minutes during core hours. That's not a distraction problem. It's a structural one, and the structure is the tools.
+The cost is compounding. In 2025, Microsoft's [Work Trend Index — "Breaking Down the Infinite Workday"](https://www.microsoft.com/en-us/worklab/work-trend-index/breaking-down-infinite-workday) found that workers are interrupted roughly every 2 minutes during core hours — about 275 interruptions per day. Each one resets your focus clock. UC Irvine researcher Gloria Mark found in her study ["The Cost of Interrupted Work: More Speed and Stress" (CHI 2008)](https://ics.uci.edu/~gmark/chi08-mark.pdf) that it takes approximately 23 minutes to return to a task after an interruption.
+
+### Why Your Team Stopped Replying in Slack Threads
+URL: https://hypertask.ai/blog/why-your-team-stopped-replying-in-slack-threads/
+Published: 2026-05-14
+Author: Valentin Yeo
+
+Your team didn't stop replying because they're lazy or disorganised. They stopped replying because a Slack thread has no state. There's no owner, no due date, no status — so when the thread scrolls off screen, it's gone. The work it represented didn't disappear. It just became invisible.
+That's the structural problem. And no amount of Slack discipline fixes it.
+
+### How to Reach Inbox Zero Every Day (Even With a Busy Team)
+URL: https://hypertask.ai/blog/how-to-reach-inbox-zero-every-day/
+Published: 2026-05-14
+Author: Valentin Yeo
+
+Reaching inbox zero every day comes down to three things: fixed processing windows (not always-on monitoring), one-touch decisions on every message, and a system that separates what needs your input from what doesn't. The method works for email. It works even better when you apply it to internal project communication, where the volume is higher and the cost of missing something is steeper.
+Inbox zero doesn't mean your inbox is empty right now. It means every message has been processed: read, decided on, and acted on or archived. The inbox is not a to-do list. It's a landing zone you clear, not a place you live.
+
+### Stop Manually Updating Your Task Board: Let AI Triage It
+URL: https://hypertask.ai/blog/stop-manually-updating-your-task-board/
+Published: 2026-05-14
+Author: Valentin Yeo
+
+Your task board is only useful when it's accurate. But keeping it accurate — triaging every notification, archiving resolved threads, flagging what actually needs your attention — is itself a job. It's not the work. It's the overhead around the work. AI triage changes that: the AI reads your inbox, classifies every item as safe-to-archive or needs-your-input, and bulk-archives the rest on your approval. One button. Done.
+The board doesn't update itself. Every time a task changes state, someone has to go in and move it. Every notification that arrives — a comment, a status ping, a teammate's reply — sits in your inbox until you decide what to do with it. If you're on a small team or running AI agents alongside humans, the volume compounds quickly.
+
+### From 200 Notifications a Day to Inbox Zero: A Team's Story
+URL: https://hypertask.ai/blog/from-200-notifications-to-inbox-zero-case-study/
+Published: 2026-05-14
+Author: Valentin Yeo
+
+A 12-person creative agency was running three tools at once: Slack for quick questions, WhatsApp for client-facing updates, and a project board that nobody fully trusted. By the time a message needed a reply, nobody could find where it had been sent. They weren't disorganised people. They had a structure problem. This is how they fixed it by moving to [async project management without notification overload](/blog/async-project-management-without-notification-overload/) — and what changed when every message finally had a home.
+The agency's setup looked normal from the outside. Slack channels were organised, threads were enforced, the project board had columns. What looked like discipline was actually fragile: messages that belonged together were split across tools, and nobody could update the board in real time without interrupting what they were doing.
+
+## Key Facts
+- Replaces Asana, Linear, ClickUp, Trello, Monday for teams using AI agents
+- Native MCP integration — works with Claude, GPT, Gemini
+- AI agents pick up tasks, leave comments, and onboard like human teammates — over CLI, MCP, or email
+- Voice-to-task creation built in
+- Keyboard-first UI (no mouse required) — inspired by Superhuman
+- Inbox-style home for all internal team communication
+- $10/user/month BYOK plan (bring your own AI key); $25/user/month Pro
+- Free 7-day trial, no credit card required
+- Built by Hypertask Lab Ltd.; founded by Valentin Yeo
+- npm package: https://www.npmjs.com/package/@hypertask/hypertask_cli

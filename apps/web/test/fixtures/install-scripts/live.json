@@ -1,0 +1,36 @@
+{
+  "answers": [
+    {
+      "cacheControl": "public, max-age=0, must-revalidate, no-store",
+      "contentLength": 2271,
+      "contentType": "text/plain; charset=utf-8",
+      "location": null,
+      "path": "/install",
+      "sha256": "a83f0798bf63b0b2c042edda837161c988519f8b39c1f7a823a1ed3a8df1ea26",
+      "status": 200,
+      "xContentTypeOptions": "nosniff"
+    },
+    {
+      "cacheControl": "public, max-age=0, must-revalidate, no-store",
+      "contentLength": 2271,
+      "contentType": "text/plain; charset=utf-8",
+      "location": null,
+      "path": "/install.sh",
+      "sha256": "a83f0798bf63b0b2c042edda837161c988519f8b39c1f7a823a1ed3a8df1ea26",
+      "status": 200,
+      "xContentTypeOptions": "nosniff"
+    },
+    {
+      "cacheControl": "public, max-age=0, must-revalidate, no-store",
+      "contentLength": 2730,
+      "contentType": "text/plain; charset=utf-8",
+      "location": null,
+      "path": "/install.ps1",
+      "sha256": "ce17de828544ae531d263d2be9d8f171fac6905c12af361887d2e33bff0954ea",
+      "status": 200,
+      "xContentTypeOptions": "nosniff"
+    }
+  ],
+  "capturedAt": "2026-11-15",
+  "origin": "https://hypertask.ai"
+}
