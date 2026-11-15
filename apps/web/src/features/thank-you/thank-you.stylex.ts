@@ -11,18 +11,6 @@ const ctaShadow =
 
 export const styles = stylex.create({
   card: {
-    "::after": {
-      backgroundImage:
-        "linear-gradient(to bottom, transparent 0%, rgb(6, 6, 6) 80%)",
-      content: { default: "none", [phone]: '""' },
-      height: "60%",
-      left: 0,
-      pointerEvents: "none",
-      position: "absolute",
-      right: 0,
-      width: "110%",
-      zIndex: 1,
-    },
     alignItems: "center",
     backgroundImage: 'url("/gradient1.avif")',
     backgroundPosition: "center",
@@ -95,6 +83,18 @@ export const styles = stylex.create({
     backgroundColor: "#ffffff",
     borderColor: "#ffffff",
     color: "#000000",
+  },
+  fade: {
+    backgroundImage:
+      "linear-gradient(to bottom, transparent 0%, rgb(6, 6, 6) 80%)",
+    display: { default: "none", [phone]: "block" },
+    height: "60%",
+    left: 0,
+    pointerEvents: "none",
+    position: "absolute",
+    right: 0,
+    width: "110%",
+    zIndex: 1,
   },
   heading: {
     fontSize: "36px",
