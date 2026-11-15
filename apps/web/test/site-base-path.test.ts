@@ -2,7 +2,11 @@ import { describe, expect, it } from "@effect/vitest";
 
 import { buildHead } from "../src/features/head/build-head.js";
 import { pageHeads } from "../src/features/head/pages.js";
-import { headersFile, redirectsFile } from "../src/hypertask/site-rules.js";
+import {
+  headersFile,
+  redirectsFile,
+  securityHeaderLines,
+} from "../src/hypertask/site-rules.js";
 import {
   addSiteBasePath,
   escapingUrls,
