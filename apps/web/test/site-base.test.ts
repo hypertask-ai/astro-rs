@@ -54,7 +54,10 @@ const renderShippedHome = () =>
     return renderDocument(application, assets);
   });
 
-const completeAnswer = (answer: { readonly response?: Response }): Response => {
+const completeAnswer = (answer: {
+  readonly _tag: string;
+  readonly response?: Response;
+}): Response => {
   if (answer.response === undefined) {
     throw new Error("Expected one complete answer");
   }
