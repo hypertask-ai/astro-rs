@@ -36,7 +36,9 @@ type OldHead = Readonly<
 
 const oldHeads = new Map<string, OldHead>(Object.entries(oldHeadsJson));
 
-const parseJson = Schema.decodeUnknownSync(Schema.UnknownFromJsonString);
+const parseJson = Schema.decodeUnknownSync(
+  Schema.fromJsonString(Schema.Unknown)
+);
 
 const unescapeAttribute = (value: string): string =>
   value
