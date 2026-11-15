@@ -1,4 +1,5 @@
 import { Effect } from "effect";
+import { FetchHttpClient } from "effect/http";
 import {
   Rendered,
   Responded,
@@ -8,6 +9,7 @@ import {
 
 import { initialModel } from "./client/app/model.js";
 import { buildHead, pageHeads, siteOrigin } from "./features/head/index.js";
+import { relayPostHogFromRequest } from "./relay-posthog.js";
 import { pageViews, viewForPath } from "./routes.js";
 
 type RenderDocument = typeof renderFoldkitDocument;
@@ -34,6 +36,21 @@ const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
 ) {
   const { pathname } = new URL(request.url);
   const view = viewForPath(pathname);
+
+  if (pathname.startsWith("/relay-8ddg/")) {
+    const relayed = yield* relayPostHogFromRequest(request).pipe(
+      Effect.provide(FetchHttpClient.layer)
+    );
+
+    const body = new Uint8Array(relayed.body);
+
+    return Responded(
+      new Response(body.buffer, {
+        headers: relayed.headers,
+        status: relayed.status,
+      })
+    );
+  }
 
   if (view === undefined) {
     return Responded(new Response("Not found", { status: 404 }));

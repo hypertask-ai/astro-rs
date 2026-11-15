@@ -1,6 +1,7 @@
 import { Runtime } from "foldkit";
 
 import { view as homeView } from "../features/home/index.js";
+import { startAnalytics } from "./analytics/index.js";
 import { viewForPath } from "../routes.js";
 import {
   initialModel,
@@ -29,3 +30,5 @@ const application = Runtime.makeApplication({
 });
 
 Runtime.hydrate(application);
+
+startAnalytics();
