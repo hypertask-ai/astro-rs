@@ -7,7 +7,7 @@ import { finalizeCrawlerFiles } from "./scripts/crawler-files.js";
 export const crawlerFilesPlugin = (): Plugin => ({
   apply: "build",
   buildApp: {
-    // @effect-diagnostics-next-line asyncFunction:off -- Vite awaits finalization after the client build.
+    // @effect-diagnostics-next-line asyncFunction:off -- Vite awaits the file writes after the client build.
     handler: async (builder) => {
       const { client } = builder.environments;
 
@@ -20,7 +20,6 @@ export const crawlerFilesPlugin = (): Plugin => ({
           const path = yield* Path.Path;
 
           yield* finalizeCrawlerFiles(
-            builder.config.root,
             path.resolve(client.config.root, client.config.build.outDir)
           );
         }).pipe(Effect.provide(NodeServices.layer))

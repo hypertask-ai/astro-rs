@@ -1,9 +1,11 @@
-import { NodeServices } from "@effect/platform-node";
-import { expect, it } from "@effect/vitest";
-import { Effect, FileSystem, Layer, Schema } from "effect";
-import { Digest } from "effect/crypto";
+// @effect-diagnostics nodeBuiltinImport:off -- The test reads the shipped crawler files and hashes them, a file-system boundary.
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
 
-import { crawlerFileHeaders } from "../scripts/crawler-files.js";
+import { describe, expect, it } from "@effect/vitest";
+import { Schema } from "effect";
+
+import { generatedCrawlerFiles } from "../scripts/crawler-files.js";
 import { publishedBlogPosts } from "../src/hypertask/blog-index.js";
 import {
   hypertaskOrigin,
@@ -17,144 +19,148 @@ import {
   sitePaths,
   sitemapPaths,
 } from "../src/hypertask/route-manifest.js";
-
-const application = `${import.meta.dirname}/..`;
+import { blogSlugs } from "./site-contract/manifest.js";
 
 const OldSiteFiles = Schema.Struct({
   files: Schema.Record(
     Schema.String,
-    Schema.Struct({ bytes: Schema.Finite, sha256: Schema.String })
+    Schema.Struct({ bytes: Schema.Int, sha256: Schema.String })
   ),
 });
 
-const services = Layer.mergeAll(NodeServices.layer, Digest.layerWebCrypto);
+const oldSite = Schema.decodeUnknownSync(Schema.fromJsonString(OldSiteFiles))(
+  readFileSync(
+    new URL("fixtures/hypertask-crawler/old-site.json", import.meta.url),
+    "utf-8"
+  )
+);
 
-const servicesForTests = it.layer(services);
+const read = (directory: string, name: string) =>
+  readFileSync(new URL(name, new URL(directory, import.meta.url)));
 
-const readOldSite = Effect.gen(function* readOldSiteFixture() {
-  const fs = yield* FileSystem.FileSystem;
+const publicFile = (name: string) => read("../public/", name);
 
-  const text = yield* fs.readFileString(
-    `${application}/test/fixtures/hypertask-crawler/old-site.json`
-  );
+const builtFile = (name: string) => read("../dist/client/", name);
 
-  return yield* Schema.decodeEffect(Schema.fromJsonString(OldSiteFiles))(text);
-});
+const digest = (bytes: Uint8Array) =>
+  createHash("sha256").update(bytes).digest("hex");
 
 const utf8 = (text: string) => new TextEncoder().encode(text);
 
-const sha256 = (content: Uint8Array) =>
-  Effect.gen(function* sha256Hex() {
-    const digest = yield* Digest.Digest;
+const matchesOldSite = (name: string, content: Uint8Array) => {
+  const expected = oldSite.files[name];
 
-    return yield* digest.digestHex(Digest.sha256, content);
-  });
+  expect(content.length).toBe(expected?.bytes);
+  expect(digest(content)).toBe(expected?.sha256);
+};
 
 const sitemap = () => sitemapXml(hypertaskOrigin, sitemapPaths(sitePaths()));
 
 const feed = () => rssXml(hypertaskOrigin, publishedBlogPosts());
 
-const readStatic = (name: string) =>
-  Effect.gen(function* readStaticCrawlerFile() {
-    const fs = yield* FileSystem.FileSystem;
+const crawlerTextFiles = ["llms-full.txt", "llms.txt", "robots.txt"];
 
-    return yield* fs.readFileString(`${application}/static/${name}`);
+const sitemapLocations = (content: string) =>
+  [...content.matchAll(/<loc>(?<loc>.*?)<\/loc>/gu)].map(
+    (match) => match.groups?.loc ?? ""
+  );
+
+describe("hypertask crawler files", () => {
+  it("serves the feed bytes the old site serves", () => {
+    matchesOldSite("rss.xml", utf8(feed()));
   });
 
-const matchesOldSite = (name: string, content: Uint8Array) =>
-  Effect.gen(function* matchesOldSiteBytes() {
-    const oldSite = yield* readOldSite;
-    const expected = oldSite.files[name];
-
-    expect(content.length).toBe(expected?.bytes);
-    expect(yield* sha256(content)).toBe(expected?.sha256);
+  it("serves the sitemap bytes the old site serves", () => {
+    matchesOldSite("sitemap-0.xml", utf8(sitemap()));
   });
 
-servicesForTests("hypertask crawler files", (test) => {
-  test.effect("serves the feed bytes the old site serves", () =>
-    matchesOldSite("rss.xml", utf8(feed()))
-  );
+  it("points the sitemap index at the crawlable sitemap", () => {
+    matchesOldSite("sitemap-index.xml", utf8(sitemapIndexXml(hypertaskOrigin)));
+  });
 
-  test.effect("serves the sitemap bytes the old site serves", () =>
-    matchesOldSite("sitemap-0.xml", utf8(sitemap()))
-  );
+  it("serves the crawler text files the old site serves", () => {
+    for (const name of crawlerTextFiles) {
+      matchesOldSite(name, publicFile(name));
+    }
+  });
 
-  test.effect("serves the crawler text files the old site serves", () =>
-    Effect.gen(function* crawlerTextFiles() {
-      for (const name of ["llms-full.txt", "llms.txt", "robots.txt"]) {
-        yield* matchesOldSite(name, utf8(yield* readStatic(name)));
-      }
-    })
-  );
+  it("keeps hidden pages out of the sitemap", () => {
+    const content = sitemap();
+    const locations = sitemapLocations(content);
 
-  test.effect("keeps hidden pages out of the sitemap", () =>
-    Effect.sync(() => {
-      const sitemapBytes = sitemap();
+    for (const hidden of hiddenPagePaths) {
+      expect(isHiddenSitemapPath(hidden)).toBe(true);
+      expect(locations).not.toContain(`${hypertaskOrigin}${hidden}`);
+    }
 
-      const locs = [...sitemapBytes.matchAll(/<loc>(?<loc>.*?)<\/loc>/gu)].map(
-        (match) => match.groups?.loc ?? ""
+    expect(isHiddenSitemapPath("/blog/tags/ai-agents/")).toBe(true);
+    expect(content).not.toContain("/blog/tags/");
+
+    expect(locations.length).toBe(52);
+
+    for (const location of locations) {
+      expect(location.startsWith(`${hypertaskOrigin}/`)).toBe(true);
+      expect(location.endsWith("/")).toBe(true);
+    }
+  });
+
+  it("lists every published post newest first", () => {
+    const posts = publishedBlogPosts();
+    const dates = posts.map((post) => post.date);
+    const feedContent = feed();
+    const sitemapContent = sitemap();
+
+    expect(feedContent.match(/<item>/gu)?.length).toBe(posts.length);
+    expect(dates).toEqual(dates.toSorted().toReversed());
+    expect(posts.map((post) => post.slug).toSorted()).toEqual(
+      [...blogSlugs].toSorted()
+    );
+
+    for (const post of posts) {
+      expect(sitemapContent).toContain(
+        `<loc>${hypertaskOrigin}/blog/${post.slug}/</loc>`
       );
+    }
 
-      for (const hidden of hiddenPagePaths) {
-        expect(isHiddenSitemapPath(hidden)).toBe(true);
-        expect(locs).not.toContain(`${hypertaskOrigin}${hidden}`);
-      }
+    expect(feedContent).toContain(
+      `<link>${hypertaskOrigin}/blog/${posts[0]?.slug}/</link>`
+    );
+  });
 
-      expect(isHiddenSitemapPath("/blog/tags/ai-agents/")).toBe(true);
-      expect(sitemapBytes).not.toContain("/blog/tags/");
+  it("gives every crawler file its content type", () => {
+    const headers = builtFile("_headers").toString("utf-8");
 
-      expect(locs.length).toBe(52);
-
-      for (const loc of locs) {
-        expect(loc.startsWith(`${hypertaskOrigin}/`)).toBe(true);
-        expect(loc.endsWith("/")).toBe(true);
-      }
-    })
-  );
-
-  test.effect("lists every published post newest first", () =>
-    Effect.sync(() => {
-      const posts = publishedBlogPosts();
-      const dates = posts.map((post) => post.date);
-      const feedBytes = feed();
-      const sitemapBytes = sitemap();
-
-      expect(feedBytes.match(/<item>/gu)?.length).toBe(posts.length);
-      expect(dates).toEqual(dates.toSorted().toReversed());
-
-      for (const post of posts) {
-        expect(sitemapBytes).toContain(
-          `<loc>${hypertaskOrigin}/blog/${post.slug}/</loc>`
-        );
-      }
-
-      expect(feedBytes).toContain(
-        `<link>${hypertaskOrigin}/blog/${posts[0]?.slug}/</link>`
+    for (const name of crawlerTextFiles) {
+      expect(headers).toContain(
+        `/${name}\n  Content-Type: text/plain; charset=utf-8`
       );
-    })
-  );
+    }
 
-  test.effect("points the sitemap index at the crawlable sitemap", () =>
-    matchesOldSite("sitemap-index.xml", utf8(sitemapIndexXml(hypertaskOrigin)))
-  );
+    for (const crawlerPath of [
+      "/rss.xml",
+      "/sitemap-0.xml",
+      "/sitemap-index.xml",
+    ]) {
+      expect(headers).toContain(
+        `${crawlerPath}\n  Content-Type: application/xml`
+      );
+    }
+  });
 
-  test.effect("gives every crawler file its content type", () =>
-    Effect.sync(() => {
-      for (const name of ["llms-full.txt", "llms.txt", "robots.txt"]) {
-        expect(crawlerFileHeaders).toContain(
-          `/${name}\n  Content-Type: text/plain; charset=utf-8\n`
-        );
-      }
+  it("ships every crawler file at its address in the built site", () => {
+    for (const name of [
+      "rss.xml",
+      "sitemap-0.xml",
+      "sitemap-index.xml",
+      ...crawlerTextFiles,
+    ]) {
+      matchesOldSite(name, builtFile(name));
+    }
 
-      for (const crawlerPath of [
-        "/rss.xml",
-        "/sitemap-0.xml",
-        "/sitemap-index.xml",
-      ]) {
-        expect(crawlerFileHeaders).toContain(
-          `${crawlerPath}\n  Content-Type: application/xml\n`
-        );
-      }
-    })
-  );
+    for (const file of generatedCrawlerFiles()) {
+      expect(builtFile(file.path.slice(1)).toString("utf-8")).toBe(
+        file.content
+      );
+    }
+  });
 });
