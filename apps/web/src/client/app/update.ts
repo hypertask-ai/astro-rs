@@ -4,6 +4,7 @@ import type { Update } from "foldkit";
 import {
   AcceptAllCookies,
   LoadConsent,
+  OpenLogin,
   RejectOptionalCookies,
 } from "./commands.js";
 import { Message } from "./message.js";
@@ -16,6 +17,7 @@ export const update = (model: AppModel, message: AppMessage): UpdateReturn =>
   Message.match<UpdateReturn>(message, {
     ChoseAll: () => ({ commands: [AcceptAllCookies()], model }),
     ChoseEssential: () => ({ commands: [RejectOptionalCookies()], model }),
+    ClosedMenu: () => ({ model: { ...model, menuOpen: false } }),
     ConsentRecheck: () => ({ commands: [LoadConsent()], model }),
     ConsentResolved: ({ analyticsAllowed, bannerVisible, choice }) => ({
       model: {
@@ -26,5 +28,8 @@ export const update = (model: AppModel, message: AppMessage): UpdateReturn =>
       },
     }),
     OpenedCookieSettings: () => ({ model: { ...model, bannerVisible: true } }),
+    PressedLoginKey: () => ({ commands: [OpenLogin()], model }),
     Ready: () => ({ model: { ...model, ready: true } }),
+    Scrolled: ({ scrolled }) => ({ model: { ...model, scrolled } }),
+    ToggledMenu: () => ({ model: { ...model, menuOpen: !model.menuOpen } }),
   });
