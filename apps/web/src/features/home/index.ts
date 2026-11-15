@@ -12,8 +12,8 @@ import * as copy from "./copy.js";
 import type { PricingPlan } from "./copy.js";
 import { styles } from "./home.stylex.js";
 
-const classes = (...styles: readonly (stylex.StyleXStyles | false)[]) =>
-  stylex.props(...styles).className ?? "";
+const classes = (...entries: readonly (stylex.StyleXStyles | false)[]) =>
+  stylex.props(...entries).className ?? "";
 
 const homePath = "/";
 

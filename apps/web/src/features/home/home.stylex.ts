@@ -264,14 +264,18 @@ export const styles = stylex.create({
     color: "#ffffff",
   },
   planFeature: {
-    alignItems: "baseline",
-    display: "flex",
-    gap: "10px",
     "::before": {
       color: "#d97757",
       content: '"\\2713"',
       fontSize: "12px",
     },
+    alignItems: "baseline",
+    display: "flex",
+    gap: "10px",
+  },
+  planFeatured: {
+    borderColor: softBorder,
+    position: "relative",
   },
   planFeatures: {
     color: mutedText,
@@ -284,10 +288,6 @@ export const styles = stylex.create({
     marginBlock: "22px 26px",
     marginInline: 0,
     padding: 0,
-  },
-  planFeatured: {
-    borderColor: softBorder,
-    position: "relative",
   },
   planName: {
     fontSize: "15px",
@@ -384,8 +384,8 @@ export const styles = stylex.create({
   },
   tab: {
     backgroundColor: "transparent",
-    borderWidth: 0,
     borderRadius: "999px",
+    borderWidth: 0,
     color: mutedText,
     cursor: "pointer",
     fontFamily: "inherit",
@@ -432,8 +432,8 @@ export const styles = stylex.create({
       outlineWidth: "2px",
     },
     backgroundColor: "transparent",
-    borderWidth: 0,
     borderRadius: "9999px",
+    borderWidth: 0,
     color: "#8e9093",
     cursor: "pointer",
     fontFamily: "inherit",

@@ -43,38 +43,33 @@ const attributesOf = (source: string): ReadonlyMap<string, string> =>
     )
   );
 
-const namedEntities: Readonly<Record<string, string>> = {
-  amp: "&",
-  apos: "'",
-  copy: "©",
-  gt: ">",
-  lt: "<",
-  minus: "−",
-  nbsp: "\u00a0",
-  quot: '"',
-  rsquo: "’",
-};
+const namedEntities = new Map<string, string>([
+  ["amp", "&"],
+  ["apos", "'"],
+  ["copy", "©"],
+  ["gt", ">"],
+  ["lt", "<"],
+  ["minus", "−"],
+  ["nbsp", "\u00A0"],
+  ["quot", '"'],
+  ["rsquo", "’"],
+]);
 
 const numericEntity = (name: string): string => {
   const code = name.toLowerCase().startsWith("#x")
-    ? Number.parseInt(name.slice(2), 16)
-    : Number.parseInt(name.slice(1), 10);
+    ? Number(`0x${name.slice(2)}`)
+    : Math.trunc(Number(name.slice(1)));
 
   return Number.isNaN(code) ? `&${name};` : String.fromCodePoint(code);
 };
 
 const decodeEntities = (value: string): string =>
-  value.replace(
+  value.replaceAll(
     /&(?<name>#\d+|#x[0-9a-f]+|[a-z]+);/giu,
-    (whole: string, name: string): string => {
-      const folded = name.toLowerCase();
-
-      if (name.startsWith("#")) {
-        return numericEntity(name);
-      }
-
-      return namedEntities[folded] ?? whole;
-    }
+    (whole: string, name: string): string =>
+      name.startsWith("#")
+        ? numericEntity(name)
+        : (namedEntities.get(name.toLowerCase()) ?? whole)
   );
 
 const bodyOf = (html: string): string => {
@@ -85,26 +80,29 @@ const bodyOf = (html: string): string => {
 };
 
 const withoutCookieBanner = (html: string): string =>
-  html.replace(
+  html.replaceAll(
     /<section\b[^>]*id="cookie-consent"[^>]*>[\s\S]*?<\/section>/gu,
     ""
   );
 
 const withoutNoise = (html: string): string =>
   withoutCookieBanner(bodyOf(html))
-    .replace(/<!--[\s\S]*?-->/gu, "")
-    .replace(/<(script|style|template)\b[^>]*>[\s\S]*?<\/\1>/gu, "");
+    .replaceAll(/<!--[\s\S]*?-->/gu, "")
+    .replaceAll(
+      /<(?<tag>script|style|template)\b[^>]*>[\s\S]*?<\/\k<tag>>/gu,
+      ""
+    );
 
 const inlineText = (html: string): string =>
-  decodeEntities(html.replace(/<[^>]+>/gu, " "))
-    .replace(/\s+/gu, " ")
+  decodeEntities(html.replaceAll(/<[^>]+>/gu, " "))
+    .replaceAll(/\s+/gu, " ")
     .trim();
 
 export const visibleText = (html: string): readonly string[] =>
   withoutNoise(html)
-    .replace(/<[^>]+>/gu, "\n")
+    .replaceAll(/<[^>]+>/gu, "\n")
     .split("\n")
-    .map((line) => decodeEntities(line).replace(/\s+/gu, " ").trim())
+    .map((line) => decodeEntities(line).replaceAll(/\s+/gu, " ").trim())
     .filter((line) => line !== "");
 
 export const headings = (html: string): readonly string[] =>

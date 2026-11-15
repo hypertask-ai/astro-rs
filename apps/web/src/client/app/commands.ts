@@ -42,10 +42,7 @@ export const OpenLogin = Command.define("OpenLogin", {
 export const CopyInstallCommand = Command.define("CopyInstallCommand", {
   args: { command: Schema.String },
   execute: ({ command }) =>
-    Effect.tryPromise({
-      catch: () => undefined,
-      try: () => navigator.clipboard.writeText(command),
-    }).pipe(
+    Effect.tryPromise(() => navigator.clipboard.writeText(command)).pipe(
       Effect.match({
         onFailure: () => Message.FailedCopyInstallCommand(),
         onSuccess: () => Message.CompletedCopyInstallCommand(),
