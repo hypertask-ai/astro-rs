@@ -5,8 +5,6 @@ import type { PageView } from "./features/page/index.js";
 import { view as pricingView } from "./features/pricing/index.js";
 import { view as thankYouView } from "./features/thank-you/index.js";
 
-export { homeView };
-
 export const pageViews: ReadonlyMap<string, PageView> = new Map([
   ["/", homeView],
   ["/about/", aboutView],

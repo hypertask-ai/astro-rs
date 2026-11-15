@@ -3,6 +3,13 @@ import * as stylex from "@stylexjs/stylex";
 const wide = "@media (min-width: 1024px)";
 
 export const styles = stylex.create({
+  container: {
+    marginInline: "auto",
+    maxWidth: "896px",
+    paddingBlock: { default: "32px", [wide]: "48px" },
+    paddingInline: { default: "16px", [wide]: "32px" },
+    width: "100%",
+  },
   cta: {
     ":hover": { backgroundColor: "rgba(255, 255, 255, 0.9)" },
     alignItems: "center",
@@ -19,13 +26,6 @@ export const styles = stylex.create({
     textDecoration: "none",
     transitionDuration: "150ms",
     transitionProperty: "background-color, color",
-  },
-  container: {
-    marginInline: "auto",
-    maxWidth: "896px",
-    paddingBlock: { default: "32px", [wide]: "48px" },
-    paddingInline: { default: "16px", [wide]: "32px" },
-    width: "100%",
   },
   heading: {
     fontSize: "48px",

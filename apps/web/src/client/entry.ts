@@ -1,6 +1,7 @@
 import { Runtime } from "foldkit";
 
-import { homeView, viewForPath } from "../routes.js";
+import { view as homeView } from "../features/home/index.js";
+import { viewForPath } from "../routes.js";
 import {
   initialModel,
   LoadConsent,

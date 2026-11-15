@@ -29,7 +29,13 @@ export const styles = stylex.create({
     transitionDuration: "150ms",
     transitionProperty: "color",
   },
+  header: {
+    marginBottom: "48px",
+    textAlign: "center",
+  },
   heading: {
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
     backgroundClip: "text",
     backgroundImage:
       "linear-gradient(to right, rgb(126, 34, 206), rgb(37, 99, 235))",
@@ -39,12 +45,6 @@ export const styles = stylex.create({
     lineHeight: "40px",
     margin: 0,
     paddingBottom: "8px",
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent",
-  },
-  header: {
-    marginBottom: "48px",
-    textAlign: "center",
   },
   homeLink: {
     color: "inherit",

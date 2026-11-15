@@ -1,5 +1,5 @@
 import { describe, expect, it } from "@effect/vitest";
-import { Effect } from "effect";
+import { Effect, Predicate } from "effect";
 import { renderToString } from "foldkit/experimental/server";
 
 import { initialModel, Message, update } from "../src/client/app/index.js";
@@ -110,7 +110,7 @@ describe("page routes", () => {
           renderPage(new Request(`https://hypertask.ai${path}`))
         );
 
-        expect(result._tag).toBe("Rendered");
+        expect(Predicate.isTagged(result, "Rendered")).toBe(true);
       }
     })
   );
@@ -121,9 +121,9 @@ describe("page routes", () => {
         renderPage(new Request("https://hypertask.ai/nope/"))
       );
 
-      expect(result._tag).toBe("Responded");
+      expect(Predicate.isTagged(result, "Responded")).toBe(true);
 
-      if (result._tag === "Responded") {
+      if (Predicate.isTagged(result, "Responded")) {
         expect(result.response.status).toBe(404);
       }
     })
@@ -165,6 +165,7 @@ describe("pricing switch", () => {
         },
         { isHydratable: false }
       );
+
       const html = renderDocument(application, assets);
 
       expect(html).toContain("$10");
