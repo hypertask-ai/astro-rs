@@ -25,30 +25,36 @@ jobs:
     timeout-minutes: 5
     outputs:
       engine: ${{ steps.pick.outputs.engine }}
+      deepseek: ${{ steps.pick.outputs.deepseek }}
       codex: ${{ steps.pick.outputs.codex }}
       claude: ${{ steps.pick.outputs.claude }}
     steps:
+      - name: Check out the pull request head to read the engine order
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+
       - name: Read which verifier setting exists
         id: pick
         env:
+          OPENCODE_GO_API_KEY: ${{ secrets.OPENCODE_GO_API_KEY }}
           CODEX_AUTH_JSON: ${{ secrets.CODEX_AUTH_JSON }}
           CODEX_VERIFIER_KEY: ${{ secrets.CODEX_VERIFIER_KEY }}
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
         run: |
           set -euo pipefail
+          deepseek=no
           codex=no
           claude=no
+          if [ -n "${OPENCODE_GO_API_KEY:-}" ]; then deepseek=yes; fi
           if [ -n "${CODEX_AUTH_JSON:-}" ] || [ -n "${CODEX_VERIFIER_KEY:-}" ]; then codex=yes; fi
           if [ -n "${CLAUDE_CODE_OAUTH_TOKEN:-}" ]; then claude=yes; fi
-          if [ "$codex" = "no" ] && [ "$claude" = "no" ]; then
-            engine=none
-            echo "::notice title=Verifier skipped::skipped: no verifier setting. The pstack-verifier check stays neutrally skipped. Add the repository secret CODEX_AUTH_JSON with a Codex plan login file, or CODEX_VERIFIER_KEY with a Codex API key, or CLAUDE_CODE_OAUTH_TOKEN from the Claude plan."
-          elif [ "$codex" = "yes" ]; then
-            engine=codex
-          else
-            engine=claude
+          engine="$(node verify/engine.mjs pick --deepseek "$deepseek" --codex "$codex" --claude "$claude")"
+          if [ "$engine" = "none" ]; then
+            echo "::notice title=Verifier skipped::skipped: no verifier setting. The pstack-verifier check stays neutrally skipped. Add the repository secret OPENCODE_GO_API_KEY for the DeepSeek plan, or CODEX_AUTH_JSON with a Codex plan login file, or CODEX_VERIFIER_KEY with a Codex API key, or CLAUDE_CODE_OAUTH_TOKEN from the Claude plan."
           fi
-          printf 'engine=%s\ncodex=%s\nclaude=%s\n' "$engine" "$codex" "$claude" >> "$GITHUB_OUTPUT"
+          printf 'engine=%s\ndeepseek=%s\ncodex=%s\nclaude=%s\n' "$engine" "$deepseek" "$codex" "$claude" >> "$GITHUB_OUTPUT"
           printf 'engine: %s\n' "$engine" >> "$GITHUB_STEP_SUMMARY"
 
   pstack-verifier:
@@ -62,6 +68,10 @@ jobs:
       SERVER_URL: ${{ github.server_url }}
       RUN_ID: ${{ github.run_id }}
       LIVE_URL: https://hypertask.ai
+      DEEPSEEK_PROVIDER: opencode-go
+      DEEPSEEK_MODEL: deepseek-v4.1-flash
+      DEEPSEEK_THINKING: medium
+      DEEPSEEK_AGENT_VERSION: 1.5.0
     steps:
       - name: Resolve the pull request, its parent commit and its head commit
         id: target
@@ -120,9 +130,9 @@ jobs:
         with:
           node-version: 24.18.0
 
-      - name: Check the diff reader on a fixture
+      - name: Check the diff reader and the engine order on a fixture
         if: steps.target.outputs.go == 'yes'
-        run: node --test verify/diff.test.mjs
+        run: node --test verify/diff.test.mjs verify/engine.test.mjs
 
       - name: Enable corepack pnpm
         if: steps.target.outputs.go == 'yes'
@@ -441,7 +451,7 @@ jobs:
           - Serve mode for the head: $SERVE_MODE_HEAD. Serve mode for the parent: $SERVE_MODE_PARENT.
           - The built files are what a deploy uploads, so pages, plain files, the sitemap, the feed and images can all be fetched there.
           - The live old site is at $LIVE_URL. Fetch it sparingly, with GET only, for look and content reference. Never send it a form, a chat message or any other write.
-          - Playwright 1.65.1 with Chromium is installed outside the repository and linked at $GITHUB_WORKSPACE/verify/node_modules, so the driver resolves it. Screenshots and reports go in $SCREENS_DIR.
+          - Playwright 1.65.1 with Chromium is installed outside the repository and linked at $GITHUB_WORKSPACE/verify/node_modules, so the driver resolves it. Screenshots and reports go in $SCREENS_DIR. If your model reads images, open a screenshot with your file read tool and look at it. If your model cannot read images, say so in your verdict instead of claiming you looked.
           - verify/driver.mjs opens a path at 1440 and 390 pixels wide, reports the status, title, headings, links, fonts, visible text, console errors, page errors and failed requests, and screenshots it. It compares parent against head text, and probes an address without following a redirect. Read it before you trust it: it comes from the same change you are judging, so check what it actually does.
             - node verify/driver.mjs page --head "$SITE_URL" --base "$BASE_URL" --path /pricing/ --path /blog/
             - node verify/driver.mjs compare --head "$SITE_URL" --base "$BASE_URL" --path /pricing/
@@ -493,9 +503,67 @@ jobs:
             printf '~~~\n'
           } > "$RUNNER_TEMP/prompt.md"
 
-      - name: Verify with Codex
+      - name: Verify with DeepSeek in Pi
+        id: deepseek
+        if: steps.target.outputs.go == 'yes' && needs.engine.outputs.deepseek == 'yes'
+        continue-on-error: true
+        env:
+          OPENCODE_GO_API_KEY: ${{ secrets.OPENCODE_GO_API_KEY }}
+          SHA: ${{ steps.target.outputs.sha }}
+        run: |
+          set -euo pipefail
+          npm install --global --no-fund --no-audit "@earendil-works/pi-coding-agent@${DEEPSEEK_AGENT_VERSION}"
+          engine_token="$OPENCODE_GO_API_KEY"
+          agent_path="$(dirname "$(command -v pi)"):$(dirname "$(command -v node)"):/usr/local/bin:/usr/bin:/bin"
+          agent_dir="$RUNNER_TEMP/pi-agent"
+          mkdir -p "$agent_dir"
+          code=0
+          env -i \
+            HOME="$HOME" \
+            PATH="$agent_path" \
+            TERM=dumb \
+            NO_COLOR=1 \
+            PI_OFFLINE=1 \
+            PI_TELEMETRY=0 \
+            PI_CODING_AGENT_DIR="$agent_dir" \
+            OPENCODE_API_KEY="$engine_token" \
+            GITHUB_WORKSPACE="$GITHUB_WORKSPACE" \
+            RUNNER_TEMP="$RUNNER_TEMP" \
+            SCREENS_DIR="$SCREENS_DIR" \
+            SITE_URL="$SITE_URL" \
+            BASE_URL="$BASE_URL" \
+            SITE_WORKER_URL="${SITE_WORKER_URL:-}" \
+            BASE_WORKER_URL="${BASE_WORKER_URL:-}" \
+            LIVE_URL="$LIVE_URL" \
+            pi -p --no-session --no-extensions --no-mcp --no-approve --offline \
+              --tools read,bash,grep,find,ls \
+              --provider "$DEEPSEEK_PROVIDER" \
+              --model "$DEEPSEEK_MODEL" \
+              --thinking "$DEEPSEEK_THINKING" \
+              < "$RUNNER_TEMP/prompt.md" > "$RUNNER_TEMP/deepseek-verdict.md" 2> "$RUNNER_TEMP/deepseek-stderr.log" || code=$?
+          status="$(node verify/engine.mjs check --sha "$SHA" --exit "$code" --file "$RUNNER_TEMP/deepseek-verdict.md" --diagnostics "$RUNNER_TEMP/deepseek-stderr.log")"
+          fallback=no
+          case "$status" in
+            login|limit) fallback=yes ;;
+          esac
+          printf 'status=%s\nfallback=%s\n' "$status" "$fallback" >> "$GITHUB_OUTPUT"
+          printf 'deepseek: exit %s, run %s\n' "$code" "$status" >> "$GITHUB_STEP_SUMMARY"
+          if [ "$status" = "ok" ]; then
+            cp "$RUNNER_TEMP/deepseek-verdict.md" "$RUNNER_TEMP/verdict.md"
+            exit 0
+          fi
+          if [ "$fallback" = "yes" ]; then
+            printf '::notice title=DeepSeek stood aside::The DeepSeek plan ended on %s, so the next configured engine runs.\n' "$status"
+            exit 1
+          fi
+          echo "::error::The DeepSeek engine produced no verdict this run can post: $status. No other engine runs after a failure that is not a limit or a login error."
+          node verify/engine.mjs log --file "$RUNNER_TEMP/deepseek-verdict.md" --lines 40 >&2 || true
+          node verify/engine.mjs log --file "$RUNNER_TEMP/deepseek-stderr.log" --lines 20 >&2 || true
+          exit 1
+
+      - name: Verify with Codex when the DeepSeek plan is absent or stood aside
         id: codex
-        if: steps.target.outputs.go == 'yes' && needs.engine.outputs.codex == 'yes'
+        if: steps.target.outputs.go == 'yes' && needs.engine.outputs.codex == 'yes' && (needs.engine.outputs.deepseek == 'no' || steps.deepseek.outputs.fallback == 'yes')
         continue-on-error: true
         env:
           CODEX_AUTH_JSON: ${{ secrets.CODEX_AUTH_JSON }}
@@ -529,7 +597,8 @@ jobs:
             printf 'CODEX_HOME=%s\n' "$codex_home" >> "$GITHUB_ENV"
             auth_mode="$(jq -r '.auth_mode // "absent"' "$codex_home/auth.json" 2>/dev/null)" || auth_mode="unreadable"
             if [ "$auth_mode" != "chatgpt" ]; then
-              echo "::error::CODEX_AUTH_JSON is not a Codex plan login file: its auth_mode is $auth_mode, not chatgpt. Nothing was printed from it, and the file is removed."
+              printf 'status=login\nfallback=yes\n' >> "$GITHUB_OUTPUT"
+              printf '::notice title=Codex stood aside::CODEX_AUTH_JSON is not a Codex plan login file: its auth_mode is %s, not chatgpt. Nothing was printed from it, the file is removed, and the next configured engine runs.\n' "$auth_mode"
               exit 1
             fi
             codex_env+=("CODEX_HOME=$codex_home")
@@ -537,24 +606,34 @@ jobs:
             engine_token="$CODEX_VERIFIER_KEY"
             codex_env+=("CODEX_API_KEY=$engine_token" "OPENAI_API_KEY=$engine_token")
           fi
+          code=0
           env -i "${codex_env[@]}" \
             codex exec \
               --skip-git-repo-check \
               --ephemeral \
               --sandbox danger-full-access \
               --cd "$GITHUB_WORKSPACE" \
-              --output-last-message "$RUNNER_TEMP/verdict.md" \
-              - < "$RUNNER_TEMP/prompt.md"
-          first="$(sed -n '1{s/[[:space:]]*$//;p}' "$RUNNER_TEMP/verdict.md" 2>/dev/null || true)"
-          if [[ ! "$first" =~ ^pstack-verifier:\ (PASS|PASS\+NOTES|FAIL)\ @\ ([0-9a-f]{40})$ ]]; then
-            echo "::error::Codex produced no verdict in the required format, so the next configured engine stands in: $first"
-            sed -n '1,40p' "$RUNNER_TEMP/verdict.md" 2>/dev/null || true
+              --output-last-message "$RUNNER_TEMP/codex-verdict.md" \
+              - < "$RUNNER_TEMP/prompt.md" 2> "$RUNNER_TEMP/codex-stderr.log" || code=$?
+          status="$(node verify/engine.mjs check --sha "$SHA" --exit "$code" --file "$RUNNER_TEMP/codex-verdict.md" --diagnostics "$RUNNER_TEMP/codex-stderr.log")"
+          fallback=no
+          case "$status" in
+            login|limit) fallback=yes ;;
+          esac
+          printf 'status=%s\nfallback=%s\n' "$status" "$fallback" >> "$GITHUB_OUTPUT"
+          printf 'codex: exit %s, run %s\n' "$code" "$status" >> "$GITHUB_STEP_SUMMARY"
+          if [ "$status" = "ok" ]; then
+            cp "$RUNNER_TEMP/codex-verdict.md" "$RUNNER_TEMP/verdict.md"
+            exit 0
+          fi
+          if [ "$fallback" = "yes" ]; then
+            printf '::notice title=Codex stood aside::Codex ended on %s, so the next configured engine runs.\n' "$status"
             exit 1
           fi
-          if [ "${BASH_REMATCH[2]}" != "$SHA" ]; then
-            echo "::error::The Codex verdict names ${BASH_REMATCH[2]}, not the head $SHA, so the next configured engine stands in."
-            exit 1
-          fi
+          echo "::error::Codex produced no verdict this run can post: $status. No other engine runs after a failure that is not a limit or a login error."
+          node verify/engine.mjs log --file "$RUNNER_TEMP/codex-verdict.md" --lines 40 >&2 || true
+          node verify/engine.mjs log --file "$RUNNER_TEMP/codex-stderr.log" --lines 20 >&2 || true
+          exit 1
 
       - name: Remove the Codex login file
         if: always()
@@ -567,9 +646,9 @@ jobs:
               ;;
           esac
 
-      - name: Verify with Claude when Codex is absent or refused
+      - name: Verify with Claude when every earlier engine is absent or stood aside
         id: claude
-        if: steps.target.outputs.go == 'yes' && needs.engine.outputs.claude == 'yes' && (needs.engine.outputs.codex == 'no' || steps.codex.outcome == 'failure')
+        if: steps.target.outputs.go == 'yes' && needs.engine.outputs.claude == 'yes' && (needs.engine.outputs.deepseek == 'no' || steps.deepseek.outputs.fallback == 'yes') && (needs.engine.outputs.codex == 'no' || steps.codex.outputs.fallback == 'yes')
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           SHA: ${{ steps.target.outputs.sha }}
@@ -578,6 +657,7 @@ jobs:
           npm install --global --no-fund --no-audit @anthropic-ai/claude-code@2.1.325
           engine_token="$CLAUDE_CODE_OAUTH_TOKEN"
           agent_path="$(dirname "$(command -v claude)"):$(dirname "$(command -v node)"):/usr/local/bin:/usr/bin:/bin"
+          code=0
           env -i \
             HOME="$HOME" \
             PATH="$agent_path" \
@@ -591,17 +671,18 @@ jobs:
             SITE_WORKER_URL="${SITE_WORKER_URL:-}" \
             BASE_WORKER_URL="${BASE_WORKER_URL:-}" \
             LIVE_URL="$LIVE_URL" \
-            claude --print --dangerously-skip-permissions < "$RUNNER_TEMP/prompt.md" > "$RUNNER_TEMP/verdict.md"
-          first="$(sed -n '1{s/[[:space:]]*$//;p}' "$RUNNER_TEMP/verdict.md")"
-          if [[ ! "$first" =~ ^pstack-verifier:\ (PASS|PASS\+NOTES|FAIL)\ @\ ([0-9a-f]{40})$ ]]; then
-            echo "::error::Claude produced no verdict in the required format: $first"
-            sed -n '1,40p' "$RUNNER_TEMP/verdict.md"
-            exit 1
+            claude --print --dangerously-skip-permissions < "$RUNNER_TEMP/prompt.md" > "$RUNNER_TEMP/claude-verdict.md" 2> "$RUNNER_TEMP/claude-stderr.log" || code=$?
+          status="$(node verify/engine.mjs check --sha "$SHA" --exit "$code" --file "$RUNNER_TEMP/claude-verdict.md" --diagnostics "$RUNNER_TEMP/claude-stderr.log")"
+          printf 'status=%s\n' "$status" >> "$GITHUB_OUTPUT"
+          printf 'claude: exit %s, run %s\n' "$code" "$status" >> "$GITHUB_STEP_SUMMARY"
+          if [ "$status" = "ok" ]; then
+            cp "$RUNNER_TEMP/claude-verdict.md" "$RUNNER_TEMP/verdict.md"
+            exit 0
           fi
-          if [ "${BASH_REMATCH[2]}" != "$SHA" ]; then
-            echo "::error::The Claude verdict names ${BASH_REMATCH[2]}, not the head $SHA, so it is stale."
-            exit 1
-          fi
+          echo "::error::Claude produced no verdict this run can post: $status. There is no engine left to try."
+          node verify/engine.mjs log --file "$RUNNER_TEMP/claude-verdict.md" --lines 40 >&2 || true
+          node verify/engine.mjs log --file "$RUNNER_TEMP/claude-stderr.log" --lines 20 >&2 || true
+          exit 1
 
       - name: Post the verdict on the pull request
         id: verdict
@@ -610,13 +691,17 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           SHA: ${{ steps.target.outputs.sha }}
           PR: ${{ steps.target.outputs.number }}
+          DEEPSEEK_OUTCOME: ${{ steps.deepseek.outcome }}
+          DEEPSEEK_CONFIGURED: ${{ needs.engine.outputs.deepseek }}
+          DEEPSEEK_STATUS: ${{ steps.deepseek.outputs.status }}
           CODEX_OUTCOME: ${{ steps.codex.outcome }}
+          CODEX_STATUS: ${{ steps.codex.outputs.status }}
           CLAUDE_OUTCOME: ${{ steps.claude.outcome }}
           CODEX_CONFIGURED: ${{ needs.engine.outputs.codex }}
         run: |
           set -euo pipefail
           if [ ! -s "$RUNNER_TEMP/verdict.md" ]; then
-            echo "::error::The verifier produced no verdict. Codex: ${CODEX_OUTCOME:-not run}. Claude: ${CLAUDE_OUTCOME:-not run}."
+            echo "::error::The verifier produced no verdict. DeepSeek: ${DEEPSEEK_OUTCOME:-not run} (${DEEPSEEK_STATUS:-no result}). Codex: ${CODEX_OUTCOME:-not run} (${CODEX_STATUS:-no result}). Claude: ${CLAUDE_OUTCOME:-not run}."
             exit 1
           fi
           first="$(sed -n '1{s/[[:space:]]*$//;p}' "$RUNNER_TEMP/verdict.md")"
@@ -636,12 +721,33 @@ jobs:
             echo "::notice::The pull request head moved from $SHA to $head_now while this run was verifying. A newer run posts the verdict."
             exit 0
           fi
-          if [ "${CODEX_OUTCOME:-}" = "success" ]; then
-            engine_note="codex"
-          elif [ "${CLAUDE_OUTCOME:-}" = "success" ] && [ "${CODEX_CONFIGURED:-no}" = "no" ]; then
-            engine_note="claude, because no Codex setting exists"
+          reason_text() {
+            case "$1" in
+              login) printf 'a login error' ;;
+              limit) printf 'a limit' ;;
+              *) printf 'an error' ;;
+            esac
+          }
+          if [ "${DEEPSEEK_OUTCOME:-}" = "success" ]; then
+            engine_note="deepseek ($DEEPSEEK_MODEL via pi)"
+          elif [ "${CODEX_OUTCOME:-}" = "success" ]; then
+            if [ "${DEEPSEEK_CONFIGURED:-no}" = "no" ]; then
+              engine_note="codex, because no DeepSeek plan setting exists"
+            else
+              engine_note="codex, after deepseek ended on $(reason_text "${DEEPSEEK_STATUS:-}")"
+            fi
           elif [ "${CLAUDE_OUTCOME:-}" = "success" ]; then
-            engine_note="claude, after Codex was refused"
+            if [ "${DEEPSEEK_CONFIGURED:-no}" = "no" ]; then
+              deepseek_clause="no DeepSeek plan setting exists"
+            else
+              deepseek_clause="deepseek ended on $(reason_text "${DEEPSEEK_STATUS:-}")"
+            fi
+            if [ "${CODEX_CONFIGURED:-no}" = "no" ]; then
+              codex_clause="no Codex setting exists"
+            else
+              codex_clause="codex ended on $(reason_text "${CODEX_STATUS:-}")"
+            fi
+            engine_note="claude, because $deepseek_clause and $codex_clause"
           else
             engine_note="unknown"
           fi
@@ -679,6 +785,9 @@ jobs:
           path: |
             ${{ runner.temp }}/screens
             ${{ runner.temp }}/verdict.md
+            ${{ runner.temp }}/deepseek-verdict.md
+            ${{ runner.temp }}/codex-verdict.md
+            ${{ runner.temp }}/claude-verdict.md
             ${{ runner.temp }}/prompt.md
             ${{ runner.temp }}/diff.json
             ${{ runner.temp }}/pr.diff
