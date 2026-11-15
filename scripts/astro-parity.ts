@@ -503,7 +503,11 @@ const bytesCell = (rows: readonly JobResult[]): string => {
 };
 
 const pageRow = (pagePath: string, rows: readonly JobResult[]): string => {
-  const reasons = rows.flatMap((row) => violationsIn(row, baselineMode));
+  const reasons = rows.flatMap((row) =>
+    violationsIn(row, baselineMode).map(
+      (reason) => `${row.viewport}: ${reason}`
+    )
+  );
 
   const statuses = rows
     .map((row) => `${row.viewport} ${formatStatus(row)}`)
@@ -615,7 +619,9 @@ const failureCount = ordered.filter(
 ).length;
 
 const addresses = [
-  `${pagePaths.length} addresses`,
+  pageLimit > 0
+    ? `${pagePaths.length} of ${allPaths.length} addresses`
+    : `${allPaths.length} addresses`,
   `${sitemapPaths.length} in the sitemap`,
   `${tagPaths.length} blog tag pages`,
   `${ASSET_PATHS.length} fixed files`,
