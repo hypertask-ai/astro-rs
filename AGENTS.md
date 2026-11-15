@@ -157,7 +157,7 @@ Product rules for the hypertask.ai marketing site. The fence rules below are enf
 - Cookie choices are an XState machine started under `createEffectActor`. No analytics tag loads before its choice is stored.
 - Fathom and the Sign up click are a Foldkit command. Analytics relays are an Effect HTTP client behind a capability.
 - Fonts and media are self-hosted files. No outside font or script tag without a written owner and reason in the ticket that adds it. The help chat script is the one kept outside script, with its reason on HTPR-9124.
-- Nothing is built or tested on our servers. Build, check, test and publish run only in GitHub-hosted Actions. Publishing happens on every merge to `main`.
+- Nothing is built or tested on our servers. Build, check, test and publish run only in GitHub-hosted Actions. Publishing happens on every merge to `site`, the default branch, through `.github/workflows/publish-ratstack.yml`.
 - One contract, every surface. Define schemas and metadata with `defineContract`; bind a server-side handler with `implement` and add the capability to `capabilities`. Do not add a route or tool handler that bypasses a capability.
 - Schemas are the contract. Input, output and failure are Effect `Schema`; derived documents are never hand-written.
 - Lifecycles are machines. Finite modes, retries and cancellation live in XState machines started with `createEffectActor`; side effects live in declared `createEffectLogic` actors, never inline.
