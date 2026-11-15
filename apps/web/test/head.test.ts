@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@effect/vitest";
+import { Schema } from "effect";
 
 import {
   buildHead,
@@ -35,6 +36,8 @@ type OldHead = Readonly<
 
 const oldHeads = new Map<string, OldHead>(Object.entries(oldHeadsJson));
 
+const parseJson = Schema.decodeUnknownSync(Schema.UnknownFromJsonString);
+
 const unescapeAttribute = (value: string): string =>
   value
     .replaceAll("&quot;", '"')
@@ -62,7 +65,7 @@ const readJsonLd = (head: string): readonly unknown[] =>
     ...head.matchAll(
       /<script type="application\/ld\+json">(?<json>.*?)<\/script>/gu
     ),
-  ].map((match) => JSON.parse(match.groups?.json ?? "null"));
+  ].map((match) => parseJson(match.groups?.json ?? "null"));
 
 const headFor = (path: string): string => {
   const page = pageHeads.get(path);
