@@ -10,8 +10,8 @@ import {
 import { initialModel } from "./client/app/model.js";
 import { buildHead, pageHeads, siteOrigin } from "./features/head/index.js";
 import { view as homeView } from "./features/home/index.js";
-import { relayPostHogFromRequest } from "./relay-posthog.js";
 import { useCaseViewFor, useCaseViews } from "./features/use-cases/index.js";
+import { relayPostHogFromRequest } from "./relay-posthog.js";
 
 type RenderDocument = typeof renderFoldkitDocument;
 
