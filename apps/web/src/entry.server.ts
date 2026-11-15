@@ -12,7 +12,7 @@ import { buildHead, pageHeads, siteOrigin } from "./features/head/index.js";
 import { view } from "./features/home/index.js";
 import { relayPostHogFromRequest } from "./relay-posthog.js";
 import { removeSiteBasePath } from "./site-base-path.js";
-import { siteBasePath, sitePreviewHeaders } from "./site-base.js";
+import { siteBasePath, sitePreviewResponse } from "./site-base.js";
 
 type RenderDocument = typeof renderFoldkitDocument;
 
@@ -47,23 +47,29 @@ const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
     const body = new Uint8Array(relayed.body);
 
     return Responded(
-      new Response(body.buffer, {
-        headers: relayed.headers,
-        status: relayed.status,
-      })
+      sitePreviewResponse(
+        new Response(body.buffer, {
+          headers: relayed.headers,
+          status: relayed.status,
+        })
+      )
     );
   }
 
   if (path !== "/") {
-    return Responded(new Response("Not found", { status: 404 }));
+    return Responded(
+      sitePreviewResponse(new Response("Not found", { status: 404 }))
+    );
   }
 
   if (request.method !== "GET" && request.method !== "HEAD") {
     return Responded(
-      new Response("Unsupported method", {
-        headers: { Allow: "GET, HEAD" },
-        status: 405,
-      })
+      sitePreviewResponse(
+        new Response("Unsupported method", {
+          headers: { Allow: "GET, HEAD" },
+          status: 405,
+        })
+      )
     );
   }
 
@@ -72,11 +78,7 @@ const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
     view,
   });
 
-  const headers = sitePreviewHeaders();
-
-  return headers === undefined
-    ? Rendered(application)
-    : Rendered(application, { headers });
+  return Rendered(application);
 });
 
 export const renderPage = (request: Request) =>
@@ -85,10 +87,12 @@ export const renderPage = (request: Request) =>
       Effect.catchCause((cause) =>
         Effect.succeed(
           Responded(
-            new Response("The page could not be rendered", {
-              status: 500,
-              statusText: cause.toString(),
-            })
+            sitePreviewResponse(
+              new Response("The page could not be rendered", {
+                status: 500,
+                statusText: cause.toString(),
+              })
+            )
           )
         )
       )

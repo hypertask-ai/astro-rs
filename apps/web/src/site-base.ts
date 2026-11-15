@@ -34,3 +34,23 @@ export const siteBuilder = <Message>(
 export const sitePreviewHeaders = ():
   | Readonly<Record<string, string>>
   | undefined => (isSitePreview ? { "x-robots-tag": "noindex" } : undefined);
+
+export const sitePreviewResponse = (response: Response): Response => {
+  const headers = sitePreviewHeaders();
+
+  if (headers === undefined) {
+    return response;
+  }
+
+  const merged = new Headers(response.headers);
+
+  for (const [name, value] of Object.entries(headers)) {
+    merged.set(name, value);
+  }
+
+  return new Response(response.body, {
+    headers: merged,
+    status: response.status,
+    statusText: response.statusText,
+  });
+};
