@@ -1,5 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
-import type { Child, Document, Html, HtmlBuilder } from "foldkit/html";
+import type { Document, Html, HtmlBuilder } from "foldkit/html";
 
 import type { AppMessage } from "../../client/app/message.js";
 import type { AppModel } from "../../client/app/model.js";
@@ -24,7 +24,7 @@ export type LegalPage = Readonly<{
   path: string;
 }>;
 
-const run = (h: HtmlBuilder<AppMessage>, inline: Inline): Child => {
+const run = (h: HtmlBuilder<AppMessage>, inline: Inline): Html | string => {
   if (inline.kind === "link") {
     return h.a(
       [h.Href(inline.href), h.Class(classes(styles.link))],
@@ -38,12 +38,12 @@ const run = (h: HtmlBuilder<AppMessage>, inline: Inline): Child => {
 const prose = (
   h: HtmlBuilder<AppMessage>,
   inline: readonly Inline[]
-): readonly Child[] => inline.map((entry) => run(h, entry));
+): readonly (Html | string)[] => inline.map((entry) => run(h, entry));
 
 const spaced = (
   h: HtmlBuilder<AppMessage>,
   inline: readonly Inline[]
-): readonly Child[] =>
+): readonly (Html | string)[] =>
   inline.flatMap((entry, index) =>
     index === 0 ? [run(h, entry)] : [h.br([]), run(h, entry)]
   );
