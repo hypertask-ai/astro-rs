@@ -28,7 +28,7 @@ const OldSiteFiles = Schema.Struct({
   ),
 });
 
-const oldSite = Schema.decodeUnknownSync(Schema.fromJsonString(OldSiteFiles))(
+const oldSite = Schema.decodeSync(Schema.fromJsonString(OldSiteFiles))(
   readFileSync(
     new URL("fixtures/hypertask-crawler/old-site.json", import.meta.url),
     "utf-8"
