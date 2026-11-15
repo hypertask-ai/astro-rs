@@ -47,7 +47,7 @@ const hero = (page: UseCasePage, h: HtmlBuilder<AppMessage>): Html =>
     [
       h.div(
         [h.Class(classes(styles.heroGlowWrap))],
-        [h.div([h.Class(classes(styles.heroGlow))], [])]
+        [h.div([h.Class(classes(styles.heroGlow))])]
       ),
       h.div(
         [h.Class(classes(styles.heroInner))],
@@ -70,34 +70,28 @@ const overlays = (
   h: HtmlBuilder<AppMessage>,
   imageFirst: boolean
 ): readonly Html[] => [
-  h.div(
-    [
-      h.AriaHidden(true),
-      h.Class(
-        classes(
-          styles.overlayTablet,
-          imageFirst
-            ? styles.overlayImageFirstDesktop
-            : styles.overlayTextFirstDesktop
-        )
-      ),
-    ],
-    []
-  ),
-  h.div(
-    [
-      h.AriaHidden(true),
-      h.Class(
-        classes(
-          styles.overlayPhone,
-          imageFirst
-            ? styles.overlayImageFirstPhone
-            : styles.overlayTextFirstPhone
-        )
-      ),
-    ],
-    []
-  ),
+  h.div([
+    h.AriaHidden(true),
+    h.Class(
+      classes(
+        styles.overlayTablet,
+        imageFirst
+          ? styles.overlayImageFirstDesktop
+          : styles.overlayTextFirstDesktop
+      )
+    ),
+  ]),
+  h.div([
+    h.AriaHidden(true),
+    h.Class(
+      classes(
+        styles.overlayPhone,
+        imageFirst
+          ? styles.overlayImageFirstPhone
+          : styles.overlayTextFirstPhone
+      )
+    ),
+  ]),
 ];
 
 const featureModule = (
@@ -193,7 +187,7 @@ const bottomCta = (page: UseCasePage, h: HtmlBuilder<AppMessage>): Html =>
         [
           h.div(
             [h.Class(classes(styles.ctaGlowWrap))],
-            [h.div([h.Class(classes(styles.ctaGlow))], [])]
+            [h.div([h.Class(classes(styles.ctaGlow))])]
           ),
           h.div(
             [h.Class(classes(styles.ctaCard))],

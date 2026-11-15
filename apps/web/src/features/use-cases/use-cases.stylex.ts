@@ -83,10 +83,10 @@ export const styles = stylex.create({
   ctaCard: {
     backgroundImage:
       "linear-gradient(to bottom, rgba(255, 255, 255, 0.05), transparent)",
+    borderColor: "rgba(255, 255, 255, 0.1)",
     borderRadius: "12px",
     borderStyle: "solid",
     borderWidth: "1px",
-    borderColor: "rgba(255, 255, 255, 0.1)",
     padding: { default: "24px", [desktop]: "40px" },
     width: "100%",
   },
@@ -145,9 +145,6 @@ export const styles = stylex.create({
     borderWidth: "1px",
     color: "#ffffff",
   },
-  ctaShell: {
-    paddingBlock: "60px",
-  },
   ctaSection: {
     alignItems: "center",
     display: "flex",
@@ -159,9 +156,12 @@ export const styles = stylex.create({
     position: "relative",
     width: "100%",
   },
+  ctaShell: {
+    paddingBlock: "60px",
+  },
   ctaTitle: {
     color: "#ffffff",
-    fontSize: { default: "24px", [tablet]: "30px", [desktop]: "36px" },
+    fontSize: { default: "24px", [desktop]: "36px", [tablet]: "30px" },
     fontWeight: 600,
     letterSpacing: "-0.025em",
     lineHeight: 1.25,
@@ -273,7 +273,7 @@ export const styles = stylex.create({
   },
   moduleTitle: {
     color: "#ffffff",
-    fontSize: { default: "24px", [tablet]: "30px", [desktop]: "36px" },
+    fontSize: { default: "24px", [desktop]: "36px", [tablet]: "30px" },
     fontWeight: 600,
     letterSpacing: "-0.025em",
     lineHeight: 1.25,
