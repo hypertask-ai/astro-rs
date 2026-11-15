@@ -1,5 +1,3 @@
-import { readFileSync } from "node:fs";
-
 import { describe, expect, it } from "@effect/vitest";
 
 import {
@@ -7,6 +5,7 @@ import {
   canonicalFor,
   pageHeads,
 } from "../src/features/head/index.js";
+import oldHeadsJson from "./fixtures/old-heads.json" with { type: "json" };
 
 const metaKeys = [
   "description",
@@ -34,16 +33,7 @@ type OldHead = Readonly<
   Partial<Record<MetaKey | "canonical" | "og:url" | "title", string>>
 > & { readonly ld: readonly object[] };
 
-const parseJson = (text: string): unknown => JSON.parse(text);
-
-const oldHeads = new Map<string, OldHead>(
-  Object.entries(
-    // SAFETY: old-heads.json is captured from the live site with exactly this shape.
-    parseJson(
-      readFileSync(new URL("fixtures/old-heads.json", import.meta.url), "utf-8")
-    ) as Record<string, OldHead>
-  )
-);
+const oldHeads = new Map<string, OldHead>(Object.entries(oldHeadsJson));
 
 const unescapeAttribute = (value: string): string =>
   value
@@ -72,7 +62,7 @@ const readJsonLd = (head: string): readonly unknown[] =>
     ...head.matchAll(
       /<script type="application\/ld\+json">(?<json>.*?)<\/script>/gu
     ),
-  ].map((match) => parseJson(match.groups?.json ?? "null"));
+  ].map((match) => JSON.parse(match.groups?.json ?? "null"));
 
 const headFor = (path: string): string => {
   const page = pageHeads.get(path);
