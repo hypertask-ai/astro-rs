@@ -5,6 +5,7 @@ import { Message } from "../../client/app/message.js";
 import type { AppMessage } from "../../client/app/message.js";
 import type { AppModel } from "../../client/app/model.js";
 import {
+  cookieSettingsId,
   cookieSettingsLabel,
   copyrightLine,
   footerLabel,
@@ -305,6 +306,7 @@ const cookieButton = (
 ): Html =>
   h.button(
     [
+      h.Id(cookieSettingsId),
       h.Type("button"),
       h.Class(
         classes(variant === "home" ? footerStyles.linkHome : footerStyles.link)

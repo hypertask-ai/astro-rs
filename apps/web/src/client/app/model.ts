@@ -16,7 +16,7 @@ export type AppModel = typeof Model.Type;
 
 export const initialModel: AppModel = {
   analyticsAllowed: false,
-  bannerVisible: true,
+  bannerVisible: false,
   choice: Option.none(),
   menuOpen: false,
   ready: true,

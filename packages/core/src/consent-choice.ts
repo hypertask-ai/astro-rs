@@ -65,8 +65,8 @@ export const consentCookie = (
 export const expiredCookie = (name: string, domain?: string): string =>
   [
     `${name}=`,
-    "Max-Age=0",
     "Path=/",
+    "Max-Age=0",
     "SameSite=Lax",
     "Secure",
     ...(domain === undefined ? [] : [`Domain=${domain}`]),

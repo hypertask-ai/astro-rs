@@ -3,6 +3,8 @@ import type { Update } from "foldkit";
 
 import {
   AcceptAllCookies,
+  FocusCookieChoices,
+  FocusCookieSettings,
   LoadConsent,
   OpenLogin,
   RejectOptionalCookies,
@@ -20,6 +22,8 @@ export const update = (model: AppModel, message: AppMessage): UpdateReturn =>
     ClosedMenu: () => ({ model: { ...model, menuOpen: false } }),
     ConsentRecheck: () => ({ commands: [LoadConsent()], model }),
     ConsentResolved: ({ analyticsAllowed, bannerVisible, choice }) => ({
+      commands:
+        model.bannerVisible && !bannerVisible ? [FocusCookieSettings()] : [],
       model: {
         ...model,
         analyticsAllowed,
@@ -27,7 +31,10 @@ export const update = (model: AppModel, message: AppMessage): UpdateReturn =>
         choice: Option.fromUndefinedOr(choice),
       },
     }),
-    OpenedCookieSettings: () => ({ model: { ...model, bannerVisible: true } }),
+    OpenedCookieSettings: () => ({
+      commands: [FocusCookieChoices()],
+      model: { ...model, bannerVisible: true },
+    }),
     PressedLoginKey: () => ({ commands: [OpenLogin()], model }),
     Ready: () => ({ model: { ...model, ready: true } }),
     Scrolled: ({ scrolled }) => ({ model: { ...model, scrolled } }),
