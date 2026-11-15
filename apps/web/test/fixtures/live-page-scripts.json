@@ -30,10 +30,7 @@
           "place": "head",
           "src": "https://cdn.usefathom.com/script.js",
           "type": null,
-          "attributes": [
-            "data-site=\"SSBYTYUQ\"",
-            "defer"
-          ],
+          "attributes": ["data-site=\"SSBYTYUQ\"", "defer"],
           "graphType": null,
           "inline": ""
         },
@@ -154,10 +151,7 @@
           "place": "head",
           "src": "https://cdn.usefathom.com/script.js",
           "type": null,
-          "attributes": [
-            "data-site=\"SSBYTYUQ\"",
-            "defer"
-          ],
+          "attributes": ["data-site=\"SSBYTYUQ\"", "defer"],
           "graphType": null,
           "inline": ""
         },

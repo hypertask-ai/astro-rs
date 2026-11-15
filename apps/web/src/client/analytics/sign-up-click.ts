@@ -1,6 +1,9 @@
 import { Option, Predicate, Schema } from "effect";
 
-import { appOrigin, signUpClickEvent } from "../../features/analytics/fathom.js";
+import {
+  appOrigin,
+  signUpClickEvent,
+} from "../../features/analytics/fathom.js";
 
 type LinkElement = Readonly<{ href: string }>;
 
