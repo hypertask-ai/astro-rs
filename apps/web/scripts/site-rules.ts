@@ -18,7 +18,7 @@ export const prerenderedPagePaths = (
     );
 
 export const finalizeSiteRules = Effect.fn("site.finalizeSiteRules")(
-  function* finalizeSiteRules(clientDirectory: string) {
+  function* finalizeSiteRules(clientDirectory: string, siteBasePath: string) {
     const fs = yield* FileSystem.FileSystem;
     const path = yield* Path.Path;
 
@@ -34,10 +34,13 @@ export const finalizeSiteRules = Effect.fn("site.finalizeSiteRules")(
 
     yield* fs.writeFileString(
       `${clientDirectory}/_redirects`,
-      redirectsFile(prerenderedPagePaths(listing, path.sep))
+      redirectsFile(prerenderedPagePaths(listing, path.sep), siteBasePath)
     );
 
-    return yield* fs.writeFileString(headersPath, headersFile(existingHeaders));
+    return yield* fs.writeFileString(
+      headersPath,
+      headersFile(existingHeaders, siteBasePath)
+    );
   },
   Effect.provide(NodeServices.layer)
 );

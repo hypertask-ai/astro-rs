@@ -4,6 +4,7 @@ import type { Document, Html, HtmlBuilder } from "foldkit/html";
 import { Message } from "../../client/app/message.js";
 import type { AppMessage } from "../../client/app/message.js";
 import type { AppModel } from "../../client/app/model.js";
+import { siteBasePath, siteBuilder } from "../../site-base.js";
 import { consentBanner } from "../consent/index.js";
 import { loginUrl } from "../frame/copy.js";
 import { frame } from "../frame/index.js";
@@ -270,7 +271,7 @@ const pricing = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
     ]
   );
 
-export const view = (
+const homeDocument = (
   model: AppModel,
   h: HtmlBuilder<AppMessage>
 ): Document => ({
@@ -290,3 +291,10 @@ export const view = (
   ogUrl: canonicalFor(homePath),
   title: pageHeads.get(homePath)?.title ?? copy.pageTitle,
 });
+
+export const viewAt =
+  (basePath: string) =>
+  (model: AppModel, h: HtmlBuilder<AppMessage>): Document =>
+    homeDocument(model, siteBuilder(basePath, h));
+
+export const view = viewAt(siteBasePath);

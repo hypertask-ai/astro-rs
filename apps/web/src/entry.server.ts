@@ -8,65 +8,89 @@ import {
 
 import { initialModel } from "./client/app/model.js";
 import { buildHead, pageHeads, siteOrigin } from "./features/head/index.js";
-import { view } from "./features/home/index.js";
+import { viewAt } from "./features/home/index.js";
+import { removeSiteBasePath } from "./site-base-path.js";
+import { siteBasePath } from "./site-base.js";
 
 type RenderDocument = typeof renderFoldkitDocument;
 
-export const renderDocument: RenderDocument = (
-  application,
-  assets,
-  options
-) => {
-  const path = application.canonical?.slice(siteOrigin.length) ?? "/";
-  const page = pageHeads.get(path);
-  const head = page === undefined ? "" : buildHead(path, page);
+const robotsBody = "User-agent: *\nDisallow: /\n";
 
-  return renderFoldkitDocument(application, assets, {
-    ...options,
-    head: `${options?.head ?? ""}${head}`,
+const robotsAnswer = (method: string): Response =>
+  new Response(method === "HEAD" ? null : robotsBody, {
+    headers: { "Content-Type": "text/plain; charset=utf-8" },
+    status: 200,
   });
-};
+
+export const renderDocumentAt =
+  (basePath: string): RenderDocument =>
+  (application, assets, options) => {
+    const path = application.canonical?.slice(siteOrigin.length) ?? "/";
+    const page = pageHeads.get(path);
+    const head = page === undefined ? "" : buildHead(path, page, basePath);
+
+    return renderFoldkitDocument(application, assets, {
+      ...options,
+      head: `${options?.head ?? ""}${head}`,
+    });
+  };
+
+export const renderDocument: RenderDocument = renderDocumentAt(siteBasePath);
 
 export const prerenderPaths = ["/"];
 
-const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
-  request: Request
-) {
-  const { pathname } = new URL(request.url);
+export const renderRouteAt = (basePath: string) => {
+  const page = viewAt(basePath);
 
-  if (pathname !== "/") {
-    return Responded(new Response("Not found", { status: 404 }));
-  }
+  return Effect.fn("site.renderRoute")(function* renderRoute(request: Request) {
+    const { pathname } = new URL(request.url);
+    const route = removeSiteBasePath(basePath, pathname);
+    const robots = basePath !== "" && route === "/robots.txt";
 
-  if (request.method !== "GET" && request.method !== "HEAD") {
-    return Responded(
-      new Response("Unsupported method", {
-        headers: { Allow: "GET, HEAD" },
-        status: 405,
-      })
-    );
-  }
+    if (route !== "/" && !robots) {
+      return Responded(new Response("Not found", { status: 404 }));
+    }
 
-  const application = yield* renderToString({
-    init: () => ({ model: initialModel }),
-    view,
+    if (request.method !== "GET" && request.method !== "HEAD") {
+      return Responded(
+        new Response("Unsupported method", {
+          headers: { Allow: "GET, HEAD" },
+          status: 405,
+        })
+      );
+    }
+
+    if (robots) {
+      return Responded(robotsAnswer(request.method));
+    }
+
+    const application = yield* renderToString({
+      init: () => ({ model: initialModel }),
+      view: page,
+    });
+
+    return Rendered(application);
   });
+};
 
-  return Rendered(application);
-});
+const renderPageAt = (basePath: string) => {
+  const renderRoute = renderRouteAt(basePath);
 
-export const renderPage = (request: Request) =>
-  Effect.runPromise(
-    renderRoute(request).pipe(
-      Effect.catchCause((cause) =>
-        Effect.succeed(
-          Responded(
-            new Response("The page could not be rendered", {
-              status: 500,
-              statusText: cause.toString(),
-            })
+  return (request: Request) =>
+    Effect.runPromise(
+      renderRoute(request).pipe(
+        Effect.catchCause((cause) =>
+          Effect.succeed(
+            Responded(
+              new Response("The page could not be rendered", {
+                status: 500,
+                statusText: cause.toString(),
+              })
+            )
           )
         )
       )
-    )
-  );
+    );
+};
+
+export const renderPage = renderPageAt(siteBasePath);

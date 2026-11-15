@@ -85,13 +85,16 @@ const withoutCookieBanner = (html: string): string =>
     ""
   );
 
-const withoutNoise = (html: string): string =>
-  withoutCookieBanner(bodyOf(html))
+const withoutEmbeddedScripts = (html: string): string =>
+  html
     .replaceAll(/<!--[\s\S]*?-->/gu, "")
     .replaceAll(
       /<(?<tag>script|style|template)\b[^>]*>[\s\S]*?<\/\k<tag>>/gu,
       ""
     );
+
+const withoutNoise = (html: string): string =>
+  withoutEmbeddedScripts(withoutCookieBanner(bodyOf(html)));
 
 const inlineText = (html: string): string =>
   decodeEntities(html.replaceAll(/<[^>]+>/gu, " "))
@@ -171,3 +174,35 @@ export const headTags = (html: string): HeadTags => {
     title: decodeEntities(title?.groups?.text ?? "").trim(),
   };
 };
+
+const addressAttributes = new Set(["action", "href", "src", "srcset"]);
+
+const addressValues = (html: string): readonly string[] =>
+  [...withoutEmbeddedScripts(html).matchAll(attributePattern)].flatMap(
+    (match) => {
+      const key = (match.groups?.key ?? "").toLowerCase();
+      const value = match.groups?.value ?? "";
+
+      if (!addressAttributes.has(key)) {
+        return [];
+      }
+
+      return key === "srcset"
+        ? value
+            .split(",")
+            .map((candidate) => candidate.trim().split(/\s+/u)[0] ?? "")
+        : [value];
+    }
+  );
+
+const isInternalAddress = (value: string): boolean =>
+  value.startsWith("/") && !value.startsWith("//");
+
+const isExternalAddress = (value: string): boolean =>
+  value.startsWith("//") || /^[a-z][a-z0-9+.-]*:/iu.test(value);
+
+export const internalAddresses = (html: string): readonly string[] =>
+  addressValues(html).filter(isInternalAddress);
+
+export const externalAddresses = (html: string): readonly string[] =>
+  addressValues(html).filter(isExternalAddress);

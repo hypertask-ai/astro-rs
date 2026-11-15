@@ -1,3 +1,5 @@
+import { addSiteBasePath } from "../site-base-path.js";
+
 export interface LegacyRedirect {
   readonly destination: string;
   readonly source: string;
@@ -38,9 +40,13 @@ export const securityHeaderLines: readonly string[] = [
   "Referrer-Policy: strict-origin-when-cross-origin",
 ];
 
-export const securityHeadersBlock = `/*\n${securityHeaderLines
-  .map((line) => `  ${line}`)
-  .join("\n")}\n`;
+const headersBlock = (basePath: string, noindex: boolean): string =>
+  `${addSiteBasePath(basePath, "/*")}\n${[
+    ...(noindex ? ["X-Robots-Tag: noindex, nofollow"] : []),
+    ...securityHeaderLines,
+  ]
+    .map((line) => `  ${line}`)
+    .join("\n")}\n`;
 
 const legacySources = new Set(
   legacyRedirects.map((redirect) => redirect.source)
@@ -76,20 +82,52 @@ export const redirectLine = (redirect: {
   readonly status: number;
 }): string => `${redirect.source} ${redirect.destination} ${redirect.status}`;
 
-export const redirectsFile = (pagePaths: readonly string[]): string =>
+const mountedRedirect = (
+  basePath: string,
+  redirect: {
+    readonly destination: string;
+    readonly source: string;
+    readonly status: number;
+  }
+) => ({
+  destination: addSiteBasePath(basePath, redirect.destination),
+  source: addSiteBasePath(basePath, redirect.source),
+  status: redirect.status,
+});
+
+export const redirectsFile = (
+  pagePaths: readonly string[],
+  basePath = ""
+): string =>
   `${[
-    ...legacyRedirects.map(redirectLine),
-    ...trailingSlashRedirects(pagePaths).map(redirectLine),
+    ...legacyRedirects.map((redirect) =>
+      redirectLine(mountedRedirect(basePath, redirect))
+    ),
+    ...trailingSlashRedirects(pagePaths).map((redirect) =>
+      redirectLine(mountedRedirect(basePath, redirect))
+    ),
   ].join("\n")}\n`;
 
-export const headersFile = (existing: string): string => {
-  if (existing.includes(securityHeaderLines[0] ?? "")) {
-    return existing;
+const mountedHeaderPaths = (existing: string, basePath: string): string =>
+  basePath === ""
+    ? existing
+    : existing
+        .split("\n")
+        .map((line) =>
+          line.startsWith("/") ? addSiteBasePath(basePath, line) : line
+        )
+        .join("\n");
+
+export const headersFile = (existing: string, basePath = ""): string => {
+  const mounted = mountedHeaderPaths(existing, basePath);
+
+  if (mounted.includes(securityHeaderLines[0] ?? "")) {
+    return mounted;
   }
 
-  const separator = existing === "" || existing.endsWith("\n") ? "" : "\n";
+  const separator = mounted === "" || mounted.endsWith("\n") ? "" : "\n";
 
-  return `${existing}${separator}${existing === "" ? "" : "\n"}${securityHeadersBlock}`;
+  return `${mounted}${separator}${mounted === "" ? "" : "\n"}${headersBlock(basePath, basePath !== "")}`;
 };
 
 export type LegacyAnswer =

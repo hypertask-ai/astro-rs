@@ -31,10 +31,12 @@
     },
     "build": {
       "dependsOn": ["^build"],
+      "env": ["SITE_BASE_PATH"],
       "outputs": ["dist/**"]
     },
     "test": {
       "dependsOn": ["build"],
+      "env": ["SITE_BASE_PATH"],
       "outputs": []
     },
     "//#lint": {
@@ -62,6 +64,7 @@
     },
     "@rat-stack/infra#test": {
       "dependsOn": ["^build", "@rat-stack/web#build", "@rat-stack/web#test"],
+      "env": ["SITE_BASE_PATH"],
       "outputs": [],
       "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/apps/web/src/**"]
     }
