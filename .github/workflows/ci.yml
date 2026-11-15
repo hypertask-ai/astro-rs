@@ -40,6 +40,31 @@ jobs:
       - name: Check and test
         # 6882060, 4 cores/16 GB: median N1=479s, N2=265s, N4=271s; N2 worst test=39.13% of budget.
         run: pnpm turbo run check test build --concurrency=2
+      - name: Check install scripts in the build
+        run: |
+          python3 - <<'PY'
+          import hashlib
+          from pathlib import Path
+          root = Path("apps/web/dist/client")
+          expected = {
+              "install": "a83f0798bf63b0b2c042edda837161c988519f8b39c1f7a823a1ed3a8df1ea26",
+              "install.sh": "a83f0798bf63b0b2c042edda837161c988519f8b39c1f7a823a1ed3a8df1ea26",
+              "install.ps1": "ce17de828544ae531d263d2be9d8f171fac6905c12af361887d2e33bff0954ea",
+          }
+          for name, sha256 in expected.items():
+              path = root / name
+              if not path.is_file():
+                  raise SystemExit(f"missing {path}")
+              actual = hashlib.sha256(path.read_bytes()).hexdigest()
+              if actual != sha256:
+                  raise SystemExit(f"{path} bytes {actual} do not match {sha256}")
+          headers = (root / "_headers").read_text()
+          for address in ("/install", "/install.sh", "/install.ps1"):
+              rule = f"{address}\n  Content-Type: text/plain; charset=utf-8"
+              if rule not in headers:
+                  raise SystemExit(f"{address} is not served as plain text")
+          print("INSTALL_SCRIPTS_OK install install.sh install.ps1")
+          PY
       - name: Measure built site
         run: |
           python3 - <<'PY'

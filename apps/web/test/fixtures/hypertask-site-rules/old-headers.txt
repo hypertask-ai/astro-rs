@@ -1,0 +1,16 @@
+# Cloudflare Pages headers
+# Conservative, can't-break-anything security headers.
+# HSTS is intentionally WITHOUT includeSubDomains/preload until every
+# *.hypertask.ai subdomain is confirmed HTTPS-only (see SEO cluster notes).
+/*
+  Strict-Transport-Security: max-age=31536000
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# HTPR-7276: curl -fsSL hypertask.ai/install | sh and irm hypertask.ai/install.ps1 | iex
+/install
+  Content-Type: text/plain; charset=utf-8
+/install.sh
+  Content-Type: text/plain; charset=utf-8
+/install.ps1
+  Content-Type: text/plain; charset=utf-8

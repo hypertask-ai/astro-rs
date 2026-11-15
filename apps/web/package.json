@@ -21,6 +21,7 @@
     "foldkit": "0.170.0"
   },
   "devDependencies": {
+    "@effect/platform-node": "4.1.2",
     "@effect/vitest": "4.1.2",
     "@foldkit/vite-plugin": "0.29.0",
     "@stylexjs/unplugin": "0.19.1",

@@ -2,6 +2,7 @@ import { foldkit } from "@foldkit/vite-plugin";
 import type { Plugin } from "vite";
 import { defineConfig } from "vite";
 
+import { siteRulesPlugin } from "./site-rules.js";
 import { stylexPlugin } from "./stylex.js";
 
 const outputLayout = (): Plugin => ({
@@ -42,5 +43,6 @@ export default defineConfig({
       },
     }),
     outputLayout(),
+    siteRulesPlugin(),
   ],
 });
