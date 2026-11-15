@@ -1,0 +1,710 @@
+{
+  "source": {
+    "bytes": 54478,
+    "fetchedAt": "2026-11-15T12:12:09.378Z",
+    "method": "GET",
+    "sha256": "279547419f50d3db3fafbcfa236b4b938f01979504f51fca56b302b745607b60",
+    "status": 200,
+    "url": "https://hypertask.ai/blog/best-kanban-tool-with-api/"
+  },
+  "address": "/blog/best-kanban-tool-with-api/",
+  "head": {
+    "canonical": "https://hypertask.ai/blog/best-kanban-tool-with-api/",
+    "meta": {
+      "description": "Compare five kanban tools with APIs in 2026, including Hypertask, Linear, Trello, GitHub Projects, and Jira, with pricing and a practical setup guide.",
+      "robots": "index, follow",
+      "og:title": "Best Kanban Tool with an API for Developers and Automation — Hypertask Blog",
+      "og:description": "Compare five kanban tools with APIs in 2026, including Hypertask, Linear, Trello, GitHub Projects, and Jira, with pricing and a practical setup guide.",
+      "og:image": "https://hypertask.ai/images/blog/best-kanban-tool-with-api-cover.webp",
+      "og:image:alt": "Hypertask API kanban tool comparison, white title text and a shared board on a black background",
+      "og:url": "https://hypertask.ai/blog/best-kanban-tool-with-api/",
+      "og:type": "article",
+      "og:site_name": "Hypertask",
+      "twitter:card": "summary_large_image",
+      "twitter:title": "Best Kanban Tool with an API for Developers and Automation — Hypertask Blog",
+      "twitter:description": "Compare five kanban tools with APIs in 2026, including Hypertask, Linear, Trello, GitHub Projects, and Jira, with pricing and a practical setup guide.",
+      "twitter:image": "https://hypertask.ai/images/blog/best-kanban-tool-with-api-cover.webp",
+      "twitter:image:alt": "Hypertask API kanban tool comparison, white title text and a shared board on a black background",
+      "article:published_time": "2026-10-06T00:00:00.000Z",
+      "article:modified_time": "2026-10-06T00:00:00.000Z",
+      "article:author": "https://hypertask.ai/about/",
+      "article:section": "Tool Comparisons"
+    },
+    "title": "Best Kanban Tool with an API for Developers and Automation — Hypertask Blog"
+  },
+  "structuredData": [
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://hypertask.ai/#organization",
+          "name": "Hypertask",
+          "legalName": "Hypertask Lab Ltd.",
+          "url": "https://hypertask.ai",
+          "description": "Hypertask is a project management platform where humans and AI agents share one board. Native MCP server and CLI access let autonomous agents read tasks, claim work, post progress, and update tickets without a human relaying every step.",
+          "knowsAbout": [
+            "AI agents",
+            "project management",
+            "Model Context Protocol",
+            "task management",
+            "AI work attribution",
+            "asynchronous collaboration"
+          ],
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://hypertask.ai/hypertasklogo.avif"
+          },
+          "founder": {
+            "@type": "Person",
+            "@id": "https://hypertask.ai/#founder",
+            "name": "Valentin Yeo",
+            "jobTitle": "Founder"
+          },
+          "sameAs": ["https://www.npmjs.com/package/@hypertask/hypertask_cli"],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "url": "https://hypertask.ai/contact/"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://hypertask.ai/#website",
+          "url": "https://hypertask.ai",
+          "name": "Hypertask",
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://hypertask.ai/#software",
+          "name": "Hypertask",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "url": "https://hypertask.ai",
+          "description": "AI-powered project management where humans and AI agents share one board. Voice-to-task, smart summaries, keyboard-first navigation, native MCP integration.",
+          "screenshot": "https://hypertask.ai/mainscreen.avif",
+          "featureList": [
+            "Shared board for humans and AI agents",
+            "Native MCP server (15 tools)",
+            "Agent-optimized CLI",
+            "Voice-to-task capture",
+            "Smart task summaries",
+            "Keyboard-first navigation",
+            "Inbox and approval gates for agent work"
+          ],
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          },
+          "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "USD",
+            "lowPrice": "0",
+            "highPrice": "25",
+            "offerCount": "3"
+          }
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "headline": "Best Kanban Tool with an API for Developers and Automation",
+          "description": "Compare five kanban tools with APIs in 2026, including Hypertask, Linear, Trello, GitHub Projects, and Jira, with pricing and a practical setup guide.",
+          "datePublished": "2026-10-06T00:00:00.000Z",
+          "dateModified": "2026-10-06T00:00:00.000Z",
+          "author": {
+            "@type": "Person",
+            "name": "Valentin Yeo",
+            "url": "https://hypertask.ai/about/"
+          },
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://hypertask.ai/blog/best-kanban-tool-with-api/"
+          },
+          "image": "https://hypertask.ai/images/blog/best-kanban-tool-with-api-cover.webp",
+          "keywords": "kanban, api, tool-comparison, automation, ai-agents"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://hypertask.ai/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://hypertask.ai/blog/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Best Kanban Tool with an API for Developers and Automation",
+              "item": "https://hypertask.ai/blog/best-kanban-tool-with-api/"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is the best kanban tool with an API for developers?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Hypertask is our top pick for developers coordinating humans, scripts, and external AI agents. Linear fits engineering issue workflows; GitHub Projects fits work already tracked through GitHub issues and pull requests. Choose based on the workflow, not the number of endpoints."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Hypertask have a REST API or only MCP?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Hypertask has a public REST API at https://app.hypertask.ai/api/v1, alongside its first-party CLI and MCP server. REST requests use bearer API keys and JSON. Descriptions, comments, and drafts use HTML, so convert Markdown before sending those fields."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is MCP the same as a kanban API?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. MCP lets compatible AI clients discover and call tools. REST and GraphQL are HTTP API styles your application can use directly. They may expose different capabilities, so check the documented interface rather than assuming feature parity."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Which kanban tools have a free plan with API access?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Hypertask, Linear, Trello, GitHub Projects, and Jira offer free entry plans and documented programmatic access. Free plans still have product limits, API quotas, or related compute costs. Test your intended workload before treating free access as unlimited automation."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can Hypertask automatically sync GitHub issues and pull requests?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The public Hypertask documentation reviewed for this article does not describe native GitHub issue or pull-request synchronization. You can link code evidence on a task or build a custom integration. Choose GitHub Projects if native issue and pull-request connection is your main requirement."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "headings": [
+    {
+      "id": "",
+      "level": 1,
+      "text": "Best Kanban Tool with an API for Developers and Automation"
+    },
+    {
+      "id": "what-makes-a-kanban-api-useful",
+      "level": 2,
+      "text": "What makes a kanban API useful?"
+    },
+    {
+      "id": "the-5-best-kanban-tools-with-an-api",
+      "level": 2,
+      "text": "The 5 best kanban tools with an API"
+    },
+    {
+      "id": "1-hypertask-best-for-humans-scripts-and-ai-agents-sharing-a-board",
+      "level": 3,
+      "text": "1. Hypertask: best for humans, scripts, and AI agents sharing a board"
+    },
+    {
+      "id": "2-linear-best-for-an-engineering-issue-workflow",
+      "level": 3,
+      "text": "2. Linear: best for an engineering issue workflow"
+    },
+    {
+      "id": "3-trello-best-for-simple-rest-based-card-automation",
+      "level": 3,
+      "text": "3. Trello: best for simple REST-based card automation"
+    },
+    {
+      "id": "4-github-projects-best-when-the-work-already-lives-in-github",
+      "level": 3,
+      "text": "4. GitHub Projects: best when the work already lives in GitHub"
+    },
+    {
+      "id": "5-jira-best-for-teams-needing-detailed-workflow-controls",
+      "level": 3,
+      "text": "5. Jira: best for teams needing detailed workflow controls"
+    },
+    {
+      "id": "kanban-api-comparison-at-a-glance",
+      "level": 2,
+      "text": "Kanban API comparison at a glance"
+    },
+    {
+      "id": "how-to-set-up-api-automation-in-hypertask",
+      "level": 2,
+      "text": "How to set up API automation in Hypertask"
+    },
+    {
+      "id": "1-create-the-board-and-a-review-column",
+      "level": 3,
+      "text": "1. Create the board and a review column"
+    },
+    {
+      "id": "2-generate-a-rest-api-key-and-test-authentication",
+      "level": 3,
+      "text": "2. Generate a REST API key and test authentication"
+    },
+    {
+      "id": "3-choose-cli-or-mcp-for-the-worker",
+      "level": 3,
+      "text": "3. Choose CLI or MCP for the worker"
+    },
+    {
+      "id": "4-require-evidence-before-handoff",
+      "level": 3,
+      "text": "4. Require evidence before handoff"
+    },
+    {
+      "id": "frequently-asked-questions",
+      "level": 2,
+      "text": "Frequently Asked Questions"
+    },
+    {
+      "id": "what-is-the-best-kanban-tool-with-an-api-for-developers",
+      "level": 3,
+      "text": "What is the best kanban tool with an API for developers?"
+    },
+    {
+      "id": "does-hypertask-have-a-rest-api-or-only-mcp",
+      "level": 3,
+      "text": "Does Hypertask have a REST API or only MCP?"
+    },
+    {
+      "id": "is-mcp-the-same-as-a-kanban-api",
+      "level": 3,
+      "text": "Is MCP the same as a kanban API?"
+    },
+    {
+      "id": "which-kanban-tools-have-a-free-plan-with-api-access",
+      "level": 3,
+      "text": "Which kanban tools have a free plan with API access?"
+    },
+    {
+      "id": "can-hypertask-automatically-sync-github-issues-and-pull-requests",
+      "level": 3,
+      "text": "Can Hypertask automatically sync GitHub issues and pull requests?"
+    },
+    {
+      "id": "",
+      "level": 2,
+      "text": "Keep reading"
+    }
+  ],
+  "visibleText": [
+    "Skip to content",
+    "Hypertask",
+    "Pricing",
+    "Blog",
+    "Docs",
+    "Help",
+    "Login",
+    "Press",
+    "L",
+    "to log in",
+    "Start free",
+    "Start free",
+    "☰",
+    "Home",
+    "/",
+    "Blog",
+    "Tool Comparisons",
+    "Best Kanban Tool with an API for Developers and Automation",
+    "Compare five kanban tools with APIs in 2026, including Hypertask, Linear, Trello, GitHub Projects, and Jira, with pricing and a practical setup guide.",
+    "Valentin Yeo",
+    "October 6, 2026",
+    "On this page",
+    "What makes a kanban API useful?",
+    "The 5 best kanban tools with an API",
+    "1. Hypertask: best for humans, scripts, and AI agents sharing a board",
+    "2. Linear: best for an engineering issue workflow",
+    "3. Trello: best for simple REST-based card automation",
+    "4. GitHub Projects: best when the work already lives in GitHub",
+    "5. Jira: best for teams needing detailed workflow controls",
+    "Kanban API comparison at a glance",
+    "How to set up API automation in Hypertask",
+    "1. Create the board and a review column",
+    "2. Generate a REST API key and test authentication",
+    "3. Choose CLI or MCP for the worker",
+    "4. Require evidence before handoff",
+    "Frequently Asked Questions",
+    "What is the best kanban tool with an API for developers?",
+    "Does Hypertask have a REST API or only MCP?",
+    "Is MCP the same as a kanban API?",
+    "Which kanban tools have a free plan with API access?",
+    "Can Hypertask automatically sync GitHub issues and pull requests?",
+    "Hypertask is our top pick for the best kanban tool with an API when developers want scripts and AI agents working on the same board as humans.",
+    "Its documented REST API, first-party CLI, and MCP server let software read and update tasks while people review the results in context.",
+    "If you only need a cheap visual board, Trello may fit better. If every task is a GitHub issue, GitHub Projects deserves the first test. The right API is the one that removes manual relay work without creating another system to maintain.",
+    "What makes a kanban API useful?",
+    "Moving a card is the easy part. Useful automation also needs to read the task description, identify its owner, post evidence, and hand the result to a reviewer.",
+    "That distinction comes from real customer conversations. Technical teams describe scattered TODO files, agent work hidden in terminal sessions, and decisions split between the board and chat. They do not need another status dashboard. They need to know what happened and what needs a decision.",
+    "For this ranking, we prioritized:",
+    "Read and write access:",
+    "tasks, columns, assignments, and comments.",
+    "Developer access:",
+    "authentication, documentation, CLI or SDK support.",
+    "Automation safety:",
+    "permissions, pagination, rate limits, and recoverable errors.",
+    "Human handoff:",
+    "a durable result attached to the task.",
+    "This is Hypertask’s own comparison, not an independent benchmark. Product details and prices were checked against official sources on October 6, 2026. The ranking favors small technical teams using external agents, not enterprise procurement.",
+    "The 5 best kanban tools with an API",
+    "1. Hypertask: best for humans, scripts, and AI agents sharing a board",
+    "Who it is for:",
+    "Developers and technical founders who want a task to survive beyond a terminal session, with a visible owner and review step.",
+    "Strengths:",
+    "Hypertask’s",
+    "public REST API",
+    "covers projects, tasks, comments, assignments, inbox notifications, and drafts. It uses JSON and bearer API keys. The",
+    "first-party CLI",
+    "offers a terminal path, while the",
+    "MCP server",
+    "connects compatible AI clients.",
+    "Agents using their own bearer tokens have their writes attributed to the agent rather than the human owner. That matters when you need to distinguish a teammate’s decision from an automated update.",
+    "Limits:",
+    "These interfaces are not interchangeable. The docs identify worker infrastructure such as leases, evidence, and escalation as REST-only, rather than ordinary MCP tools. Task descriptions and comments use HTML, not Markdown. Plan your integration around the documented surface you actually need.",
+    "The public docs reviewed do not describe a native GitHub issue or pull-request synchronization integration. Do not assume linking a pull request means its status will sync automatically.",
+    "Pricing:",
+    "The live",
+    "Hypertask pricing page",
+    "lists Free with unlimited members, up to 3 boards per person (archived boards don’t count), and unlimited tickets, with CLI and MCP included. BYOK is $8 per user monthly when billed yearly, or $10 billed monthly; Pro is $16 yearly or $20 monthly. Free has a starter AI allowance. BYOK means bringing your own AI provider key, so model usage is a separate consideration.",
+    "2. Linear: best for an engineering issue workflow",
+    "Who it is for:",
+    "Product and engineering teams that want issues, projects, and cycles rather than a general-purpose card system.",
+    "Strengths:",
+    "Linear’s",
+    "GraphQL API",
+    "supports personal API keys and OAuth, with a first-party TypeScript SDK. You can fetch exactly the fields you need and create or update issues through mutations. Linear recommends webhooks for receiving changes instead of repeatedly downloading the whole backlog.",
+    "Limits:",
+    "GraphQL adds a learning step if your scripts expect simple REST endpoints. A successful HTTP response can still contain GraphQL errors. Linear also applies both request and query-complexity limits, so large nested queries need care. Its",
+    "rate-limit documentation",
+    "is essential reading before building a sync worker.",
+    "Pricing:",
+    "Linear pricing",
+    "lists Free with two teams and 250 issues. Basic is $10 per user per month billed yearly; Business is $16. The comparison includes API and webhook access, but free issue limits can become the practical constraint.",
+    "3. Trello: best for simple REST-based card automation",
+    "Who it is for:",
+    "Small teams that want recognizable cards and lists, with scripts handling repeatable board chores.",
+    "Strengths:",
+    "Trello’s",
+    "REST API introduction",
+    "walks through keys, tokens, boards, and cards. Its card-and-list model is straightforward to map into a small integration. Built-in automation and Power-Ups may also remove the need to write code for basic rules.",
+    "Limits:",
+    "Your integration still needs to define what ownership, evidence, and review mean. Trello’s flexibility does not enforce your operating process. Its",
+    "API limits",
+    "include 300 requests per ten seconds per API key and 100 per ten seconds per token, with additional limits for some resources.",
+    "Pricing:",
+    "Trello pricing",
+    "lists Free for up to ten collaborators and ten boards per Workspace. Standard is $5 per user per month billed annually; Premium is $10. Built-in automation quotas are separate from REST API rate limits.",
+    "For a closer look at the workflow tradeoffs, see our",
+    "Trello alternative comparison",
+    ".",
+    "4. GitHub Projects: best when the work already lives in GitHub",
+    "Who it is for:",
+    "Developers whose source of truth is GitHub issues and pull requests, especially when automation already runs in GitHub Actions.",
+    "Strengths:",
+    "GitHub Projects",
+    "supports board, table, and roadmap views over issues and pull requests. Changes to those underlying records stay connected to the project. GitHub documents GraphQL and Actions as ways to automate project behavior.",
+    "That avoids building a second issue-sync layer just to see code work on a board.",
+    "Limits:",
+    "Projects automation uses GraphQL; an existing issue REST script does not automatically cover project fields and items. The workflow also assumes collaborators are comfortable working in GitHub. That can be a poor fit for clients or nontechnical colleagues who only need assignments and approvals.",
+    "Pricing:",
+    "GitHub pricing",
+    "includes Issues and Projects in Free. Actions, hosted compute, and other paid services have their own allowances and costs. A free board does not make every automation job free.",
+    "5. Jira: best for teams needing detailed workflow controls",
+    "Who it is for:",
+    "Organizations already using Jira, or teams whose permissions and workflow requirements justify a more configurable system.",
+    "Strengths:",
+    "Jira combines",
+    "kanban boards",
+    "with a broad",
+    "Cloud REST API",
+    ". The API supports issue operations, search, and integrations subject to the caller’s permissions.",
+    "Webhooks",
+    "let integrations respond to changes instead of relying entirely on polling.",
+    "Limits:",
+    "Configuration is part of the integration. Field formats, workflow transitions, scopes, and project permissions need explicit handling. Jira REST API v3 uses Atlassian Document Format for rich text in several fields, including descriptions and comment bodies. Do not treat moving an issue as a generic status-string update.",
+    "Pricing:",
+    "Jira pricing",
+    "offers Free for ten users, followed by Standard, Premium, and Enterprise. Use its current seat calculator for paid pricing rather than assuming one flat rate at every team size.",
+    "Kanban API comparison at a glance",
+    "Tool",
+    "Programmatic access",
+    "Best fit",
+    "Main integration tradeoff",
+    "Starting price",
+    "Hypertask",
+    "REST, first-party CLI, MCP",
+    "Humans and external agents sharing tasks",
+    "HTML content; some worker capabilities are REST-only",
+    "Free; BYOK $8/user/month annually",
+    "Linear",
+    "GraphQL, TypeScript SDK, webhooks",
+    "Engineering issues and cycles",
+    "Query complexity and GraphQL error handling",
+    "Free; Basic $10/user/month annually",
+    "Trello",
+    "REST, webhooks, built-in automation",
+    "Simple cards and lists",
+    "You define the review process; quotas apply",
+    "Free; Standard $5/user/month annually",
+    "GitHub Projects",
+    "GraphQL, GitHub Actions",
+    "GitHub issues and pull requests",
+    "Project operations differ from issue REST operations",
+    "Included in GitHub Free",
+    "Jira",
+    "REST, webhooks",
+    "Configurable organizational workflows",
+    "Permissions, transitions, and rich-text formats",
+    "Free for ten users; paid seat calculator",
+    "These are starting points, not total automation budgets. Account for model usage, CI execution, and the time spent maintaining your integration.",
+    "How to set up API automation in Hypertask",
+    "Start with one board and one harmless read request. Prove access before allowing a worker to modify real tasks.",
+    "1. Create the board and a review column",
+    "Create a board with Backlog, Doing, Review, and Done. Treat these as your team’s chosen column names, not mandatory system defaults.",
+    "Give each task an owner and a clear completion condition. Keep human approval in Review so a script cannot accidentally equate passing tests with permission to ship.",
+    "2. Generate a REST API key and test authentication",
+    "In the app, press Ctrl+K and search for",
+    "REST API",
+    ". The",
+    "REST reference",
+    "says the full key is shown once and can be revoked from that dialog.",
+    "Store it in your shell or CI secret store, not source control:",
+    "This is the documented context endpoint. Confirm the response belongs to the intended account before adding write operations. Never paste a real key into a task comment.",
+    "3. Choose CLI or MCP for the worker",
+    "For terminal automation, install and authenticate the documented CLI:",
+    "Replace the example values below with your board ID and a real ticket number:",
+    "The move changes the column; it does not execute the task. For an interactive AI client, connect to",
+    "https://mcp.hypertask.ai/mcp",
+    "using the authentication instructions in the MCP docs.",
+    "The",
+    "tool reference",
+    "documents",
+    "hypertask_create_task",
+    ",",
+    "hypertask_update_task",
+    ", and",
+    "hypertask_move_task_to_inbox",
+    ". Use discovered board and member IDs rather than guessing them. Our",
+    "CLI vs MCP guide",
+    "explains when each access method fits.",
+    "4. Require evidence before handoff",
+    "Configure your worker to read the task, do the work, attach a result or pull-request link, and move it to Review. Route the task to the designated reviewer through the documented inbox tool.",
+    "Your runner still owns execution, retries, and deployment permissions. Board access alone is not a hosted coding environment. Test expired credentials, insufficient permissions, and failed writes before scheduling unattended runs.",
+    "Frequently Asked Questions",
+    "What is the best kanban tool with an API for developers?",
+    "Hypertask is our top pick for developers coordinating humans, scripts, and external AI agents. Linear fits engineering issue workflows; GitHub Projects fits work already tracked through GitHub issues and pull requests. Choose based on the workflow, not the number of endpoints.",
+    "Does Hypertask have a REST API or only MCP?",
+    "Hypertask has a public REST API at",
+    "https://app.hypertask.ai/api/v1",
+    ", alongside its first-party CLI and MCP server. REST requests use bearer API keys and JSON. Descriptions, comments, and drafts use HTML, so convert Markdown before sending those fields.",
+    "Is MCP the same as a kanban API?",
+    "No. MCP lets compatible AI clients discover and call tools. REST and GraphQL are HTTP API styles your application can use directly. They may expose different capabilities, so check the documented interface rather than assuming feature parity.",
+    "Which kanban tools have a free plan with API access?",
+    "Hypertask, Linear, Trello, GitHub Projects, and Jira offer free entry plans and documented programmatic access. Free plans still have product limits, API quotas, or related compute costs. Test your intended workload before treating free access as unlimited automation.",
+    "Can Hypertask automatically sync GitHub issues and pull requests?",
+    "The public Hypertask documentation reviewed for this article does not describe native GitHub issue or pull-request synchronization. You can link code evidence on a task or build a custom integration. Choose GitHub Projects if native issue and pull-request connection is your main requirement.",
+    "Choose the smallest system that keeps task ownership, results, and review visible. If the missing piece is a board your people and agents can both operate,",
+    "try Hypertask",
+    "with one real workflow before moving the whole backlog.",
+    "kanban",
+    "api",
+    "tool-comparison",
+    "automation",
+    "ai-agents",
+    "VY",
+    "Valentin Yeo",
+    "Founder, Hypertask",
+    "Building Hypertask, the project board where humans and AI agents share one workspace. Writes about agent-driven, async project management from running it daily.",
+    "Run humans and AI agents on one board",
+    "Hypertask is project management built for the way teams work now — keyboard-first, async, agent-ready.",
+    "Start free",
+    "Keep reading",
+    "Tool Comparisons",
+    "What Is the Best AI Kanban Tool in 2026?",
+    "Compare six AI kanban tools for 2026, including Hypertask, Trello, Linear, ClickUp, Asana, and Notion, with pricing, honest limits, and a practical setup.",
+    "Tool Comparisons",
+    "Best Kanban Tool for CI/CD Teams: 6 Tools Compared",
+    "Compare Hypertask, GitHub Projects, Linear, Jira, Azure Boards, and Trello for continuous delivery, pull requests, agent workflows, and deployment handoffs.",
+    "Tool Comparisons",
+    "Best Kanban Tool for MCP: 5 Options for AI Agents",
+    "Compare five kanban tools with official MCP access for AI agents, including Hypertask, Trello, Linear, Jira and Notion, with practical setup steps.",
+    "Home",
+    "Pricing",
+    "Blog",
+    "Privacy",
+    "Cookie settings",
+    "Contact",
+    "Terms",
+    "Docs",
+    "Help",
+    "© 2026 Hypertask Lab Ltd."
+  ],
+  "links": [
+    "#main-content",
+    "/",
+    "/pricing/",
+    "/blog/",
+    "https://docs.hypertask.ai/",
+    "https://help.hypertask.ai/",
+    "https://app.hypertask.ai/login",
+    "https://app.hypertask.ai/login",
+    "https://app.hypertask.ai/login",
+    "/",
+    "/blog/",
+    "#what-makes-a-kanban-api-useful",
+    "#the-5-best-kanban-tools-with-an-api",
+    "#1-hypertask-best-for-humans-scripts-and-ai-agents-sharing-a-board",
+    "#2-linear-best-for-an-engineering-issue-workflow",
+    "#3-trello-best-for-simple-rest-based-card-automation",
+    "#4-github-projects-best-when-the-work-already-lives-in-github",
+    "#5-jira-best-for-teams-needing-detailed-workflow-controls",
+    "#kanban-api-comparison-at-a-glance",
+    "#how-to-set-up-api-automation-in-hypertask",
+    "#1-create-the-board-and-a-review-column",
+    "#2-generate-a-rest-api-key-and-test-authentication",
+    "#3-choose-cli-or-mcp-for-the-worker",
+    "#4-require-evidence-before-handoff",
+    "#frequently-asked-questions",
+    "#what-is-the-best-kanban-tool-with-an-api-for-developers",
+    "#does-hypertask-have-a-rest-api-or-only-mcp",
+    "#is-mcp-the-same-as-a-kanban-api",
+    "#which-kanban-tools-have-a-free-plan-with-api-access",
+    "#can-hypertask-automatically-sync-github-issues-and-pull-requests",
+    "https://docs.hypertask.ai/api/rest-api/",
+    "https://docs.hypertask.ai/cli/reference/",
+    "https://docs.hypertask.ai/mcp/overview/",
+    "/pricing/",
+    "https://linear.app/developers/graphql",
+    "https://linear.app/developers/rate-limiting",
+    "https://linear.app/pricing",
+    "https://developer.atlassian.com/cloud/trello/guides/rest-api/api-introduction/",
+    "https://developer.atlassian.com/cloud/trello/guides/rest-api/rate-limits/",
+    "https://trello.com/pricing",
+    "/blog/trello-alternative/",
+    "https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects",
+    "https://github.com/pricing",
+    "https://www.atlassian.com/software/jira/features/kanban-boards",
+    "https://developer.atlassian.com/cloud/jira/platform/rest/v3/intro/",
+    "https://developer.atlassian.com/cloud/jira/platform/webhooks/",
+    "https://www.atlassian.com/software/jira/pricing",
+    "https://docs.hypertask.ai/api/rest-api/",
+    "https://docs.hypertask.ai/api/tools-reference/",
+    "/blog/cli-vs-mcp-ai-agent-project-data-access/",
+    "https://app.hypertask.ai/api/v1",
+    "/",
+    "/blog/tags/kanban/",
+    "/blog/tags/api/",
+    "/blog/tags/tool-comparison/",
+    "/blog/tags/automation/",
+    "/blog/tags/ai-agents/",
+    "/about/",
+    "https://app.hypertask.ai/login",
+    "/blog/best-ai-kanban-tool/",
+    "/blog/best-kanban-tool-for-ci-cd/",
+    "/blog/best-kanban-tool-for-mcp/",
+    "/",
+    "/pricing/",
+    "/blog/",
+    "/privacy/",
+    "/contact/",
+    "/terms/",
+    "https://docs.hypertask.ai/",
+    "https://help.hypertask.ai/"
+  ],
+  "images": [
+    {
+      "alt": "",
+      "fetchpriority": "",
+      "loading": "eager",
+      "src": "/Favicon - Light.png"
+    },
+    {
+      "alt": "Hypertask API kanban tool comparison, white title text and a shared board on a black background",
+      "fetchpriority": "high",
+      "loading": "eager",
+      "src": "/images/blog/best-kanban-tool-with-api-cover.webp"
+    }
+  ],
+  "tables": [
+    [
+      [
+        "Tool",
+        "Programmatic access",
+        "Best fit",
+        "Main integration tradeoff",
+        "Starting price"
+      ],
+      [
+        "Hypertask",
+        "REST, first-party CLI, MCP",
+        "Humans and external agents sharing tasks",
+        "HTML content; some worker capabilities are REST-only",
+        "Free; BYOK $8/user/month annually"
+      ],
+      [
+        "Linear",
+        "GraphQL, TypeScript SDK, webhooks",
+        "Engineering issues and cycles",
+        "Query complexity and GraphQL error handling",
+        "Free; Basic $10/user/month annually"
+      ],
+      [
+        "Trello",
+        "REST, webhooks, built-in automation",
+        "Simple cards and lists",
+        "You define the review process; quotas apply",
+        "Free; Standard $5/user/month annually"
+      ],
+      [
+        "GitHub Projects",
+        "GraphQL, GitHub Actions",
+        "GitHub issues and pull requests",
+        "Project operations differ from issue REST operations",
+        "Included in GitHub Free"
+      ],
+      [
+        "Jira",
+        "REST, webhooks",
+        "Configurable organizational workflows",
+        "Permissions, transitions, and rich-text formats",
+        "Free for ten users; paid seat calculator"
+      ]
+    ]
+  ],
+  "codeBlocks": [
+    {
+      "language": "bash",
+      "text": "export HT_API_KEY='YOUR_REST_API_KEY'\n\ncurl --fail-with-body --silent --show-error \\\n  -H \"Authorization: Bearer $HT_API_KEY\" \\\n  'https://app.hypertask.ai/api/v1/user/context'"
+    },
+    {
+      "language": "bash",
+      "text": "npm install -g @hypertask/hypertask_cli@latest\nhypertask login"
+    },
+    {
+      "language": "bash",
+      "text": "PROJECT_ID=123\nTICKET='TEAM-42'\n\nhypertask tasks list --project \"$PROJECT_ID\" \\\n  --fields title,url --limit 20\n\nhypertask tasks move \"$TICKET\" --section \"Review\""
+    }
+  ]
+}

@@ -1,0 +1,540 @@
+{
+  "source": {
+    "bytes": 51587,
+    "fetchedAt": "2026-11-15T12:12:09.378Z",
+    "method": "GET",
+    "sha256": "324c74af6620c4fda02d0ad96c62a9ddb613856e487aa3a86807a3575a830a55",
+    "status": 200,
+    "url": "https://hypertask.ai/blog/why-agents-build-whole-boards/"
+  },
+  "address": "/blog/why-agents-build-whole-boards/",
+  "head": {
+    "canonical": "https://hypertask.ai/blog/why-agents-build-whole-boards/",
+    "meta": {
+      "description": "Most PM tools let AI agents tick a task. Hypertask lets agents scaffold the whole board. Here's why that distinction matters, and what it means for handing a project to an agent.",
+      "robots": "index, follow",
+      "og:title": "Why We Let AI Agents Build Entire Boards, Not Just Tasks — Hypertask Blog",
+      "og:description": "Most PM tools let AI agents tick a task. Hypertask lets agents scaffold the whole board. Here's why that distinction matters, and what it means for handing a project to an agent.",
+      "og:image": "https://hypertask.ai/images/blog/feature-create-board.webp",
+      "og:image:alt": "An AI agent assembling a full project board from scratch — columns, labels, and starter tasks scaffolding into place at once",
+      "og:url": "https://hypertask.ai/blog/why-agents-build-whole-boards/",
+      "og:type": "article",
+      "og:site_name": "Hypertask",
+      "twitter:card": "summary_large_image",
+      "twitter:title": "Why We Let AI Agents Build Entire Boards, Not Just Tasks — Hypertask Blog",
+      "twitter:description": "Most PM tools let AI agents tick a task. Hypertask lets agents scaffold the whole board. Here's why that distinction matters, and what it means for handing a project to an agent.",
+      "twitter:image": "https://hypertask.ai/images/blog/feature-create-board.webp",
+      "twitter:image:alt": "An AI agent assembling a full project board from scratch — columns, labels, and starter tasks scaffolding into place at once",
+      "article:published_time": "2026-05-14T00:00:00.000Z",
+      "article:modified_time": "2026-05-14T00:00:00.000Z",
+      "article:author": "https://hypertask.ai/about/",
+      "article:section": "AI Agents in Project Management"
+    },
+    "title": "Why We Let AI Agents Build Entire Boards, Not Just Tasks — Hypertask Blog"
+  },
+  "structuredData": [
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://hypertask.ai/#organization",
+          "name": "Hypertask",
+          "legalName": "Hypertask Lab Ltd.",
+          "url": "https://hypertask.ai",
+          "description": "Hypertask is a project management platform where humans and AI agents share one board. Native MCP server and CLI access let autonomous agents read tasks, claim work, post progress, and update tickets without a human relaying every step.",
+          "knowsAbout": [
+            "AI agents",
+            "project management",
+            "Model Context Protocol",
+            "task management",
+            "AI work attribution",
+            "asynchronous collaboration"
+          ],
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://hypertask.ai/hypertasklogo.avif"
+          },
+          "founder": {
+            "@type": "Person",
+            "@id": "https://hypertask.ai/#founder",
+            "name": "Valentin Yeo",
+            "jobTitle": "Founder"
+          },
+          "sameAs": ["https://www.npmjs.com/package/@hypertask/hypertask_cli"],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "url": "https://hypertask.ai/contact/"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://hypertask.ai/#website",
+          "url": "https://hypertask.ai",
+          "name": "Hypertask",
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://hypertask.ai/#software",
+          "name": "Hypertask",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "url": "https://hypertask.ai",
+          "description": "AI-powered project management where humans and AI agents share one board. Voice-to-task, smart summaries, keyboard-first navigation, native MCP integration.",
+          "screenshot": "https://hypertask.ai/mainscreen.avif",
+          "featureList": [
+            "Shared board for humans and AI agents",
+            "Native MCP server (15 tools)",
+            "Agent-optimized CLI",
+            "Voice-to-task capture",
+            "Smart task summaries",
+            "Keyboard-first navigation",
+            "Inbox and approval gates for agent work"
+          ],
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          },
+          "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "USD",
+            "lowPrice": "0",
+            "highPrice": "25",
+            "offerCount": "3"
+          }
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "headline": "Why We Let AI Agents Build Entire Boards, Not Just Tasks",
+          "description": "Most PM tools let AI agents tick a task. Hypertask lets agents scaffold the whole board. Here's why that distinction matters, and what it means for handing a project to an agent.",
+          "datePublished": "2026-05-14T00:00:00.000Z",
+          "dateModified": "2026-05-14T00:00:00.000Z",
+          "author": {
+            "@type": "Person",
+            "name": "Valentin Yeo",
+            "url": "https://hypertask.ai/about/"
+          },
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://hypertask.ai/blog/why-agents-build-whole-boards/"
+          },
+          "image": "https://hypertask.ai/images/blog/feature-create-board.webp",
+          "keywords": "ai-agents, mcp, project-management, board-generation, agent-autonomy"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://hypertask.ai/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://hypertask.ai/blog/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Why We Let AI Agents Build Entire Boards, Not Just Tasks",
+              "item": "https://hypertask.ai/blog/why-agents-build-whole-boards/"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What exactly does create_board send to the Hypertask MCP server?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The tool takes a structured JSON manifest containing four fields: team_id, title, sections (an array of column names), labels (an array of label strings), and tasks (an array of task objects, each with at minimum a title and a target section). One call, one round trip. The board is created in full if the manifest is valid."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does the agent create the board automatically, or does a human have to confirm?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The review step is in your hands. The agent produces the manifest, but you control when the MCP call fires. In practice, most teams build a quick review step into their workflow: the agent outputs the JSON, a human checks it, then the call runs. Nothing prevents an agent from calling it autonomously if you want that, but the manifest format makes a review step trivially cheap to add."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can the agent revise the board after creation?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. All standard MCP tools work on a board the agent created: hypertask_create_task, hypertask_update_task, hypertask_section, and the rest. The board is a normal Hypertask board once it exists. The agent can add tasks, move them between sections, update labels, and post comments like any other board participant."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What's the relationship between create_board and the task-level MCP tools?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "create_board handles setup. The other MCP tools handle the ongoing work. The intended workflow is: agent scaffolds the board, humans approve, then the agent (or humans, or both) use the standard tools to work through the tasks. Setup and execution are deliberately separate."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is this only useful for new projects, or can an agent scaffold a board mid-project?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "In principle, an agent can call create_board at any point. But the most natural use is at project kick-off, when the board is blank. Mid-project, it's usually more efficient to use hypertask_section to add a new column or hypertask_create_task to bulk-add tasks to an existing board. The manifest format is designed for from-scratch setup, not for surgical mid-project additions."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "headings": [
+    {
+      "id": "",
+      "level": 1,
+      "text": "Why We Let AI Agents Build Entire Boards, Not Just Tasks"
+    },
+    {
+      "id": "what-does-ai-supported-actually-mean-for-most-pm-tools",
+      "level": 2,
+      "text": "What Does “AI-Supported” Actually Mean for Most PM Tools?"
+    },
+    {
+      "id": "why-board-level-autonomy-is-the-right-threshold",
+      "level": 2,
+      "text": "Why Board-Level Autonomy Is the Right Threshold"
+    },
+    {
+      "id": "how-create_board-actually-works",
+      "level": 2,
+      "text": "How create_board Actually Works"
+    },
+    {
+      "id": "how-does-board-creation-change-the-human-agent-division-of-work",
+      "level": 2,
+      "text": "How Does Board Creation Change the Human-Agent Division of Work?"
+    },
+    {
+      "id": "if-agents-can-build-boards-what-stops-them-getting-it-wrong",
+      "level": 2,
+      "text": "If Agents Can Build Boards, What Stops Them Getting It Wrong?"
+    },
+    {
+      "id": "isnt-this-just-a-template-generator",
+      "level": 2,
+      "text": "Isn’t This Just a Template Generator?"
+    },
+    {
+      "id": "where-this-fits-in-the-clusters-argument",
+      "level": 2,
+      "text": "Where This Fits in the Cluster’s Argument"
+    },
+    {
+      "id": "frequently-asked-questions",
+      "level": 2,
+      "text": "Frequently Asked Questions"
+    },
+    {
+      "id": "what-exactly-does-create_board-send-to-the-hypertask-mcp-server",
+      "level": 3,
+      "text": "What exactly does create_board send to the Hypertask MCP server?"
+    },
+    {
+      "id": "does-the-agent-create-the-board-automatically-or-does-a-human-have-to-confirm",
+      "level": 3,
+      "text": "Does the agent create the board automatically, or does a human have to confirm?"
+    },
+    {
+      "id": "can-the-agent-revise-the-board-after-creation",
+      "level": 3,
+      "text": "Can the agent revise the board after creation?"
+    },
+    {
+      "id": "whats-the-relationship-between-create_board-and-the-task-level-mcp-tools",
+      "level": 3,
+      "text": "What’s the relationship between create_board and the task-level MCP tools?"
+    },
+    {
+      "id": "is-this-only-useful-for-new-projects-or-can-an-agent-scaffold-a-board-mid-project",
+      "level": 3,
+      "text": "Is this only useful for new projects, or can an agent scaffold a board mid-project?"
+    },
+    {
+      "id": "",
+      "level": 2,
+      "text": "Keep reading"
+    }
+  ],
+  "visibleText": [
+    "Skip to content",
+    "Hypertask",
+    "Pricing",
+    "Blog",
+    "Docs",
+    "Help",
+    "Login",
+    "Press",
+    "L",
+    "to log in",
+    "Start free",
+    "Start free",
+    "☰",
+    "Home",
+    "/",
+    "Blog",
+    "AI Agents in Project Management",
+    "Why We Let AI Agents Build Entire Boards, Not Just Tasks",
+    "Most PM tools let AI agents tick a task. Hypertask lets agents scaffold the whole board. Here's why that distinction matters, and what it means for handing a project to an agent.",
+    "Valentin Yeo",
+    "May 14, 2026",
+    "On this page",
+    "What Does “AI-Supported” Actually Mean for Most PM Tools?",
+    "Why Board-Level Autonomy Is the Right Threshold",
+    "How create_board Actually Works",
+    "How Does Board Creation Change the Human-Agent Division of Work?",
+    "If Agents Can Build Boards, What Stops Them Getting It Wrong?",
+    "Isn’t This Just a Template Generator?",
+    "Where This Fits in the Cluster’s Argument",
+    "Frequently Asked Questions",
+    "What exactly does create_board send to the Hypertask MCP server?",
+    "Does the agent create the board automatically, or does a human have to confirm?",
+    "Can the agent revise the board after creation?",
+    "What’s the relationship between create_board and the task-level MCP tools?",
+    "Is this only useful for new projects, or can an agent scaffold a board mid-project?",
+    "There’s a version of “AI-powered project management” where the agent helps you write a better task title. That’s fine. It’s not what we’re building.",
+    "When we shipped",
+    "create_board",
+    "via the Hypertask MCP server, we gave agents the ability to scaffold an entire project board from a single call: sections, labels, and a full set of starter tasks, all from a structured manifest. Not one task at a time. The whole thing.",
+    "That’s a deliberate design choice, not scope creep. This post explains the reasoning.",
+    "The Bottom Line",
+    "Agents that can only create individual tasks still need a human to design the board around them.",
+    "create_board",
+    "lets an agent stand up a full project structure from a single manifest call.",
+    "The manifest is structured: humans review before the board goes live. Autonomy with a frame.",
+    "This is what “agent as first-class participant” looks like at the project level, not just the task level.",
+    "The right level of agent authority is the smallest unit of real delegation: the project, not the to-do item.",
+    "What Does “AI-Supported” Actually Mean for Most PM Tools?",
+    "Most project management tools that claim AI support are honest about what they mean, just not explicit. The AI helps you draft a task description. It auto-fills a due date. It suggests a label. These are useful, narrow operations on a single record.",
+    "They’re narrow by design. The tools weren’t built with agents in mind. They were built for humans who use a browser, and the AI was layered on top of that assumption. So the AI operates at the level the UI allows: one field, one task, one action.",
+    "Nothing about this is wrong. But it means the agent is permanently in an assisting role. It can help you fill in the form. It can’t fill in the whole form-system. The board structure, the section names, the label taxonomy, the set of tasks that make up a project sprint: all of that still comes from the human.",
+    "In the early Hypertask builds, our MCP server could create tasks. Agents used it. But they were still operating in a board that a human had set up. When someone wanted to spin up a new project, the agent could populate it with tasks, but only once the human had created the project, named the sections, and set up the labels. The scaffolding was always human work.",
+    "That’s a significant constraint when your goal is to hand a project to an agent, not just a chore.",
+    "Why Board-Level Autonomy Is the Right Threshold",
+    "Here’s the practical question: what’s the smallest unit of work you can meaningfully delegate to an agent?",
+    "A task isn’t it. A task is a unit of",
+    "execution",
+    ", not",
+    "planning",
+    ". You can hand an agent a well-specified task and it’ll do it. But you still wrote the spec, placed it in the right section, labeled it correctly, and decided it belonged in this sprint rather than the next.",
+    "That’s not delegation. That’s supervision with extra steps.",
+    "The meaningful threshold for delegation is the",
+    "project setup",
+    "level. When you hand a project to a capable person on your team, you don’t hand them one task to start. You give them the brief and let them structure the work. They decide what sections make sense, what the first sprint looks like, what tasks are blockers vs. nice-to-haves. Board-level autonomy is what makes an agent look like that person, not like a keyboard shortcut.",
+    "A board an agent built is a board you can inspect, approve, and iterate on. It’s a starting proposal with structure. A list of tasks with no surrounding structure is just noise.",
+    "The analogy that keeps coming up internally: you wouldn’t hire a contractor and then stand next to them deciding which room they paint next. You give them the floor plan and walk away.",
+    "create_board",
+    "is the floor plan handoff.",
+    "How",
+    "create_board",
+    "Actually Works",
+    "The tool takes a structured manifest. You pass it the team ID, a board title, and three arrays: sections, labels, and tasks. The agent generates the whole thing in one MCP call.",
+    "A minimal manifest looks roughly like this:",
+    "The agent doesn’t invent the structure out of nowhere. It fills a manifest you can inspect before anything is created. That’s important. The manifest is the checkpoint. You review the proposal in plain JSON, ask the agent to revise any section, and then confirm. The board only exists after you say yes.",
+    "This matters because agent autonomy without a review step isn’t autonomy. It’s chaos with extra latency. The manifest pattern gives agents enough room to do real planning work while keeping the human in the loop at the right point: before the structure is set, not after every individual task.",
+    "How Does Board Creation Change the Human-Agent Division of Work?",
+    "Before",
+    "create_board",
+    ", the split looked like this: humans designed the board, agents executed tasks on it. The board was human infrastructure. The agent was labor.",
+    "After, the split can look like this: you describe the project goal, the agent proposes the board structure, you approve, the agent executes. The board becomes a shared artifact, jointly authored.",
+    "We use this internally for client work. When a new project comes in, Claude Code drafts a board from the brief. Nine times out of ten, the section structure is right. The task list needs trimming and the labels need adjusting. But the scaffolding is there in under a minute, and the revision is fast because there’s something concrete to react to.",
+    "That’s a different kind of speed than “AI autocompleted my task title.” It’s the speed of not having to start from a blank board.",
+    "If Agents Can Build Boards, What Stops Them Getting It Wrong?",
+    "Autonomy without structure isn’t useful. An agent that can create anything can also create chaos.",
+    "The manifest format is the guardrail. It’s structured JSON, not freeform text, not a chat conversation, not an open-ended “create a project for me.” The agent fills a schema. You see exactly what it produced before it exists. Nothing is irreversible at the proposal stage.",
+    "After approval, the board behaves like any other Hypertask board. Humans can move tasks, add comments, reassign sections, delete things the agent got wrong. The agent’s output is a starting point, not a commitment.",
+    "Most conversations about “agent guardrails” focus on preventing agents from doing harmful things. But the more common failure mode in real workflows isn’t harm. It’s silent incoherence. An agent creates tasks that don’t relate to each other. It invents a section called “Miscellaneous” and dumps half the work there. The manifest format prevents this not by restricting what the agent can propose, but by making every proposal legible and reviewable before it becomes real.",
+    "The goal isn’t a tighter leash. It’s a clearer handoff document.",
+    "Reviewing the manifest tells you what the agent",
+    "proposed",
+    ". Tracking what it did once the board went live is a separate problem —",
+    "knowing what your agents actually did",
+    "covers that side of it.",
+    "Isn’t This Just a Template Generator?",
+    "Worth addressing directly: you might read this and think “that’s just a project template with extra steps.”",
+    "It’s not, for one reason: the manifest is generated from context, not selected from a menu.",
+    "When you use a template, you pick from a list of pre-built structures and fill in the blanks. The structure is static. When an agent generates a manifest from a brief, the structure reflects the specific project: the domain, the team size, the constraints you mentioned, the scope you implied. Two briefs for two different API projects will produce two structurally different boards.",
+    "That’s generative, not templated. The difference shows up immediately in the task list. A template gives you generic tasks. An agent-generated board gives you tasks shaped by the specific context of the brief.",
+    "Is it perfect? No. The agent will miss things, over-specify others, and occasionally propose a section you don’t need. But it’s a useful first draft, not a blank page.",
+    "Where This Fits in the Cluster’s Argument",
+    "This cluster’s core thesis is that agents should be",
+    "first-class participants in project management",
+    ": not tools you babysit, but collaborators you delegate to. If you accept that thesis, board creation is the natural next step.",
+    "Giving an agent access to read and update tasks (which",
+    "MCP and CLI already provide",
+    ") makes the agent a good executor. Giving an agent the ability to build the board makes it a planner. Those are different roles with different levels of trust, and both are worth building toward.",
+    "The more basic version of this argument —",
+    "why an agent needs a real board at all",
+    ", rather than a pasted task list — is worth reading alongside this one. This post assumes you’ve accepted that, and asks the next question: how much of the board",
+    "should",
+    "an agent build?",
+    "The agent-as-planner role is the one that actually changes how much of the coordination overhead a human carries. When an agent can draft the work structure, not just do the work, the human shifts from coordinator to reviewer. That’s a better use of both.",
+    "Frequently Asked Questions",
+    "What exactly does",
+    "create_board",
+    "send to the Hypertask MCP server?",
+    "The tool takes a structured JSON manifest containing four fields:",
+    "team_id",
+    ",",
+    "title",
+    ",",
+    "sections",
+    "(an array of column names),",
+    "labels",
+    "(an array of label strings), and",
+    "tasks",
+    "(an array of task objects, each with at minimum a",
+    "title",
+    "and a target",
+    "section",
+    "). One call, one round trip. The board is created in full if the manifest is valid.",
+    "Does the agent create the board automatically, or does a human have to confirm?",
+    "The review step is in your hands. The agent produces the manifest, but you control when the MCP call fires. In practice, most teams build a quick review step into their workflow: the agent outputs the JSON, a human checks it, then the call runs. Nothing prevents an agent from calling it autonomously if you want that, but the manifest format makes a review step trivially cheap to add.",
+    "Can the agent revise the board after creation?",
+    "Yes. All standard MCP tools work on a board the agent created:",
+    "hypertask_create_task",
+    ",",
+    "hypertask_update_task",
+    ",",
+    "hypertask_section",
+    ", and the rest. The board is a normal Hypertask board once it exists. The agent can add tasks, move them between sections, update labels, and post comments like any other board participant.",
+    "What’s the relationship between",
+    "create_board",
+    "and the task-level MCP tools?",
+    "create_board",
+    "handles setup. The other MCP tools handle the ongoing work. The intended workflow is: agent scaffolds the board, humans approve, then the agent (or humans, or both) use the standard tools to work through the tasks. Setup and execution are deliberately separate.",
+    "Is this only useful for new projects, or can an agent scaffold a board mid-project?",
+    "In principle, an agent can call",
+    "create_board",
+    "at any point. But the most natural use is at project kick-off, when the board is blank. Mid-project, it’s usually more efficient to use",
+    "hypertask_section",
+    "to add a new column or",
+    "hypertask_create_task",
+    "to bulk-add tasks to an existing board. The manifest format is designed for from-scratch setup, not for surgical mid-project additions.",
+    "ai-agents",
+    "mcp",
+    "project-management",
+    "board-generation",
+    "agent-autonomy",
+    "VY",
+    "Valentin Yeo",
+    "Founder, Hypertask",
+    "Building Hypertask, the project board where humans and AI agents share one workspace. Writes about agent-driven, async project management from running it daily.",
+    "Run humans and AI agents on one board",
+    "Hypertask is project management built for the way teams work now — keyboard-first, async, agent-ready.",
+    "Start free",
+    "Keep reading",
+    "AI Agents in Project Management",
+    "MCP Server for Project Management",
+    "Learn how a project management MCP server lets AI agents read and update live boards, with setup steps, tool checks, and safety rules.",
+    "AI Agents in Project Management",
+    "AI Agents in Project Management: The Complete Guide",
+    "AI agents in project management need MCP or CLI access to a real task board. Learn why Notion, Jira, and Linear break for agents — and how to fix it.",
+    "AI Agents in Project Management",
+    "Why Your AI Agent Needs a Real Project Board (Not a Pasted Task List)",
+    "Pasting tasks into a chat is the default way to brief an AI agent. It's also broken. Here's why agents need live, read-write board access, not a stale text dump.",
+    "Home",
+    "Pricing",
+    "Blog",
+    "Privacy",
+    "Cookie settings",
+    "Contact",
+    "Terms",
+    "Docs",
+    "Help",
+    "© 2026 Hypertask Lab Ltd."
+  ],
+  "links": [
+    "#main-content",
+    "/",
+    "/pricing/",
+    "/blog/",
+    "https://docs.hypertask.ai/",
+    "https://help.hypertask.ai/",
+    "https://app.hypertask.ai/login",
+    "https://app.hypertask.ai/login",
+    "https://app.hypertask.ai/login",
+    "/",
+    "/blog/",
+    "#what-does-ai-supported-actually-mean-for-most-pm-tools",
+    "#why-board-level-autonomy-is-the-right-threshold",
+    "#how-create_board-actually-works",
+    "#how-does-board-creation-change-the-human-agent-division-of-work",
+    "#if-agents-can-build-boards-what-stops-them-getting-it-wrong",
+    "#isnt-this-just-a-template-generator",
+    "#where-this-fits-in-the-clusters-argument",
+    "#frequently-asked-questions",
+    "#what-exactly-does-create_board-send-to-the-hypertask-mcp-server",
+    "#does-the-agent-create-the-board-automatically-or-does-a-human-have-to-confirm",
+    "#can-the-agent-revise-the-board-after-creation",
+    "#whats-the-relationship-between-create_board-and-the-task-level-mcp-tools",
+    "#is-this-only-useful-for-new-projects-or-can-an-agent-scaffold-a-board-mid-project",
+    "/blog/ai-work-attribution-what-did-your-agents-do/",
+    "/blog/ai-agents-project-management-guide/",
+    "/blog/cli-vs-mcp-ai-agent-project-data-access/",
+    "/blog/why-ai-agents-need-a-real-project-board/",
+    "/blog/tags/ai-agents/",
+    "/blog/tags/mcp/",
+    "/blog/tags/project-management/",
+    "/blog/tags/board-generation/",
+    "/blog/tags/agent-autonomy/",
+    "/about/",
+    "https://app.hypertask.ai/login",
+    "/blog/mcp-server-project-management/",
+    "/blog/ai-agents-project-management-guide/",
+    "/blog/why-ai-agents-need-a-real-project-board/",
+    "/",
+    "/pricing/",
+    "/blog/",
+    "/privacy/",
+    "/contact/",
+    "/terms/",
+    "https://docs.hypertask.ai/",
+    "https://help.hypertask.ai/"
+  ],
+  "images": [
+    {
+      "alt": "",
+      "fetchpriority": "",
+      "loading": "eager",
+      "src": "/Favicon - Light.png"
+    },
+    {
+      "alt": "An AI agent assembling a full project board from scratch — columns, labels, and starter tasks scaffolding into place at once",
+      "fetchpriority": "high",
+      "loading": "eager",
+      "src": "/images/blog/feature-create-board.webp"
+    }
+  ],
+  "tables": [],
+  "codeBlocks": [
+    {
+      "language": "json",
+      "text": "{\n  \"team_id\": \"your-team-id\",\n  \"title\": \"Q3 API Refactor\",\n  \"sections\": [\"Backlog\", \"Todo\", \"Doing\", \"Review\", \"Done\"],\n  \"labels\": [\"backend\", \"breaking-change\", \"needs-spec\"],\n  \"tasks\": [\n    {\n      \"title\": \"Audit current endpoint surface\",\n      \"section\": \"Backlog\",\n      \"labels\": [\"backend\"]\n    },\n    {\n      \"title\": \"Define deprecation policy for v1 routes\",\n      \"section\": \"Backlog\",\n      \"labels\": [\"needs-spec\"]\n    }\n  ]\n}"
+    }
+  ]
+}

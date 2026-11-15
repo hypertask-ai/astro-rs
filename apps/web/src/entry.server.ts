@@ -8,7 +8,7 @@ import {
 
 import { initialModel } from "./client/app/model.js";
 import { buildHead, pageHeads, siteOrigin } from "./features/head/index.js";
-import { view } from "./features/home/index.js";
+import { pageViews, viewForPath } from "./routes.js";
 
 type RenderDocument = typeof renderFoldkitDocument;
 
@@ -27,14 +27,15 @@ export const renderDocument: RenderDocument = (
   });
 };
 
-export const prerenderPaths = ["/"];
+export const prerenderPaths = [...pageViews.keys()];
 
 const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
   request: Request
 ) {
   const { pathname } = new URL(request.url);
+  const view = viewForPath(pathname);
 
-  if (pathname !== "/") {
+  if (view === undefined) {
     return Responded(new Response("Not found", { status: 404 }));
   }
 

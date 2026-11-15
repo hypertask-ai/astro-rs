@@ -1,0 +1,516 @@
+{
+  "source": {
+    "bytes": 51280,
+    "fetchedAt": "2026-11-15T12:12:09.378Z",
+    "method": "GET",
+    "sha256": "d010f9ecd19492b3a60b78730bd8f52428d325aa69789132be2246a0b943a598",
+    "status": 200,
+    "url": "https://hypertask.ai/blog/from-200-notifications-to-inbox-zero-case-study/"
+  },
+  "address": "/blog/from-200-notifications-to-inbox-zero-case-study/",
+  "head": {
+    "canonical": "https://hypertask.ai/blog/from-200-notifications-to-inbox-zero-case-study/",
+    "meta": {
+      "description": "An inbox zero case study: how a 12-person creative agency escaped notification chaos by anchoring every message to a task instead of a chat thread.",
+      "robots": "index, follow",
+      "og:title": "From 200 Notifications a Day to Inbox Zero: A Team's Story — Hypertask Blog",
+      "og:description": "An inbox zero case study: how a 12-person creative agency escaped notification chaos by anchoring every message to a task instead of a chat thread.",
+      "og:image": "https://hypertask.ai/images/blog/case-study-cover.webp",
+      "og:image:alt": "A busy notification-filled screen on the left transitioning to a clean, empty inbox on the right, representing a team's shift from communication chaos to inbox zero",
+      "og:url": "https://hypertask.ai/blog/from-200-notifications-to-inbox-zero-case-study/",
+      "og:type": "article",
+      "og:site_name": "Hypertask",
+      "twitter:card": "summary_large_image",
+      "twitter:title": "From 200 Notifications a Day to Inbox Zero: A Team's Story — Hypertask Blog",
+      "twitter:description": "An inbox zero case study: how a 12-person creative agency escaped notification chaos by anchoring every message to a task instead of a chat thread.",
+      "twitter:image": "https://hypertask.ai/images/blog/case-study-cover.webp",
+      "twitter:image:alt": "A busy notification-filled screen on the left transitioning to a clean, empty inbox on the right, representing a team's shift from communication chaos to inbox zero",
+      "article:published_time": "2026-05-14T00:00:00.000Z",
+      "article:modified_time": "2026-05-14T00:00:00.000Z",
+      "article:author": "https://hypertask.ai/about/",
+      "article:section": "Async Work + Inbox Zero"
+    },
+    "title": "From 200 Notifications a Day to Inbox Zero: A Team's Story — Hypertask Blog"
+  },
+  "structuredData": [
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://hypertask.ai/#organization",
+          "name": "Hypertask",
+          "legalName": "Hypertask Lab Ltd.",
+          "url": "https://hypertask.ai",
+          "description": "Hypertask is a project management platform where humans and AI agents share one board. Native MCP server and CLI access let autonomous agents read tasks, claim work, post progress, and update tickets without a human relaying every step.",
+          "knowsAbout": [
+            "AI agents",
+            "project management",
+            "Model Context Protocol",
+            "task management",
+            "AI work attribution",
+            "asynchronous collaboration"
+          ],
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://hypertask.ai/hypertasklogo.avif"
+          },
+          "founder": {
+            "@type": "Person",
+            "@id": "https://hypertask.ai/#founder",
+            "name": "Valentin Yeo",
+            "jobTitle": "Founder"
+          },
+          "sameAs": ["https://www.npmjs.com/package/@hypertask/hypertask_cli"],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "url": "https://hypertask.ai/contact/"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://hypertask.ai/#website",
+          "url": "https://hypertask.ai",
+          "name": "Hypertask",
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://hypertask.ai/#software",
+          "name": "Hypertask",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "url": "https://hypertask.ai",
+          "description": "AI-powered project management where humans and AI agents share one board. Voice-to-task, smart summaries, keyboard-first navigation, native MCP integration.",
+          "screenshot": "https://hypertask.ai/mainscreen.avif",
+          "featureList": [
+            "Shared board for humans and AI agents",
+            "Native MCP server (15 tools)",
+            "Agent-optimized CLI",
+            "Voice-to-task capture",
+            "Smart task summaries",
+            "Keyboard-first navigation",
+            "Inbox and approval gates for agent work"
+          ],
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          },
+          "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "USD",
+            "lowPrice": "0",
+            "highPrice": "25",
+            "offerCount": "3"
+          }
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "headline": "From 200 Notifications a Day to Inbox Zero: A Team's Story",
+          "description": "An inbox zero case study: how a 12-person creative agency escaped notification chaos by anchoring every message to a task instead of a chat thread.",
+          "datePublished": "2026-05-14T00:00:00.000Z",
+          "dateModified": "2026-05-14T00:00:00.000Z",
+          "author": {
+            "@type": "Person",
+            "name": "Valentin Yeo",
+            "url": "https://hypertask.ai/about/"
+          },
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://hypertask.ai/blog/from-200-notifications-to-inbox-zero-case-study/"
+          },
+          "image": "https://hypertask.ai/images/blog/case-study-cover.webp",
+          "keywords": "case-study, inbox-zero, async-work, social-proof"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://hypertask.ai/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://hypertask.ai/blog/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "From 200 Notifications a Day to Inbox Zero: A Team's Story",
+              "item": "https://hypertask.ai/blog/from-200-notifications-to-inbox-zero-case-study/"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Is this an inbox-zero case study for email or for project management?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Project management. The inbox-zero concept applies to a project board the same way it applies to email: you process everything to zero rather than leaving items in a permanent backlog. The team in this story stopped managing a growing queue of notifications and started clearing a task-anchored inbox every day. The email metaphor is deliberate — it's a mindset shift as much as a tool change."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How long did the transition take for this team?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The initial switch — moving active projects to a single board and establishing the inbox as the primary view — took about two weeks of parallel running. The culture shift, where the team stopped defaulting to Slack for task questions, took closer to four to six weeks. The most common friction point is the first few weeks when old habits pull people back to the channel model."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Did they replace Slack entirely?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. They kept Slack for social coordination: quick calls, non-work chat, the informal layer. What they stopped doing was running project communication through Slack. That distinction matters — the goal isn't to eliminate real-time chat. It's to stop using it as a project management layer, where it creates fragmentation rather than removing it."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What happens to messages from clients or external stakeholders?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "External-facing communication stays in email or whatever the client uses. The internal coordination — the discussion of what to do about a client message, the status update, the decision — that moves to the task. The board captures the internal response layer, not the external channel."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does the AI Triage feature make decisions automatically?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. It classifies items as \"safe to archive\" or \"needs your input\" and surfaces a batch for you to approve. You see the full list and the reasoning before anything is archived. If the classification is wrong, you override it. The AI speeds up the processing pass; it doesn't replace your judgment on what matters."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "headings": [
+    {
+      "id": "",
+      "level": 1,
+      "text": "From 200 Notifications a Day to Inbox Zero: A Team's Story"
+    },
+    {
+      "id": "what-was-actually-broken",
+      "level": 2,
+      "text": "What Was Actually Broken?"
+    },
+    {
+      "id": "the-agencys-lead-designer-described-the-feeling-accurately-hours-of-back-and-forth-messages-to-accomplish-what-should-have-taken-one-thread-anchored-to-one-task-the-time-wasnt-wasted-on-bad-decisions--it-was-wasted-on-finding-where-the-conversation-was",
+      "level": 2,
+      "text": "The agency’s lead designer described the feeling accurately: hours of back-and-forth messages to accomplish what should have taken one thread anchored to one task. The time wasn’t wasted on bad decisions — it was wasted on finding where the conversation was."
+    },
+    {
+      "id": "the-slack-thread-problem-they-hit-first",
+      "level": 2,
+      "text": "The Slack Thread Problem They Hit First"
+    },
+    {
+      "id": "the-switch-one-board-one-inbox",
+      "level": 2,
+      "text": "The Switch: One Board, One Inbox"
+    },
+    {
+      "id": "what-that-reduction-actually-looks-like",
+      "level": 2,
+      "text": "What That Reduction Actually Looks Like"
+    },
+    {
+      "id": "ai-triage-getting-to-zero-without-manual-processing",
+      "level": 2,
+      "text": "AI Triage: Getting to Zero Without Manual Processing"
+    },
+    {
+      "id": "the-ai-doesnt-make-irreversible-decisions-you-see-what-it-classified-and-why-then-approve-or-override-its-the-difference-between-having-an-assistant-sort-your-mail-and-having-an-assistant-throw-your-mail-away--the-first-is-useful-the-second-is-terrifying",
+      "level": 2,
+      "text": "The AI doesn’t make irreversible decisions. You see what it classified and why, then approve or override. It’s the difference between having an assistant sort your mail and having an assistant throw your mail away — the first is useful, the second is terrifying."
+    },
+    {
+      "id": "the-after-what-the-team-actually-changed",
+      "level": 2,
+      "text": "The After: What the Team Actually Changed"
+    },
+    {
+      "id": "what-youd-need-to-do-this",
+      "level": 2,
+      "text": "What You’d Need to Do This"
+    },
+    {
+      "id": "frequently-asked-questions",
+      "level": 2,
+      "text": "Frequently Asked Questions"
+    },
+    {
+      "id": "is-this-an-inbox-zero-case-study-for-email-or-for-project-management",
+      "level": 3,
+      "text": "Is this an inbox-zero case study for email or for project management?"
+    },
+    {
+      "id": "how-long-did-the-transition-take-for-this-team",
+      "level": 3,
+      "text": "How long did the transition take for this team?"
+    },
+    {
+      "id": "did-they-replace-slack-entirely",
+      "level": 3,
+      "text": "Did they replace Slack entirely?"
+    },
+    {
+      "id": "what-happens-to-messages-from-clients-or-external-stakeholders",
+      "level": 3,
+      "text": "What happens to messages from clients or external stakeholders?"
+    },
+    {
+      "id": "does-the-ai-triage-feature-make-decisions-automatically",
+      "level": 3,
+      "text": "Does the AI Triage feature make decisions automatically?"
+    },
+    {
+      "id": "",
+      "level": 2,
+      "text": "Keep reading"
+    }
+  ],
+  "visibleText": [
+    "Skip to content",
+    "Hypertask",
+    "Pricing",
+    "Blog",
+    "Docs",
+    "Help",
+    "Login",
+    "Press",
+    "L",
+    "to log in",
+    "Start free",
+    "Start free",
+    "☰",
+    "Home",
+    "/",
+    "Blog",
+    "Async Work + Inbox Zero",
+    "From 200 Notifications a Day to Inbox Zero: A Team's Story",
+    "An inbox zero case study: how a 12-person creative agency escaped notification chaos by anchoring every message to a task instead of a chat thread.",
+    "Valentin Yeo",
+    "May 14, 2026",
+    "On this page",
+    "What Was Actually Broken?",
+    "The agency’s lead designer described the feeling accurately: hours of back-and-forth messages to accomplish what should have taken one thread anchored to one task. The time wasn’t wasted on bad decisions — it was wasted on finding where the conversation was.",
+    "The Slack Thread Problem They Hit First",
+    "The Switch: One Board, One Inbox",
+    "What That Reduction Actually Looks Like",
+    "AI Triage: Getting to Zero Without Manual Processing",
+    "The AI doesn’t make irreversible decisions. You see what it classified and why, then approve or override. It’s the difference between having an assistant sort your mail and having an assistant throw your mail away — the first is useful, the second is terrifying.",
+    "The After: What the Team Actually Changed",
+    "What You’d Need to Do This",
+    "Frequently Asked Questions",
+    "Is this an inbox-zero case study for email or for project management?",
+    "How long did the transition take for this team?",
+    "Did they replace Slack entirely?",
+    "What happens to messages from clients or external stakeholders?",
+    "Does the AI Triage feature make decisions automatically?",
+    "A 12-person creative agency was running three tools at once: Slack for quick questions, WhatsApp for client-facing updates, and a project board that nobody fully trusted. By the time a message needed a reply, nobody could find where it had been sent. They weren’t disorganised people. They had a structure problem. This is how they fixed it by moving to",
+    "async project management without notification overload",
+    "— and what changed when every message finally had a home.",
+    "The Bottom Line",
+    "The team’s unstructured back-and-forth dropped dramatically once every conversation was anchored to a specific task — not a channel or a chat thread.",
+    "The inbox-zero approach works for project boards the same way it works for email: you process items to empty, not to “managed chaos.”",
+    "Several small teams report communicating",
+    "more",
+    "after switching, not less — the difference is that conversations are now attached to something actionable.",
+    "The hardest part isn’t the tool. It’s accepting that a notification you can’t trace to a task is a notification that probably shouldn’t exist.",
+    "According to Microsoft’s 2025 Work Trend Index, knowledge workers are interrupted roughly every two minutes during core hours. The teams in this story found a way out of that loop.",
+    "What Was Actually Broken?",
+    "The agency’s setup looked normal from the outside. Slack channels were organised, threads were enforced, the project board had columns. What looked like discipline was actually fragile: messages that belonged together were split across tools, and nobody could update the board in real time without interrupting what they were doing.",
+    "The Microsoft 2025 Work Trend Index found that knowledge workers face interruptions roughly every two minutes during core hours — around 275 times in a workday (",
+    "Microsoft Work Trend Index 2025",
+    "). For this team, those interruptions weren’t random noise. They were the cost of a system where task context lived in too many places at once — and that cost compounds in ways most teams never measure, as the breakdown of",
+    "the real cost of notification overload",
+    "makes clear.",
+    "The agency’s lead designer described the feeling accurately: hours of back-and-forth messages to accomplish what should have taken one thread anchored to one task. The time wasn’t wasted on bad decisions — it was wasted on finding where the conversation was.",
+    "The Slack Thread Problem They Hit First",
+    "Before the agency tried anything new, they tried discipline. They assigned someone to enforce thread structure in Slack. If a reply landed in the wrong place, it got moved. If someone created a new message instead of threading into the right channel, they heard about it.",
+    "It didn’t hold. It never does — and",
+    "the research on why teams stop replying in Slack threads",
+    "explains the structural reason clearly. You can police a channel, but you can’t police the cognitive overhead of remembering which thread a decision belongs to, especially across a week of context.",
+    "The operators who spend the most energy on Slack discipline — the ones who enforce threading religiously, who have a channel for every department — often describe the highest levels of frustration. They’ve optimised the tool to its limits and still find themselves updating four different places for a single task. The problem isn’t discipline. It’s architecture.",
+    "What this agency found, eventually, is that the fix isn’t making Slack more structured. It’s removing Slack from the task-tracking loop entirely and giving every conversation a task to live inside.",
+    "The Switch: One Board, One Inbox",
+    "The change the agency made was structural. They moved their project coordination to a single board where every message, update, and decision was attached to a task. Not a channel. Not a thread. A ticket — with a status, an owner, and a history.",
+    "The inbox model is the key concept here. Instead of checking multiple tools for updates, each team member had one view: their inbox, showing only items that needed their attention. When a task got a new comment, it surfaced. When they replied, it left the inbox until something changed again. The goal was explicit: get to zero every day.",
+    "For teams trying to copy the pattern, the board model only sticks when it becomes a routine; the",
+    "daily inbox-zero routine",
+    "is the operating cadence behind the habit. This is different from turning off notifications. Turning off notifications just means you miss things. An inbox that only shows you items anchored to tasks you’re involved in means you see everything relevant — and nothing else.",
+    "The owner of an independent agency described the shift this way: applying an inbox-zero mindset to a project board meant the team started communicating more, not less. The difference was that conversations were now attached to something. They didn’t get lost.",
+    "What That Reduction Actually Looks Like",
+    "Across several teams who’ve made this shift, a consistent pattern emerges in how they describe the before and after. The way teams put it is consistent: the unstructured back-and-forth across Slack, messaging apps, and a separate project tool drops dramatically once every message has a task to live in. One design lead at a seven-person team described the reduction as roughly 80% of the back-and-forth disappearing — not because the team stopped talking, but because the conversations that remained were all attached to something actionable.",
+    "That number is self-reported and qualitative. What it maps to is this: the team stopped sending “hey, what’s the status on X?” messages. The status was on the ticket. They stopped chasing replies across platforms. The reply was threaded into the task. The pings that remained were the ones that actually required a decision.",
+    "What surprised them was a side effect nobody predicted: the people who had been worst at replying in Slack started replying consistently. Not because they’d changed — because the context was finally in one place when they looked. That tracks with",
+    "why teams stop replying in Slack threads",
+    "in the first place: it’s rarely apathy, it’s missing context.",
+    "AI Triage: Getting to Zero Without Manual Processing",
+    "Once a team is working from a task-anchored inbox, a second problem tends to emerge. The inbox gets long. Not as long as Slack, but long enough that clearing it daily starts to feel like work. You start making judgment calls: is this item something I need to act on, or just noise I was copied on?",
+    "This is where the distinction between “inbox management” and “inbox zero” becomes real. Most tools ask you to manage your inbox — flag, sort, snooze. Hypertask’s AI Triage takes a different approach. You press one button. The AI reads every item, classifies it as safe-to-archive or needs-your-input, and surfaces a batch for you to approve. One approval pass. The inbox empties.",
+    "For the agency in this story, this was the feature that converted inbox zero from an aspiration into a daily practice. The manual overhead of processing items one at a time had been enough friction to break the habit. Batch approval removed the friction.",
+    "The AI doesn’t make irreversible decisions. You see what it classified and why, then approve or override. It’s the difference between having an assistant sort your mail and having an assistant throw your mail away — the first is useful, the second is terrifying.",
+    "The After: What the Team Actually Changed",
+    "Six months in, the agency had settled into a pattern that looked different from what they’d expected when they started. They hadn’t eliminated async communication — they’d concentrated it. Instead of messages spread across three tools and a dozen channels, coordination happened in one place.",
+    "The board became something they actually trusted. Status fields reflected reality because updates went there first, not as a secondary task after the real work was done. Team members stopped needing to ask each other for status — the board had it.",
+    "One thing that didn’t change: the team still used Slack. But they used it for what it’s actually good at — quick social coordination, the “anyone free for a call?” message, the end-of-week casual check-in. They stopped using it to run projects, settling into something close to the",
+    "async communication playbook for remote teams",
+    "without ever calling it that.",
+    "The agency’s founder put the change simply: the board stopped being something they maintained and became something they worked from. That’s a small sentence. It’s a significant difference.",
+    "What You’d Need to Do This",
+    "The shift is repeatable. The conditions that made it work for this team aren’t unusual.",
+    "The same structure also supports",
+    "project management for AI agents",
+    ": agents can post progress to owned tasks while humans review only the updates that need a decision.",
+    "First, you need a board where every task has an owner and a status that stays current. Not because you enforce it, but because updates flow there naturally — because the inbox pulls from the board, so people update the board to update the inbox.",
+    "Second, you need an inbox model that shows you only what’s relevant to you. Not everything on every project. Not all notifications from boards you’re attached to. Your tasks, your mentions, your decisions.",
+    "Third — and this is the part that usually takes the longest — you need the team to agree that a message sent outside the task doesn’t count. Not in a punitive way. In a practical one: if a question isn’t attached to a task, nobody can be held to answering it, because nobody can find it in a week.",
+    "The tooling supports all of this. The culture shift takes a few weeks. Most teams find that the friction drops faster than they expected once inbox zero becomes a daily norm rather than an occasional achievement.",
+    "If you want to see how this works in practice,",
+    "book a demo",
+    "— the setup walkthrough takes about 20 minutes and covers exactly how a team like this one would migrate their existing boards. Or",
+    "start free",
+    "and run the inbox on your own first.",
+    "Frequently Asked Questions",
+    "Is this an inbox-zero case study for email or for project management?",
+    "Project management. The inbox-zero concept applies to a project board the same way it applies to email: you process everything to zero rather than leaving items in a permanent backlog. The team in this story stopped managing a growing queue of notifications and started clearing a task-anchored inbox every day. The email metaphor is deliberate — it’s a mindset shift as much as a tool change.",
+    "How long did the transition take for this team?",
+    "The initial switch — moving active projects to a single board and establishing the inbox as the primary view — took about two weeks of parallel running. The culture shift, where the team stopped defaulting to Slack for task questions, took closer to four to six weeks. The most common friction point is the first few weeks when old habits pull people back to the channel model.",
+    "Did they replace Slack entirely?",
+    "No. They kept Slack for social coordination: quick calls, non-work chat, the informal layer. What they stopped doing was running project communication through Slack. That distinction matters — the goal isn’t to eliminate real-time chat. It’s to stop using it as a project management layer, where it creates fragmentation rather than removing it.",
+    "What happens to messages from clients or external stakeholders?",
+    "External-facing communication stays in email or whatever the client uses. The internal coordination — the discussion of what to do about a client message, the status update, the decision — that moves to the task. The board captures the internal response layer, not the external channel.",
+    "Does the AI Triage feature make decisions automatically?",
+    "No. It classifies items as “safe to archive” or “needs your input” and surfaces a batch for you to approve. You see the full list and the reasoning before anything is archived. If the classification is wrong, you override it. The AI speeds up the processing pass; it doesn’t replace your judgment on what matters.",
+    "The Bottom Line",
+    "A task-anchored inbox cuts the unstructured back-and-forth not by suppressing communication, but by giving every conversation a place to live — one that doesn’t get lost between tools.",
+    "Teams that have made this shift consistently report that the people who were hardest to reach in Slack start replying reliably once context is in one place.",
+    "The inbox-zero habit for project boards works the same way it works for email: you need a daily clearing practice, not just a better filing system.",
+    "AI Triage removes the manual overhead that breaks the inbox-zero habit — one batch approval pass replaces item-by-item processing.",
+    "The hardest part is cultural, not technical. Agreeing that a task question sent outside the board doesn’t count is the rule that makes the rest of it hold.",
+    "case-study",
+    "inbox-zero",
+    "async-work",
+    "social-proof",
+    "VY",
+    "Valentin Yeo",
+    "Founder, Hypertask",
+    "Building Hypertask, the project board where humans and AI agents share one workspace. Writes about agent-driven, async project management from running it daily.",
+    "Run humans and AI agents on one board",
+    "Hypertask is project management built for the way teams work now — keyboard-first, async, agent-ready.",
+    "Start free",
+    "Keep reading",
+    "Async Work + Inbox Zero",
+    "Async Project Management Without Drowning in Notifications",
+    "Async project management means progress without waiting on real-time replies. Here's how to cut notification overload and keep work in the task.",
+    "Async Work + Inbox Zero",
+    "How to Reach Inbox Zero Every Day (Even With a Busy Team)",
+    "Reach inbox zero daily with a practical 3-window routine, one-touch decisions, and AI triage. Works for email and the harder problem: internal project comms.",
+    "Async Work + Inbox Zero",
+    "Async Communication for Remote Teams: A Practical Playbook",
+    "Cut notification chaos with a real async communication playbook: channel hierarchy, response windows, and where decisions actually get recorded.",
+    "Home",
+    "Pricing",
+    "Blog",
+    "Privacy",
+    "Cookie settings",
+    "Contact",
+    "Terms",
+    "Docs",
+    "Help",
+    "© 2026 Hypertask Lab Ltd."
+  ],
+  "links": [
+    "#main-content",
+    "/",
+    "/pricing/",
+    "/blog/",
+    "https://docs.hypertask.ai/",
+    "https://help.hypertask.ai/",
+    "https://app.hypertask.ai/login",
+    "https://app.hypertask.ai/login",
+    "https://app.hypertask.ai/login",
+    "/",
+    "/blog/",
+    "#what-was-actually-broken",
+    "#the-agencys-lead-designer-described-the-feeling-accurately-hours-of-back-and-forth-messages-to-accomplish-what-should-have-taken-one-thread-anchored-to-one-task-the-time-wasnt-wasted-on-bad-decisions--it-was-wasted-on-finding-where-the-conversation-was",
+    "#the-slack-thread-problem-they-hit-first",
+    "#the-switch-one-board-one-inbox",
+    "#what-that-reduction-actually-looks-like",
+    "#ai-triage-getting-to-zero-without-manual-processing",
+    "#the-ai-doesnt-make-irreversible-decisions-you-see-what-it-classified-and-why-then-approve-or-override-its-the-difference-between-having-an-assistant-sort-your-mail-and-having-an-assistant-throw-your-mail-away--the-first-is-useful-the-second-is-terrifying",
+    "#the-after-what-the-team-actually-changed",
+    "#what-youd-need-to-do-this",
+    "#frequently-asked-questions",
+    "#is-this-an-inbox-zero-case-study-for-email-or-for-project-management",
+    "#how-long-did-the-transition-take-for-this-team",
+    "#did-they-replace-slack-entirely",
+    "#what-happens-to-messages-from-clients-or-external-stakeholders",
+    "#does-the-ai-triage-feature-make-decisions-automatically",
+    "/blog/async-project-management-without-notification-overload/",
+    "https://www.microsoft.com/en-us/worklab/work-trend-index/breaking-down-infinite-workday",
+    "/blog/real-cost-of-notification-overload/",
+    "/blog/why-your-team-stopped-replying-in-slack-threads/",
+    "/blog/how-to-reach-inbox-zero-every-day/",
+    "/blog/why-your-team-stopped-replying-in-slack-threads/",
+    "/blog/async-communication-remote-teams-playbook/",
+    "/blog/ai-agents-project-management-guide/",
+    "https://cal.com/valentin-hypertask/hypertask-demo",
+    "https://app.hypertask.ai/login",
+    "/blog/tags/case-study/",
+    "/blog/tags/inbox-zero/",
+    "/blog/tags/async-work/",
+    "/blog/tags/social-proof/",
+    "/about/",
+    "https://app.hypertask.ai/login",
+    "/blog/async-project-management-without-notification-overload/",
+    "/blog/how-to-reach-inbox-zero-every-day/",
+    "/blog/async-communication-remote-teams-playbook/",
+    "/",
+    "/pricing/",
+    "/blog/",
+    "/privacy/",
+    "/contact/",
+    "/terms/",
+    "https://docs.hypertask.ai/",
+    "https://help.hypertask.ai/"
+  ],
+  "images": [
+    {
+      "alt": "",
+      "fetchpriority": "",
+      "loading": "eager",
+      "src": "/Favicon - Light.png"
+    },
+    {
+      "alt": "A busy notification-filled screen on the left transitioning to a clean, empty inbox on the right, representing a team's shift from communication chaos to inbox zero",
+      "fetchpriority": "high",
+      "loading": "eager",
+      "src": "/images/blog/case-study-cover.webp"
+    }
+  ],
+  "tables": [],
+  "codeBlocks": []
+}

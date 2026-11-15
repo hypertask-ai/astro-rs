@@ -1,0 +1,516 @@
+{
+  "source": {
+    "bytes": 52111,
+    "fetchedAt": "2026-11-15T12:12:09.378Z",
+    "method": "GET",
+    "sha256": "38b593ff5e0557e57df142ee44ddd486e755d2842386295793c71fccc58a8b09",
+    "status": 200,
+    "url": "https://hypertask.ai/blog/why-your-team-stopped-replying-in-slack-threads/"
+  },
+  "address": "/blog/why-your-team-stopped-replying-in-slack-threads/",
+  "head": {
+    "canonical": "https://hypertask.ai/blog/why-your-team-stopped-replying-in-slack-threads/",
+    "meta": {
+      "description": "Slack threads get lost even on disciplined teams — because a thread has no owner, no due date, no state. Here's the structural fix that actually works.",
+      "robots": "index, follow",
+      "og:title": "Why Your Team Stopped Replying in Slack Threads — Hypertask Blog",
+      "og:description": "Slack threads get lost even on disciplined teams — because a thread has no owner, no due date, no state. Here's the structural fix that actually works.",
+      "og:image": "https://hypertask.ai/images/blog/slack-threads-cover.webp",
+      "og:image:alt": "A Slack thread with no reply since two weeks ago, surrounded by other threads competing for attention on a busy channel sidebar",
+      "og:url": "https://hypertask.ai/blog/why-your-team-stopped-replying-in-slack-threads/",
+      "og:type": "article",
+      "og:site_name": "Hypertask",
+      "twitter:card": "summary_large_image",
+      "twitter:title": "Why Your Team Stopped Replying in Slack Threads — Hypertask Blog",
+      "twitter:description": "Slack threads get lost even on disciplined teams — because a thread has no owner, no due date, no state. Here's the structural fix that actually works.",
+      "twitter:image": "https://hypertask.ai/images/blog/slack-threads-cover.webp",
+      "twitter:image:alt": "A Slack thread with no reply since two weeks ago, surrounded by other threads competing for attention on a busy channel sidebar",
+      "article:published_time": "2026-05-14T00:00:00.000Z",
+      "article:modified_time": "2026-05-14T00:00:00.000Z",
+      "article:author": "https://hypertask.ai/about/",
+      "article:section": "Async Work + Inbox Zero"
+    },
+    "title": "Why Your Team Stopped Replying in Slack Threads — Hypertask Blog"
+  },
+  "structuredData": [
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://hypertask.ai/#organization",
+          "name": "Hypertask",
+          "legalName": "Hypertask Lab Ltd.",
+          "url": "https://hypertask.ai",
+          "description": "Hypertask is a project management platform where humans and AI agents share one board. Native MCP server and CLI access let autonomous agents read tasks, claim work, post progress, and update tickets without a human relaying every step.",
+          "knowsAbout": [
+            "AI agents",
+            "project management",
+            "Model Context Protocol",
+            "task management",
+            "AI work attribution",
+            "asynchronous collaboration"
+          ],
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://hypertask.ai/hypertasklogo.avif"
+          },
+          "founder": {
+            "@type": "Person",
+            "@id": "https://hypertask.ai/#founder",
+            "name": "Valentin Yeo",
+            "jobTitle": "Founder"
+          },
+          "sameAs": ["https://www.npmjs.com/package/@hypertask/hypertask_cli"],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "url": "https://hypertask.ai/contact/"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://hypertask.ai/#website",
+          "url": "https://hypertask.ai",
+          "name": "Hypertask",
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://hypertask.ai/#software",
+          "name": "Hypertask",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "url": "https://hypertask.ai",
+          "description": "AI-powered project management where humans and AI agents share one board. Voice-to-task, smart summaries, keyboard-first navigation, native MCP integration.",
+          "screenshot": "https://hypertask.ai/mainscreen.avif",
+          "featureList": [
+            "Shared board for humans and AI agents",
+            "Native MCP server (15 tools)",
+            "Agent-optimized CLI",
+            "Voice-to-task capture",
+            "Smart task summaries",
+            "Keyboard-first navigation",
+            "Inbox and approval gates for agent work"
+          ],
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          },
+          "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "USD",
+            "lowPrice": "0",
+            "highPrice": "25",
+            "offerCount": "3"
+          }
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "headline": "Why Your Team Stopped Replying in Slack Threads",
+          "description": "Slack threads get lost even on disciplined teams — because a thread has no owner, no due date, no state. Here's the structural fix that actually works.",
+          "datePublished": "2026-05-14T00:00:00.000Z",
+          "dateModified": "2026-05-14T00:00:00.000Z",
+          "author": {
+            "@type": "Person",
+            "name": "Valentin Yeo",
+            "url": "https://hypertask.ai/about/"
+          },
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://hypertask.ai/blog/why-your-team-stopped-replying-in-slack-threads/"
+          },
+          "image": "https://hypertask.ai/images/blog/slack-threads-cover.webp",
+          "keywords": "slack, team-communication, async-work, project-management"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://hypertask.ai/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://hypertask.ai/blog/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Why Your Team Stopped Replying in Slack Threads",
+              "item": "https://hypertask.ai/blog/why-your-team-stopped-replying-in-slack-threads/"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Why do Slack threads get lost even when teams are disciplined about using them?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Slack threads have no state. There's no owner, no due date, no status that changes when the work is done. A thread that's waiting on a decision looks identical to a thread that's been resolved — both just show a timestamp of the last message. Discipline keeps threads tidy, but it can't make them resurface automatically when they go stale. The work you forgot to check for is the work you miss."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Should we stop using Slack for project communication entirely?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Slack is genuinely good at real-time conversation, quick questions, announcements, and team culture. The change worth making is narrower: project decisions and task-related discussion belong in the task tool, not in Slack. That way the decision record lives where the work lives. Everything spontaneous and conversational can stay in Slack."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Why don't people reply inside tasks in tools like Jira, Notion, or ClickUp?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The inbox in most PM tools is an afterthought. It's slower to reach, harder to navigate, and less satisfying to interact with than Slack. When replying in a task requires more steps than sending a Slack message, people choose Slack every time — not because they're ignoring the task, but because friction wins. The fix is an inbox that's as fast as Slack, not a policy that tells people to use a slower tool."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How is a task comment structurally different from a Slack thread?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A task comment inherits the task's owner, status, and due date. If the task is open and a comment is unread, the owner sees it in their inbox until they deal with it. A Slack thread has none of that — it has messages and reactions, but no accountability structure underneath. One resurfaces automatically; the other requires you to remember to go looking for it."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What's the fastest way to start moving project communication out of Slack?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Start with one type of message: decisions. Any message that represents a choice, a scope call, or a next step goes into the relevant task as a comment. Everything else stays in Slack. Within two or three weeks the contrast becomes visible — decisions in tasks are findable and accountable, decisions in Slack require archaeology. That contrast tends to do the convincing on its own."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "headings": [
+    {
+      "id": "",
+      "level": 1,
+      "text": "Why Your Team Stopped Replying in Slack Threads"
+    },
+    {
+      "id": "the-thread-police-problem",
+      "level": 2,
+      "text": "The Thread Police Problem"
+    },
+    {
+      "id": "slack-is-genuinely-good-at-what-its-designed-for-real-time-conversation-quick-questions-social-signalling-announcements-that-need-a-reaction-right-now-slack-is-not-designed-to-track-whether-a-thing-got-done-it-has-no-mechanism-for-that-a-thread-that-goes-unanswered-is-identical-to-a-thread-thats-resolved--both-just-look-like-the-last-message-was-from-three-days-ago",
+      "level": 2,
+      "text": "Slack is genuinely good at what it’s designed for. Real-time conversation, quick questions, social signalling, announcements that need a reaction right now. Slack is not designed to track whether a thing got done. It has no mechanism for that. A thread that goes unanswered is identical to a thread that’s resolved — both just look like the last message was from three days ago."
+    },
+    {
+      "id": "why-just-update-the-ticket-doesnt-work-either",
+      "level": 2,
+      "text": "Why “Just Update the Ticket” Doesn’t Work Either"
+    },
+    {
+      "id": "the-inboxes-in-both-tools-were-afterthoughts-they-looked-like-email-clients-stapled-to-a-task-board-and-they-felt-like-a-punishment-to-use-nobody-wanted-to-go-there-it-wasnt-that-my-team-was-undisciplined--its-that-the-friction-of-replying-inside-the-task-was-higher-than-the-friction-of-sending-a-slack-message-so-they-chose-slack-every-time",
+      "level": 2,
+      "text": "The inboxes in both tools were afterthoughts. They looked like email clients stapled to a task board, and they felt like a punishment to use. Nobody wanted to go there. It wasn’t that my team was undisciplined — it’s that the friction of replying inside the task was higher than the friction of sending a Slack message, so they chose Slack every time."
+    },
+    {
+      "id": "what-a-thread-doesnt-have-that-a-task-does",
+      "level": 2,
+      "text": "What a Thread Doesn’t Have That a Task Does"
+    },
+    {
+      "id": "the-complement-not-the-replacement",
+      "level": 2,
+      "text": "The Complement, Not the Replacement"
+    },
+    {
+      "id": "why-anchoring-messages-to-tasks-changes-everything",
+      "level": 2,
+      "text": "Why Anchoring Messages to Tasks Changes Everything"
+    },
+    {
+      "id": "the-practical-transition",
+      "level": 2,
+      "text": "The Practical Transition"
+    },
+    {
+      "id": "frequently-asked-questions",
+      "level": 2,
+      "text": "Frequently Asked Questions"
+    },
+    {
+      "id": "why-do-slack-threads-get-lost-even-when-teams-are-disciplined-about-using-them",
+      "level": 3,
+      "text": "Why do Slack threads get lost even when teams are disciplined about using them?"
+    },
+    {
+      "id": "should-we-stop-using-slack-for-project-communication-entirely",
+      "level": 3,
+      "text": "Should we stop using Slack for project communication entirely?"
+    },
+    {
+      "id": "why-dont-people-reply-inside-tasks-in-tools-like-jira-notion-or-clickup",
+      "level": 3,
+      "text": "Why don’t people reply inside tasks in tools like Jira, Notion, or ClickUp?"
+    },
+    {
+      "id": "how-is-a-task-comment-structurally-different-from-a-slack-thread",
+      "level": 3,
+      "text": "How is a task comment structurally different from a Slack thread?"
+    },
+    {
+      "id": "whats-the-fastest-way-to-start-moving-project-communication-out-of-slack",
+      "level": 3,
+      "text": "What’s the fastest way to start moving project communication out of Slack?"
+    },
+    {
+      "id": "",
+      "level": 2,
+      "text": "Keep reading"
+    }
+  ],
+  "visibleText": [
+    "Skip to content",
+    "Hypertask",
+    "Pricing",
+    "Blog",
+    "Docs",
+    "Help",
+    "Login",
+    "Press",
+    "L",
+    "to log in",
+    "Start free",
+    "Start free",
+    "☰",
+    "Home",
+    "/",
+    "Blog",
+    "Async Work + Inbox Zero",
+    "Why Your Team Stopped Replying in Slack Threads",
+    "Slack threads get lost even on disciplined teams — because a thread has no owner, no due date, no state. Here's the structural fix that actually works.",
+    "Valentin Yeo",
+    "May 14, 2026",
+    "On this page",
+    "The Thread Police Problem",
+    "Slack is genuinely good at what it’s designed for. Real-time conversation, quick questions, social signalling, announcements that need a reaction right now. Slack is not designed to track whether a thing got done. It has no mechanism for that. A thread that goes unanswered is identical to a thread that’s resolved — both just look like the last message was from three days ago.",
+    "Why “Just Update the Ticket” Doesn’t Work Either",
+    "The inboxes in both tools were afterthoughts. They looked like email clients stapled to a task board, and they felt like a punishment to use. Nobody wanted to go there. It wasn’t that my team was undisciplined — it’s that the friction of replying inside the task was higher than the friction of sending a Slack message, so they chose Slack every time.",
+    "What a Thread Doesn’t Have That a Task Does",
+    "The Complement, Not the Replacement",
+    "Why Anchoring Messages to Tasks Changes Everything",
+    "The Practical Transition",
+    "Frequently Asked Questions",
+    "Why do Slack threads get lost even when teams are disciplined about using them?",
+    "Should we stop using Slack for project communication entirely?",
+    "Why don’t people reply inside tasks in tools like Jira, Notion, or ClickUp?",
+    "How is a task comment structurally different from a Slack thread?",
+    "What’s the fastest way to start moving project communication out of Slack?",
+    "Your team didn’t stop replying because they’re lazy or disorganised. They stopped replying because a Slack thread has no state. There’s no owner, no due date, no status — so when the thread scrolls off screen, it’s gone. The work it represented didn’t disappear. It just became invisible.",
+    "That’s the structural problem. And no amount of Slack discipline fixes it.",
+    "The Bottom Line",
+    "Slack threads get lost even on well-run teams, because threads carry no state: no owner, no due date, no next step.",
+    "The fix isn’t more Slack discipline. It’s putting project communication where the project lives.",
+    "Every message anchored to a task inherits the task’s owner and status — so nothing can go quiet without someone noticing.",
+    "Moving project discussion out of Slack doesn’t mean abandoning Slack. It means using each tool for what it’s actually good at.",
+    "The Thread Police Problem",
+    "Some teams try very hard to use Slack correctly. They have rules: every topic gets its own thread, you reply in threads not in channel, you link to the relevant ticket. It’s exactly the kind of discipline a solid",
+    "async communication playbook",
+    "asks for. One founder I spoke with described himself and his co-founder as “thread police” — they enforced that discipline religiously, and still found themselves six months later discovering tasks that had gone quiet in threads nobody had touched since January.",
+    "His description of what happened: the thread would get lost in the back-and-forth until a month later, someone would ask “hey, what happened with X?” And the answer was always some version of: it got buried.",
+    "That’s not a people problem. That’s a tool problem.",
+    "Slack is genuinely good at what it’s designed for. Real-time conversation, quick questions, social signalling, announcements that need a reaction right now. Slack is not designed to track whether a thing got done. It has no mechanism for that. A thread that goes unanswered is identical to a thread that’s resolved — both just look like the last message was from three days ago.",
+    "Why “Just Update the Ticket” Doesn’t Work Either",
+    "The standard advice is: “keep Slack for chat, and update your tickets in Jira/Linear/Notion.” Most teams have tried this. Most teams know it doesn’t hold.",
+    "The reason is friction. Updating a ticket in a separate tool is a context switch, and that switching has",
+    "a real cost that adds up across the day",
+    ". You’re mid-conversation in Slack, you reach an actionable conclusion, and then you need to open another tab, find the right ticket, write a comment that summarises what just happened in Slack, and then come back. That’s maybe two minutes of overhead — but it’s two minutes that happens on every single decision, and it requires everyone in the thread to do it, not just one person.",
+    "What actually happens in practice: one person updates the ticket inconsistently, or nobody does, and the ticket sits as a shell with a title and a status but no record of what was discussed.",
+    "I ran into this at the company I was working at in 2019. We had a project board — ClickUp at the time — and I tried to get people to communicate inside the tasks. They wouldn’t. So the tasks sat there, accurate in theory, empty in practice, and the real conversation happened in Slack where it promptly got lost.",
+    "I tried the same thing with Notion. Same result. Different tool, same problem.",
+    "The inboxes in both tools were afterthoughts. They looked like email clients stapled to a task board, and they felt like a punishment to use. Nobody wanted to go there. It wasn’t that my team was undisciplined — it’s that the friction of replying inside the task was higher than the friction of sending a Slack message, so they chose Slack every time.",
+    "What a Thread Doesn’t Have That a Task Does",
+    "This is the structural argument, and it’s worth being precise about it.",
+    "A Slack thread has:",
+    "Messages in sequence",
+    "Reactions",
+    "The person who started it",
+    "A task on a project board has:",
+    "An owner (accountable, singular)",
+    "A status (open / in progress / done)",
+    "A due date",
+    "A history of every state change",
+    "Comments that persist and are searchable",
+    "When you move a decision into a Slack thread, you strip away all the structure that makes work trackable. The decision might be sound. The next step might be clear to everyone in the room (or the channel). But there’s no system enforcing it. The next step exists only in someone’s head — and heads forget.",
+    "This is why even “thread police” teams lose work. Discipline can keep threads tidy. It cannot give a thread an owner. It cannot make a thread show up in someone’s inbox every morning until it’s resolved. Threads don’t resurface automatically when they go stale — you have to go looking for them, which means you only find the ones you already remember to look for.",
+    "The work that gets missed is always the work you forgot to look for.",
+    "The Complement, Not the Replacement",
+    "Slack isn’t going anywhere, and it shouldn’t. It’s excellent for the things it’s designed for: spontaneous conversation, quick yes/no questions, team culture, announcements where you want an emoji reaction in the next ten minutes.",
+    "The argument isn’t “stop using Slack.” The argument is: your project communication belongs in your project tool, not in Slack. That’s the same principle behind a calmer",
+    "async project management setup",
+    "— each kind of message lives where it can actually be tracked.",
+    "Once agents join the team, the same boundary matters even more. A",
+    "project board shared by AI agents and people",
+    "keeps machine updates attached to owners, status, and decisions instead of adding another stream to Slack.",
+    "When I was building Hypertask, the insight that shaped the inbox design was this: the reason people don’t reply inside tasks isn’t that they don’t care about the task — it’s that the experience of replying inside most PM tools is worse than sending a Slack message. So the solution isn’t to tell people to use the PM tool. It’s to make the PM tool’s inbox as fast and frictionless as Slack, so the gap disappears.",
+    "That’s where the Superhuman analogy comes from. Superhuman didn’t convince people to process email differently by adding more features. It made the fundamental act of handling an email faster and more satisfying — keyboard shortcuts, instant archive, triage-first design — until the inbox stopped feeling like a chore. Hypertask tries to do the same thing for internal project communication.",
+    "For replies you write often,",
+    "Superhuman-style snippets in Hypertask",
+    "insert saved text from the keyboard inside tasks and comments.",
+    "Why Anchoring Messages to Tasks Changes Everything",
+    "When a message lives inside a task instead of in a Slack thread, something structurally different happens.",
+    "The message inherits the task’s owner. If the task is assigned to Priya, and a message sits unread on that task, Priya’s inbox shows it. Not as one of 400 Slack notifications — as a message on a task she owns and is responsible for. The accountability is built into the structure.",
+    "The message inherits the task’s status. If the task is open, the message is part of an open conversation. If the task is closed, the conversation is over. Nobody needs to declare a thread resolved. It resolves when the work is done.",
+    "The message is findable. Three months later, when someone asks “wait, what did we decide about the API rate limits?” — the answer is in the ticket, not buried somewhere in #eng-general under 900 messages from December.",
+    "This isn’t about forcing people to use a less convenient tool. It’s about building a system where the communication is structurally inseparable from the work — so when the work is tracked, the conversation is tracked with it. That’s also what makes it possible to",
+    "reach inbox zero on a comms inbox you can actually clear",
+    ", instead of an endless channel feed.",
+    "The Practical Transition",
+    "Most teams don’t need to overhaul everything at once. The transition that tends to work is narrower than people expect.",
+    "Start with one class of communication: decisions. Anything that requires an explicit yes/no, a scope call, or a design choice goes into the task as a comment, not into Slack. Everything else — quick questions, coordination, “hey are you around?” — stays in Slack where it belongs.",
+    "Within a few weeks, something shifts. People start to notice that the decisions they made in Slack are harder to find than the ones they made in the task. The ones in the task are just there, attached to the right ticket, readable by anyone who picks up the work later. The Slack decisions require memory, search, and luck.",
+    "That contrast does more to change behaviour than any amount of policy or process.",
+    "One thing that also helps: when the PM inbox itself is genuinely fast to use. If replying to a task comment takes the same two keystrokes as replying in Slack, the friction argument disappears. The check on whether your current tool passes this test: when you get a notification that someone commented on a task, do you open the task and reply there, or do you paste a Slack message to the person instead? If it’s the latter, the tool’s inbox isn’t fast enough.",
+    "Fast input can mean more than keyboard shortcuts: the",
+    "Whisper-powered voice input docs",
+    "show how Hypertask handles dictated comments and task descriptions when typing is the bottleneck.",
+    "Frequently Asked Questions",
+    "Why do Slack threads get lost even when teams are disciplined about using them?",
+    "Slack threads have no state. There’s no owner, no due date, no status that changes when the work is done. A thread that’s waiting on a decision looks identical to a thread that’s been resolved — both just show a timestamp of the last message. Discipline keeps threads tidy, but it can’t make them resurface automatically when they go stale. The work you forgot to check for is the work you miss.",
+    "Should we stop using Slack for project communication entirely?",
+    "No. Slack is genuinely good at real-time conversation, quick questions, announcements, and team culture. The change worth making is narrower: project decisions and task-related discussion belong in the task tool, not in Slack. That way the decision record lives where the work lives. Everything spontaneous and conversational can stay in Slack.",
+    "Why don’t people reply inside tasks in tools like Jira, Notion, or ClickUp?",
+    "The inbox in most PM tools is an afterthought. It’s slower to reach, harder to navigate, and less satisfying to interact with than Slack. When replying in a task requires more steps than sending a Slack message, people choose Slack every time — not because they’re ignoring the task, but because friction wins. The fix is an inbox that’s as fast as Slack, not a policy that tells people to use a slower tool.",
+    "How is a task comment structurally different from a Slack thread?",
+    "A task comment inherits the task’s owner, status, and due date. If the task is open and a comment is unread, the owner sees it in their inbox until they deal with it. A Slack thread has none of that — it has messages and reactions, but no accountability structure underneath. One resurfaces automatically; the other requires you to remember to go looking for it.",
+    "What’s the fastest way to start moving project communication out of Slack?",
+    "Start with one type of message: decisions. Any message that represents a choice, a scope call, or a next step goes into the relevant task as a comment. Everything else stays in Slack. Within two or three weeks the contrast becomes visible — decisions in tasks are findable and accountable, decisions in Slack require archaeology. That contrast tends to do the convincing on its own.",
+    "The Bottom Line",
+    "A Slack thread has no owner, no status, and no due date — so unanswered threads and resolved ones look identical, and the missed work is always the work you forgot to look for.",
+    "“Just update the ticket” breaks down because friction wins every time. When replying inside a task takes more steps than sending a Slack message, people choose Slack.",
+    "The structural fix is anchoring messages to tasks, not enforcing more Slack discipline. A message inside a task inherits the task’s owner and status — it can’t go quiet without someone noticing.",
+    "This isn’t about replacing Slack. Real-time chat, quick questions, and team culture belong in Slack. Project decisions belong in the task tool. Using both correctly is the whole point.",
+    "The test for your current setup: when you get a task comment notification, do you reply in the task or paste a Slack message instead? If it’s the latter, the inbox isn’t fast enough yet.",
+    "If this matches a pattern you recognise, the",
+    "features overview at Hypertask",
+    "shows how the inbox is designed to close that gap. Or",
+    "start free",
+    "and see whether your team replies inside the task when the friction is actually gone. That test tends to be fairly quick.",
+    "slack",
+    "team-communication",
+    "async-work",
+    "project-management",
+    "VY",
+    "Valentin Yeo",
+    "Founder, Hypertask",
+    "Building Hypertask, the project board where humans and AI agents share one workspace. Writes about agent-driven, async project management from running it daily.",
+    "Run humans and AI agents on one board",
+    "Hypertask is project management built for the way teams work now — keyboard-first, async, agent-ready.",
+    "Start free",
+    "Keep reading",
+    "Async Work + Inbox Zero",
+    "Async Communication for Remote Teams: A Practical Playbook",
+    "Cut notification chaos with a real async communication playbook: channel hierarchy, response windows, and where decisions actually get recorded.",
+    "Async Work + Inbox Zero",
+    "Async Project Management Without Drowning in Notifications",
+    "Async project management means progress without waiting on real-time replies. Here's how to cut notification overload and keep work in the task.",
+    "Async Work + Inbox Zero",
+    "How to Reach Inbox Zero Every Day (Even With a Busy Team)",
+    "Reach inbox zero daily with a practical 3-window routine, one-touch decisions, and AI triage. Works for email and the harder problem: internal project comms.",
+    "Home",
+    "Pricing",
+    "Blog",
+    "Privacy",
+    "Cookie settings",
+    "Contact",
+    "Terms",
+    "Docs",
+    "Help",
+    "© 2026 Hypertask Lab Ltd."
+  ],
+  "links": [
+    "#main-content",
+    "/",
+    "/pricing/",
+    "/blog/",
+    "https://docs.hypertask.ai/",
+    "https://help.hypertask.ai/",
+    "https://app.hypertask.ai/login",
+    "https://app.hypertask.ai/login",
+    "https://app.hypertask.ai/login",
+    "/",
+    "/blog/",
+    "#the-thread-police-problem",
+    "#slack-is-genuinely-good-at-what-its-designed-for-real-time-conversation-quick-questions-social-signalling-announcements-that-need-a-reaction-right-now-slack-is-not-designed-to-track-whether-a-thing-got-done-it-has-no-mechanism-for-that-a-thread-that-goes-unanswered-is-identical-to-a-thread-thats-resolved--both-just-look-like-the-last-message-was-from-three-days-ago",
+    "#why-just-update-the-ticket-doesnt-work-either",
+    "#the-inboxes-in-both-tools-were-afterthoughts-they-looked-like-email-clients-stapled-to-a-task-board-and-they-felt-like-a-punishment-to-use-nobody-wanted-to-go-there-it-wasnt-that-my-team-was-undisciplined--its-that-the-friction-of-replying-inside-the-task-was-higher-than-the-friction-of-sending-a-slack-message-so-they-chose-slack-every-time",
+    "#what-a-thread-doesnt-have-that-a-task-does",
+    "#the-complement-not-the-replacement",
+    "#why-anchoring-messages-to-tasks-changes-everything",
+    "#the-practical-transition",
+    "#frequently-asked-questions",
+    "#why-do-slack-threads-get-lost-even-when-teams-are-disciplined-about-using-them",
+    "#should-we-stop-using-slack-for-project-communication-entirely",
+    "#why-dont-people-reply-inside-tasks-in-tools-like-jira-notion-or-clickup",
+    "#how-is-a-task-comment-structurally-different-from-a-slack-thread",
+    "#whats-the-fastest-way-to-start-moving-project-communication-out-of-slack",
+    "/blog/async-communication-remote-teams-playbook/",
+    "/blog/real-cost-of-notification-overload/",
+    "/blog/async-project-management-without-notification-overload/",
+    "/blog/ai-agents-project-management-guide/",
+    "https://help.hypertask.ai/help/docs-features-superhuman-snippets",
+    "/blog/how-to-reach-inbox-zero-every-day/",
+    "https://help.hypertask.ai/help/voice-transcription-dictate-comments-and-descriptions-with-whisper-v2",
+    "https://hypertask.ai/features/",
+    "https://app.hypertask.ai/login",
+    "/blog/tags/slack/",
+    "/blog/tags/team-communication/",
+    "/blog/tags/async-work/",
+    "/blog/tags/project-management/",
+    "/about/",
+    "https://app.hypertask.ai/login",
+    "/blog/async-communication-remote-teams-playbook/",
+    "/blog/async-project-management-without-notification-overload/",
+    "/blog/how-to-reach-inbox-zero-every-day/",
+    "/",
+    "/pricing/",
+    "/blog/",
+    "/privacy/",
+    "/contact/",
+    "/terms/",
+    "https://docs.hypertask.ai/",
+    "https://help.hypertask.ai/"
+  ],
+  "images": [
+    {
+      "alt": "",
+      "fetchpriority": "",
+      "loading": "eager",
+      "src": "/Favicon - Light.png"
+    },
+    {
+      "alt": "A Slack thread with no reply since two weeks ago, surrounded by other threads competing for attention on a busy channel sidebar",
+      "fetchpriority": "high",
+      "loading": "eager",
+      "src": "/images/blog/slack-threads-cover.webp"
+    }
+  ],
+  "tables": [],
+  "codeBlocks": []
+}

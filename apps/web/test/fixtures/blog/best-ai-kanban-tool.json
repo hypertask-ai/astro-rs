@@ -1,0 +1,712 @@
+{
+  "source": {
+    "bytes": 52093,
+    "fetchedAt": "2026-11-15T12:12:09.378Z",
+    "method": "GET",
+    "sha256": "b61f315dc8c004582d5db21111763baff5015ebe68fdc89c70fc133485f66f3d",
+    "status": 200,
+    "url": "https://hypertask.ai/blog/best-ai-kanban-tool/"
+  },
+  "address": "/blog/best-ai-kanban-tool/",
+  "head": {
+    "canonical": "https://hypertask.ai/blog/best-ai-kanban-tool/",
+    "meta": {
+      "description": "Compare six AI kanban tools for 2026, including Hypertask, Trello, Linear, ClickUp, Asana, and Notion, with pricing, honest limits, and a practical setup.",
+      "robots": "index, follow",
+      "og:title": "What Is the Best AI Kanban Tool in 2026? — Hypertask Blog",
+      "og:description": "Compare six AI kanban tools for 2026, including Hypertask, Trello, Linear, ClickUp, Asana, and Notion, with pricing, honest limits, and a practical setup.",
+      "og:image": "https://hypertask.ai/images/blog/best-ai-kanban-tool-cover.webp",
+      "og:image:alt": "Hypertask AI kanban tool comparison, white title text and a shared board on a black background",
+      "og:url": "https://hypertask.ai/blog/best-ai-kanban-tool/",
+      "og:type": "article",
+      "og:site_name": "Hypertask",
+      "twitter:card": "summary_large_image",
+      "twitter:title": "What Is the Best AI Kanban Tool in 2026? — Hypertask Blog",
+      "twitter:description": "Compare six AI kanban tools for 2026, including Hypertask, Trello, Linear, ClickUp, Asana, and Notion, with pricing, honest limits, and a practical setup.",
+      "twitter:image": "https://hypertask.ai/images/blog/best-ai-kanban-tool-cover.webp",
+      "twitter:image:alt": "Hypertask AI kanban tool comparison, white title text and a shared board on a black background",
+      "article:published_time": "2026-10-06T00:00:00.000Z",
+      "article:modified_time": "2026-10-06T00:00:00.000Z",
+      "article:author": "https://hypertask.ai/about/",
+      "article:section": "Tool Comparisons"
+    },
+    "title": "What Is the Best AI Kanban Tool in 2026? — Hypertask Blog"
+  },
+  "structuredData": [
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://hypertask.ai/#organization",
+          "name": "Hypertask",
+          "legalName": "Hypertask Lab Ltd.",
+          "url": "https://hypertask.ai",
+          "description": "Hypertask is a project management platform where humans and AI agents share one board. Native MCP server and CLI access let autonomous agents read tasks, claim work, post progress, and update tickets without a human relaying every step.",
+          "knowsAbout": [
+            "AI agents",
+            "project management",
+            "Model Context Protocol",
+            "task management",
+            "AI work attribution",
+            "asynchronous collaboration"
+          ],
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://hypertask.ai/hypertasklogo.avif"
+          },
+          "founder": {
+            "@type": "Person",
+            "@id": "https://hypertask.ai/#founder",
+            "name": "Valentin Yeo",
+            "jobTitle": "Founder"
+          },
+          "sameAs": ["https://www.npmjs.com/package/@hypertask/hypertask_cli"],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "url": "https://hypertask.ai/contact/"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://hypertask.ai/#website",
+          "url": "https://hypertask.ai",
+          "name": "Hypertask",
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://hypertask.ai/#software",
+          "name": "Hypertask",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "url": "https://hypertask.ai",
+          "description": "AI-powered project management where humans and AI agents share one board. Voice-to-task, smart summaries, keyboard-first navigation, native MCP integration.",
+          "screenshot": "https://hypertask.ai/mainscreen.avif",
+          "featureList": [
+            "Shared board for humans and AI agents",
+            "Native MCP server (15 tools)",
+            "Agent-optimized CLI",
+            "Voice-to-task capture",
+            "Smart task summaries",
+            "Keyboard-first navigation",
+            "Inbox and approval gates for agent work"
+          ],
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          },
+          "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "USD",
+            "lowPrice": "0",
+            "highPrice": "25",
+            "offerCount": "3"
+          }
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "headline": "What Is the Best AI Kanban Tool in 2026?",
+          "description": "Compare six AI kanban tools for 2026, including Hypertask, Trello, Linear, ClickUp, Asana, and Notion, with pricing, honest limits, and a practical setup.",
+          "datePublished": "2026-10-06T00:00:00.000Z",
+          "dateModified": "2026-10-06T00:00:00.000Z",
+          "author": {
+            "@type": "Person",
+            "name": "Valentin Yeo",
+            "url": "https://hypertask.ai/about/"
+          },
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://hypertask.ai/blog/best-ai-kanban-tool/"
+          },
+          "image": "https://hypertask.ai/images/blog/best-ai-kanban-tool-cover.webp",
+          "keywords": "kanban, tool-comparison, project-management, ai-agents"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://hypertask.ai/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://hypertask.ai/blog/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "What Is the Best AI Kanban Tool in 2026?",
+              "item": "https://hypertask.ai/blog/best-ai-kanban-tool/"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is the best AI kanban tool in 2026?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Hypertask is our top pick for small teams working with external agents because web, CLI, and MCP access share the same boards and tasks. Trello suits simpler visual planning, while Linear suits software teams."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can AI agents update kanban cards themselves?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, when the tool exposes supported actions and the agent has permission. Hypertask, Trello, and Linear offer agent access. Test reading, updating, and posting results on one task before granting broader responsibility."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is Hypertask free?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Hypertask's current free plan includes unlimited members, up to 3 boards per person (archived boards don't count), and unlimited tickets, plus CLI, MCP, and a starter AI allowance. Paid BYOK and Pro plans provide more AI options."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Will AI move every task through the board automatically?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Not safely by default. Agents need instructions, access, and a clear completion check. Keep a human review stage for consequential work, and distinguish an agent's proposed result from an approved outcome."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How should I compare AI kanban pricing?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Compare seats, included AI allowances, extra credits, and external model costs. A low board subscription may not include the agent workflow you need. Test a representative week of work before estimating your ongoing bill."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "headings": [
+    {
+      "id": "",
+      "level": 1,
+      "text": "What Is the Best AI Kanban Tool in 2026?"
+    },
+    {
+      "id": "the-six-best-ai-kanban-tools-ranked-by-fit",
+      "level": 2,
+      "text": "The six best AI kanban tools, ranked by fit"
+    },
+    {
+      "id": "1-hypertask-best-for-humans-and-external-agents-sharing-work",
+      "level": 3,
+      "text": "1. Hypertask: best for humans and external agents sharing work"
+    },
+    {
+      "id": "2-trello-best-for-a-simple-board-with-occasional-ai-help",
+      "level": 3,
+      "text": "2. Trello: best for a simple board with occasional AI help"
+    },
+    {
+      "id": "3-linear-best-for-software-teams-with-an-established-issue-workflow",
+      "level": 3,
+      "text": "3. Linear: best for software teams with an established issue workflow"
+    },
+    {
+      "id": "4-clickup-best-for-teams-wanting-boards-inside-a-broad-suite",
+      "level": 3,
+      "text": "4. ClickUp: best for teams wanting boards inside a broad suite"
+    },
+    {
+      "id": "5-asana-best-for-cross-functional-workflows-and-structured-handoffs",
+      "level": 3,
+      "text": "5. Asana: best for cross-functional workflows and structured handoffs"
+    },
+    {
+      "id": "6-notion-best-for-a-kanban-board-beside-your-documentation",
+      "level": 3,
+      "text": "6. Notion: best for a kanban board beside your documentation"
+    },
+    {
+      "id": "ai-kanban-comparison-at-a-glance",
+      "level": 2,
+      "text": "AI kanban comparison at a glance"
+    },
+    {
+      "id": "how-to-set-up-an-ai-kanban-workflow-in-hypertask",
+      "level": 2,
+      "text": "How to set up an AI kanban workflow in Hypertask"
+    },
+    {
+      "id": "1-create-a-board-with-a-visible-review-step",
+      "level": 3,
+      "text": "1. Create a board with a visible review step"
+    },
+    {
+      "id": "2-connect-your-agent-to-that-board",
+      "level": 3,
+      "text": "2. Connect your agent to that board"
+    },
+    {
+      "id": "3-run-one-bounded-assignment",
+      "level": 3,
+      "text": "3. Run one bounded assignment"
+    },
+    {
+      "id": "4-review-from-the-inbox-and-measure-the-relay-work",
+      "level": 3,
+      "text": "4. Review from the inbox and measure the relay work"
+    },
+    {
+      "id": "frequently-asked-questions",
+      "level": 2,
+      "text": "Frequently Asked Questions"
+    },
+    {
+      "id": "what-is-the-best-ai-kanban-tool-in-2026",
+      "level": 3,
+      "text": "What is the best AI kanban tool in 2026?"
+    },
+    {
+      "id": "can-ai-agents-update-kanban-cards-themselves",
+      "level": 3,
+      "text": "Can AI agents update kanban cards themselves?"
+    },
+    {
+      "id": "is-hypertask-free",
+      "level": 3,
+      "text": "Is Hypertask free?"
+    },
+    {
+      "id": "will-ai-move-every-task-through-the-board-automatically",
+      "level": 3,
+      "text": "Will AI move every task through the board automatically?"
+    },
+    {
+      "id": "how-should-i-compare-ai-kanban-pricing",
+      "level": 3,
+      "text": "How should I compare AI kanban pricing?"
+    },
+    {
+      "id": "",
+      "level": 2,
+      "text": "Keep reading"
+    }
+  ],
+  "visibleText": [
+    "Skip to content",
+    "Hypertask",
+    "Pricing",
+    "Blog",
+    "Docs",
+    "Help",
+    "Login",
+    "Press",
+    "L",
+    "to log in",
+    "Start free",
+    "Start free",
+    "☰",
+    "Home",
+    "/",
+    "Blog",
+    "Tool Comparisons",
+    "What Is the Best AI Kanban Tool in 2026?",
+    "Compare six AI kanban tools for 2026, including Hypertask, Trello, Linear, ClickUp, Asana, and Notion, with pricing, honest limits, and a practical setup.",
+    "Valentin Yeo",
+    "October 6, 2026",
+    "On this page",
+    "The six best AI kanban tools, ranked by fit",
+    "1. Hypertask: best for humans and external agents sharing work",
+    "2. Trello: best for a simple board with occasional AI help",
+    "3. Linear: best for software teams with an established issue workflow",
+    "4. ClickUp: best for teams wanting boards inside a broad suite",
+    "5. Asana: best for cross-functional workflows and structured handoffs",
+    "6. Notion: best for a kanban board beside your documentation",
+    "AI kanban comparison at a glance",
+    "How to set up an AI kanban workflow in Hypertask",
+    "1. Create a board with a visible review step",
+    "2. Connect your agent to that board",
+    "3. Run one bounded assignment",
+    "4. Review from the inbox and measure the relay work",
+    "Frequently Asked Questions",
+    "What is the best AI kanban tool in 2026?",
+    "Can AI agents update kanban cards themselves?",
+    "Is Hypertask free?",
+    "Will AI move every task through the board automatically?",
+    "How should I compare AI kanban pricing?",
+    "Hypertask is our top pick for the best AI kanban tool in 2026 for small teams working with external AI agents, because humans and agents can update the same tasks through the web app, CLI, and MCP.",
+    "Its task-based inbox keeps questions and results attached to the work, so a person can review an agent’s output without watching a terminal session.",
+    "That does not make it the right board for everyone. Trello is easier for lightweight visual planning, Linear fits software teams, and ClickUp, Asana, and Notion suit different kinds of broader work management.",
+    "We publish this guide, so this is our recommendation, not an independent benchmark. Features and prices were checked on official pages on",
+    "October 6, 2026",
+    ". Paid seat prices use annual billing unless stated otherwise; AI usage can cost extra.",
+    "The six best AI kanban tools, ranked by fit",
+    "A useful AI board should read context, take action, and leave a result someone can check.",
+    "Too often, the task lives on a board, the agent works in a terminal, and the decision disappears into chat. Someone becomes the messenger between all three. This ranking favors tools that reduce that relay work.",
+    "1. Hypertask: best for humans and external agents sharing work",
+    "Who it is for:",
+    "Small technical teams, founders, and agencies already using coding or research agents and wanting one place to track their assignments.",
+    "Strengths:",
+    "The",
+    "official documentation",
+    "describes three interfaces to the same boards: web app, command-line interface, and Model Context Protocol (MCP), which lets compatible AI clients use tools. An agent can read tasks, update them, and post comments without a person copying its output into cards.",
+    "The",
+    "AI Task Writer",
+    "turns rough requests into structured tasks. The task-based inbox gives people a place to handle assignments, mentions, and replies in context. For the workflow behind this recommendation, read",
+    "AI agent task management",
+    ".",
+    "Limits:",
+    "Access is not the same as reliable execution. You still need clear instructions, an agent that can do the work, and a human review step. The",
+    "MCP reference",
+    "also lists real gaps: some agent infrastructure, including task leases and evidence endpoints, is REST-only rather than available as conversational MCP tools.",
+    "Pricing:",
+    "Hypertask pricing",
+    "lists a free-forever plan with unlimited members, up to 3 boards per person (archived boards don’t count), and unlimited tickets, plus CLI, MCP, and a starter AI allowance. BYOK, meaning bring your own model keys, costs $8 per user/month annually or $10 monthly, plus your provider’s usage. Pro costs $16 annually or $20 monthly, with AI included on Hypertask’s managed models.",
+    "2. Trello: best for a simple board with occasional AI help",
+    "Who it is for:",
+    "Individuals and small teams that want recognizable cards and lists without designing a large work-management system.",
+    "Strengths:",
+    "Trello combines visual boards with checklists, automation, Power-Ups, personal Inbox capture, and Planner. Its",
+    "official MCP server",
+    "lets compatible assistants read, search, and update authorized Workspaces, including multiple Workspaces. Trello is not merely a non-AI baseline.",
+    "Limits:",
+    "A flexible card system leaves your team to define what an agent must report and when work needs approval. MCP respects existing permissions and does not support destructive deletes. Our",
+    "Trello alternative comparison",
+    "explains the different approaches to capture and review.",
+    "Pricing:",
+    "Trello",
+    "has a free plan for up to 10 collaborators per Workspace. Standard is $5 per user/month annually, and Premium is $10. Built-in AI capabilities vary by tier; MCP availability does not mean every paid AI feature is included for free.",
+    "3. Linear: best for software teams with an established issue workflow",
+    "Who it is for:",
+    "Product and engineering teams organizing development around issues, projects, and cycles.",
+    "Strengths:",
+    "Linear’s",
+    "board layout",
+    "gives teams a kanban view of issues. Its",
+    "AI offering",
+    "includes Linear Agent, which can turn conversations into issues and draft project updates, plus Triage Intelligence for routing and classifying incoming work. It also supports an agent platform and MCP access.",
+    "Limits:",
+    "Linear’s structure is a benefit when your work is software delivery, but less natural if you mainly manage loose client requests or personal to-dos. Triage Intelligence is on Business, not Basic. Do not assume every agent workflow is available at the entry price.",
+    "Pricing:",
+    "Linear",
+    "offers Free with two teams and 250 issues. Basic is $10 per user/month annually; Business is $16. Check the current agent usage terms alongside the seat price.",
+    "4. ClickUp: best for teams wanting boards inside a broad suite",
+    "Who it is for:",
+    "Teams that want tasks, documents, chat, dashboards, and multiple project views together.",
+    "Strengths:",
+    "ClickUp Boards",
+    "support custom fields and column limits that flag excess work in progress. Brain can answer questions about board activity, while Super Agents can be configured to watch stalled cards and take follow-up actions. This is useful when the board is one part of a larger operating system.",
+    "Limits:",
+    "The breadth creates more setup choices than a small team may need. AI has separate plans and credit allowances, so compare the full workflow cost, not just the task-management subscription.",
+    "Pricing:",
+    "ClickUp",
+    "lists Free Forever, Unlimited at $7 per user/month annually, and Business at $12. Its separately listed AI plans include Brain AI at $9 per user/month and Everything AI at $28; agent and automation usage can consume AI Super Credits.",
+    "5. Asana: best for cross-functional workflows and structured handoffs",
+    "Who it is for:",
+    "Marketing, operations, and other teams coordinating deadlines and repeatable work across departments.",
+    "Strengths:",
+    "Asana provides kanban-style boards alongside list and calendar views. Its",
+    "official plans",
+    "combine project structure with AI Teammates, Asana Dash, and AI Studio. AI Studio supports no-code AI workflows, making it worth considering when routing requests and managing handoffs matter more than terminal-based agents.",
+    "Limits:",
+    "The package is broader than a lightweight board. AI requests and AI Studio credits have distinct allowances; an included AI label does not mean unlimited automated work. Map one real process before deciding which plan covers it.",
+    "Pricing:",
+    "Personal is free for up to two users. Starter is $10.99 per user/month annually, and Advanced is $24.99. Paid plans include limited AI allowances, with additional usage and AI Studio options available separately.",
+    "6. Notion: best for a kanban board beside your documentation",
+    "Who it is for:",
+    "Teams whose work depends on briefs, research, meeting notes, and a shared knowledge base.",
+    "Strengths:",
+    "Notion’s",
+    "board view",
+    "groups database items into columns. A task can sit beside the document that explains it. The",
+    "Business plan",
+    "includes Notion Agent, AI Meeting Notes, and enterprise search, which is useful when finding context is the main bottleneck.",
+    "Limits:",
+    "You build more of the task system yourself: properties, views, templates, and working conventions. That flexibility can also produce inconsistent boards. Custom Agents require Notion credits, separate from the standard seat subscription.",
+    "Pricing:",
+    "Notion has Free and Plus plans, but their AI access is a limited trial. In USD, Business is $20 per member/month annually or $24 monthly. Custom Agents are free to try, then listed at $10 per 1,000 credits. Currency and billing interval affect displayed prices.",
+    "AI kanban comparison at a glance",
+    "Rank",
+    "Tool",
+    "Best fit",
+    "AI approach",
+    "Pricing note",
+    "Main tradeoff",
+    "1",
+    "Hypertask",
+    "Small human-agent teams",
+    "Task Writer, built-in AI, external agents via CLI/MCP",
+    "Free; BYOK $8; Pro $16",
+    "Agent setup and review still matter",
+    "2",
+    "Trello",
+    "Simple visual planning",
+    "AI capture/writing and hosted MCP",
+    "Free; Standard $5; Premium $10",
+    "Define your own agent handoffs",
+    "3",
+    "Linear",
+    "Software delivery",
+    "Linear Agent, agent platform, triage AI",
+    "Free; Basic $10; Business $16",
+    "Software-first structure",
+    "4",
+    "ClickUp",
+    "Broad work-management suite",
+    "Brain and Super Agents",
+    "Free; Unlimited $7, plus separate AI options",
+    "Configuration and AI credits",
+    "5",
+    "Asana",
+    "Cross-functional processes",
+    "AI Teammates, Dash, AI Studio",
+    "Free for two; Starter $10.99",
+    "Multiple AI usage allowances",
+    "6",
+    "Notion",
+    "Documentation-led projects",
+    "Notion Agent and Custom Agents",
+    "Free; Business $20, plus Custom Agent credits",
+    "Build and maintain your task conventions",
+    "Paid seat figures are USD per person/month with annual billing. They are not estimates of total agent-running costs.",
+    "How to set up an AI kanban workflow in Hypertask",
+    "Start with one real project, not a migration of every old backlog.",
+    "1. Create a board with a visible review step",
+    "In Hypertask, create a board and use",
+    "Manage board columns",
+    "to name your stages:",
+    "Backlog, Ready, Doing, Review, Done",
+    ". These are suggested workflow names, not mandatory product defaults.",
+    "Give each task an owner, the desired outcome, and a way to check completion. For example: “Compare three onboarding flows, attach source links, and recommend one change.” Use Task Writer from the New Task flow to structure the request, then check its draft before saving.",
+    "2. Connect your agent to that board",
+    "Follow the",
+    "current MCP configuration",
+    ". Copy the API key from the",
+    "MCP",
+    "section in",
+    "Settings",
+    ", or press",
+    "Ctrl+K",
+    "and search for",
+    "MCP",
+    ". User tokens expire after 30 days. Add this to a compatible client’s MCP configuration:",
+    "Keep the key out of version control. Ask the agent to list your projects, identify the intended board, and read its tasks before allowing changes. This catches connection and board-selection mistakes before work begins.",
+    "3. Run one bounded assignment",
+    "Give the agent a specific instruction:",
+    "Work only on the assigned task. Read its description and comments first. Move it to Doing when you start, post the result and supporting links on the task, and move it to Review. Ask if blocked. Do not mark it Done.",
+    "Those are your team rules, not a claim that Hypertask automatically enforces every transition. For code work, include the pull request and test results in the comment. Do not assume a GitHub link automatically synchronizes task status.",
+    "4. Review from the inbox and measure the relay work",
+    "Read the task-linked result, request corrections in the same thread, and mark the task Done only after checking it. Process the inbox item after the decision.",
+    "After a week, count copied updates and check whether completed work has evidence and a reviewer. If copying persists, fix the instructions or connection before adding more agents.",
+    "Frequently Asked Questions",
+    "What is the best AI kanban tool in 2026?",
+    "Hypertask is our top pick for small teams working with external agents because web, CLI, and MCP access share the same boards and tasks. Trello suits simpler visual planning, while Linear suits software teams.",
+    "Can AI agents update kanban cards themselves?",
+    "Yes, when the tool exposes supported actions and the agent has permission. Hypertask, Trello, and Linear offer agent access. Test reading, updating, and posting results on one task before granting broader responsibility.",
+    "Is Hypertask free?",
+    "Yes. Hypertask’s current free plan includes unlimited members, up to 3 boards per person (archived boards don’t count), and unlimited tickets, plus CLI, MCP, and a starter AI allowance. Paid BYOK and Pro plans provide more AI options.",
+    "Will AI move every task through the board automatically?",
+    "Not safely by default. Agents need instructions, access, and a clear completion check. Keep a human review stage for consequential work, and distinguish an agent’s proposed result from an approved outcome.",
+    "How should I compare AI kanban pricing?",
+    "Compare seats, included AI allowances, extra credits, and external model costs. A low board subscription may not include the agent workflow you need. Test a representative week of work before estimating your ongoing bill.",
+    "Choose the board that removes your actual bottleneck. If that bottleneck is copying work between people, agents, and chat, try one shared workflow in",
+    "Hypertask",
+    "before moving everything else.",
+    "kanban",
+    "tool-comparison",
+    "project-management",
+    "ai-agents",
+    "VY",
+    "Valentin Yeo",
+    "Founder, Hypertask",
+    "Building Hypertask, the project board where humans and AI agents share one workspace. Writes about agent-driven, async project management from running it daily.",
+    "Run humans and AI agents on one board",
+    "Hypertask is project management built for the way teams work now — keyboard-first, async, agent-ready.",
+    "Start free",
+    "Keep reading",
+    "Tool Comparisons",
+    "Best Kanban Tool for MCP: 5 Options for AI Agents",
+    "Compare five kanban tools with official MCP access for AI agents, including Hypertask, Trello, Linear, Jira and Notion, with practical setup steps.",
+    "Tool Comparisons",
+    "Best Kanban Tool for CI/CD Teams: 6 Tools Compared",
+    "Compare Hypertask, GitHub Projects, Linear, Jira, Azure Boards, and Trello for continuous delivery, pull requests, agent workflows, and deployment handoffs.",
+    "Tool Comparisons",
+    "Best Kanban Tool with an API for Developers and Automation",
+    "Compare five kanban tools with APIs in 2026, including Hypertask, Linear, Trello, GitHub Projects, and Jira, with pricing and a practical setup guide.",
+    "Home",
+    "Pricing",
+    "Blog",
+    "Privacy",
+    "Cookie settings",
+    "Contact",
+    "Terms",
+    "Docs",
+    "Help",
+    "© 2026 Hypertask Lab Ltd."
+  ],
+  "links": [
+    "#main-content",
+    "/",
+    "/pricing/",
+    "/blog/",
+    "https://docs.hypertask.ai/",
+    "https://help.hypertask.ai/",
+    "https://app.hypertask.ai/login",
+    "https://app.hypertask.ai/login",
+    "https://app.hypertask.ai/login",
+    "/",
+    "/blog/",
+    "#the-six-best-ai-kanban-tools-ranked-by-fit",
+    "#1-hypertask-best-for-humans-and-external-agents-sharing-work",
+    "#2-trello-best-for-a-simple-board-with-occasional-ai-help",
+    "#3-linear-best-for-software-teams-with-an-established-issue-workflow",
+    "#4-clickup-best-for-teams-wanting-boards-inside-a-broad-suite",
+    "#5-asana-best-for-cross-functional-workflows-and-structured-handoffs",
+    "#6-notion-best-for-a-kanban-board-beside-your-documentation",
+    "#ai-kanban-comparison-at-a-glance",
+    "#how-to-set-up-an-ai-kanban-workflow-in-hypertask",
+    "#1-create-a-board-with-a-visible-review-step",
+    "#2-connect-your-agent-to-that-board",
+    "#3-run-one-bounded-assignment",
+    "#4-review-from-the-inbox-and-measure-the-relay-work",
+    "#frequently-asked-questions",
+    "#what-is-the-best-ai-kanban-tool-in-2026",
+    "#can-ai-agents-update-kanban-cards-themselves",
+    "#is-hypertask-free",
+    "#will-ai-move-every-task-through-the-board-automatically",
+    "#how-should-i-compare-ai-kanban-pricing",
+    "https://docs.hypertask.ai/",
+    "https://docs.hypertask.ai/features/ai-features/",
+    "/blog/ai-agent-task-management/",
+    "https://docs.hypertask.ai/mcp/overview/",
+    "/pricing/",
+    "https://support.atlassian.com/trello/docs/connect-trello-to-ai-assistants-with-trello-mcp/",
+    "/blog/trello-alternative/",
+    "https://trello.com/pricing",
+    "https://linear.app/docs/board-layout",
+    "https://linear.app/ai",
+    "https://linear.app/pricing",
+    "https://clickup.com/features/kanban-board",
+    "https://clickup.com/pricing",
+    "https://asana.com/pricing",
+    "https://www.notion.com/help/boards",
+    "https://www.notion.com/pricing",
+    "https://docs.hypertask.ai/mcp/overview/",
+    "https://hypertask.ai/",
+    "/blog/tags/kanban/",
+    "/blog/tags/tool-comparison/",
+    "/blog/tags/project-management/",
+    "/blog/tags/ai-agents/",
+    "/about/",
+    "https://app.hypertask.ai/login",
+    "/blog/best-kanban-tool-for-mcp/",
+    "/blog/best-kanban-tool-for-ci-cd/",
+    "/blog/best-kanban-tool-with-api/",
+    "/",
+    "/pricing/",
+    "/blog/",
+    "/privacy/",
+    "/contact/",
+    "/terms/",
+    "https://docs.hypertask.ai/",
+    "https://help.hypertask.ai/"
+  ],
+  "images": [
+    {
+      "alt": "",
+      "fetchpriority": "",
+      "loading": "eager",
+      "src": "/Favicon - Light.png"
+    },
+    {
+      "alt": "Hypertask AI kanban tool comparison, white title text and a shared board on a black background",
+      "fetchpriority": "high",
+      "loading": "eager",
+      "src": "/images/blog/best-ai-kanban-tool-cover.webp"
+    }
+  ],
+  "tables": [
+    [
+      [
+        "Rank",
+        "Tool",
+        "Best fit",
+        "AI approach",
+        "Pricing note",
+        "Main tradeoff"
+      ],
+      [
+        "1",
+        "Hypertask",
+        "Small human-agent teams",
+        "Task Writer, built-in AI, external agents via CLI/MCP",
+        "Free; BYOK $8; Pro $16",
+        "Agent setup and review still matter"
+      ],
+      [
+        "2",
+        "Trello",
+        "Simple visual planning",
+        "AI capture/writing and hosted MCP",
+        "Free; Standard $5; Premium $10",
+        "Define your own agent handoffs"
+      ],
+      [
+        "3",
+        "Linear",
+        "Software delivery",
+        "Linear Agent, agent platform, triage AI",
+        "Free; Basic $10; Business $16",
+        "Software-first structure"
+      ],
+      [
+        "4",
+        "ClickUp",
+        "Broad work-management suite",
+        "Brain and Super Agents",
+        "Free; Unlimited $7, plus separate AI options",
+        "Configuration and AI credits"
+      ],
+      [
+        "5",
+        "Asana",
+        "Cross-functional processes",
+        "AI Teammates, Dash, AI Studio",
+        "Free for two; Starter $10.99",
+        "Multiple AI usage allowances"
+      ],
+      [
+        "6",
+        "Notion",
+        "Documentation-led projects",
+        "Notion Agent and Custom Agents",
+        "Free; Business $20, plus Custom Agent credits",
+        "Build and maintain your task conventions"
+      ]
+    ]
+  ],
+  "codeBlocks": [
+    {
+      "language": "json",
+      "text": "{\n  \"mcpServers\": {\n    \"hypertasks\": {\n      \"type\": \"http\",\n      \"url\": \"https://mcp.hypertask.ai/mcp\",\n      \"headers\": {\n        \"Authorization\": \"Bearer YOUR_API_KEY\"\n      }\n    }\n  }\n}"
+    }
+  ]
+}
