@@ -59,7 +59,7 @@ describe("cookie banner markup", () => {
     Effect.gen(function* hiddenFirst() {
       const markup = bannerMarkup(yield* renderPage(initialModel));
 
-      expect(openingTag(markup)).toMatch(/\shidden(?=["\s>])/u);
+      expect(openingTag(markup)).toContain('hidden=""');
     })
   );
 
@@ -67,7 +67,7 @@ describe("cookie banner markup", () => {
     Effect.gen(function* shown() {
       const markup = bannerMarkup(yield* renderPage(visibleModel));
 
-      expect(openingTag(markup)).not.toMatch(/\shidden(?=["\s>])/u);
+      expect(openingTag(markup)).not.toContain('hidden=""');
     })
   );
 
