@@ -9,3 +9,21 @@
 /install.ps1
   Content-Type: text/plain; charset=utf-8
   X-Content-Type-Options: nosniff
+
+/rss.xml
+  Content-Type: application/xml
+
+/sitemap-0.xml
+  Content-Type: application/xml
+
+/sitemap-index.xml
+  Content-Type: application/xml
+
+/robots.txt
+  Content-Type: text/plain; charset=utf-8
+
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+
+/llms-full.txt
+  Content-Type: text/plain; charset=utf-8
