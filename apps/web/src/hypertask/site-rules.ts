@@ -32,6 +32,8 @@ export const installAddress = {
 
 export const htmlHandling = "force-trailing-slash" as const;
 
+export const notFoundHandling = "single-page-application" as const;
+
 export const securityHeaderLines: readonly string[] = [
   "Strict-Transport-Security: max-age=31536000",
   "X-Content-Type-Options: nosniff",
@@ -41,6 +43,49 @@ export const securityHeaderLines: readonly string[] = [
 export const securityHeadersBlock = `/*\n${securityHeaderLines
   .map((line) => `  ${line}`)
   .join("\n")}\n`;
+
+export const securityHeaders: Readonly<Record<string, string>> =
+  Object.fromEntries(
+    securityHeaderLines.map((line) => {
+      const separator = line.indexOf(":");
+
+      return [
+        line.slice(0, separator).trim().toLowerCase(),
+        line.slice(separator + 1).trim(),
+      ] as const;
+    })
+  );
+
+export const htmlAnswerCacheControl =
+  "public, max-age=0, must-revalidate, no-store" as const;
+
+export const redirectAnswerCacheControl = "no-store" as const;
+
+export const redirectAnswerContentType = "text/plain;charset=UTF-8" as const;
+
+export const homeAnswerHeaders = {
+  ...securityHeaders,
+  "cache-control": htmlAnswerCacheControl,
+};
+
+export const redirectAnswerHeaders = (location: string) => ({
+  ...securityHeaders,
+  "cache-control": redirectAnswerCacheControl,
+  "content-type": redirectAnswerContentType,
+  location,
+});
+
+export const redirectAnswerBody = (location: string): string =>
+  `Redirecting to ${location}`;
+
+export const redirectResponse = (location: string, status: number): Response =>
+  new Response(redirectAnswerBody(location), {
+    headers: redirectAnswerHeaders(location),
+    status,
+  });
+
+export const workerFirstRedirectSources: readonly string[] =
+  legacyRedirects.map((redirect) => redirect.source);
 
 const legacySources = new Set(
   legacyRedirects.map((redirect) => redirect.source)

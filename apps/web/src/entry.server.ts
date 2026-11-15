@@ -7,6 +7,11 @@ import {
 
 import { initialModel } from "./client/app/model.js";
 import { view } from "./features/home/index.js";
+import {
+  homeAnswerHeaders,
+  legacyAnswer,
+  redirectResponse,
+} from "./hypertask/site-rules.js";
 
 export { renderDocument } from "foldkit/experimental/server";
 
@@ -16,9 +21,10 @@ const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
   request: Request
 ) {
   const { pathname } = new URL(request.url);
+  const redirect = legacyAnswer(pathname);
 
-  if (pathname !== "/") {
-    return Responded(new Response("Not found", { status: 404 }));
+  if (redirect.kind === "redirect") {
+    return Responded(redirectResponse(redirect.location, redirect.status));
   }
 
   if (request.method !== "GET" && request.method !== "HEAD") {
@@ -35,7 +41,7 @@ const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
     view,
   });
 
-  return Rendered(application);
+  return Rendered(application, { headers: homeAnswerHeaders });
 });
 
 export const renderPage = (request: Request) =>
