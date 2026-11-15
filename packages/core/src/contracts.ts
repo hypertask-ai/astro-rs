@@ -1,4 +1,4 @@
-import { defineContract } from "@rat-stack/capability/contract";
+import { defineContract } from "@hypertask-site/capability/contract";
 import { Schema } from "effect";
 
 import { AssetReadError } from "./asset-read-error.js";
@@ -16,6 +16,7 @@ import {
   CafeProjectQuery,
 } from "./cafe.js";
 import { NoPath } from "./no-path.js";
+import { RelayPostHogError } from "./relay-posthog-error.js";
 import { FileStatsError, FileStatsSchema } from "./stats.js";
 import { UnknownPage } from "./unknown-page.js";
 import { UnknownPerson } from "./unknown-person.js";
@@ -287,6 +288,40 @@ export const pathContract = defineContract("path", {
   failure: Schema.Union([UnknownPage, NoPath, AssetReadError]),
   input: Schema.Struct({ from: Schema.String, to: Schema.String }),
   output: LorePathOutput,
+});
+
+export const RelayMethod = Schema.Literals([
+  "DELETE",
+  "GET",
+  "HEAD",
+  "OPTIONS",
+  "PATCH",
+  "POST",
+  "PUT",
+]);
+
+export const relayPostHogContract = defineContract("relayPostHog", {
+  annotations: {
+    destructive: false,
+    idempotent: false,
+    openWorld: true,
+    readOnly: false,
+  },
+  description:
+    "Forward one same-origin PostHog relay request to the EU collector",
+  failure: RelayPostHogError,
+  input: Schema.Struct({
+    body: Schema.optional(Schema.Uint8Array),
+    headers: Schema.Record(Schema.String, Schema.String),
+    method: RelayMethod,
+    path: Schema.String,
+    search: Schema.String,
+  }),
+  output: Schema.Struct({
+    body: Schema.Uint8Array,
+    headers: Schema.Record(Schema.String, Schema.String),
+    status: Schema.Finite,
+  }),
 });
 
 export const inspectFileContract = defineContract("inspectFile", {

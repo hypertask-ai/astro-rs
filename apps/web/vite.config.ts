@@ -2,6 +2,7 @@ import { foldkit } from "@foldkit/vite-plugin";
 import type { Plugin } from "vite";
 import { defineConfig } from "vite";
 
+import { crawlerFilesPlugin } from "./crawler-files.js";
 import { siteRulesPlugin } from "./site-rules.js";
 import { normalizeSiteBasePath } from "./src/site-base-path.js";
 import { stylexPlugin } from "./stylex.js";
@@ -45,6 +46,7 @@ export default defineConfig({
       },
     }),
     outputLayout(),
+    crawlerFilesPlugin(),
     siteRulesPlugin(),
   ],
 });

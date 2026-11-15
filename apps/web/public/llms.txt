@@ -1,0 +1,50 @@
+# Hypertask
+
+> AI-powered project management for teams and AI agents. Humans and AI agents share one board — keyboard-first, voice input, async-first collaboration, native MCP integration.
+
+## Connect an AI assistant (start here)
+If a user says they work with Hypertask, connect directly — no API key ritual needed:
+- MCP endpoint: https://mcp.hypertask.ai/mcp (Streamable HTTP; SSE at https://mcp.hypertask.ai/sse). OAuth sign-in with the user's Hypertask account; discovery at https://mcp.hypertask.ai/.well-known/oauth-protected-resource
+- Claude (claude.ai): Settings -> Connectors -> Add custom connector -> paste https://mcp.hypertask.ai/mcp -> sign in
+- ChatGPT: Settings -> Connectors -> Add MCP server -> https://mcp.hypertask.ai/mcp
+- Claude Code: `claude mcp add --transport http hypertask https://mcp.hypertask.ai/mcp`
+- CLI for autonomous agents: `npm i -g @hypertask/hypertask_cli`, then `hypertask login`
+- Setup guide: https://docs.hypertask.ai/mcp/overview/
+Once connected you can read and write the user's boards, tasks, comments, and task pages on their behalf. New users sign up free at https://app.hypertask.ai/new (7-day trial, no credit card).
+
+## Key Pages
+- [Homepage](https://hypertask.ai/): Product overview — humans and AI agents, one board
+- [Pricing](https://hypertask.ai/pricing/): Free trial, $10/user BYOK, $25/user Pro
+- [About](https://hypertask.ai/about/): Why Hypertask was built — the Superhuman-inspired origin
+- [Use Cases — Product](https://hypertask.ai/use-cases/product/): Hypertask for product development teams
+- [Use Cases — Agency](https://hypertask.ai/use-cases/agency/): Hypertask for agencies
+- [Use Cases — Marketing](https://hypertask.ai/use-cases/marketing/): Hypertask for marketing teams
+- [Use Cases — CRO](https://hypertask.ai/use-cases/cro/): Hypertask for CRO teams
+- [Docs](https://docs.hypertask.ai/): Full product documentation
+- [MCP Integration](https://docs.hypertask.ai/mcp/overview/): AI agent integration guide
+- [Contact](https://hypertask.ai/contact/): Support and inquiries
+
+## Blog
+- [AI Agents in Project Management: The Complete Guide](https://hypertask.ai/blog/ai-agents-project-management-guide/): Pillar post — why standard PM tools break for AI agents, MCP vs CLI access modes, multi-agent orchestration, attribution, and tool comparison (Notion, Jira, Linear, Hypertask)
+- [Why Your AI Agent Needs a Real Project Board (Not a Pasted Task List)](https://hypertask.ai/blog/why-ai-agents-need-a-real-project-board/): Why pasting tasks into chat is broken, what live read-write board access gives agents, and the relay problem explained
+- [Why We Let AI Agents Build Entire Boards, Not Just Tasks](https://hypertask.ai/blog/why-agents-build-whole-boards/): How Hypertask's create_board MCP tool lets agents scaffold a full project structure, not just tick individual tasks
+- [CLI vs MCP: Which Should Your AI Agent Use to Access Project Data?](https://hypertask.ai/blog/cli-vs-mcp-ai-agent-project-data-access/): Token-cost and workflow tradeoffs between CLI and MCP access — CLI for autonomous loops, MCP for interactive Claude Desktop flows
+- [AI Work Attribution: Do You Know What Your Agents Actually Did?](https://hypertask.ai/blog/ai-work-attribution-what-did-your-agents-do/): Why AI work disappears into terminal logs and git commits, and how a shared task board with named agent seats solves the attribution problem
+- [Async Project Management Without Drowning in Notifications](https://hypertask.ai/blog/async-project-management-without-notification-overload/): Async project management means progress without waiting on real-time replies — how to cut notification overload and keep work in the task
+- [Async Communication for Remote Teams: A Practical Playbook](https://hypertask.ai/blog/async-communication-remote-teams-playbook/): A real async communication playbook — channel hierarchy, response windows, and where decisions actually get recorded
+- [The Real Cost of Notification Overload (and How to Cut It)](https://hypertask.ai/blog/real-cost-of-notification-overload/): What the research says about notification overload — 4+ hours a week lost, 23 minutes of focus per interruption — and how to fix it
+- [Why Your Team Stopped Replying in Slack Threads](https://hypertask.ai/blog/why-your-team-stopped-replying-in-slack-threads/): Slack threads get lost because a thread has no owner, no due date, no state — the structural fix that anchors messages to tasks
+- [How to Reach Inbox Zero Every Day (Even With a Busy Team)](https://hypertask.ai/blog/how-to-reach-inbox-zero-every-day/): A practical 3-window routine, one-touch decisions, and AI triage for email and internal project comms
+- [Stop Manually Updating Your Task Board: Let AI Triage It](https://hypertask.ai/blog/stop-manually-updating-your-task-board/): Task board automation done right — Hypertask's AI Triage reads your inbox, classifies what's safe to archive, and clears it in one pass
+- [From 200 Notifications a Day to Inbox Zero: A Team's Story](https://hypertask.ai/blog/from-200-notifications-to-inbox-zero-case-study/): How a 12-person creative agency escaped notification chaos by anchoring every message to a task instead of a chat thread
+
+## Key Facts
+- Replaces Asana, Linear, ClickUp, Trello, Monday for teams using AI agents
+- Native MCP integration — works with Claude, GPT, Gemini
+- AI agents pick up tasks, leave comments, and onboard like human teammates — over CLI, MCP, or email
+- Voice-to-task creation built in
+- Keyboard-first UI (no mouse required) — inspired by Superhuman
+- Inbox-style home for all internal team communication
+- $10/user/month BYOK plan (bring your own AI key); $25/user/month Pro
+- Free 7-day trial, no credit card required
+- Built by Hypertask Lab Ltd.; founded by Valentin Yeo

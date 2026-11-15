@@ -149,3 +149,27 @@ export const legacyAnswer = (path: string): LegacyAnswer => {
         status: redirect.status,
       };
 };
+
+export interface AddressAnswer {
+  readonly location: string | null;
+  readonly status: number;
+}
+
+export const addressAnswer = (
+  path: string,
+  pagePaths: readonly string[]
+): AddressAnswer => {
+  const legacy = legacyAnswer(path);
+
+  if (legacy.kind === "redirect") {
+    return { location: legacy.location, status: legacy.status };
+  }
+
+  const redirect = trailingSlashRedirects(pagePaths).find(
+    (rule) => rule.source === path
+  );
+
+  return redirect === undefined
+    ? { location: null, status: 200 }
+    : { location: redirect.destination, status: redirect.status };
+};
