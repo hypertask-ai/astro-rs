@@ -8,6 +8,7 @@ import {
   Message,
   Model,
   subscriptions,
+  TrackSignUpClicks,
   update,
 } from "./app/index.js";
 
@@ -19,7 +20,7 @@ const application = Runtime.makeApplication({
   container: document.querySelector("#root"),
   devTools: import.meta.env.DEV ? { Message } : false,
   init: () => ({
-    commands: [LoadConsent(), LoadHelpChat()],
+    commands: [LoadConsent(), LoadHelpChat(), TrackSignUpClicks()],
     model: initialModel,
   }),
   subscriptions,

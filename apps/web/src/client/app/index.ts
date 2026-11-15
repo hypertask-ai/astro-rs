@@ -4,6 +4,7 @@ export {
   LoadHelpChat,
   OpenLogin,
   RejectOptionalCookies,
+  TrackSignUpClicks,
 } from "./commands.js";
 
 export { Message } from "./message.js";

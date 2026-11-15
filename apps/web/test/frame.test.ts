@@ -4,6 +4,7 @@ import { renderToString } from "foldkit/experimental/server";
 
 import { initialModel, Message, update } from "../src/client/app/index.js";
 import { renderDocument } from "../src/entry.server.js";
+import { fathomScriptUrl } from "../src/features/analytics/index.js";
 import { view } from "../src/features/home/index.js";
 
 const assets = {
@@ -93,11 +94,11 @@ describe("rendered home page", () => {
     })
   );
 
-  it.effect("loads nothing from another host", () =>
+  it.effect("loads only the Fathom script from another host", () =>
     Effect.gen(function* checkHosts() {
       const html = yield* renderHome();
 
-      expect(externalLoads(html)).toEqual([]);
+      expect(externalLoads(html)).toEqual([fathomScriptUrl]);
       expect(html).not.toContain("fonts.googleapis.com");
       expect(html).not.toContain("fonts.gstatic.com");
       expect(html).not.toContain("cloudfront.net");

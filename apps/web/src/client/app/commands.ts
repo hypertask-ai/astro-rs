@@ -5,6 +5,7 @@ import { runConsentMachine } from "../../consent/index.js";
 import type { ConsentState } from "../../consent/index.js";
 import { loginUrl } from "../../features/frame/copy.js";
 import { mountHelpChat } from "../../features/help-chat/index.js";
+import { installSignUpClicks } from "../analytics/sign-up-click.js";
 import { BrowserConsentStore } from "./browser-consent-store.js";
 import { Message } from "./message.js";
 
@@ -41,6 +42,15 @@ export const OpenLogin = Command.define("OpenLogin", {
 export const LoadHelpChat = Command.define("LoadHelpChat", {
   execute: Effect.sync(() => {
     mountHelpChat(document);
+  }).pipe(Effect.as(Message.Ready())),
+  messages: [Message.Ready],
+});
+
+export const TrackSignUpClicks = Command.define("TrackSignUpClicks", {
+  execute: Effect.sync(() => {
+    installSignUpClicks(document, (event) => {
+      window.fathom?.trackEvent(event);
+    });
   }).pipe(Effect.as(Message.Ready())),
   messages: [Message.Ready],
 });

@@ -75,10 +75,9 @@ export const sitemapExclusions: readonly string[] = [
   "/blog/tags/",
 ];
 
-export const fathomSiteId = "SSBYTYUQ";
-
-export const fathomScriptSource = "https://cdn.usefathom.com/script.js";
-
-export const signUpEvent = "Sign up click";
-
-export const appOrigin = "https://app.hypertask.ai";
+export {
+  appOrigin,
+  fathomScriptUrl as fathomScriptSource,
+  fathomSiteId,
+  signUpClickEvent as signUpEvent,
+} from "../../src/features/analytics/index.js";

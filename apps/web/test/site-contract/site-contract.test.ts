@@ -7,16 +7,23 @@ import {
   headViolations,
   linkViolations,
   redirectViolations,
+  signUpViolations,
   siteViolations,
 } from "./checks.js";
 import type { SiteFetcher, SitePage } from "./checks.js";
 import {
+  appOrigin,
   blogSlugs,
   fathomScriptSource,
   fathomSiteId,
   oldRedirects,
   sitemapExclusions,
 } from "./manifest.js";
+
+const fathomTag = `<script src="${fathomScriptSource}" data-site="${fathomSiteId}" defer></script>`;
+
+const entryTag =
+  '<script type="module" crossorigin src="/assets/entry.js"></script>';
 
 const goodHead = `<html lang="en"><head>
 <title>Hypertask</title>
@@ -31,11 +38,11 @@ const goodHead = `<html lang="en"><head>
 <meta name="twitter:title" content="Hypertask">
 <meta name="twitter:description" content="Task management">
 <meta name="twitter:image" content="https://hypertask.ai/og.png">
-<script src="${fathomScriptSource}" data-site="${fathomSiteId}" defer></script>
+${fathomTag}
 </head><body>`;
 
 const pageWith = (links: readonly string[]): string =>
-  `${goodHead}${links.map((href) => `<a href="${href}">x</a>`).join("")}</body></html>`;
+  `${goodHead}${links.map((href) => `<a href="${href}">x</a>`).join("")}${entryTag}</body></html>`;
 
 const goodSite = (): Map<string, SitePage> =>
   new Map<string, SitePage>([
@@ -147,7 +154,7 @@ describe("fathom check", () => {
   });
 
   it("fails when the tag is missing", () => {
-    const without = pageWith([]).replace(/<script[^>]*><\/script>/u, "");
+    const without = pageWith([]).replace(fathomTag, "");
 
     expect(fathomViolations(without)).toStrictEqual([
       `missing Fathom script ${fathomScriptSource}`,
@@ -159,6 +166,39 @@ describe("fathom check", () => {
 
     expect(fathomViolations(other)).toStrictEqual([
       `Fathom data-site is not ${fathomSiteId}`,
+    ]);
+  });
+
+  it("fails when the tag blocks the parse", () => {
+    const blocking = pageWith([]).replace(
+      fathomTag,
+      fathomTag.replace(" defer", "")
+    );
+
+    expect(fathomViolations(blocking)).toStrictEqual([
+      "Fathom script is not deferred",
+    ]);
+  });
+});
+
+describe("sign up click check", () => {
+  it("accepts a page whose app links reach the click listener", () => {
+    expect(signUpViolations(pageWith([`${appOrigin}/signup`]))).toStrictEqual(
+      []
+    );
+  });
+
+  it("accepts a page with no app link", () => {
+    expect(
+      signUpViolations(pageWith(["/blog/"]).replace(entryTag, ""))
+    ).toStrictEqual([]);
+  });
+
+  it("fails when the page ships app links without the client entry", () => {
+    const without = pageWith([`${appOrigin}/signup`]).replace(entryTag, "");
+
+    expect(signUpViolations(without)).toStrictEqual([
+      "1 app links but no client entry to count a Sign up click",
     ]);
   });
 });
@@ -190,7 +230,7 @@ describe("whole site check", () => {
     Effect.gen(function* blogWithoutFathom() {
       const site = mutate((draft) => {
         draft.set(`/blog/${blogSlugs[0]}/`, {
-          body: pageWith([]).replace(/<script[^>]*><\/script>/u, ""),
+          body: pageWith([]).replace(fathomTag, ""),
           status: 200,
         });
       });
@@ -199,6 +239,27 @@ describe("whole site check", () => {
 
       expect(violations).toStrictEqual([
         `/blog/${blogSlugs[0]}/: missing Fathom script ${fathomScriptSource}`,
+      ]);
+    })
+  );
+
+  it.effect("fails when the page with app links lost its client entry", () =>
+    Effect.gen(function* homeWithoutEntry() {
+      const site = mutate((draft) => {
+        draft.set("/", {
+          body: pageWith([
+            "/blog/",
+            "/pricing/",
+            `${appOrigin}/signup`,
+          ]).replace(entryTag, ""),
+          status: 200,
+        });
+      });
+
+      const violations = yield* siteViolations(fetcherFor(site));
+
+      expect(violations).toStrictEqual([
+        `/: 1 app links but no client entry to count a Sign up click`,
       ]);
     })
   );

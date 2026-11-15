@@ -1,3 +1,4 @@
+import { fathomScriptTag } from "../analytics/fathom.js";
 import { organizationGraph } from "./organization.js";
 
 export const siteOrigin = "https://hypertask.ai";
@@ -88,9 +89,10 @@ export const buildHead = (path: string, page: PageHead): string => {
     metaName("twitter:image", image.url),
     metaName("twitter:image:alt", image.alt),
     jsonLd(organizationGraph),
-    ...(page.extraStructuredData ?? []).map(jsonLd),
     `<link rel="icon" type="image/png" href="/Favicon%20-%20Light.png" media="(prefers-color-scheme: dark)">`,
     `<link rel="icon" type="image/png" href="/Favicon%20-%20Dark.png" media="(prefers-color-scheme: light)">`,
     `<link rel="alternate" type="application/rss+xml" title="The Hypertask Blog" href="/rss.xml">`,
+    fathomScriptTag,
+    ...(page.extraStructuredData ?? []).map(jsonLd),
   ].join("\n");
 };
