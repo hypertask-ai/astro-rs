@@ -104,6 +104,8 @@ The folder holds `doctor.txt`, `report-page.json`, `report-compare.json`, `repor
 
 A page missing from both sides is a note for the step that owns it. A page that works on the reference and is missing or different on the preview fails the run. Never weaken a journey to make it pass.
 
+The pull request that hands this skill over keeps that run's `transcript.md` and two paired screenshots under `evidence/<stamp>/`; every later run writes only to `EVIDENCE_ROOT`.
+
 ## Cleanup
 
 The driver closes the Chromium it launched in a `finally` block, and each context it opened for a journey. There is no server, no port and no process to stop.
