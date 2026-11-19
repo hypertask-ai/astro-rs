@@ -4,6 +4,7 @@ import { defineConfig } from "vite";
 
 import { crawlerFilesPlugin } from "./crawler-files.js";
 import { siteRulesPlugin } from "./site-rules.js";
+import { normalizeSiteBasePath } from "./src/site-base-path.js";
 import { stylexPlugin } from "./stylex.js";
 
 const outputLayout = (): Plugin => ({
@@ -31,6 +32,7 @@ const outputLayout = (): Plugin => ({
 });
 
 export default defineConfig({
+  base: normalizeSiteBasePath(process.env.SITE_BASE_PATH) || "/",
   build: {
     rolldownOptions: { external: [/^cloudflare:/u] },
   },

@@ -4,6 +4,8 @@ import type { Document, Html, HtmlBuilder } from "foldkit/html";
 import { Message } from "../../client/app/message.js";
 import type { AppMessage } from "../../client/app/message.js";
 import type { AppModel } from "../../client/app/model.js";
+import { siteBuilder } from "../../site-base.js";
+import { siteBuilder } from "../../site-base.js";
 import { consentBanner } from "../consent/index.js";
 import { loginUrl } from "../frame/copy.js";
 import { frame } from "../frame/index.js";
@@ -167,28 +169,32 @@ const byoa = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
 
 export const view = (
   model: AppModel,
-  h: HtmlBuilder<AppMessage>
-): Document => ({
-  body: h.div(
-    [],
-    [
-      frame(model, h, "home", [
-        h.div(
-          [h.Class(classes(styles.page))],
-          [
-            hero(h),
-            byoa(model, h),
-            h.div(
-              [h.Class(classes(styles.pricing))],
-              [pricingModule(model, h)]
-            ),
-          ]
-        ),
-      ]),
-      consentBanner(model, h),
-    ]
-  ),
-  canonical: canonicalFor(homePath),
-  ogUrl: canonicalFor(homePath),
-  title: pageHeads.get(homePath)?.title ?? copy.pageTitle,
-});
+  builder: HtmlBuilder<AppMessage>
+): Document => {
+  const h = siteBuilder(builder);
+
+  return {
+    body: h.div(
+      [],
+      [
+        frame(model, h, "home", [
+          h.div(
+            [h.Class(classes(styles.page))],
+            [
+              hero(h),
+              byoa(model, h),
+              h.div(
+                [h.Class(classes(styles.pricing))],
+                [pricingModule(model, h)]
+              ),
+            ]
+          ),
+        ]),
+        consentBanner(model, h),
+      ]
+    ),
+    canonical: canonicalFor(homePath),
+    ogUrl: canonicalFor(homePath),
+    title: pageHeads.get(homePath)?.title ?? copy.pageTitle,
+  };
+};

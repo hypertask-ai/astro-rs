@@ -4,6 +4,7 @@ import type { Document, Html, HtmlBuilder } from "foldkit/html";
 import { Message } from "../../client/app/message.js";
 import type { AppMessage } from "../../client/app/message.js";
 import type { AppModel } from "../../client/app/model.js";
+import { siteBuilder } from "../../site-base.js";
 import { loginUrl } from "../frame/copy.js";
 import { page } from "../page/index.js";
 import * as copy from "./copy.js";
@@ -115,11 +116,17 @@ export const pricingModule = (
     ]
   );
 
-export const view = (model: AppModel, h: HtmlBuilder<AppMessage>): Document =>
-  page(
+export const view = (
+  model: AppModel,
+  builder: HtmlBuilder<AppMessage>
+): Document => {
+  const h = siteBuilder(builder);
+
+  return page(
     model,
     h,
     pricingPath,
     [h.div([h.Class(classes(styles.page))], [pricingModule(model, h)])],
     copy.pageTitle
   );
+};

@@ -1,0 +1,381 @@
+{
+  "capturedAt": "2026-11-15",
+  "capturedWith": "curl --http1.1 -sS -D - -o body for GET and curl -I for HEAD against https://hypertask.ai, redirects not followed",
+  "origin": "https://hypertask.ai",
+  "homePage": {
+    "path": "/",
+    "title": "The fastest project board — Hypertask",
+    "headline": "The fastest way to clear your board.",
+    "bodySha256": "a1783c9368687c99ab4dfb983aedd35a5f866974966c9503d0dafeb6f2855c27",
+    "normalizedBodySha256": "f0b35dcea621b35fadc5160ff0f0be9163a291e911874a09a013f3587d587a29"
+  },
+  "bodyNormalization": "The edge rewrites two things per response: it replaces the type attribute of module and classic script tags with a random hex token (for example type=\"29408c72dfe37197d8b08ae5-text/javascript\"), records that token in data-cf-settings, and reorders the @font-face rules it injects. bodySha256 is the raw captured body. normalizedBodySha256 removes the @font-face rules and replaces the hex tokens with their unrewritten values, which makes every unknown address body hash equal the home page body.",
+  "answers": [
+    {
+      "method": "GET",
+      "path": "/nope",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, max-age=0, must-revalidate, no-store",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      },
+      "bodySha256": "0e7c938e33d85c674888625334be279882e4edd0ae777776360b874c141664c4",
+      "normalizedBodySha256": "f0b35dcea621b35fadc5160ff0f0be9163a291e911874a09a013f3587d587a29",
+      "bodyEqualsHomePage": true,
+      "title": "The fastest project board — Hypertask",
+      "headline": "The fastest way to clear your board."
+    },
+    {
+      "method": "HEAD",
+      "path": "/nope",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, max-age=0, must-revalidate, no-store",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      },
+      "bodySha256": null,
+      "normalizedBodySha256": null,
+      "bodyEqualsHomePage": null
+    },
+    {
+      "method": "GET",
+      "path": "/nope/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, max-age=0, must-revalidate, no-store",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      },
+      "bodySha256": "75267efbac9759e6fde822e0d614bdc2a6716a9031dd20686968776ea9bc1a7f",
+      "normalizedBodySha256": "f0b35dcea621b35fadc5160ff0f0be9163a291e911874a09a013f3587d587a29",
+      "bodyEqualsHomePage": true,
+      "title": "The fastest project board — Hypertask",
+      "headline": "The fastest way to clear your board."
+    },
+    {
+      "method": "HEAD",
+      "path": "/nope/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, max-age=0, must-revalidate, no-store",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      },
+      "bodySha256": null,
+      "normalizedBodySha256": null,
+      "bodyEqualsHomePage": null
+    },
+    {
+      "method": "GET",
+      "path": "/a/b/c",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, max-age=0, must-revalidate, no-store",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      },
+      "bodySha256": "e36166ef560517ad5c35b75ed510577e54f09f7c40b019b7a6a2029ca1dd504d",
+      "normalizedBodySha256": "f0b35dcea621b35fadc5160ff0f0be9163a291e911874a09a013f3587d587a29",
+      "bodyEqualsHomePage": true,
+      "title": "The fastest project board — Hypertask",
+      "headline": "The fastest way to clear your board."
+    },
+    {
+      "method": "HEAD",
+      "path": "/a/b/c",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, max-age=0, must-revalidate, no-store",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      },
+      "bodySha256": null,
+      "normalizedBodySha256": null,
+      "bodyEqualsHomePage": null
+    },
+    {
+      "method": "GET",
+      "path": "/nope.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, max-age=0, must-revalidate, no-store",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      },
+      "bodySha256": "8fe9267051ac1fdf4e79cc394b5398312272ef47e95356ae0e4217a264326d56",
+      "normalizedBodySha256": "f0b35dcea621b35fadc5160ff0f0be9163a291e911874a09a013f3587d587a29",
+      "bodyEqualsHomePage": true,
+      "title": "The fastest project board — Hypertask",
+      "headline": "The fastest way to clear your board."
+    },
+    {
+      "method": "HEAD",
+      "path": "/nope.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, max-age=0, must-revalidate, no-store",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      },
+      "bodySha256": null,
+      "normalizedBodySha256": null,
+      "bodyEqualsHomePage": null
+    },
+    {
+      "method": "GET",
+      "path": "/nope.xml",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, max-age=0, must-revalidate, no-store",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      },
+      "bodySha256": "bce5dc63ae03fab5c73feaaa3d26f7c136a7be93da2048029f0782d959771ec7",
+      "normalizedBodySha256": "f0b35dcea621b35fadc5160ff0f0be9163a291e911874a09a013f3587d587a29",
+      "bodyEqualsHomePage": true,
+      "title": "The fastest project board — Hypertask",
+      "headline": "The fastest way to clear your board."
+    },
+    {
+      "method": "HEAD",
+      "path": "/nope.xml",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, max-age=0, must-revalidate, no-store",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      },
+      "bodySha256": null,
+      "normalizedBodySha256": null,
+      "bodyEqualsHomePage": null
+    },
+    {
+      "method": "GET",
+      "path": "/nope.png",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, max-age=604800, must-revalidate",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      },
+      "bodySha256": "4d0f132d7df69bd9bcd3205c5391ccb6c5316f509c9dc9935a38b90b2d1a8b1d",
+      "normalizedBodySha256": "f0b35dcea621b35fadc5160ff0f0be9163a291e911874a09a013f3587d587a29",
+      "bodyEqualsHomePage": true,
+      "title": "The fastest project board — Hypertask",
+      "headline": "The fastest way to clear your board."
+    },
+    {
+      "method": "HEAD",
+      "path": "/nope.png",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, max-age=604800, must-revalidate",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      },
+      "bodySha256": null,
+      "normalizedBodySha256": null,
+      "bodyEqualsHomePage": null
+    },
+    {
+      "method": "GET",
+      "path": "/nope.js",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, max-age=604800, must-revalidate",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      },
+      "bodySha256": "d0342e9fa4fc657b1c1bdd7f28f08f48b86d735aac8594d71c7aba0da7e32895",
+      "normalizedBodySha256": "f0b35dcea621b35fadc5160ff0f0be9163a291e911874a09a013f3587d587a29",
+      "bodyEqualsHomePage": true,
+      "title": "The fastest project board — Hypertask",
+      "headline": "The fastest way to clear your board."
+    },
+    {
+      "method": "HEAD",
+      "path": "/nope.js",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, max-age=604800, must-revalidate",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      },
+      "bodySha256": null,
+      "normalizedBodySha256": null,
+      "bodyEqualsHomePage": null
+    },
+    {
+      "method": "GET",
+      "path": "/blog/nope",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, max-age=0, must-revalidate, no-store",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      },
+      "bodySha256": "6a7134fc0cdb4e2fad4994ba9475ea74380395b85c47ae823a29bca4e1ea3b3b",
+      "normalizedBodySha256": "f0b35dcea621b35fadc5160ff0f0be9163a291e911874a09a013f3587d587a29",
+      "bodyEqualsHomePage": true,
+      "title": "The fastest project board — Hypertask",
+      "headline": "The fastest way to clear your board."
+    },
+    {
+      "method": "HEAD",
+      "path": "/blog/nope",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, max-age=0, must-revalidate, no-store",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      },
+      "bodySha256": null,
+      "normalizedBodySha256": null,
+      "bodyEqualsHomePage": null
+    },
+    {
+      "method": "GET",
+      "path": "/blog/tags/nope",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, max-age=0, must-revalidate, no-store",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      },
+      "bodySha256": "bd2a980b3bfd73fbaefb2856c03ec74a83a650f4a03f94c0391935cc2e66e0c7",
+      "normalizedBodySha256": "f0b35dcea621b35fadc5160ff0f0be9163a291e911874a09a013f3587d587a29",
+      "bodyEqualsHomePage": true,
+      "title": "The fastest project board — Hypertask",
+      "headline": "The fastest way to clear your board."
+    },
+    {
+      "method": "HEAD",
+      "path": "/blog/tags/nope",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, max-age=0, must-revalidate, no-store",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      },
+      "bodySha256": null,
+      "normalizedBodySha256": null,
+      "bodyEqualsHomePage": null
+    },
+    {
+      "method": "GET",
+      "path": "/nope?x=1",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, max-age=0, must-revalidate, no-store",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      },
+      "bodySha256": "ade0744659e0da2819c89041424e3afb63ae086339514f6220a6eda6f81b7738",
+      "normalizedBodySha256": "f0b35dcea621b35fadc5160ff0f0be9163a291e911874a09a013f3587d587a29",
+      "bodyEqualsHomePage": true,
+      "title": "The fastest project board — Hypertask",
+      "headline": "The fastest way to clear your board."
+    },
+    {
+      "method": "HEAD",
+      "path": "/nope?x=1",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, max-age=0, must-revalidate, no-store",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      },
+      "bodySha256": null,
+      "normalizedBodySha256": null,
+      "bodyEqualsHomePage": null
+    },
+    {
+      "method": "GET",
+      "path": "/v2/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, max-age=0, must-revalidate, no-store",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      },
+      "bodySha256": "e9afa56b69702131354ec3fc21af6534fdfb586ba0b6ec0ac3e3befa0b218317",
+      "normalizedBodySha256": "f0b35dcea621b35fadc5160ff0f0be9163a291e911874a09a013f3587d587a29",
+      "bodyEqualsHomePage": true,
+      "title": "The fastest project board — Hypertask",
+      "headline": "The fastest way to clear your board."
+    },
+    {
+      "method": "HEAD",
+      "path": "/v2/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, max-age=0, must-revalidate, no-store",
+      "headers": {
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff"
+      },
+      "bodySha256": null,
+      "normalizedBodySha256": null,
+      "bodyEqualsHomePage": null
+    }
+  ],
+  "redirectAnswer": {
+    "capturedFrom": "/v2",
+    "capturedWith": "curl GET and HEAD https://hypertask.ai/v2, redirects not followed",
+    "status": 301,
+    "location": "/",
+    "contentType": "text/plain;charset=UTF-8",
+    "cacheControl": "no-store",
+    "body": "Redirecting to /",
+    "headers": {
+      "referrer-policy": "strict-origin-when-cross-origin",
+      "strict-transport-security": "max-age=31536000",
+      "x-content-type-options": "nosniff"
+    }
+  }
+}

@@ -1,7 +1,10 @@
 import { Runtime } from "foldkit";
 
 import { view as homeView } from "../features/home/index.js";
+import { useCaseViewFor } from "../features/use-cases/index.js";
 import { viewForPath } from "../routes.js";
+import { removeSiteBasePath } from "../site-base-path.js";
+import { siteBasePath } from "../site-base.js";
 import { startAnalytics } from "./analytics/index.js";
 import {
   initialModel,
@@ -16,6 +19,8 @@ import {
 import "./fonts.css";
 import "./site.css";
 
+const appPath = removeSiteBasePath(siteBasePath, window.location.pathname);
+
 const application = Runtime.makeApplication({
   Model,
   container: document.querySelector("#root"),
@@ -26,7 +31,7 @@ const application = Runtime.makeApplication({
   }),
   subscriptions,
   update,
-  view: viewForPath(window.location.pathname) ?? homeView,
+  view: viewForPath(appPath) ?? useCaseViewFor(appPath) ?? homeView,
 });
 
 Runtime.hydrate(application);

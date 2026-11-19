@@ -3,6 +3,7 @@ import type { Document, HtmlBuilder } from "foldkit/html";
 
 import type { AppMessage } from "../../client/app/message.js";
 import type { AppModel } from "../../client/app/model.js";
+import { siteBuilder } from "../../site-base.js";
 import { page } from "../page/index.js";
 import { styles } from "./contact.stylex.js";
 import * as copy from "./copy.js";
@@ -12,8 +13,13 @@ const classes = (...entries: readonly (stylex.StyleXStyles | false)[]) =>
 
 const contactPath = "/contact/";
 
-export const view = (model: AppModel, h: HtmlBuilder<AppMessage>): Document =>
-  page(
+export const view = (
+  model: AppModel,
+  builder: HtmlBuilder<AppMessage>
+): Document => {
+  const h = siteBuilder(builder);
+
+  return page(
     model,
     h,
     contactPath,
@@ -66,3 +72,4 @@ export const view = (model: AppModel, h: HtmlBuilder<AppMessage>): Document =>
     ],
     copy.pageTitle
   );
+};
