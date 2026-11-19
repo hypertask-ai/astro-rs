@@ -17,6 +17,8 @@ import {
   redirectResponse,
 } from "./hypertask/site-rules.js";
 import { relayPostHogFromRequest } from "./relay-posthog.js";
+import { removeSiteBasePath } from "./site-base-path.js";
+import { siteBasePath, sitePreviewResponse } from "./site-base.js";
 
 type RenderDocument = typeof renderFoldkitDocument;
 
@@ -27,7 +29,7 @@ export const renderDocument: RenderDocument = (
 ) => {
   const path = application.canonical?.slice(siteOrigin.length) ?? "/";
   const page = pageHeads.get(path);
-  const head = page === undefined ? "" : buildHead(path, page);
+  const head = page === undefined ? "" : buildHead(path, page, siteBasePath);
 
   return renderFoldkitDocument(application, assets, {
     ...options,
@@ -41,13 +43,16 @@ const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
   request: Request
 ) {
   const { pathname } = new URL(request.url);
-  const redirect = legacyAnswer(pathname);
+  const path = removeSiteBasePath(siteBasePath, pathname);
+  const redirect = legacyAnswer(path);
 
   if (redirect.kind === "redirect") {
-    return Responded(redirectResponse(redirect.location, redirect.status));
+    return Responded(
+      sitePreviewResponse(redirectResponse(redirect.location, redirect.status))
+    );
   }
 
-  if (pathname.startsWith("/relay-8ddg/")) {
+  if (path.startsWith("/relay-8ddg/")) {
     const relayed = yield* relayPostHogFromRequest(request).pipe(
       Effect.provide(FetchHttpClient.layer)
     );
@@ -55,22 +60,26 @@ const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
     const body = new Uint8Array(relayed.body);
 
     return Responded(
-      new Response(body.buffer, {
-        headers: relayed.headers,
-        status: relayed.status,
-      })
+      sitePreviewResponse(
+        new Response(body.buffer, {
+          headers: relayed.headers,
+          status: relayed.status,
+        })
+      )
     );
   }
 
-  const knownUseCase = useCaseViewFor(pathname);
-  const view = pathname === "/" ? homeView : (knownUseCase ?? homeView);
+  const knownUseCase = useCaseViewFor(path);
+  const view = path === "/" ? homeView : (knownUseCase ?? homeView);
 
   if (request.method !== "GET" && request.method !== "HEAD") {
     return Responded(
-      new Response("Unsupported method", {
-        headers: { Allow: "GET, HEAD" },
-        status: 405,
-      })
+      sitePreviewResponse(
+        new Response("Unsupported method", {
+          headers: { Allow: "GET, HEAD" },
+          status: 405,
+        })
+      )
     );
   }
 
@@ -80,8 +89,8 @@ const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
   });
 
   const isPrerenderedKnownPage =
-    (pathname === "/" || knownUseCase !== undefined) &&
-    prerenderPaths.includes(pathname);
+    (path === "/" || knownUseCase !== undefined) &&
+    prerenderPaths.includes(path);
 
   return isPrerenderedKnownPage
     ? Rendered(application)
@@ -94,10 +103,12 @@ export const renderPage = (request: Request) =>
       Effect.catchCause((cause) =>
         Effect.succeed(
           Responded(
-            new Response("The page could not be rendered", {
-              status: 500,
-              statusText: cause.toString(),
-            })
+            sitePreviewResponse(
+              new Response("The page could not be rendered", {
+                status: 500,
+                statusText: cause.toString(),
+              })
+            )
           )
         )
       )

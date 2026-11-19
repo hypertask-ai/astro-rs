@@ -3,6 +3,7 @@ import type { Document, Html, HtmlBuilder } from "foldkit/html";
 
 import type { AppMessage } from "../../client/app/message.js";
 import type { AppModel } from "../../client/app/model.js";
+import { siteBuilder } from "../../site-base.js";
 import { consentBanner } from "../consent/index.js";
 import { frame } from "../frame/index.js";
 import { canonicalFor, pageHeads } from "../head/index.js";
@@ -215,24 +216,28 @@ const bottomCta = (page: UseCasePage, h: HtmlBuilder<AppMessage>): Html =>
 
 const viewFor =
   (page: UseCasePage): UseCaseView =>
-  (model, h) => ({
-    body: h.div(
-      [],
-      [
-        frame(model, h, "page", [
-          hero(page, h),
-          ...page.modules.map((contents, index) =>
-            featureModule(index, contents, h)
-          ),
-          bottomCta(page, h),
-        ]),
-        consentBanner(model, h),
-      ]
-    ),
-    canonical: canonicalFor(page.path),
-    ogUrl: canonicalFor(page.path),
-    title: pageHeads.get(page.path)?.title ?? page.heroTitle,
-  });
+  (model, builder) => {
+    const h = siteBuilder(builder);
+
+    return {
+      body: h.div(
+        [],
+        [
+          frame(model, h, "page", [
+            hero(page, h),
+            ...page.modules.map((contents, index) =>
+              featureModule(index, contents, h)
+            ),
+            bottomCta(page, h),
+          ]),
+          consentBanner(model, h),
+        ]
+      ),
+      canonical: canonicalFor(page.path),
+      ogUrl: canonicalFor(page.path),
+      title: pageHeads.get(page.path)?.title ?? page.heroTitle,
+    };
+  };
 
 export const useCaseViews: ReadonlyMap<string, UseCaseView> = new Map(
   useCasePages.map((page) => [page.path, viewFor(page)] as const)
