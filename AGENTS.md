@@ -92,6 +92,8 @@ Cut from the template, each because this site does not use it: `apps/cli` (no CL
 
 Run `pnpm fix` only when you intend to rewrite files. Finish with `pnpm turbo run check test build`.
 
+Verification: [verify-astro-rs](/.claude/skills/verify-astro-rs/SKILL.md) proves the live preview at `https://hypertask.ai/ratstack/` matches the old site, and `node .claude/skills/verify-astro-rs/scripts/doctor.mjs` says whether it is worth driving.
+
 ## Deploy
 
 Follow [ship](/skills/ship) and `skills/ship/references/project.md` for deployment commands, approval, checks, and recovery.
