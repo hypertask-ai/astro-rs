@@ -1,6 +1,7 @@
 import { Runtime } from "foldkit";
 
-import { view } from "../features/home/index.js";
+import { view as homeView } from "../features/home/index.js";
+import { useCaseViewFor } from "../features/use-cases/index.js";
 import { startAnalytics } from "./analytics/index.js";
 import {
   initialModel,
@@ -25,7 +26,7 @@ const application = Runtime.makeApplication({
   }),
   subscriptions,
   update,
-  view,
+  view: useCaseViewFor(window.location.pathname) ?? homeView,
 });
 
 Runtime.hydrate(application);
