@@ -74,10 +74,13 @@ const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
     );
   }
 
-  const application = yield* renderToString({
-    init: () => ({ model: initialModel }),
-    view,
-  });
+  const application = yield* renderToString(
+    {
+      init: () => ({ model: initialModel }),
+      view,
+    },
+    { isHydratable: false }
+  );
 
   const isPrerenderedKnownPage =
     (pathname === "/" || knownUseCase !== undefined) &&
