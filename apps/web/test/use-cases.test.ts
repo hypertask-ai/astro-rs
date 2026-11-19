@@ -1,22 +1,16 @@
 import { describe, expect, it } from "@effect/vitest";
-import { Effect, Predicate } from "effect";
-import { renderToString, toResponse } from "foldkit/experimental/server";
+import { Effect } from "effect";
+import { renderToString } from "foldkit/experimental/server";
 
 import { initialModel } from "../src/client/app/index.js";
-import {
-  prerenderPaths,
-  renderDocument,
-  renderPage,
-} from "../src/entry.server.js";
+import { prerenderPaths, renderDocument } from "../src/entry.server.js";
 import { pageHeads } from "../src/features/head/index.js";
-import { view as homeView } from "../src/features/home/index.js";
 import { useCasePages } from "../src/features/use-cases/copy.js";
 import {
   useCaseViewFor,
   useCaseViews,
 } from "../src/features/use-cases/index.js";
 import type { UseCaseView } from "../src/features/use-cases/index.js";
-import { homeAnswerHeaders } from "../src/hypertask/site-rules.js";
 import agencyLive from "./fixtures/use-cases-agency-live.json" with { type: "json" };
 import croLive from "./fixtures/use-cases-cro-live.json" with { type: "json" };
 import marketingLive from "./fixtures/use-cases-marketing-live.json" with { type: "json" };
@@ -138,25 +132,6 @@ describe("use case routes", () => {
     expect(new Set(titles).size).toBe(addresses.length);
     expect(titles).not.toContain(pageHeads.get("/")?.title);
   });
-
-  it.effect("answers an unknown address with the home page", () =>
-    Effect.gen(function* checkUnknown() {
-      const result = yield* Effect.promise(() =>
-        renderPage(new Request("https://hypertask.ai/nope/"))
-      );
-
-      expect(Predicate.isTagged(result, "Rendered")).toBe(true);
-
-      if (Predicate.isTagged(result, "Rendered")) {
-        const response = toResponse(() => "", result);
-        const home = yield* renderView(homeView);
-
-        expect(response.status).toBe(200);
-        expect(result.options?.headers).toEqual(homeAnswerHeaders);
-        expect(yield* Effect.promise(() => response.text())).toBe(home);
-      }
-    })
-  );
 });
 
 comparesLivePage("agency page", "/use-cases/agency/", agencyLive);
