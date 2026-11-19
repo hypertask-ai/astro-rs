@@ -1,13 +1,9 @@
 import { describe, expect, it } from "@effect/vitest";
-import { Effect, Predicate } from "effect";
+import { Effect } from "effect";
 import { renderToString } from "foldkit/experimental/server";
 
 import { initialModel } from "../src/client/app/index.js";
-import {
-  prerenderPaths,
-  renderDocument,
-  renderPage,
-} from "../src/entry.server.js";
+import { prerenderPaths, renderDocument } from "../src/entry.server.js";
 import { pageHeads } from "../src/features/head/index.js";
 import { useCasePages } from "../src/features/use-cases/copy.js";
 import {
@@ -136,20 +132,6 @@ describe("use case routes", () => {
     expect(new Set(titles).size).toBe(addresses.length);
     expect(titles).not.toContain(pageHeads.get("/")?.title);
   });
-
-  it.effect("sends an unknown address to the not found answer", () =>
-    Effect.gen(function* checkMissing() {
-      const result = yield* Effect.promise(() =>
-        renderPage(new Request("https://hypertask.ai/nope/"))
-      );
-
-      expect(Predicate.isTagged(result, "Responded")).toBe(true);
-
-      if (Predicate.isTagged(result, "Responded")) {
-        expect(result.response.status).toBe(404);
-      }
-    })
-  );
 });
 
 comparesLivePage("agency page", "/use-cases/agency/", agencyLive);

@@ -11,6 +11,11 @@ import { initialModel } from "./client/app/model.js";
 import { buildHead, pageHeads, siteOrigin } from "./features/head/index.js";
 import { view as homeView } from "./features/home/index.js";
 import { useCaseViewFor, useCaseViews } from "./features/use-cases/index.js";
+import {
+  homeAnswerHeaders,
+  legacyAnswer,
+  redirectResponse,
+} from "./hypertask/site-rules.js";
 import { relayPostHogFromRequest } from "./relay-posthog.js";
 import { removeSiteBasePath } from "./site-base-path.js";
 import { siteBasePath, sitePreviewResponse } from "./site-base.js";
@@ -39,7 +44,13 @@ const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
 ) {
   const { pathname } = new URL(request.url);
   const path = removeSiteBasePath(siteBasePath, pathname);
-  const view = path === "/" ? homeView : useCaseViewFor(path);
+  const redirect = legacyAnswer(path);
+
+  if (redirect.kind === "redirect") {
+    return Responded(
+      sitePreviewResponse(redirectResponse(redirect.location, redirect.status))
+    );
+  }
 
   if (path.startsWith("/relay-8ddg/")) {
     const relayed = yield* relayPostHogFromRequest(request).pipe(
@@ -58,11 +69,8 @@ const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
     );
   }
 
-  if (view === undefined) {
-    return Responded(
-      sitePreviewResponse(new Response("Not found", { status: 404 }))
-    );
-  }
+  const knownUseCase = useCaseViewFor(path);
+  const view = path === "/" ? homeView : (knownUseCase ?? homeView);
 
   if (request.method !== "GET" && request.method !== "HEAD") {
     return Responded(
@@ -80,7 +88,13 @@ const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
     view,
   });
 
-  return Rendered(application);
+  const isPrerenderedKnownPage =
+    (path === "/" || knownUseCase !== undefined) &&
+    prerenderPaths.includes(path);
+
+  return isPrerenderedKnownPage
+    ? Rendered(application)
+    : Rendered(application, { headers: homeAnswerHeaders });
 });
 
 export const renderPage = (request: Request) =>

@@ -1,6 +1,10 @@
 import * as Cloudflare from "@alchemy.run/cloudflare";
 
-import { htmlHandling } from "./hypertask/site-rules.js";
+import {
+  htmlHandling,
+  notFoundHandling,
+  workerFirstRedirectSources,
+} from "./hypertask/site-rules.js";
 import { normalizeSiteBasePath } from "./site-base-path.js";
 
 const siteBasePath = normalizeSiteBasePath(process.env.SITE_BASE_PATH);
@@ -20,7 +24,11 @@ export const siteRoutes =
       ];
 
 export class Website extends Cloudflare.Website.Foldkit<Website>()("Website", {
-  assets: { htmlHandling },
+  assets: {
+    htmlHandling,
+    notFoundHandling,
+    runWorkerFirst: [...workerFirstRedirectSources],
+  },
   name: previewWorkerName,
   rootDir: "../web",
   routes: siteRoutes,
