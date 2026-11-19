@@ -10,19 +10,25 @@ const TIMEOUT = 45_000;
 /** @typedef {{ message: string }} VerifierPageError */
 /** @typedef {{ errorText: string }} VerifierRequestFailure */
 /** @typedef {{ failure: () => VerifierRequestFailure | null; method: () => string; url: () => string }} VerifierRequest */
-/** @typedef {{ status: () => number }} VerifierResponse */
+/** @typedef {{ headers: () => Record<string, string>; status: () => number }} VerifierResponse */
 /** @typedef {{ close: () => Promise<void>; newPage: () => Promise<VerifierPage> }} VerifierContext */
-/** @typedef {{ close: () => Promise<void>; newContext: (options: { deviceScaleFactor: number; viewport: { height: number; width: number } }) => Promise<VerifierContext> }} VerifierBrowser */
+/** @typedef {{ close: () => Promise<void>; newContext: (options: { deviceScaleFactor: number; permissions?: string[]; viewport: { height: number; width: number } }) => Promise<VerifierContext> }} VerifierBrowser */
 /** @typedef {{ chromium: { launch: () => Promise<VerifierBrowser> } }} VerifierChromium */
-/** @typedef {{ evaluate: <Result>(expression: string) => Promise<Result>; goto: (url: string, options?: { timeout?: number; waitUntil?: string }) => Promise<VerifierResponse | null>; on: (event: string, handler: (value: never) => void) => void; screenshot: (options: { fullPage: boolean; path: string }) => Promise<Uint8Array>; title: () => Promise<string>; url: () => string; waitForTimeout: (milliseconds: number) => Promise<void> }} VerifierPage */
+/** @typedef {{ click: (selector: string, options?: { timeout?: number }) => Promise<void>; evaluate: <Result>(expression: string) => Promise<Result>; goto: (url: string, options?: { timeout?: number; waitUntil?: string }) => Promise<VerifierResponse | null>; keyboard: { press: (key: string) => Promise<void> }; on: (event: string, handler: (value: never) => void) => void; screenshot: (options: { fullPage: boolean; path: string }) => Promise<Uint8Array>; title: () => Promise<string>; url: () => string; waitForLoadState: (state?: string, options?: { timeout?: number }) => Promise<void>; waitForTimeout: (milliseconds: number) => Promise<void>; waitForURL: (predicate: (url: URL) => boolean, options?: { timeout?: number }) => Promise<unknown> }} VerifierPage */
 /** @typedef {{ height: number; name: string; width: number }} Viewport */
 /** @typedef {{ consoleErrors: string[]; failedRequests: string[]; pageErrors: string[] }} Watch */
+/** @typedef {{ canonical: string; description: string; ogTitle: string; robots: string; title: string }} HeadTags */
+/** @typedef {{ clipboard: string; headTags: HeadTags; robotsHeader: string; screenshot: string; status: number; textLines: string[]; title: string; url: string }} SideState */
+/** @typedef {{ action: string; addedInHead: string[]; base: SideState; head: SideState; missingFromHead: string[] }} ActReport */
 /** @typedef {{ context: VerifierContext; page: VerifierPage; watched: Watch }} Session */
 /** @typedef {{ watched: Watch }} Runtime */
 /** @typedef {{ level: string; text: string }} Heading */
-/** @typedef {{ href: string; text: string }} PageLink */
-/** @typedef {{ consoleErrors: string[]; error?: string; failedRequests: string[]; finalUrl?: string; fonts?: string[]; headings?: Heading[]; label: string; links?: PageLink[]; pageErrors: string[]; screenshotFull?: string; screenshotViewport?: string; status?: number; textFile?: string; title?: string; url: string; viewport: string; words?: number }} PageReport */
-/** @typedef {{ addedInHead: string[]; baseStatus: number; headStatus: number; missingFromHead: string[]; path: string }} CompareReport */
+/** @typedef {{ alt: string; resolved: string; src: string }} PageImage */
+/** @typedef {{ href: string; resolved: string; text: string }} PageLink */
+/** @typedef {{ height: number; width: number }} ShotSize */
+/** @typedef {{ basePath: string; root: string }} SiteParts */
+/** @typedef {{ consoleErrors: string[]; error?: string; failedRequests: string[]; finalUrl?: string; fonts?: string[]; head?: HeadTags; headings?: Heading[]; images?: PageImage[]; label: string; links?: PageLink[]; pageErrors: string[]; robotsHeader?: string; screenshotFull?: string; screenshotViewport?: string; status?: number; textFile?: string; title?: string; url: string; viewport: string; viewportSize?: ShotSize; words?: number }} PageReport */
+/** @typedef {{ addedImagesInHead: string[]; addedInHead: string[]; addedLinksInHead: string[]; baseHead: HeadTags; baseStatus: number; headHead: HeadTags; headStatus: number; imagesOutsideHeadBase: string[]; linksOutsideHeadBase: string[]; missingFromHead: string[]; missingImagesInHead: string[]; missingLinksFromHead: string[]; path: string }} CompareReport */
 
 const VIEWPORTS = [
   { height: 900, name: "1440", width: 1440 },
@@ -44,14 +50,20 @@ const SLUG = /[^a-z0-9]+/giu;
 const VISIBLE_TEXT = `(() => {
   const body = document.body;
   if (body === null) return "";
-  return Array.from(body.querySelectorAll("*"))
-    .flatMap((node) => {
-      if (node.childElementCount > 0) return [];
-      const style = window.getComputedStyle(node);
-      if (style.display === "none" || style.visibility === "hidden") return [];
-      return [node.textContent ?? ""];
-    })
-    .join("\\n");
+  const ignored = new Set(["NOSCRIPT", "SCRIPT", "STYLE", "TEMPLATE"]);
+  const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT);
+  const lines = [];
+  while (walker.nextNode()) {
+    const node = walker.currentNode;
+    const parent = node.parentElement;
+    if (parent !== null && !ignored.has(parent.tagName) && parent.checkVisibility()) {
+      const text = (node.textContent ?? "").replace(/\\s+/gu, " ").trim();
+      if (text.length > 0) {
+        lines.push(text);
+      }
+    }
+  }
+  return lines.join("\\n");
 })()`;
 
 const HEADINGS = `Array.from(document.querySelectorAll("h1, h2, h3")).map((node) => ({
@@ -60,9 +72,29 @@ const HEADINGS = `Array.from(document.querySelectorAll("h1, h2, h3")).map((node)
 }))`;
 
 const LINKS = `Array.from(document.querySelectorAll("a[href]")).map((node) => ({
-  href: node.href,
+  href: node.getAttribute("href") ?? "",
+  resolved: node.href,
   text: (node.textContent ?? "").replace(/\\s+/gu, " ").trim(),
 }))`;
+
+const IMAGES = `Array.from(document.querySelectorAll("img")).map((node) => ({
+  alt: node.getAttribute("alt") ?? "",
+  resolved: node.currentSrc || node.src,
+  src: node.getAttribute("src") ?? "",
+}))`;
+
+const HEAD_TAGS = `(() => {
+  const content = (selector) =>
+    document.querySelector(selector)?.getAttribute("content") ?? "";
+  return {
+    canonical:
+      document.querySelector('link[rel="canonical"]')?.getAttribute("href") ?? "",
+    description: content('meta[name="description"]'),
+    ogTitle: content('meta[property="og:title"]'),
+    robots: content('meta[name="robots"]'),
+    title: document.title,
+  };
+})()`;
 
 const FONTS = `(async () => {
   await document.fonts.ready;
@@ -76,11 +108,14 @@ const USAGE = `node verify/driver.mjs <command> [flags]
 Commands:
   page     --head <url> [--base <url>] [--path /pricing/ ...]
   compare  --head <url> --base <url> [--path /pricing/ ...]
+  act      --head <url> --base <url> --path / (--click <selector> | --press <key>) [--viewport 390]
   probe    --head <url> [--base <url>] [--path /v2 ...]
 
 Flags:
   SCREENS_DIR points at the screenshot and report directory.
-  A --path may be a site path such as /pricing/ or a full URL.`;
+  A --path may be a site path such as /pricing/ or a full URL.
+  --head-base-path overrides the path the head site is served under, taken from --head by default.
+  compare reports links and images that stay outside that path in linksOutsideHeadBase and imagesOutsideHeadBase.`;
 
 const argv = process.argv.slice(2);
 
@@ -187,7 +222,12 @@ const listen = (page) => {
  * @param {Viewport} viewport
  * @returns {Promise<Session>} */
 const open = async (browser, viewport) => {
-  const context = await browser.newContext({ deviceScaleFactor: 1, viewport });
+  const context = await browser.newContext({
+    deviceScaleFactor: 1,
+    permissions: ["clipboard-read", "clipboard-write"],
+    viewport,
+  });
+
   const page = await context.newPage();
   const watched = listen(page);
 
@@ -201,6 +241,45 @@ const settle = async (page) => {
   await page.waitForTimeout(700);
 };
 
+/** @param {VerifierPage} page
+ * @returns {Promise<void>} */
+const waitForLoad = async (page) => {
+  try {
+    await page.waitForLoadState("load", { timeout: 15 * 1000 });
+  } catch {
+    await page.waitForTimeout(1000);
+  }
+};
+
+/** @param {VerifierPage} page
+ * @param {string} key
+ * @returns {Promise<void>} */
+const pressAndWait = async (page, key) => {
+  const before = page.url();
+
+  try {
+    await Promise.all([
+      page.keyboard.press(key),
+      page.waitForURL((url) => url.href !== before, { timeout: 5000 }),
+    ]);
+  } catch {
+    await waitForLoad(page);
+  }
+};
+
+/** @param {VerifierPage} page
+ * @returns {Promise<string>} */
+const readClipboard = async (page) => {
+  try {
+    /** @type {string} */
+    const value = await page.evaluate("navigator.clipboard.readText()");
+
+    return value;
+  } catch {
+    return "";
+  }
+};
+
 /** @param {string} file
  * @param {string} text
  * @returns {Promise<void>} */
@@ -212,10 +291,16 @@ const writeText = async (file, text) => {
 /** @param {VerifierPage} page
  * @param {string} file
  * @param {boolean} fullPage
- * @returns {Promise<void>} */
+ * @returns {Promise<ShotSize>} */
 const shoot = async (page, file, fullPage) => {
   await mkdir(path.dirname(file), { recursive: true });
-  await page.screenshot({ fullPage, path: file });
+
+  /** @type {Uint8Array} */
+  const image = await page.screenshot({ fullPage, path: file });
+
+  const view = new DataView(image.buffer, image.byteOffset, image.byteLength);
+
+  return { height: view.getUint32(20), width: view.getUint32(16) };
 };
 
 /** @param {string} text
@@ -225,6 +310,116 @@ const linesOf = (text) =>
     .split("\n")
     .map((line) => line.replaceAll(WHITESPACE, " ").trim())
     .filter((line) => line.length > 0);
+
+/** @param {PageLink[] | undefined} links
+ * @returns {string[]} */
+const linkNames = (links) =>
+  (links ?? []).map((link) => `${link.href} ${link.text}`.trim());
+
+/** @param {string} value
+ * @param {SiteParts} site
+ * @returns {string} */
+const comparable = (value, site) => {
+  /** @type {URL} */
+  let url;
+
+  try {
+    url = new URL(value);
+  } catch {
+    return value;
+  }
+
+  const root = `${url.protocol}//${url.host}`;
+  const address = `${url.pathname}${url.search}${url.hash}`;
+
+  if (root !== site.root) {
+    return `${root}${address}`;
+  }
+
+  if (site.basePath.length === 0) {
+    return address;
+  }
+
+  const atBase =
+    address === site.basePath ||
+    address.startsWith(`${site.basePath}/`) ||
+    address.startsWith(`${site.basePath}?`);
+
+  return atBase ? address.slice(site.basePath.length) || "/" : address;
+};
+
+/** @param {string} value
+ * @param {SiteParts} site
+ * @returns {boolean} */
+const outsideBase = (value, site) => {
+  if (site.basePath.length === 0) {
+    return false;
+  }
+
+  /** @type {URL} */
+  let url;
+
+  try {
+    url = new URL(value);
+  } catch {
+    return false;
+  }
+
+  if (`${url.protocol}//${url.host}` !== site.root) {
+    return false;
+  }
+
+  return !(
+    url.pathname === site.basePath ||
+    url.pathname.startsWith(`${site.basePath}/`)
+  );
+};
+
+/** @param {string} siteUrl
+ * @returns {SiteParts} */
+const siteParts = (siteUrl) => {
+  /** @type {URL} */
+  let site;
+
+  try {
+    site = new URL(siteUrl);
+  } catch {
+    return { basePath: "", root: "" };
+  }
+
+  const given = flag("head-base-path").replace(/\/+$/u, "");
+
+  return {
+    basePath: given.length > 0 ? given : site.pathname.replace(/\/+$/u, ""),
+    root: `${site.protocol}//${site.host}`,
+  };
+};
+
+/** @param {string[]} values
+ * @param {string[]} against
+ * @returns {string[]} */
+const difference = (values, against) => {
+  const known = new Set(against);
+
+  return values.filter((value) => !known.has(value));
+};
+
+/** @param {PageImage[] | undefined} images
+ * @param {SiteParts} site
+ * @returns {string[]} */
+const imageNames = (images, site) =>
+  (images ?? []).map((image) =>
+    `${comparable(image.resolved, site)} ${image.alt}`.trim()
+  );
+
+/** @type {HeadTags} */
+const emptyHead = {
+  canonical: "",
+  description: "",
+  ogTitle: "",
+  robots: "",
+  title: "",
+};
 
 /** @param {string | undefined} file
  * @returns {Promise<string[]>} */
@@ -267,17 +462,21 @@ const readPage = async (page, url, label, viewport, runtime) => {
   /** @type {string} */
   const text = await page.evaluate(VISIBLE_TEXT);
   const title = await page.title();
+  /** @type {HeadTags} */
+  const head = await page.evaluate(HEAD_TAGS);
   /** @type {Heading[]} */
   const headings = await page.evaluate(HEADINGS);
   /** @type {PageLink[]} */
   const links = await page.evaluate(LINKS);
   /** @type {string[]} */
   const fonts = await page.evaluate(FONTS);
+  /** @type {PageImage[]} */
+  const images = await page.evaluate(IMAGES);
   const textFile = path.join(SCREENS, `${stem}-text.txt`);
   const viewportFile = path.join(SCREENS, `${stem}-viewport.png`);
   const fullFile = path.join(SCREENS, `${stem}-full.png`);
   await writeText(textFile, text);
-  await shoot(page, viewportFile, false);
+  const viewportSize = await shoot(page, viewportFile, false);
   await shoot(page, fullFile, true);
 
   return {
@@ -285,10 +484,13 @@ const readPage = async (page, url, label, viewport, runtime) => {
     failedRequests: runtime.watched.failedRequests,
     finalUrl: page.url(),
     fonts,
+    head,
     headings,
+    images,
     label,
     links,
     pageErrors: runtime.watched.pageErrors,
+    robotsHeader: response?.headers()["x-robots-tag"] ?? "",
     screenshotFull: fullFile,
     screenshotViewport: viewportFile,
     status: response?.status() ?? 0,
@@ -296,6 +498,7 @@ const readPage = async (page, url, label, viewport, runtime) => {
     title,
     url,
     viewport: viewport.name,
+    viewportSize,
     words: text.split(WHITESPACE).filter((word) => word.length > 0).length,
   };
 };
@@ -370,19 +573,34 @@ const compareOne = async (browser, routePath) => {
 
   await headSession.context.close();
   await baseSession.context.close();
+  const headSite = siteParts(origin("head"));
+  const baseSite = siteParts(origin("base"));
   const headLines = await readText(headReport.textFile);
   const baseLines = await readText(baseReport.textFile);
-  const baseSet = new Set(baseLines);
-  const headSet = new Set(headLines);
-  const addedInHead = headLines.filter((line) => !baseSet.has(line));
-
-  const missingFromHead = baseLines.filter((line) => !headSet.has(line));
+  const headLinks = linkNames(headReport.links);
+  const baseLinks = linkNames(baseReport.links);
+  const headImageNames = imageNames(headReport.images, headSite);
+  const baseImageNames = imageNames(baseReport.images, baseSite);
 
   return {
-    addedInHead,
+    addedImagesInHead: difference(headImageNames, baseImageNames),
+    addedInHead: difference(headLines, baseLines),
+    addedLinksInHead: difference(headLinks, baseLinks),
+    baseHead: baseReport.head ?? emptyHead,
     baseStatus: baseReport.status ?? 0,
+    headHead: headReport.head ?? emptyHead,
     headStatus: headReport.status ?? 0,
-    missingFromHead,
+    imagesOutsideHeadBase: (headReport.images ?? []).flatMap((image) =>
+      outsideBase(image.resolved, headSite) ? [image.src] : []
+    ),
+    linksOutsideHeadBase: (headReport.links ?? []).flatMap((link) =>
+      outsideBase(link.resolved, headSite)
+        ? [`${link.href} ${link.text}`.trim()]
+        : []
+    ),
+    missingFromHead: difference(baseLines, headLines),
+    missingImagesInHead: difference(baseImageNames, headImageNames),
+    missingLinksFromHead: difference(baseLinks, headLinks),
     path: routePath,
   };
 };
@@ -392,6 +610,200 @@ const compareOne = async (browser, routePath) => {
 const compareAll = (browser) =>
   Promise.all(
     paths().map(async (routePath) => await compareOne(browser, routePath))
+  );
+
+/** @param {VerifierPage} page
+ * @param {string} originUrl
+ * @param {string} stem
+ * @returns {Promise<SideState>} */
+const actOnSide = async (page, originUrl, stem) => {
+  const response = await page.goto(originUrl, {
+    timeout: TIMEOUT,
+    waitUntil: "load",
+  });
+
+  await settle(page);
+
+  const click = flag("click");
+
+  const press = flag("press");
+
+  if (click.length > 0) {
+    await page.click(click, { timeout: TIMEOUT });
+  }
+
+  if (press.length > 0) {
+    await pressAndWait(page, press);
+  }
+
+  await waitForLoad(page);
+
+  await page.waitForTimeout(700);
+
+  /** @type {string} */
+  const text = await page.evaluate(VISIBLE_TEXT);
+
+  /** @type {HeadTags} */
+  const headTags = await page.evaluate(HEAD_TAGS);
+
+  const clipboard = await readClipboard(page);
+
+  const textFile = path.join(SCREENS, `${stem}-text.txt`);
+
+  const screenshot = path.join(SCREENS, `${stem}.png`);
+
+  await writeText(textFile, text);
+
+  await shoot(page, screenshot, false);
+
+  return {
+    clipboard,
+    headTags,
+    robotsHeader: response?.headers()["x-robots-tag"] ?? "",
+    screenshot,
+    status: response?.status() ?? 0,
+    textLines: linesOf(text),
+    title: await page.title(),
+    url: page.url(),
+  };
+};
+
+/** @param {VerifierBrowser} browser
+ * @param {string} routePath
+ * @returns {Promise<ActReport>} */
+const actOne = async (browser, routePath) => {
+  const name = slug(routePath);
+
+  const click = flag("click");
+
+  const press = flag("press");
+
+  const action =
+    click.length > 0
+      ? `click ${click}`
+      : `press ${press.length > 0 ? press : ""}`;
+
+  const viewport =
+    VIEWPORTS.find((candidate) => candidate.name === flag("viewport")) ??
+    VIEWPORTS[0];
+
+  const headSession = await open(browser, viewport);
+
+  const baseSession = await open(browser, viewport);
+
+  const stem = `${viewport.name}-${name}`;
+
+  const head = await actOnSide(
+    headSession.page,
+    target(routePath),
+    `act-head${stem}`
+  );
+
+  const base = await actOnSide(
+    baseSession.page,
+    `${origin("base")}${routePath}`,
+    `act-base${stem}`
+  );
+
+  await headSession.context.close();
+
+  await baseSession.context.close();
+
+  const baseLines = new Set(base.textLines);
+
+  const headLines = new Set(head.textLines);
+
+  return {
+    action: `${action} at ${viewport.name}`,
+    addedInHead: head.textLines.filter((line) => !baseLines.has(line)),
+    base,
+    head,
+    missingFromHead: base.textLines.filter((line) => !headLines.has(line)),
+  };
+};
+
+/** @param {PageReport} report
+ * @returns {string} */
+const screenshotName = (report) =>
+  path.basename(report.screenshotViewport ?? "");
+
+/** @param {string} value
+ * @returns {string} */
+const escapeHtml = (value) =>
+  value.replaceAll("&", "&amp;").replaceAll("<", "&lt;");
+
+/** @param {PageReport} report
+ * @param {string} label
+ * @param {boolean} eager
+ * @returns {string} */
+const figureHtml = (report, label, eager) => {
+  const size = report.viewportSize;
+
+  const measured =
+    size === undefined ? "" : ` width="${size.width}" height="${size.height}"`;
+
+  const deferred = eager ? "" : ' loading="lazy" decoding="async"';
+
+  return `<figure><img src="${screenshotName(report)}" alt="${escapeHtml(label)} at ${report.viewport} pixels wide"${measured}${deferred}><figcaption>${escapeHtml(label.toLowerCase())} ${report.status ?? 0}</figcaption></figure>`;
+};
+
+/** @param {PageReport[]} headPages
+ * @param {PageReport[]} basePages
+ * @returns {string} */
+const sheetHtml = (headPages, basePages) => {
+  const baseByLabel = new Map(
+    basePages.map((report) => [report.label, report])
+  );
+
+  const rows = headPages
+    .map((headReport, index) => {
+      const baseLabel = headReport.label.replace(/^head/u, "base");
+
+      const baseReport = baseByLabel.get(baseLabel);
+
+      const cells = [
+        baseReport === undefined
+          ? `<p>old side missing for ${escapeHtml(headReport.url)}</p>`
+          : figureHtml(baseReport, "Old site", index === 0),
+        figureHtml(headReport, "New site", index === 0),
+      ];
+
+      return `<section><h2>${escapeHtml(headReport.url)}</h2><div class="pair">${cells.join("")}</div></section>`;
+    })
+    .join("\n");
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>hypertask.ai old and new side by side</title>
+<style>
+body { background: #000; color: #fff; font: 14px/1.5 system-ui, sans-serif; margin: 0; padding: 24px; }
+h1 { font-size: 20px; }
+h2 { font-size: 14px; font-weight: 400; color: #a1a1aa; margin: 32px 0 8px; }
+.pair { display: grid; gap: 16px; grid-template-columns: 1fr; }
+figure { margin: 0; }
+img { border: 1px solid #222226; display: block; height: auto; max-width: 100%; }
+figcaption { color: #a1a1aa; padding-top: 4px; }
+@media (min-width: 900px) { .pair { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+<h1>hypertask.ai old and new side by side</h1>
+<main>
+${rows}
+</main>
+</body>
+</html>
+`;
+};
+
+/** @param {VerifierBrowser} browser
+ * @returns {Promise<ActReport[]>} */
+const actAll = (browser) =>
+  Promise.all(
+    paths().map(async (routePath) => await actOne(browser, routePath))
   );
 
 /** @param {string} base
@@ -475,15 +887,44 @@ const run = async () => {
       const baseReport =
         base.length > 0 ? await visitAll(browser, base, "base") : [];
 
+      const sheetPath =
+        baseReport.length > 0
+          ? path.join(SCREENS, "side-by-side.html")
+          : undefined;
+
+      if (sheetPath !== undefined) {
+        await writeText(
+          sheetPath,
+          sheetHtml(
+            report.flatMap((entry) => entry.pages),
+            baseReport.flatMap((entry) => entry.pages)
+          )
+        );
+      }
+
       const payload = {
         base,
         baseReport,
         head: origin("head"),
         headReport: report,
+        sheetPath,
       };
 
       await writeText(
         path.join(SCREENS, "report-page.json"),
+        JSON.stringify(payload, null, 2)
+      );
+      process.stdout.write(`${JSON.stringify(payload, null, 2)}\n`);
+
+      return;
+    }
+
+    if (command === "act") {
+      const report = await actAll(browser);
+      const payload = { base: origin("base"), head: origin("head"), report };
+
+      await writeText(
+        path.join(SCREENS, "report-act.json"),
         JSON.stringify(payload, null, 2)
       );
       process.stdout.write(`${JSON.stringify(payload, null, 2)}\n`);
