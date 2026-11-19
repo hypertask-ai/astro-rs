@@ -141,6 +141,26 @@ const pages = {
     noindex: true,
     title: "Thank You - Hypertask",
   },
+  "/use-cases/agency/": {
+    description:
+      "Manage multiple clients without losing your mind. Streamline project scoping, client communication, and agency operations with Hypertask's AI-powered project management platform.",
+    title: "Hypertask for Agencies — Multi-Client Project Management",
+  },
+  "/use-cases/cro/": {
+    description:
+      "Scale your A/B testing with AI-powered project management. Transform CRO workflows with Hypertask's AI Task Writer, Superhuman-style inbox, and experiment boards.",
+    title: "Hypertask for CRO — AI-Powered Project Management",
+  },
+  "/use-cases/marketing/": {
+    description:
+      "Run complex multi-channel marketing campaigns without the chaos. Streamline campaign planning, content collaboration, and marketing operations with Hypertask's AI-powered project management platform.",
+    title: "Hypertask for Marketing — AI-Powered Campaign Management",
+  },
+  "/use-cases/product/": {
+    description:
+      "Ship features faster with AI-powered product management. Streamline PRD creation, roadmap planning, and stakeholder communication with Hypertask's intelligent project management platform.",
+    title: "Hypertask for Product Development — AI-Powered Feature Management",
+  },
 } satisfies Record<string, PageHead>;
 
 export const pageHeads: ReadonlyMap<string, PageHead> = new Map(

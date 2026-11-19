@@ -9,7 +9,8 @@ import {
 
 import { initialModel } from "./client/app/model.js";
 import { buildHead, pageHeads, siteOrigin } from "./features/head/index.js";
-import { view } from "./features/home/index.js";
+import { view as homeView } from "./features/home/index.js";
+import { useCaseViewFor, useCaseViews } from "./features/use-cases/index.js";
 import { relayPostHogFromRequest } from "./relay-posthog.js";
 import { removeSiteBasePath } from "./site-base-path.js";
 import { siteBasePath, sitePreviewResponse } from "./site-base.js";
@@ -31,13 +32,14 @@ export const renderDocument: RenderDocument = (
   });
 };
 
-export const prerenderPaths = ["/"];
+export const prerenderPaths = ["/", ...useCaseViews.keys()];
 
 const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
   request: Request
 ) {
   const { pathname } = new URL(request.url);
   const path = removeSiteBasePath(siteBasePath, pathname);
+  const view = path === "/" ? homeView : useCaseViewFor(path);
 
   if (path.startsWith("/relay-8ddg/")) {
     const relayed = yield* relayPostHogFromRequest(request).pipe(
@@ -56,7 +58,7 @@ const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
     );
   }
 
-  if (path !== "/") {
+  if (view === undefined) {
     return Responded(
       sitePreviewResponse(new Response("Not found", { status: 404 }))
     );
