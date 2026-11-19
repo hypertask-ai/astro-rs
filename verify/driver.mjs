@@ -14,7 +14,7 @@ const TIMEOUT = 45_000;
 /** @typedef {{ close: () => Promise<void>; newPage: () => Promise<VerifierPage> }} VerifierContext */
 /** @typedef {{ close: () => Promise<void>; newContext: (options: { deviceScaleFactor: number; permissions?: string[]; viewport: { height: number; width: number } }) => Promise<VerifierContext> }} VerifierBrowser */
 /** @typedef {{ chromium: { launch: () => Promise<VerifierBrowser> } }} VerifierChromium */
-/** @typedef {{ click: (selector: string, options?: { timeout?: number }) => Promise<void>; evaluate: <Result>(expression: string) => Promise<Result>; goto: (url: string, options?: { timeout?: number; waitUntil?: string }) => Promise<VerifierResponse | null>; keyboard: { press: (key: string) => Promise<void> }; on: (event: string, handler: (value: never) => void) => void; screenshot: (options: { fullPage: boolean; path: string }) => Promise<Uint8Array>; title: () => Promise<string>; url: () => string; waitForEvent: (event: string, options?: { timeout?: number }) => Promise<unknown>; waitForLoadState: (state?: string, options?: { timeout?: number }) => Promise<void>; waitForTimeout: (milliseconds: number) => Promise<void> }} VerifierPage */
+/** @typedef {{ click: (selector: string, options?: { timeout?: number }) => Promise<void>; evaluate: <Result>(expression: string) => Promise<Result>; goto: (url: string, options?: { timeout?: number; waitUntil?: string }) => Promise<VerifierResponse | null>; keyboard: { press: (key: string) => Promise<void> }; on: (event: string, handler: (value: never) => void) => void; screenshot: (options: { fullPage: boolean; path: string }) => Promise<Uint8Array>; title: () => Promise<string>; url: () => string; waitForLoadState: (state?: string, options?: { timeout?: number }) => Promise<void>; waitForTimeout: (milliseconds: number) => Promise<void>; waitForURL: (predicate: (url: URL) => boolean, options?: { timeout?: number }) => Promise<unknown> }} VerifierPage */
 /** @typedef {{ height: number; name: string; width: number }} Viewport */
 /** @typedef {{ consoleErrors: string[]; failedRequests: string[]; pageErrors: string[] }} Watch */
 /** @typedef {{ canonical: string; description: string; ogTitle: string; robots: string; title: string }} HeadTags */
@@ -227,6 +227,7 @@ const open = async (browser, viewport) => {
     permissions: ["clipboard-read", "clipboard-write"],
     viewport,
   });
+
   const page = await context.newPage();
   const watched = listen(page);
 
@@ -238,6 +239,45 @@ const open = async (browser, viewport) => {
 const settle = async (page) => {
   await page.evaluate(`document.fonts.ready.then(() => "ready")`);
   await page.waitForTimeout(700);
+};
+
+/** @param {VerifierPage} page
+ * @returns {Promise<void>} */
+const waitForLoad = async (page) => {
+  try {
+    await page.waitForLoadState("load", { timeout: 15 * 1000 });
+  } catch {
+    await page.waitForTimeout(1000);
+  }
+};
+
+/** @param {VerifierPage} page
+ * @param {string} key
+ * @returns {Promise<void>} */
+const pressAndWait = async (page, key) => {
+  const before = page.url();
+
+  try {
+    await Promise.all([
+      page.keyboard.press(key),
+      page.waitForURL((url) => url.href !== before, { timeout: 5000 }),
+    ]);
+  } catch {
+    await waitForLoad(page);
+  }
+};
+
+/** @param {VerifierPage} page
+ * @returns {Promise<string>} */
+const readClipboard = async (page) => {
+  try {
+    /** @type {string} */
+    const value = await page.evaluate("navigator.clipboard.readText()");
+
+    return value;
+  } catch {
+    return "";
+  }
 };
 
 /** @param {string} file
@@ -290,22 +330,22 @@ const comparable = (value, site) => {
   }
 
   const root = `${url.protocol}//${url.host}`;
-  const rest = `${url.pathname}${url.search}${url.hash}`;
+  const address = `${url.pathname}${url.search}${url.hash}`;
 
   if (root !== site.root) {
-    return `${root}${rest}`;
+    return `${root}${address}`;
   }
 
   if (site.basePath.length === 0) {
-    return rest;
+    return address;
   }
 
   const atBase =
-    rest === site.basePath ||
-    rest.startsWith(`${site.basePath}/`) ||
-    rest.startsWith(`${site.basePath}?`);
+    address === site.basePath ||
+    address.startsWith(`${site.basePath}/`) ||
+    address.startsWith(`${site.basePath}?`);
 
-  return atBase ? rest.slice(site.basePath.length) || "/" : rest;
+  return atBase ? address.slice(site.basePath.length) || "/" : address;
 };
 
 /** @param {string} value
@@ -593,18 +633,10 @@ const actOnSide = async (page, originUrl, stem) => {
   }
 
   if (press.length > 0) {
-    const navigated = page
-      .waitForEvent("framenavigated", { timeout: 5_000 })
-      .catch(() => undefined);
-
-    await page.keyboard.press(press);
-
-    await navigated;
+    await pressAndWait(page, press);
   }
 
-  await page
-    .waitForLoadState("load", { timeout: 15_000 })
-    .catch(() => undefined);
+  await waitForLoad(page);
 
   await page.waitForTimeout(700);
 
@@ -614,10 +646,7 @@ const actOnSide = async (page, originUrl, stem) => {
   /** @type {HeadTags} */
   const headTags = await page.evaluate(HEAD_TAGS);
 
-  /** @type {string} */
-  const clipboard = await page
-    .evaluate("navigator.clipboard.readText().catch(() => '')")
-    .catch(() => "");
+  const clipboard = await readClipboard(page);
 
   const textFile = path.join(SCREENS, `${stem}-text.txt`);
 
@@ -693,34 +722,35 @@ const actOne = async (browser, routePath) => {
   };
 };
 
+/** @param {PageReport} report
+ * @returns {string} */
+const screenshotName = (report) =>
+  path.basename(report.screenshotViewport ?? "");
+
+/** @param {string} value
+ * @returns {string} */
+const escapeHtml = (value) =>
+  value.replaceAll("&", "&amp;").replaceAll("<", "&lt;");
+
+/** @param {PageReport} report
+ * @param {string} label
+ * @param {boolean} eager
+ * @returns {string} */
+const figureHtml = (report, label, eager) => {
+  const size = report.viewportSize;
+
+  const measured =
+    size === undefined ? "" : ` width="${size.width}" height="${size.height}"`;
+
+  const deferred = eager ? "" : ' loading="lazy" decoding="async"';
+
+  return `<figure><img src="${screenshotName(report)}" alt="${escapeHtml(label)} at ${report.viewport} pixels wide"${measured}${deferred}><figcaption>${escapeHtml(label.toLowerCase())} ${report.status ?? 0}</figcaption></figure>`;
+};
+
 /** @param {PageReport[]} headPages
  * @param {PageReport[]} basePages
  * @returns {string} */
 const sheetHtml = (headPages, basePages) => {
-  /** @param {PageReport} report
-   * @returns {string} */
-  const name = (report) => path.basename(report.screenshotViewport ?? "");
-
-  /** @param {string} value
-   * @returns {string} */
-  const escape = (value) =>
-    value.replaceAll("&", "&amp;").replaceAll("<", "&lt;");
-
-  /** @param {PageReport} report
-   * @param {string} label
-   * @param {boolean} eager
-   * @returns {string} */
-  const figure = (report, label, eager) => {
-    const size = report.viewportSize;
-    const measured =
-      size === undefined
-        ? ""
-        : ` width="${size.width}" height="${size.height}"`;
-    const deferred = eager ? "" : ' loading="lazy" decoding="async"';
-
-    return `<figure><img src="${name(report)}" alt="${escape(label)} at ${report.viewport} pixels wide"${measured}${deferred}><figcaption>${escape(label.toLowerCase())} ${report.status ?? 0}</figcaption></figure>`;
-  };
-
   const baseByLabel = new Map(
     basePages.map((report) => [report.label, report])
   );
@@ -733,12 +763,12 @@ const sheetHtml = (headPages, basePages) => {
 
       const cells = [
         baseReport === undefined
-          ? `<p>old side missing for ${escape(headReport.url)}</p>`
-          : figure(baseReport, "Old site", index === 0),
-        figure(headReport, "New site", index === 0),
+          ? `<p>old side missing for ${escapeHtml(headReport.url)}</p>`
+          : figureHtml(baseReport, "Old site", index === 0),
+        figureHtml(headReport, "New site", index === 0),
       ];
 
-      return `<section><h2>${escape(headReport.url)}</h2><div class="pair">${cells.join("")}</div></section>`;
+      return `<section><h2>${escapeHtml(headReport.url)}</h2><div class="pair">${cells.join("")}</div></section>`;
     })
     .join("\n");
 

@@ -1,15 +1,16 @@
 # verify-astro-rs proof run
 
-Run folder: /home/valentin/.local/state/verify-astro-rs/20261119T224752Z Stamp: 2026-11-19T22:49:03Z
+Run folder: /home/valentin/.local/state/verify-astro-rs/20261119T230229Z Stamp: 2026-11-19T23:03:37Z
 
 ## Commands
 
-- `node .claude/skills/verify-astro-rs/scripts/doctor.mjs | tee $RUN/doctor.txt`
+- `node .claude/skills/verify-astro-rs/scripts/doctor.mjs > $RUN/doctor.txt`
 - `SCREENS_DIR="$RUN" node verify/driver.mjs page --head "$PREVIEW" --base "$REFERENCE" --path /`
 - `SCREENS_DIR="$RUN" node verify/driver.mjs compare --head "$PREVIEW" --base "$REFERENCE" --path /`
-- `SCREENS_DIR="$RUN" node verify/driver.mjs act --head "$PREVIEW" --base "$REFERENCE" --path / --click "role=button[name=\"Pay monthly\"]"`
+- `SCREENS_DIR="$RUN/act-plans" node verify/driver.mjs act --head "$PREVIEW" --base "$REFERENCE" --path / --click "role=button[name=\"Pay monthly\"]"`
+- `SCREENS_DIR="$RUN/act-login" node verify/driver.mjs act --head "$PREVIEW" --base "$REFERENCE" --path / --press l`
 
-Exit codes: doctor 1, page 0, compare 0, act 0.
+Exit codes: doctor 1, page 0, compare 0, act-plans 0, act-login 0.
 
 ## Doctor
 
@@ -66,8 +67,8 @@ doctor: 4 check(s) failed
 - head canonical https://hypertask.ai/
 - head robots index, follow, base robots index, follow
 - head text lines 84, base text lines 84
-- head console errors [], page errors []
-- head failed requests []
+- head console errors [], page errors [], failed requests []
+- head images 11, head links 24
 
 ## Home hero, compare
 
@@ -80,18 +81,18 @@ doctor: 4 check(s) failed
 - linksOutsideHeadBase: 10
 - imagesOutsideHeadBase: 11
 
-## Plans act (extra, to exercise the action path)
+## Acts, to exercise the action path
 
-- action: click role=button[name="Pay monthly"] at 1440
-- head url https://hypertask.ai/ratstack/ status 200
-- base url https://hypertask.ai/ status 200
-- addedInHead 0, missingFromHead 0
+- click role=button[name="Pay monthly"] at 1440: head 200 base 200, addedInHead 0, missingFromHead 0
 - head price lines after the click: ['$0', '$10', 'billed monthly', '$20', 'billed monthly']
+- press l at 1440: head https://app.hypertask.ai/login 200, base https://app.hypertask.ai/login 200, addedInHead 0, missingFromHead 0
 
 ## Verdict
 
 FAIL. The doctor reports four failed checks and none of them is a difference between the two sides: the preview at https://hypertask.ai/ratstack/ is not the rebuilt site yet. It answers with the old site's home page, carries `robots` `index, follow` instead of `noindex, follow`, has no `/ratstack/assets/` script or style, and no `publish-ratstack.yml` run has published the branch `site`.
 
-The visible difference is that both sides of every pair are the same old page: `head--1440-viewport.png` and `base--1440-viewport.png` are byte for byte the same file, and so are the 390 pixel pair and the full page pair. That is what an unpublished preview looks like, and the empty text diff above is not a pass.
+The visible difference is that both sides of every pair are the same old page: the two screenshots are byte for byte the same file. That is what an unpublished preview looks like, and the empty text diff above is not a pass.
 
-Two other things fail today and are a consequence of the same missing publish: `linksOutsideHeadBase` lists 10 links and `imagesOutsideHeadBase` lists 11 images, all of them site root addresses like `/pricing/` and `/images/landing/hero-1-board.png` that load the old site instead of the preview.
+The same missing publish also leaves `linksOutsideHeadBase` with 10 links and `imagesOutsideHeadBase` with 11 images, all of them site root addresses like `/pricing/` and `/images/landing/hero-1-board.png` that load the old site instead of the preview.
+
+Cleanup: the driver closed the browser it started in each run, and nothing else was started. This folder is the evidence and it is still here.
