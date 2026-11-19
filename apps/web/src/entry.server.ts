@@ -1,4 +1,5 @@
 import { Effect } from "effect";
+import { FetchHttpClient } from "effect/http";
 import {
   Rendered,
   Responded,
@@ -8,12 +9,14 @@ import {
 
 import { initialModel } from "./client/app/model.js";
 import { buildHead, pageHeads, siteOrigin } from "./features/head/index.js";
-import { view } from "./features/home/index.js";
+import { view as homeView } from "./features/home/index.js";
+import { useCaseViewFor, useCaseViews } from "./features/use-cases/index.js";
 import {
   homeAnswerHeaders,
   legacyAnswer,
   redirectResponse,
 } from "./hypertask/site-rules.js";
+import { relayPostHogFromRequest } from "./relay-posthog.js";
 
 type RenderDocument = typeof renderFoldkitDocument;
 
@@ -32,7 +35,7 @@ export const renderDocument: RenderDocument = (
   });
 };
 
-export const prerenderPaths = ["/"];
+export const prerenderPaths = ["/", ...useCaseViews.keys()];
 
 const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
   request: Request
@@ -43,6 +46,24 @@ const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
   if (redirect.kind === "redirect") {
     return Responded(redirectResponse(redirect.location, redirect.status));
   }
+
+  if (pathname.startsWith("/relay-8ddg/")) {
+    const relayed = yield* relayPostHogFromRequest(request).pipe(
+      Effect.provide(FetchHttpClient.layer)
+    );
+
+    const body = new Uint8Array(relayed.body);
+
+    return Responded(
+      new Response(body.buffer, {
+        headers: relayed.headers,
+        status: relayed.status,
+      })
+    );
+  }
+
+  const knownUseCase = useCaseViewFor(pathname);
+  const view = pathname === "/" ? homeView : (knownUseCase ?? homeView);
 
   if (request.method !== "GET" && request.method !== "HEAD") {
     return Responded(
@@ -58,7 +79,11 @@ const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
     view,
   });
 
-  return prerenderPaths.includes(pathname)
+  const isPrerenderedKnownPage =
+    (pathname === "/" || knownUseCase !== undefined) &&
+    prerenderPaths.includes(pathname);
+
+  return isPrerenderedKnownPage
     ? Rendered(application)
     : Rendered(application, { headers: homeAnswerHeaders });
 });
