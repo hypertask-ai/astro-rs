@@ -103,6 +103,8 @@ Until cutover the new site is published at https://hypertask.ai/ratstack and the
 | The new site answers only at the base path, on one Worker route, and the live site keeps every other address | `.github/workflows/publish-ratstack.yml` deploys the `hypertask-ratstack` Worker with exactly the route `hypertask.ai/ratstack*`, records the old site's answer before the deploy, and fails the job if that answer changes |
 | Every same-site link, asset, stylesheet, font and redirect stays under the base path | `scripts/check-base-path.ts` walks the built `apps/web/dist/client` in the publish workflow and fails naming the file and the owner |
 | Every response under the base path stays out of search until cutover | the same `SITE_BASE_PATH`: `X-Robots-Tag: noindex` from `headersFile`, the Worker response header from `sitePreviewResponse`, and the robots meta tag from `buildHead`; the publish smoke step fails without the header |
+| The publish job reads the Cloudflare secrets from the `ratstack-publish` environment, which is the only place they exist | `environment: ratstack-publish` on the `publish` job in `.github/workflows/publish-ratstack.yml`, and the first step that stops and names each missing secret |
+| Every file in `.github/workflows` is a valid workflow, so a bad workflow fails on the pull request instead of unseen at startup on a merge to `site` | the step `Lint every workflow file with actionlint` in the `checks` job of `.github/workflows/ci.yml`, which downloads actionlint 1.7.7 from its release, checks the pinned checksum before running it, and lints every workflow file |
 
 ## Fence (cheating is uncomfortable)
 
