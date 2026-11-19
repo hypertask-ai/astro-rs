@@ -3,9 +3,9 @@ import type { Document, Html, HtmlBuilder } from "foldkit/html";
 
 import type { AppMessage } from "../../client/app/message.js";
 import type { AppModel } from "../../client/app/model.js";
+import { siteBuilder } from "../../site-base.js";
 import { consentBanner } from "../consent/index.js";
 import { frame } from "../frame/index.js";
-import { siteBuilder } from "../../site-base.js";
 import { canonicalFor, pageHeads } from "../head/index.js";
 import { loginCta, useCasePages } from "./copy.js";
 import type { UseCaseLink, UseCaseModule, UseCasePage } from "./copy.js";
