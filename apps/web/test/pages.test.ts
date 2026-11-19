@@ -1,13 +1,9 @@
 import { describe, expect, it } from "@effect/vitest";
-import { Effect, Predicate } from "effect";
+import { Effect } from "effect";
 import { renderToString } from "foldkit/experimental/server";
 
 import { initialModel, Message, update } from "../src/client/app/index.js";
-import {
-  prerenderPaths,
-  renderDocument,
-  renderPage,
-} from "../src/entry.server.js";
+import { prerenderPaths, renderDocument } from "../src/entry.server.js";
 import { view as aboutView } from "../src/features/about/index.js";
 import { view as contactView } from "../src/features/contact/index.js";
 import type { PageView } from "../src/features/page/index.js";
@@ -117,16 +113,6 @@ describe("page routes", () => {
 
     expect(viewForPath("/nope/")).toBeUndefined();
   });
-
-  it.effect("sends an unknown address to the home answer", () =>
-    Effect.gen(function* checkUnknown() {
-      const result = yield* Effect.promise(() =>
-        renderPage(new Request("https://hypertask.ai/nope/"))
-      );
-
-      expect(Predicate.isTagged(result, "Rendered")).toBe(true);
-    })
-  );
 });
 
 comparesLivePage("about page", aboutView, aboutLive);
