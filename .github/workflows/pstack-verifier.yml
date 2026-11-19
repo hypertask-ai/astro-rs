@@ -312,7 +312,7 @@ jobs:
               echo "::notice::$side does not declare an alchemy dev preview, so its Worker preview is not available."
               return 1
             fi
-            env CI=1 NO_COLOR=1 TERM=dumb pnpm --dir "$tree" --filter @rat-stack/infra run dev > "$RUNNER_TEMP/$side-worker.log" 2>&1 &
+            env CI=1 NO_COLOR=1 TERM=dumb pnpm --dir "$tree" --filter @hypertask-site/infra run dev > "$RUNNER_TEMP/$side-worker.log" 2>&1 &
             pid="$!"
             printf '%s\n' "$pid" > "$RUNNER_TEMP/$side-worker.pid"
             for attempt in $(seq 1 180); do
