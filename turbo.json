@@ -36,7 +36,6 @@
     },
     "test": {
       "dependsOn": ["build"],
-      "env": ["SITE_BASE_PATH"],
       "outputs": []
     },
     "//#lint": {

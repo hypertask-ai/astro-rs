@@ -66,31 +66,18 @@ const articleTags = (page: PageHead): readonly string[] =>
         metaProperty("article:section", page.article.section),
       ];
 
-const robotsContent = (basePath: string, page: PageHead): string => {
-  if (basePath !== "") {
-    return "noindex, nofollow";
-  }
-
-  return page.noindex === true ? "noindex, follow" : "index, follow";
-};
-
-const iconHead = (basePath: string): readonly string[] => [
-  `<link rel="icon" type="image/png" href="${addSiteBasePath(basePath, "/Favicon%20-%20Light.png")}" media="(prefers-color-scheme: dark)">`,
-  `<link rel="icon" type="image/png" href="${addSiteBasePath(basePath, "/Favicon%20-%20Dark.png")}" media="(prefers-color-scheme: light)">`,
-  `<link rel="alternate" type="application/rss+xml" title="The Hypertask Blog" href="${addSiteBasePath(basePath, "/rss.xml")}">`,
-];
-
 export const buildHead = (
   path: string,
   page: PageHead,
   basePath = ""
 ): string => {
   const image = page.image ?? defaultImage;
+  const noindex = page.noindex === true || basePath !== "";
 
   return [
     ...(path === "/" ? [homeRedirect] : []),
     metaName("description", page.description),
-    metaName("robots", robotsContent(basePath, page)),
+    metaName("robots", noindex ? "noindex, follow" : "index, follow"),
     metaProperty("og:title", page.title),
     metaProperty("og:description", page.description),
     metaProperty("og:image", image.url),
@@ -105,6 +92,8 @@ export const buildHead = (
     metaName("twitter:image:alt", image.alt),
     jsonLd(organizationGraph),
     ...(page.extraStructuredData ?? []).map(jsonLd),
-    ...iconHead(basePath),
+    `<link rel="icon" type="image/png" href="${addSiteBasePath(basePath, "/Favicon%20-%20Light.png")}" media="(prefers-color-scheme: dark)">`,
+    `<link rel="icon" type="image/png" href="${addSiteBasePath(basePath, "/Favicon%20-%20Dark.png")}" media="(prefers-color-scheme: light)">`,
+    `<link rel="alternate" type="application/rss+xml" title="The Hypertask Blog" href="${addSiteBasePath(basePath, "/rss.xml")}">`,
   ].join("\n");
 };

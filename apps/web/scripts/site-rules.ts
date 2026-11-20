@@ -2,6 +2,11 @@ import { NodeServices } from "@effect/platform-node";
 import { Effect, FileSystem, Path } from "effect";
 
 import { headersFile, redirectsFile } from "../src/hypertask/site-rules.js";
+import { normalizeSiteBasePath } from "../src/site-base-path.js";
+
+export const siteBasePathAtBuild = normalizeSiteBasePath(
+  process.env.SITE_BASE_PATH
+);
 
 const indexPageSuffix = "/index.html";
 
@@ -18,7 +23,7 @@ export const prerenderedPagePaths = (
     );
 
 export const finalizeSiteRules = Effect.fn("site.finalizeSiteRules")(
-  function* finalizeSiteRules(clientDirectory: string, siteBasePath: string) {
+  function* finalizeSiteRules(clientDirectory: string) {
     const fs = yield* FileSystem.FileSystem;
     const path = yield* Path.Path;
 
@@ -34,12 +39,15 @@ export const finalizeSiteRules = Effect.fn("site.finalizeSiteRules")(
 
     yield* fs.writeFileString(
       `${clientDirectory}/_redirects`,
-      redirectsFile(prerenderedPagePaths(listing, path.sep), siteBasePath)
+      redirectsFile(
+        prerenderedPagePaths(listing, path.sep),
+        siteBasePathAtBuild
+      )
     );
 
     return yield* fs.writeFileString(
       headersPath,
-      headersFile(existingHeaders, siteBasePath)
+      headersFile(existingHeaders, siteBasePathAtBuild !== "")
     );
   },
   Effect.provide(NodeServices.layer)

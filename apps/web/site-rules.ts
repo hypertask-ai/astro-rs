@@ -3,7 +3,6 @@ import { Effect, Path } from "effect";
 import type { Plugin } from "vite";
 
 import { finalizeSiteRules } from "./scripts/site-rules.js";
-import { normalizeSiteBasePath } from "./src/site-base-path.js";
 
 export const siteRulesPlugin = (): Plugin => ({
   apply: "build",
@@ -21,8 +20,7 @@ export const siteRulesPlugin = (): Plugin => ({
           const path = yield* Path.Path;
 
           yield* finalizeSiteRules(
-            path.resolve(client.config.root, client.config.build.outDir),
-            normalizeSiteBasePath(client.config.base)
+            path.resolve(client.config.root, client.config.build.outDir)
           );
         }).pipe(Effect.provide(NodeServices.layer))
       );
