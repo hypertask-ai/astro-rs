@@ -16,7 +16,7 @@ import {
   images,
   linkTargets,
   visibleText,
-} from "./home-page.js";
+} from "./page-facts.js";
 
 const assets = {
   entryScript: "/assets/entry.js",
@@ -145,9 +145,7 @@ describe("legal page routes", () => {
   const addresses = ["/privacy/", "/terms/"];
 
   it("prerenders both pages this step owns", () => {
-    expect(prerenderPaths.toSorted()).toEqual(
-      ["/", "/privacy/", "/terms/"].toSorted()
-    );
+    expect(prerenderPaths).toEqual(expect.arrayContaining(addresses));
   });
 
   it("answers each page address with its own view", () => {

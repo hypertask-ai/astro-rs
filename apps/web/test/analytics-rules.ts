@@ -1,4 +1,4 @@
-import { visibleText } from "./home-page.js";
+import { visibleText } from "./page-facts.js";
 import { tagsOf } from "./site-contract/html.js";
 
 export interface BuiltPage {
