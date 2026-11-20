@@ -1,24 +1,65 @@
-# Feature map: hypertask.ai
+# hypertask.ai verification map
 
-One row per user-visible function of the marketing site, with the address to try and what to look for. Built from the parts list on HTPR-9124 and the 117 addresses the parity manifest checks: 52 sitemap pages, 59 blog tag pages and 6 plain files. The live old site is the look and content reference and is read with GET only.
+This directory is the maintained source for proving that the rebuilt hypertask.ai looks, reads and behaves like the old live site. Read the index before driving, then use the matching feature file as the recipe. One map, one driver: `verify/driver.mjs` is the harness for every run, and no feature file carries its own copy of it.
 
-A verifier run serves each side in up to two ways, and the `serve:` line of the verdict says which answered:
+Built from the parts list on HTPR-9124 and the 117 addresses the parity manifest checks: 52 sitemap pages, 59 blog tag pages and 6 plain files. The old live site is the look and content reference and is read with GET only.
 
-- static, the built files a deploy uploads: head `$SITE_URL` (default `http://127.0.0.1:4173`), parent `$BASE_URL` (default `http://127.0.0.1:4174`)
-- the repo's own Worker preview, `pnpm --filter @rat-stack/infra dev` (`alchemy dev`), when that commit has the script and it answers: head `$SITE_WORKER_URL`, parent `$BASE_WORKER_URL`
-- live, `https://hypertask.ai`, the reference for look and content of pages a pull request claims
+## Baseline preconditions
 
-Use the static files for pages, text, links and assets. Use the Worker preview for redirects, headers, trailing slashes and the status of an unknown address, because that is where the Website Worker rules run. If the preview did not answer, state that the rule could not be judged and read the checkout.
+- Two run modes, one driver.
 
-The driver opens every path at 1440 and 390 pixels wide, records the status, title, headings, links, fonts, visible text, console errors, page errors and failed requests, and writes screenshots plus a text file.
+  - A preview run compares the two live hosts: the reference, old `https://hypertask.ai/`, and the preview, new `https://hypertask.ai/ratstack/`. Both are GET only. This is the mode `verify-astro-rs` uses.
+  - A pull request run compares the built head files at `$SITE_URL` (default `http://127.0.0.1:4173`) against the built parent files at `$BASE_URL` (default `http://127.0.0.1:4174`). This is the mode the Verifier workflow uses.
 
-```sh
-node verify/driver.mjs page --head "$SITE_URL" --base "$BASE_URL" --path / --path /pricing/ --path /blog/
-node verify/driver.mjs compare --head "$SITE_URL" --base "$BASE_URL" --path /pricing/
-node verify/driver.mjs probe --head "${SITE_WORKER_URL:-$SITE_URL}" --base "${BASE_WORKER_URL:-$BASE_URL}" --path /v2 --path /no-such-page
-```
+- The repo's own Worker preview, `pnpm --filter @hypertask-site/web dev` through `apps/infra`, answers redirects, headers, trailing slashes and the status of an unknown address when it is started. The static files answer none of those, so a rule that depends on the Worker is judged there or not at all.
+- Chromium is installed under `~/.cache/ms-playwright` and Playwright resolves from `verify/node_modules`.
+- Run `.claude/skills/verify-astro-rs/scripts/doctor.mjs` before a preview run and require it to pass. A failed doctor is a failed run, not a reason to weaken a journey. Until the publish workflow has run on `site`, the preview answers with the old site's home page, so an empty diff there is not a pass.
+- Literal commands. Keep every selector, flag and quoted name exactly as written.
+- Evidence goes to `$EVIDENCE_ROOT` from the doctor, outside the clone. Never drive a page with POST, never send a form or a chat message, never sign in.
 
-## Pages and shared parts
+## Driving conventions
+
+- Start every recipe from the baseline state unless its preconditions say otherwise.
+- Prefer stable handles in this order: id, ARIA role and accessible name, exact visible text. Never coordinates.
+- Drive both hosts with the same command and the same selector. The old site and the new site share the same ids and ARIA names, so one command covers both.
+- The preview is served under `/ratstack` and the old site is not. `compare` strips that base path from the head side before diffing, and names anything that still points at the site root in `linksOutsideHeadBase` and `imagesOutsideHeadBase`. Both lists must be empty: a hit there loads the old site's file instead of the preview's own.
+- Every run closes only the browser it started. Never kill a browser by process name.
+- The driver grants `clipboard-read` and `clipboard-write`, so a copy action is judged by the clipboard text it records, not by the label alone.
+- Restore seeded state after a mutation. A rejected cookie choice is restored by clearing the `hypertask-consent` key, not by editing the page.
+
+## Proof and skip reporting
+
+- Capture the user action and the resulting state, not only the final screen.
+- Page proof includes the response status, the head tags (title, description, canonical, robots), the visible text, the link list, the image list, and a screenshot at 1440 and at 390 pixels wide.
+- `robots` differs on purpose: the preview says `noindex, follow` so it stays out of search results, and the old site says `index, follow`. Title, description and canonical must be equal, and the canonical keeps the public address `https://hypertask.ai/...`, never `/ratstack/...`.
+- Action proof includes the selector or key that was used, and the text that appeared or disappeared on both sides.
+- Record the feature id and the entry point used with every artifact.
+- Report an unreachable path with the attempted command and the unmet precondition.
+- Do not report a skipped entry point as verified through a different path.
+- A page missing from both the preview and the old live site is a note for the step that owns it. A feature that works on the old live site and is missing or different on the preview is a failure.
+
+## Feature entry contract
+
+Each feature file starts with an H1 title and one paragraph describing the user-visible behavior. It then uses exactly four H2 sections in this order.
+
+1. `Sub-features` lists short ids with one line for each behavior.
+2. `How to get to it (user POV)` lists every user entry point.
+3. `Driving it with the astro-rs driver` starts with `Preconditions:` and pairs each user action with an exact command and an observable result.
+4. `Gotchas` lists traps that can waste or invalidate a run.
+
+Keep implementation details out of the map. Name only user paths, stable handles, required state, commands and observable proof.
+
+## Features
+
+- [Home hero](./home-hero.md) covers the first screen, its two calls to action and the agent logos.
+- [Install block](./install-block.md) covers the three install tabs, the command shown, and the copy button.
+- [Plans](./plans.md) covers the three plans, the billing period switch and the prices it changes.
+- [Shared frame](./shared-frame.md) covers the header, the mobile menu, the footer, the cookie banner and the site's own look.
+- [Blog](./blog.md) covers the blog list, a post and a tag page.
+
+## Feature table
+
+One row per user-visible function of the site, with the address to try and what to look for. The `owner` column is the step on HTPR-9124 that lands it.
 
 | id | feature | try | look for | owner |
 | --- | --- | --- | --- | --- |
@@ -45,7 +86,7 @@ node verify/driver.mjs probe --head "${SITE_WORKER_URL:-$SITE_URL}" --base "${BA
 | F21 | Blog list | `/blog/` | H1, post cards in the same order, covers, dates and tag chips, all 59 tag links | 10 |
 | F22 | Thirty-eight blog posts | `/blog/<slug>/` for each of the 38 slugs below | Title, description, date, author, cover, body word for word, contents list, related posts at the end | 9 |
 | F23 | Fifty-nine blog tag pages | `/blog/tags/<tag>/` for each tag below | Tag name as the heading, the same posts in the same order, the same header and footer | 10 |
-| F24 | Page head and social cards | every page | The exact live title for that page, with the same ending and the same wording, no suffix added or dropped; the description, a canonical with the trailing slash, `robots`, Open Graph title, description, image, url, type and site name, Twitter summary card with large image, the RSS alternate link | 11 |
+| F24 | Page head and social cards | every page | The exact live title for that page, with the same ending and the same wording, no suffix added or dropped; the description, a canonical with the trailing slash, `robots` (`noindex, follow` on the preview, `index, follow` on the old site), Open Graph title, description, image, url, type and site name, Twitter summary card with large image, the RSS alternate link | 11 |
 | F25 | JSON-LD | every page | One `application/ld+json` block with Organization, WebSite and SoftwareApplication as live; blog posts add Article | 11 |
 | F26 | Fathom visits | every page | The Fathom script `https://cdn.usefathom.com/script.js` with site id `SSBYTYUQ`, once, deferred | 12 |
 | F27 | Sign up click event | any page | A click on a link whose address starts `https://app.hypertask.ai` sends `Sign up click` to Fathom; other clicks do not | 12 |

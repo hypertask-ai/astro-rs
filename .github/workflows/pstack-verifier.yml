@@ -446,12 +446,12 @@ jobs:
             - node verify/driver.mjs page --head "$SITE_URL" --base "$BASE_URL" --path /pricing/ --path /blog/
             - node verify/driver.mjs compare --head "$SITE_URL" --base "$BASE_URL" --path /pricing/
             - node verify/driver.mjs probe --head "${SITE_WORKER_URL:-$SITE_URL}" --base "${BASE_WORKER_URL:-$BASE_URL}" --path /v2 --path /no-such-page
-          - verify/feature-map.md lists every user-visible feature of hypertask.ai with the address to try and what to look for. Work down it for the pages this change touches.
+          - .claude/skills/verify-astro-rs/features/README.md lists every user-visible feature of hypertask.ai with the address to try and what to look for, and one file per top feature beside it. Work down it for the pages this change touches.
           - The change under review, its title, its body, the files it touches and its diff, is at the end of this prompt.
 
           ## What to do
           1. Read the pull request's title and body, and name what it claims. Read the diff, then name what a reader would notice.
-          2. Drive the parent site and the head site like a user, the same way for both. Use verify/feature-map.md for the addresses. Compare what each one shows: title, headings, text, navigation, links, styles, the phone layout at 390 pixels, and the browser console.
+          2. Drive the parent site and the head site like a user, the same way for both. Use .claude/skills/verify-astro-rs/features/ for the addresses. Compare what each one shows: title, headings, text, navigation, links, styles, the phone layout at 390 pixels, and the browser console.
           3. Take the live old site $LIVE_URL as the reference for look and content when the parent build and the live site disagree, for pages this pull request claims.
           4. Try to break it. Unknown paths, a trailing slash, an old address, an asset that returns 404, text that differs from the live page, a font or colour or size or corner that differs, a link that goes nowhere, a JavaScript error, a layout that breaks on a phone, a control you cannot reach with the keyboard.
           5. Keep what you used as evidence: the pages you fetched, the text you compared, the screenshots you took, the driver reports.

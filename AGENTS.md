@@ -92,9 +92,21 @@ Cut from the template, each because this site does not use it: `apps/cli` (no CL
 
 Run `pnpm fix` only when you intend to rewrite files. Finish with `pnpm turbo run check test build`.
 
+Verification: [verify-astro-rs](/.claude/skills/verify-astro-rs/SKILL.md) proves the live preview at `https://hypertask.ai/ratstack/` matches the old site, and `node .claude/skills/verify-astro-rs/scripts/doctor.mjs` says whether it is worth driving.
+
 ## Deploy
 
 Follow [ship](/skills/ship) and `skills/ship/references/project.md` for deployment commands, approval, checks, and recovery.
+
+Until cutover the new site is published at https://hypertask.ai/ratstack and the old site keeps every other address. `SITE_BASE_PATH` is the one owner of where the site is served: it sets the Vite base, the `_redirects` and `_headers` rules, the noindex markers and the single Worker route, and it is empty at the origin root.
+
+| Rule | Enforced by |
+| --- | --- |
+| The new site answers only at the base path, on one Worker route, and the live site keeps every other address | `.github/workflows/publish-ratstack.yml` deploys the `hypertask-ratstack` Worker with exactly the route `hypertask.ai/ratstack*`, records the old site's answer before the deploy, and fails the job if that answer changes |
+| Every same-site link, asset, stylesheet, font and redirect stays under the base path | `scripts/check-base-path.ts` walks the built `apps/web/dist/client` in the publish workflow and fails naming the file and the owner |
+| Every response under the base path stays out of search until cutover | the same `SITE_BASE_PATH`: `X-Robots-Tag: noindex` from `headersFile`, the Worker response header from `sitePreviewResponse`, and the robots meta tag from `buildHead`; the publish smoke step fails without the header |
+| The publish job reads the Cloudflare secrets from the `ratstack-publish` environment, which is the only place they exist | `environment: ratstack-publish` on the `publish` job in `.github/workflows/publish-ratstack.yml`, and the first step that stops and names each missing secret |
+| Every file in `.github/workflows` is a valid workflow, so a bad workflow fails on the pull request instead of unseen at startup on a merge to `site` | the step `Lint every workflow file with actionlint` in the `checks` job of `.github/workflows/ci.yml`, which downloads actionlint 1.7.7 from its release, checks the pinned checksum before running it, and lints every workflow file |
 
 ## Fence (cheating is uncomfortable)
 
@@ -139,6 +151,10 @@ Preserve existing work. Inspect status before editing, stage only files changed 
 
 Product rules for the hypertask.ai marketing site. The fence rules below are enforced by lint and hooks and stay exactly as the template ships them. Product intent lives in `VISION.md`.
 
+| Rule | Enforced by |
+| --- | --- |
+| Every customer facing page loads Fathom; no page names Google Analytics. | `apps/web/test/analytics-on-every-page.test.ts` |
+
 - Same address, same pages, same links, same look. The 38 blog addresses, the sitemap, the feed, the redirects and the install scripts are a public contract with search engines and installers. A change that moves or drops one is a bug, not a cleanup.
 - The site keeps its own look. Colours, sizes, fonts and corners come from the old site and arrive in the page-frame step (HTPR-9139). Never copy Rat Stack's look, and never invent a value. The 2px and 4px corner rule belongs to app.hypertask.ai, not to this site.
 - No database, no sign-in, no timed jobs, no visitor accounts. If a change needs one, stop and ask at rung 3.
@@ -149,7 +165,7 @@ Product rules for the hypertask.ai marketing site. The fence rules below are enf
 - Cookie choices are an XState machine started under `createEffectActor`. No analytics tag loads before its choice is stored.
 - Fathom and the Sign up click are a Foldkit command. Analytics relays are an Effect HTTP client behind a capability.
 - Fonts and media are self-hosted files. No outside font or script tag without a written owner and reason in the ticket that adds it. The help chat script is the one kept outside script, with its reason on HTPR-9124.
-- Nothing is built or tested on our servers. Build, check, test and publish run only in GitHub-hosted Actions. Publishing happens on every merge to `main`.
+- Nothing is built or tested on our servers. Build, check, test and publish run only in GitHub-hosted Actions. Publishing happens on every merge to `site`, the default branch, through `.github/workflows/publish-ratstack.yml`.
 - One contract, every surface. Define schemas and metadata with `defineContract`; bind a server-side handler with `implement` and add the capability to `capabilities`. Do not add a route or tool handler that bypasses a capability.
 - Schemas are the contract. Input, output and failure are Effect `Schema`; derived documents are never hand-written.
 - Lifecycles are machines. Finite modes, retries and cancellation live in XState machines started with `createEffectActor`; side effects live in declared `createEffectLogic` actors, never inline.
