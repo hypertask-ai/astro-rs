@@ -1,0 +1,811 @@
+{
+  "source": {
+    "bytes": 58404,
+    "fetchedAt": "2026-11-15T12:12:09.378Z",
+    "method": "GET",
+    "sha256": "63e1d0e605f2e113f716dc1566a59fe11eb71955210543fe62b7767ee5445237",
+    "status": 200,
+    "url": "https://hypertask.ai/blog/reclaim-ai-alternative/"
+  },
+  "address": "/blog/reclaim-ai-alternative/",
+  "head": {
+    "canonical": "https://hypertask.ai/blog/reclaim-ai-alternative/",
+    "meta": {
+      "description": "Compare six Reclaim AI alternatives for auto-scheduling, time blocking, task capture, team calendars, and AI-agent project work. Pick your best fit.",
+      "robots": "index, follow",
+      "og:title": "Reclaim AI alternative: six options by workflow — Hypertask Blog",
+      "og:description": "Compare six Reclaim AI alternatives for auto-scheduling, time blocking, task capture, team calendars, and AI-agent project work. Pick your best fit.",
+      "og:image": "https://hypertask.ai/images/blog/comparison-split.webp",
+      "og:image:alt": "Reclaim AI alternative comparison across automatic scheduling, daily planning, task capture, and shared agent work",
+      "og:url": "https://hypertask.ai/blog/reclaim-ai-alternative/",
+      "og:type": "article",
+      "og:site_name": "Hypertask",
+      "twitter:card": "summary_large_image",
+      "twitter:title": "Reclaim AI alternative: six options by workflow — Hypertask Blog",
+      "twitter:description": "Compare six Reclaim AI alternatives for auto-scheduling, time blocking, task capture, team calendars, and AI-agent project work. Pick your best fit.",
+      "twitter:image": "https://hypertask.ai/images/blog/comparison-split.webp",
+      "twitter:image:alt": "Reclaim AI alternative comparison across automatic scheduling, daily planning, task capture, and shared agent work",
+      "article:published_time": "2026-09-15T00:00:00.000Z",
+      "article:modified_time": "2026-09-15T00:00:00.000Z",
+      "article:author": "https://hypertask.ai/about/",
+      "article:section": "Tool Comparisons"
+    },
+    "title": "Reclaim AI alternative: six options by workflow — Hypertask Blog"
+  },
+  "structuredData": [
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://hypertask.ai/#organization",
+          "name": "Hypertask",
+          "legalName": "Hypertask Lab Ltd.",
+          "url": "https://hypertask.ai",
+          "description": "Hypertask is a project management platform where humans and AI agents share one board. Native MCP server and CLI access let autonomous agents read tasks, claim work, post progress, and update tickets without a human relaying every step.",
+          "knowsAbout": [
+            "AI agents",
+            "project management",
+            "Model Context Protocol",
+            "task management",
+            "AI work attribution",
+            "asynchronous collaboration"
+          ],
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://hypertask.ai/hypertasklogo.avif"
+          },
+          "founder": {
+            "@type": "Person",
+            "@id": "https://hypertask.ai/#founder",
+            "name": "Valentin Yeo",
+            "jobTitle": "Founder"
+          },
+          "sameAs": ["https://www.npmjs.com/package/@hypertask/hypertask_cli"],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "url": "https://hypertask.ai/contact/"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://hypertask.ai/#website",
+          "url": "https://hypertask.ai",
+          "name": "Hypertask",
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://hypertask.ai/#software",
+          "name": "Hypertask",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "url": "https://hypertask.ai",
+          "description": "AI-powered project management where humans and AI agents share one board. Voice-to-task, smart summaries, keyboard-first navigation, native MCP integration.",
+          "screenshot": "https://hypertask.ai/mainscreen.avif",
+          "featureList": [
+            "Shared board for humans and AI agents",
+            "Native MCP server (15 tools)",
+            "Agent-optimized CLI",
+            "Voice-to-task capture",
+            "Smart task summaries",
+            "Keyboard-first navigation",
+            "Inbox and approval gates for agent work"
+          ],
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          },
+          "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "USD",
+            "lowPrice": "0",
+            "highPrice": "25",
+            "offerCount": "3"
+          }
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "headline": "Reclaim AI alternative: six options by workflow",
+          "description": "Compare six Reclaim AI alternatives for auto-scheduling, time blocking, task capture, team calendars, and AI-agent project work. Pick your best fit.",
+          "datePublished": "2026-09-15T00:00:00.000Z",
+          "dateModified": "2026-09-15T00:00:00.000Z",
+          "author": {
+            "@type": "Person",
+            "name": "Valentin Yeo",
+            "url": "https://hypertask.ai/about/"
+          },
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://hypertask.ai/blog/reclaim-ai-alternative/"
+          },
+          "image": "https://hypertask.ai/images/blog/comparison-split.webp",
+          "keywords": "reclaim-ai, reclaim-ai-alternative, tool-comparison, calendar, ai-agents"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://hypertask.ai/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://hypertask.ai/blog/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Reclaim AI alternative: six options by workflow",
+              "item": "https://hypertask.ai/blog/reclaim-ai-alternative/"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is the best Reclaim AI alternative?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Motion is the closest starting point for automatic task scheduling. Sunsama fits intentional daily planning, Akiflow fits task capture and time blocking, Morgen fits multi-calendar control, Routine fits a personal calendar-and-notes workspace, and Hypertask fits shared execution by people and external agents."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is there a free Reclaim AI alternative?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Reclaim itself has a Free plan. Several alternatives also offer free access or trials, but plan limits change. Compare the exact calendars, integrations, team features, and scheduling behavior you need rather than choosing on the presence of a free tier."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is Motion better than Reclaim AI?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Motion may be better when you want project tasks placed on calendars automatically and adjusted around capacity. Reclaim may be better when focus, habits, meetings, buffers, and calendar optimization are the main jobs. Test both on the same difficult week."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Reclaim automatically schedule tasks?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The answer depends on the Reclaim version. Its official 2.0 overview says connected tasks are suggested during focus time rather than automatically scheduled. Confirm the version and task behavior in your account because older articles may describe Reclaim 1.0."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can Hypertask replace Reclaim AI?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Not as a calendar optimizer. Hypertask does not automatically schedule focus, habits, or meetings. It can replace or complement the shared project layer when people and external agents need ownership, task status, evidence, and human review."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I use Reclaim with a separate project tool?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Reclaim integrates with several task products, and a team can keep project status in one board while Reclaim manages personal calendar time. Decide which system owns status and test sync behavior before connecting a large workspace."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Which Reclaim alternative works with external AI agents?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Several products now have AI and integration options. Hypertask's specific fit is a shared task lifecycle exposed through first-party CLI and MCP, with separate agent identities and a human review inbox. Test the exact actions, permissions, and audit trail your agents need."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "headings": [
+    {
+      "id": "",
+      "level": 1,
+      "text": "Reclaim AI alternative: six options by workflow"
+    },
+    {
+      "id": "reclaim-ai-and-six-alternatives-compared",
+      "level": 2,
+      "text": "Reclaim AI and six alternatives compared"
+    },
+    {
+      "id": "first-understand-reclaims-current-model",
+      "level": 2,
+      "text": "First understand Reclaim’s current model"
+    },
+    {
+      "id": "pick-the-job-before-the-product",
+      "level": 2,
+      "text": "Pick the job before the product"
+    },
+    {
+      "id": "automatic-task-scheduling",
+      "level": 3,
+      "text": "Automatic task scheduling"
+    },
+    {
+      "id": "intentional-daily-planning",
+      "level": 3,
+      "text": "Intentional daily planning"
+    },
+    {
+      "id": "fast-capture-from-several-task-tools",
+      "level": 3,
+      "text": "Fast capture from several task tools"
+    },
+    {
+      "id": "multi-calendar-control",
+      "level": 3,
+      "text": "Multi-calendar control"
+    },
+    {
+      "id": "calendar-plus-personal-knowledge",
+      "level": 3,
+      "text": "Calendar plus personal knowledge"
+    },
+    {
+      "id": "shared-work-for-people-and-agents",
+      "level": 3,
+      "text": "Shared work for people and agents"
+    },
+    {
+      "id": "motion-for-automatic-project-scheduling",
+      "level": 2,
+      "text": "Motion for automatic project scheduling"
+    },
+    {
+      "id": "sunsama-for-a-deliberate-daily-plan",
+      "level": 2,
+      "text": "Sunsama for a deliberate daily plan"
+    },
+    {
+      "id": "akiflow-for-capture-and-time-blocking",
+      "level": 2,
+      "text": "Akiflow for capture and time blocking"
+    },
+    {
+      "id": "morgen-for-multi-calendar-control",
+      "level": 2,
+      "text": "Morgen for multi-calendar control"
+    },
+    {
+      "id": "routine-for-calendar-tasks-and-notes",
+      "level": 2,
+      "text": "Routine for calendar, tasks, and notes"
+    },
+    {
+      "id": "hypertask-for-shared-agent-execution",
+      "level": 2,
+      "text": "Hypertask for shared agent execution"
+    },
+    {
+      "id": "who-should-stay-with-reclaim",
+      "level": 2,
+      "text": "Who should stay with Reclaim"
+    },
+    {
+      "id": "run-a-one-week-pilot",
+      "level": 2,
+      "text": "Run a one-week pilot"
+    },
+    {
+      "id": "migration-and-coexistence",
+      "level": 2,
+      "text": "Migration and coexistence"
+    },
+    {
+      "id": "frequently-asked-questions",
+      "level": 2,
+      "text": "Frequently Asked Questions"
+    },
+    {
+      "id": "what-is-the-best-reclaim-ai-alternative",
+      "level": 3,
+      "text": "What is the best Reclaim AI alternative?"
+    },
+    {
+      "id": "is-there-a-free-reclaim-ai-alternative",
+      "level": 3,
+      "text": "Is there a free Reclaim AI alternative?"
+    },
+    {
+      "id": "is-motion-better-than-reclaim-ai",
+      "level": 3,
+      "text": "Is Motion better than Reclaim AI?"
+    },
+    {
+      "id": "does-reclaim-automatically-schedule-tasks",
+      "level": 3,
+      "text": "Does Reclaim automatically schedule tasks?"
+    },
+    {
+      "id": "can-hypertask-replace-reclaim-ai",
+      "level": 3,
+      "text": "Can Hypertask replace Reclaim AI?"
+    },
+    {
+      "id": "can-i-use-reclaim-with-a-separate-project-tool",
+      "level": 3,
+      "text": "Can I use Reclaim with a separate project tool?"
+    },
+    {
+      "id": "which-reclaim-alternative-works-with-external-ai-agents",
+      "level": 3,
+      "text": "Which Reclaim alternative works with external AI agents?"
+    },
+    {
+      "id": "",
+      "level": 2,
+      "text": "Keep reading"
+    }
+  ],
+  "visibleText": [
+    "Skip to content",
+    "Hypertask",
+    "Pricing",
+    "Blog",
+    "Docs",
+    "Help",
+    "Login",
+    "Press",
+    "L",
+    "to log in",
+    "Start free",
+    "Start free",
+    "☰",
+    "Home",
+    "/",
+    "Blog",
+    "Tool Comparisons",
+    "Reclaim AI alternative: six options by workflow",
+    "Compare six Reclaim AI alternatives for auto-scheduling, time blocking, task capture, team calendars, and AI-agent project work. Pick your best fit.",
+    "Valentin Yeo",
+    "September 15, 2026",
+    "On this page",
+    "Reclaim AI and six alternatives compared",
+    "First understand Reclaim’s current model",
+    "Pick the job before the product",
+    "Automatic task scheduling",
+    "Intentional daily planning",
+    "Fast capture from several task tools",
+    "Multi-calendar control",
+    "Calendar plus personal knowledge",
+    "Shared work for people and agents",
+    "Motion for automatic project scheduling",
+    "Sunsama for a deliberate daily plan",
+    "Akiflow for capture and time blocking",
+    "Morgen for multi-calendar control",
+    "Routine for calendar, tasks, and notes",
+    "Hypertask for shared agent execution",
+    "Who should stay with Reclaim",
+    "Run a one-week pilot",
+    "Migration and coexistence",
+    "Frequently Asked Questions",
+    "What is the best Reclaim AI alternative?",
+    "Is there a free Reclaim AI alternative?",
+    "Is Motion better than Reclaim AI?",
+    "Does Reclaim automatically schedule tasks?",
+    "Can Hypertask replace Reclaim AI?",
+    "Can I use Reclaim with a separate project tool?",
+    "Which Reclaim alternative works with external AI agents?",
+    "The best Reclaim AI alternative depends on which part of Reclaim you need to replace. Motion is the closest place to start for automatic task scheduling. Sunsama fits a deliberate daily-planning ritual. Akiflow is strong for fast task capture and calendar planning. Morgen emphasizes calendar control. Routine combines calendar, tasks, and personal knowledge. Hypertask fits a different job: shared execution by people and external AI agents.",
+    "That last distinction matters. Hypertask does not optimize a calendar, so it is not a direct replacement for Reclaim’s Focus Time, Habits, Smart Meetings, or scheduling agents. It becomes relevant when the problem has moved beyond “when should I do this?” to “who owns this work, what changed, and what needs human review?”",
+    "Use the comparison below to pick by workflow instead of choosing the product with the longest feature list.",
+    "Reclaim AI and six alternatives compared",
+    "Product",
+    "Product center",
+    "Scheduling style",
+    "Best fit",
+    "Main tradeoff",
+    "Reclaim AI",
+    "Calendar optimization for people and teams",
+    "AI agents protect focus, maintain habits, manage buffers, and schedule meetings",
+    "People and companies that want the calendar to adapt automatically",
+    "The calendar is not a full shared project record",
+    "Motion",
+    "Projects, tasks, and calendar planning",
+    "Automatically plans tasks around calendar capacity",
+    "Teams that want tasks and schedules in one system",
+    "Automatic planning can feel more prescriptive than manual control",
+    "Sunsama",
+    "Guided daily planning",
+    "User chooses tasks, estimates them, and timeboxes a realistic day",
+    "Professionals who want a calmer planning ritual",
+    "Lighter shared-project and reporting depth",
+    "Akiflow",
+    "Universal task capture and time blocking",
+    "Fast capture followed by hands-on daily planning",
+    "Power users consolidating tasks from several sources",
+    "Personal planning remains the center of the product",
+    "Morgen",
+    "Multi-calendar planning",
+    "Calendar consolidation with AI assistance and user approval",
+    "People managing several calendars who want control before changes",
+    "Less centered on broad team-project execution",
+    "Routine",
+    "Calendar, tasks, notes, and personal workflows",
+    "Manual planning with an integrated personal workspace",
+    "People who want schedule and knowledge in one app",
+    "Not a direct shared agent-project system",
+    "Hypertask",
+    "Shared task execution by people and external agents",
+    "Due dates and priorities, without automatic calendar planning",
+    "Small teams that need agent ownership, evidence, and human review",
+    "Requires another calendar tool for time optimization",
+    "Reclaim may still be the best choice. An alternatives page should make that possibility easy to see.",
+    "First understand Reclaim’s current model",
+    "Reclaim is an AI calendar system. It continuously allocates time across focus, routines, buffers, meetings, and other priorities.",
+    "Its",
+    "current pricing page",
+    "lists five AI Agents on the Free plan. These agents maintain Focus Time, Habits, Buffer Time, Smart Meetings, and Meeting Quality. Starter is listed at $12 per seat per month and adds more agents, scheduling links, and integrations. Team billing also has attendee rules for larger Smart Meetings, so test the exact participant model instead of comparing one seat price.",
+    "The core features solve specific calendar problems:",
+    "Focus Time protects a weekly goal around meetings and other events.",
+    "Habits find flexible time for recurring work or personal routines.",
+    "Buffer Time adds preparation and recovery around meetings.",
+    "Smart Meetings find and maintain workable times for recurring groups.",
+    "Scheduling Links expose availability while considering priorities.",
+    "Calendar Sync blocks conflicts across connected calendars.",
+    "Reclaim 2.0 changes how tasks fit. The official",
+    "Reclaim 2.0 overview",
+    "says connected tasks can appear as a prioritized list and Reclaim can suggest what to work on during focus time. It also notes that tasks are suggested rather than automatically scheduled in 2.0. If automatic task placement is the reason you are buying, confirm which product version and behavior your account has.",
+    "That version check is easy to miss. Many current comparison articles describe Reclaim’s older task workflow as if every account still works the same way.",
+    "Pick the job before the product",
+    "Most Reclaim searches begin with a vague complaint: too automatic, not automatic enough, expensive for a team, difficult to control, or too centered on the calendar. Turn that complaint into a testable job.",
+    "Automatic task scheduling",
+    "You want the product to choose when work happens and keep changing the plan as meetings or priorities move. Start with Motion. Confirm whether it schedules the task types and team workflow you use.",
+    "Intentional daily planning",
+    "You want help building a realistic day, but you want to make the decisions yourself. Start with Sunsama. Its planning and shutdown rituals are more important than the size of its feature list.",
+    "Fast capture from several task tools",
+    "You want one intake point, quick keyboard operation, and time blocking. Start with Akiflow. Connect the real tools that create your backlog before judging its Universal Inbox.",
+    "Multi-calendar control",
+    "You want several calendars in one view and prefer approval before an assistant moves the day. Start with Morgen. Test conflicts, travel, time zones, and the calendars that must remain private.",
+    "Calendar plus personal knowledge",
+    "You want tasks, notes, meetings, and routines close together. Start with Routine. Check whether the current product covers the integrations and platforms you depend on.",
+    "Shared work for people and agents",
+    "You need a project record with owners, task state, comments, evidence, and review. Start with Hypertask, or keep Reclaim as the personal calendar layer and add a shared board underneath it.",
+    "Motion for automatic project scheduling",
+    "Motion is the nearest starting point when the requirement is automatic scheduling rather than calendar defense alone.",
+    "Motion combines projects, tasks, workloads, and calendars. Its AI Project Manager builds plans, assigns work, updates schedules, and warns about delivery risk. Tasks compete for actual time instead of sitting in a list detached from the week.",
+    "Choose Motion when:",
+    "The team wants tasks placed on calendars automatically.",
+    "Deadlines and available hours should update the plan.",
+    "Workload should affect assignment and delivery forecasts.",
+    "A more prescriptive schedule is acceptable.",
+    "Test how the system behaves when estimates are wrong, an urgent task appears midday, or somebody ignores the proposed schedule. Automatic planning is valuable only if people trust the changes.",
+    "Motion is less useful as a direct answer to external-agent accountability. A scheduled agent task still needs an identity, current project context, evidence, and a human acceptance rule. Read the",
+    "Motion alternative comparison",
+    "for the calendar-versus-board distinction.",
+    "Sunsama for a deliberate daily plan",
+    "Sunsama is the option for people who want to slow the planning step down.",
+    "The product helps a user collect tasks from connected systems, choose what belongs today, estimate work, and place it around meetings. Its guided planning and daily shutdown are part of the product, not incidental onboarding.",
+    "Choose Sunsama when:",
+    "Overcommitment is the main problem.",
+    "You want to choose the day rather than accept an automatic schedule.",
+    "Time estimates and timeboxing improve follow-through.",
+    "A calm personal workflow matters more than deep team reporting.",
+    "Sunsama now lists AI, MCP, and connected actions in its current product. That makes it more capable than older comparisons suggest. Its center is still the professional’s day. Test shared ownership and reporting if several people must coordinate one project.",
+    "The",
+    "Sunsama alternative guide",
+    "compares that daily ritual with Hypertask’s shared execution model.",
+    "Akiflow for capture and time blocking",
+    "Akiflow combines a Universal Inbox with keyboard-driven planning. Tasks can arrive from several sources, then move into a daily plan and calendar.",
+    "Choose Akiflow when:",
+    "Tasks arrive from many apps and email.",
+    "Capture speed prevents work from falling through gaps.",
+    "You prefer direct control over time blocks.",
+    "Keyboard shortcuts matter throughout the day.",
+    "An AI assistant and MCP should act near the planning workflow.",
+    "Akiflow has its own AI assistant, Aki, and lists an MCP connector. Hypertask does not claim a unique MCP checkbox against it. The difference is what the connection operates: a personal planning system or a shared task lifecycle with agent identities and human review.",
+    "The",
+    "Akiflow alternative guide",
+    "includes a full workflow comparison and a migration test.",
+    "Morgen for multi-calendar control",
+    "Morgen is worth testing when calendar consolidation is the job.",
+    "It brings several calendars, scheduling, task integrations, and planning into one app. Its current Reclaim comparison emphasizes user approval and control around AI-assisted planning. That can suit somebody who wants suggestions without handing every change to an automatic scheduler.",
+    "Choose Morgen when:",
+    "Several calendars create conflicts or duplicate views.",
+    "You want one planning surface across those calendars.",
+    "Manual approval is important before the schedule changes.",
+    "Calendar privacy and account boundaries need close testing.",
+    "Connect the actual work and personal calendars during the trial. Check event visibility, time zones, duplicate events, travel, and what a colleague sees when booking you. A clean demo calendar does not expose the hard cases.",
+    "Routine for calendar, tasks, and notes",
+    "Routine positions itself beyond calendar defense. It combines calendar, tasks, notes, meeting workflows, reminders, and personal knowledge features.",
+    "Choose Routine when:",
+    "You want tasks and notes beside the calendar.",
+    "Meeting notes should turn into follow-up work.",
+    "A personal workspace is more useful than a team project suite.",
+    "You prefer manual control over an always-changing schedule.",
+    "Routine’s official",
+    "Reclaim comparison",
+    "is short and written from Routine’s point of view. Use it to understand the product claim, then test integrations, import, mobile support, and team behavior yourself.",
+    "Routine may replace more personal tools than Reclaim. That is useful only if its individual modules are strong enough for the work you already do.",
+    "Hypertask for shared agent execution",
+    "Hypertask belongs on this list for a category change, not calendar parity.",
+    "People and external AI agents share the same project board. Agents use a hosted MCP server in interactive clients or the first-party",
+    "@hypertask/hypertask_cli",
+    "package from terminals, CI jobs, scheduled processes, and autonomous workers. They can read current tasks, claim work, post progress, track time, attach evidence, and hand results to a human.",
+    "Each agent can have a distinct identity. A reviewer sees who changed status or posted the result. Assignments, mentions, blockers, and completion reports arrive in a task-anchored inbox instead of a general activity stream.",
+    "Choose Hypertask when:",
+    "Work has a shared owner and acceptance rule.",
+    "External agents perform tasks outside the calendar product.",
+    "The team needs both CLI and MCP access.",
+    "Evidence should remain on the task.",
+    "Human reviewers want one queue of decisions and finished work.",
+    "Do not choose Hypertask if automatic scheduling is non-negotiable. It has due dates and priorities, but it does not optimize calendar time. A practical setup can use Reclaim, Motion, Sunsama, Akiflow, or Morgen for personal planning while Hypertask owns shared project status.",
+    "The",
+    "multi-agent board field guide",
+    "explains claims, progress, review, and recovery. The broader",
+    "AI agents project management guide",
+    "covers identity, permissions, and board access.",
+    "Who should stay with Reclaim",
+    "Stay with Reclaim if its calendar agents solve the problem you actually have.",
+    "Reclaim is a strong fit when focus time disappears under meetings, recurring routines keep getting displaced, group scheduling creates manual work, or several calendars produce false availability. The product now treats those jobs as agents that continuously maintain the week.",
+    "Switching creates new setup work. You have to rebuild focus rules, working hours, habits, meeting priorities, buffers, calendar connections, and team behavior. A competitor needs to remove enough pain to justify that cost.",
+    "Before leaving, check whether the problem is a setting:",
+    "Are scheduling hours and custom hours correct?",
+    "Are priorities producing the expected tradeoffs?",
+    "Are flexible and locked events used deliberately?",
+    "Does each Smart Meeting have the right frequency and attendees?",
+    "Is the complaint about Reclaim 1.0 behavior while the account uses 2.0?",
+    "Is a team feature unavailable only because the current plan excludes it?",
+    "If the answer is configuration, a migration may be an expensive way to avoid one afternoon of cleanup.",
+    "Run a one-week pilot",
+    "Use a week that contains actual conflict. Include a deadline, a recurring meeting, a task that will overrun, a personal commitment, and one unexpected request.",
+    "For calendar-focused alternatives, measure:",
+    "Minutes spent planning and repairing the schedule.",
+    "Focus blocks kept versus moved or ignored.",
+    "Meetings rescheduled manually.",
+    "Tasks completed within the proposed block.",
+    "Context lost while moving tasks between systems.",
+    "For a shared project system, measure:",
+    "Tasks with a clear owner and current status.",
+    "Agent results returned with usable evidence.",
+    "Review time per completed task.",
+    "Updates copied through chat or email.",
+    "Duplicate actions after retries.",
+    "Do not average the two lists into one score. A calendar planner and a project board can both succeed because they remove different work.",
+    "Keep the pilot reversible. Connect only the calendars and project needed for the test. Export or record the starting rules. Do not invite the whole company until one person can explain why the new workflow is better.",
+    "Migration and coexistence",
+    "Calendar products contain more policy than they appear to. Before switching, record working hours, meeting windows, focus goals, habit rules, event priorities, buffers, calendar sync rules, task integrations, and scheduling links.",
+    "Move one category at a time. Start with focus time, daily tasks, or recurring meetings. Running two automatic schedulers against the same calendar can create a fight neither product understands.",
+    "If a project board joins the stack, define ownership:",
+    "Record",
+    "Owner",
+    "Shared outcome and status",
+    "Project task",
+    "Assignee and acceptance rule",
+    "Project task",
+    "Personal time block",
+    "Calendar planner",
+    "Meeting availability",
+    "Calendar planner",
+    "Agent runtime logs",
+    "Agent system",
+    "Final agent evidence",
+    "Project task",
+    "Pull assigned tasks into the planner if useful, but keep one authoritative status. The calendar decides when a person plans to act. The project board decides whether the shared work is complete.",
+    "Frequently Asked Questions",
+    "What is the best Reclaim AI alternative?",
+    "Motion is the closest starting point for automatic task scheduling. Sunsama fits intentional daily planning, Akiflow fits task capture and time blocking, Morgen fits multi-calendar control, Routine fits a personal calendar-and-notes workspace, and Hypertask fits shared execution by people and external agents.",
+    "Is there a free Reclaim AI alternative?",
+    "Reclaim itself has a Free plan. Several alternatives also offer free access or trials, but plan limits change. Compare the exact calendars, integrations, team features, and scheduling behavior you need rather than choosing on the presence of a free tier.",
+    "Is Motion better than Reclaim AI?",
+    "Motion may be better when you want project tasks placed on calendars automatically and adjusted around capacity. Reclaim may be better when focus, habits, meetings, buffers, and calendar optimization are the main jobs. Test both on the same difficult week.",
+    "Does Reclaim automatically schedule tasks?",
+    "The answer depends on the Reclaim version. Its official 2.0 overview says connected tasks are suggested during focus time rather than automatically scheduled. Confirm the version and task behavior in your account because older articles may describe Reclaim 1.0.",
+    "Can Hypertask replace Reclaim AI?",
+    "Not as a calendar optimizer. Hypertask does not automatically schedule focus, habits, or meetings. It can replace or complement the shared project layer when people and external agents need ownership, task status, evidence, and human review.",
+    "Can I use Reclaim with a separate project tool?",
+    "Yes. Reclaim integrates with several task products, and a team can keep project status in one board while Reclaim manages personal calendar time. Decide which system owns status and test sync behavior before connecting a large workspace.",
+    "Which Reclaim alternative works with external AI agents?",
+    "Several products now have AI and integration options. Hypertask’s specific fit is a shared task lifecycle exposed through first-party CLI and MCP, with separate agent identities and a human review inbox. Test the exact actions, permissions, and audit trail your agents need.",
+    "Keep Reclaim if calendar optimization is still the expensive problem. Choose another planning product only when its control model fits better.",
+    "If the bottleneck is shared work by people and external agents,",
+    "start with a free Hypertask board",
+    "and keep your calendar tool until the project workflow proves itself.",
+    "reclaim-ai",
+    "reclaim-ai-alternative",
+    "tool-comparison",
+    "calendar",
+    "ai-agents",
+    "VY",
+    "Valentin Yeo",
+    "Founder, Hypertask",
+    "Building Hypertask, the project board where humans and AI agents share one workspace. Writes about agent-driven, async project management from running it daily.",
+    "Run humans and AI agents on one board",
+    "Hypertask is project management built for the way teams work now — keyboard-first, async, agent-ready.",
+    "Start free",
+    "Keep reading",
+    "Tool Comparisons",
+    "What Is the Best AI Kanban Tool in 2026?",
+    "Compare six AI kanban tools for 2026, including Hypertask, Trello, Linear, ClickUp, Asana, and Notion, with pricing, honest limits, and a practical setup.",
+    "Tool Comparisons",
+    "Best Kanban Tool for CI/CD Teams: 6 Tools Compared",
+    "Compare Hypertask, GitHub Projects, Linear, Jira, Azure Boards, and Trello for continuous delivery, pull requests, agent workflows, and deployment handoffs.",
+    "Tool Comparisons",
+    "Best Kanban Tool for MCP: 5 Options for AI Agents",
+    "Compare five kanban tools with official MCP access for AI agents, including Hypertask, Trello, Linear, Jira and Notion, with practical setup steps.",
+    "Home",
+    "Pricing",
+    "Blog",
+    "Privacy",
+    "Cookie settings",
+    "Contact",
+    "Terms",
+    "Docs",
+    "Help",
+    "© 2026 Hypertask Lab Ltd."
+  ],
+  "links": [
+    "#main-content",
+    "/",
+    "/pricing/",
+    "/blog/",
+    "https://docs.hypertask.ai/",
+    "https://help.hypertask.ai/",
+    "https://app.hypertask.ai/login",
+    "https://app.hypertask.ai/login",
+    "https://app.hypertask.ai/login",
+    "/",
+    "/blog/",
+    "#reclaim-ai-and-six-alternatives-compared",
+    "#first-understand-reclaims-current-model",
+    "#pick-the-job-before-the-product",
+    "#automatic-task-scheduling",
+    "#intentional-daily-planning",
+    "#fast-capture-from-several-task-tools",
+    "#multi-calendar-control",
+    "#calendar-plus-personal-knowledge",
+    "#shared-work-for-people-and-agents",
+    "#motion-for-automatic-project-scheduling",
+    "#sunsama-for-a-deliberate-daily-plan",
+    "#akiflow-for-capture-and-time-blocking",
+    "#morgen-for-multi-calendar-control",
+    "#routine-for-calendar-tasks-and-notes",
+    "#hypertask-for-shared-agent-execution",
+    "#who-should-stay-with-reclaim",
+    "#run-a-one-week-pilot",
+    "#migration-and-coexistence",
+    "#frequently-asked-questions",
+    "#what-is-the-best-reclaim-ai-alternative",
+    "#is-there-a-free-reclaim-ai-alternative",
+    "#is-motion-better-than-reclaim-ai",
+    "#does-reclaim-automatically-schedule-tasks",
+    "#can-hypertask-replace-reclaim-ai",
+    "#can-i-use-reclaim-with-a-separate-project-tool",
+    "#which-reclaim-alternative-works-with-external-ai-agents",
+    "https://reclaim.ai/pricing",
+    "https://help.reclaim.ai/en/articles/14846468-reclaim-ai-2-0-overview",
+    "/blog/motion-alternative/",
+    "/blog/sunsama-alternative/",
+    "/blog/akiflow-alternative/",
+    "https://routine.co/compare/routine-vs-reclaim",
+    "/blog/multi-agent-team-one-board/",
+    "/blog/ai-agents-project-management-guide/",
+    "https://app.hypertask.ai/login",
+    "/blog/tags/reclaim-ai/",
+    "/blog/tags/reclaim-ai-alternative/",
+    "/blog/tags/tool-comparison/",
+    "/blog/tags/calendar/",
+    "/blog/tags/ai-agents/",
+    "/about/",
+    "https://app.hypertask.ai/login",
+    "/blog/best-ai-kanban-tool/",
+    "/blog/best-kanban-tool-for-ci-cd/",
+    "/blog/best-kanban-tool-for-mcp/",
+    "/",
+    "/pricing/",
+    "/blog/",
+    "/privacy/",
+    "/contact/",
+    "/terms/",
+    "https://docs.hypertask.ai/",
+    "https://help.hypertask.ai/"
+  ],
+  "images": [
+    {
+      "alt": "",
+      "fetchpriority": "",
+      "loading": "eager",
+      "src": "/Favicon - Light.png"
+    },
+    {
+      "alt": "Reclaim AI alternative comparison across automatic scheduling, daily planning, task capture, and shared agent work",
+      "fetchpriority": "high",
+      "loading": "eager",
+      "src": "/images/blog/comparison-split.webp"
+    }
+  ],
+  "tables": [
+    [
+      [
+        "Product",
+        "Product center",
+        "Scheduling style",
+        "Best fit",
+        "Main tradeoff"
+      ],
+      [
+        "Reclaim AI",
+        "Calendar optimization for people and teams",
+        "AI agents protect focus, maintain habits, manage buffers, and schedule meetings",
+        "People and companies that want the calendar to adapt automatically",
+        "The calendar is not a full shared project record"
+      ],
+      [
+        "Motion",
+        "Projects, tasks, and calendar planning",
+        "Automatically plans tasks around calendar capacity",
+        "Teams that want tasks and schedules in one system",
+        "Automatic planning can feel more prescriptive than manual control"
+      ],
+      [
+        "Sunsama",
+        "Guided daily planning",
+        "User chooses tasks, estimates them, and timeboxes a realistic day",
+        "Professionals who want a calmer planning ritual",
+        "Lighter shared-project and reporting depth"
+      ],
+      [
+        "Akiflow",
+        "Universal task capture and time blocking",
+        "Fast capture followed by hands-on daily planning",
+        "Power users consolidating tasks from several sources",
+        "Personal planning remains the center of the product"
+      ],
+      [
+        "Morgen",
+        "Multi-calendar planning",
+        "Calendar consolidation with AI assistance and user approval",
+        "People managing several calendars who want control before changes",
+        "Less centered on broad team-project execution"
+      ],
+      [
+        "Routine",
+        "Calendar, tasks, notes, and personal workflows",
+        "Manual planning with an integrated personal workspace",
+        "People who want schedule and knowledge in one app",
+        "Not a direct shared agent-project system"
+      ],
+      [
+        "Hypertask",
+        "Shared task execution by people and external agents",
+        "Due dates and priorities, without automatic calendar planning",
+        "Small teams that need agent ownership, evidence, and human review",
+        "Requires another calendar tool for time optimization"
+      ]
+    ],
+    [
+      ["Record", "Owner"],
+      ["Shared outcome and status", "Project task"],
+      ["Assignee and acceptance rule", "Project task"],
+      ["Personal time block", "Calendar planner"],
+      ["Meeting availability", "Calendar planner"],
+      ["Agent runtime logs", "Agent system"],
+      ["Final agent evidence", "Project task"]
+    ]
+  ],
+  "codeBlocks": []
+}

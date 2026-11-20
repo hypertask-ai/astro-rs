@@ -1,6 +1,7 @@
 import { describe, expect, it } from "@effect/vitest";
 import { Schema } from "effect";
 
+import { publishedPosts } from "../src/features/blog/posts.js";
 import {
   buildHead,
   canonicalFor,
@@ -81,6 +82,13 @@ const headFor = (path: string): string => {
 
 const samplePaths = [...oldHeads.keys()];
 
+const expectedPaths = [
+  ...new Set([
+    ...samplePaths,
+    ...publishedPosts.map((entry) => entry.post.path),
+  ]),
+];
+
 const expectedMeta = (old: OldHead): ReadonlyMap<string, string> =>
   new Map(
     metaKeys.flatMap((key) => {
@@ -91,9 +99,12 @@ const expectedMeta = (old: OldHead): ReadonlyMap<string, string> =>
   );
 
 describe("page head", () => {
-  it("covers every captured page", () => {
+  it("covers every captured page and every published post", () => {
     expect(samplePaths).toHaveLength(16);
-    expect([...pageHeads.keys()].toSorted()).toEqual(samplePaths.toSorted());
+
+    for (const path of expectedPaths) {
+      expect(pageHeads.has(path)).toBe(true);
+    }
   });
 
   for (const path of samplePaths) {

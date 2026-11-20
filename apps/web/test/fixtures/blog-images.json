@@ -1,0 +1,94 @@
+{
+  "/Favicon - Light.png": {
+    "bytes": 96122,
+    "sha256": "160bffed1694aa91b0ac0a5711d574021ad85839e7b9a213e3414d8680bb7d49"
+  },
+  "/images/blog/ai-triage-cover.webp": {
+    "bytes": 33288,
+    "sha256": "fff839a386962cef77b916edca34777b8ad7315f8063cd3094b3607e62b4a8ec"
+  },
+  "/images/blog/async-pillar-cover.webp": {
+    "bytes": 17724,
+    "sha256": "d6681a4826aabd123e04007788fcd95590833613348e506ea0afe76cf9351747"
+  },
+  "/images/blog/async-playbook-cover.webp": {
+    "bytes": 15916,
+    "sha256": "85befa33f63f89bdd62c2e03fc681c0f74c2526308f914ad328ab113c1357bb4"
+  },
+  "/images/blog/attribution-cover.webp": {
+    "bytes": 20026,
+    "sha256": "495f033b33ee5b120d102ec3694be9287c4e112b3c77d33d907e3c18f65e3012"
+  },
+  "/images/blog/attribution-timeline.webp": {
+    "bytes": 5740,
+    "sha256": "ab36690a4fa7a61963e5ac52ec1bf22e39ee6c2306e4978a149ea7e39a1e83b2"
+  },
+  "/images/blog/best-ai-kanban-tool-cover.webp": {
+    "bytes": 25052,
+    "sha256": "13906be992112b4d1e7a3c92b5d7c0462b9768df0f9e919e79f82e6e64a9bc01"
+  },
+  "/images/blog/best-kanban-tool-for-ci-cd-cover.webp": {
+    "bytes": 29166,
+    "sha256": "e31de572bc64059515c11dad2e21c6eb1c68c1f34a78e7202c692b34c0e7be2e"
+  },
+  "/images/blog/best-kanban-tool-for-mcp-cover.webp": {
+    "bytes": 27480,
+    "sha256": "cdf630f509ded7693180aa7374a3ee76451ac2e65b664dd857298bbc9aa77a8b"
+  },
+  "/images/blog/best-kanban-tool-with-api-cover.webp": {
+    "bytes": 30528,
+    "sha256": "d629612a0226e5c0f38c87ffb2c34038dc439751aa1705481216a719d57b2c2b"
+  },
+  "/images/blog/case-study-cover.webp": {
+    "bytes": 79576,
+    "sha256": "bb617c4f3edef0561b5ea7eaeadb2a38cd948acfb528e4efea50ac46df2b66ea"
+  },
+  "/images/blog/comparison-cover.webp": {
+    "bytes": 8906,
+    "sha256": "f0f336d41b67bcc38e39505e192458b135ad52f1efd2219015c1f0400915f900"
+  },
+  "/images/blog/comparison-split.webp": {
+    "bytes": 11984,
+    "sha256": "460ff86d04da58dde4262141700d62c91f94706a6ad2f1dceda7f9cee238f687"
+  },
+  "/images/blog/demo-board.webp": {
+    "bytes": 53004,
+    "sha256": "6f5d0f41041c51e4d63b9c0bbb4e8f48d4d8a699f99169968249320071eb880e"
+  },
+  "/images/blog/demo-task-comments.webp": {
+    "bytes": 30488,
+    "sha256": "f66870dd0236ca19acf0ade31442c4557e8a36c2f4c9870f3c7eeadf7f8ce8e8"
+  },
+  "/images/blog/feature-create-board.webp": {
+    "bytes": 59578,
+    "sha256": "10a60d457d0b5a0e27089af3cca1b44a32999876d0dfe79d6f74e6349b23248f"
+  },
+  "/images/blog/inbox-zero-cover.webp": {
+    "bytes": 5130,
+    "sha256": "712063ec0bfbf5de6a350c121cc34e51f839766a15821839301af847c904c80d"
+  },
+  "/images/blog/notification-cost-cover.webp": {
+    "bytes": 39172,
+    "sha256": "cc736cf0d05b7981cf7f075f527c5ec044a8b6c7d7934bf1a246bcf4c14127d0"
+  },
+  "/images/blog/notion-vs-hypertask-cover.webp": {
+    "bytes": 49414,
+    "sha256": "a3f289f00fd9c6796901d59663d5490a5ee819bde00e87cccf4b8f71988f5838"
+  },
+  "/images/blog/pillar-cover.webp": {
+    "bytes": 21854,
+    "sha256": "67429b3781d55f33565760fdc3fce6aa5be4fc5f29380399aa3c1d7a9665a366"
+  },
+  "/images/blog/pillar-multi-agent.webp": {
+    "bytes": 22488,
+    "sha256": "a5e32dd898740b4f427aaaaa1e417a25aa2ea788384df47b6832975ad794370d"
+  },
+  "/images/blog/slack-threads-cover.webp": {
+    "bytes": 6468,
+    "sha256": "c46ea2897da3a65ddbe8a522e53ce4cfb28a39338c4fc5229855dddfa56af3b7"
+  },
+  "/images/blog/tutorial-cover.webp": {
+    "bytes": 9978,
+    "sha256": "731effdd929f323bc2d9bf561a7aedaeddc8c2e5b52e56bef0bbc6d153204d24"
+  }
+}

@@ -1,3 +1,4 @@
+import { markdown } from "@foldkit/markdown/vite";
 import { foldkit } from "@foldkit/vite-plugin";
 import type { Plugin } from "vite";
 import { defineConfig } from "vite";
@@ -46,6 +47,7 @@ export default defineConfig({
       },
     }),
     outputLayout(),
+    markdown(),
     crawlerFilesPlugin(),
     siteRulesPlugin(),
   ],

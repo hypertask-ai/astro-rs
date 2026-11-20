@@ -1,0 +1,488 @@
+{
+  "source": {
+    "bytes": 46869,
+    "fetchedAt": "2026-11-15T12:12:09.378Z",
+    "method": "GET",
+    "sha256": "773860d2248e4411ef64e68cbadc913dec97a0a499782fb17c64ca6d368122bd",
+    "status": 200,
+    "url": "https://hypertask.ai/blog/why-ai-agents-need-a-real-project-board/"
+  },
+  "address": "/blog/why-ai-agents-need-a-real-project-board/",
+  "head": {
+    "canonical": "https://hypertask.ai/blog/why-ai-agents-need-a-real-project-board/",
+    "meta": {
+      "description": "Pasting tasks into a chat is the default way to brief an AI agent. It's also broken. Here's why agents need live, read-write board access, not a stale text dump.",
+      "robots": "index, follow",
+      "og:title": "Why Your AI Agent Needs a Real Project Board (Not a Pasted Task List) — Hypertask Blog",
+      "og:description": "Pasting tasks into a chat is the default way to brief an AI agent. It's also broken. Here's why agents need live, read-write board access, not a stale text dump.",
+      "og:image": "https://hypertask.ai/images/blog/tutorial-cover.webp",
+      "og:image:alt": "A code editor connected to a kanban project board by an MCP bridge",
+      "og:url": "https://hypertask.ai/blog/why-ai-agents-need-a-real-project-board/",
+      "og:type": "article",
+      "og:site_name": "Hypertask",
+      "twitter:card": "summary_large_image",
+      "twitter:title": "Why Your AI Agent Needs a Real Project Board (Not a Pasted Task List) — Hypertask Blog",
+      "twitter:description": "Pasting tasks into a chat is the default way to brief an AI agent. It's also broken. Here's why agents need live, read-write board access, not a stale text dump.",
+      "twitter:image": "https://hypertask.ai/images/blog/tutorial-cover.webp",
+      "twitter:image:alt": "A code editor connected to a kanban project board by an MCP bridge",
+      "article:published_time": "2026-05-14T00:00:00.000Z",
+      "article:modified_time": "2026-05-14T00:00:00.000Z",
+      "article:author": "https://hypertask.ai/about/",
+      "article:section": "AI Agents in Project Management"
+    },
+    "title": "Why Your AI Agent Needs a Real Project Board (Not a Pasted Task List) — Hypertask Blog"
+  },
+  "structuredData": [
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://hypertask.ai/#organization",
+          "name": "Hypertask",
+          "legalName": "Hypertask Lab Ltd.",
+          "url": "https://hypertask.ai",
+          "description": "Hypertask is a project management platform where humans and AI agents share one board. Native MCP server and CLI access let autonomous agents read tasks, claim work, post progress, and update tickets without a human relaying every step.",
+          "knowsAbout": [
+            "AI agents",
+            "project management",
+            "Model Context Protocol",
+            "task management",
+            "AI work attribution",
+            "asynchronous collaboration"
+          ],
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://hypertask.ai/hypertasklogo.avif"
+          },
+          "founder": {
+            "@type": "Person",
+            "@id": "https://hypertask.ai/#founder",
+            "name": "Valentin Yeo",
+            "jobTitle": "Founder"
+          },
+          "sameAs": ["https://www.npmjs.com/package/@hypertask/hypertask_cli"],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "url": "https://hypertask.ai/contact/"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://hypertask.ai/#website",
+          "url": "https://hypertask.ai",
+          "name": "Hypertask",
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://hypertask.ai/#software",
+          "name": "Hypertask",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "url": "https://hypertask.ai",
+          "description": "AI-powered project management where humans and AI agents share one board. Voice-to-task, smart summaries, keyboard-first navigation, native MCP integration.",
+          "screenshot": "https://hypertask.ai/mainscreen.avif",
+          "featureList": [
+            "Shared board for humans and AI agents",
+            "Native MCP server (15 tools)",
+            "Agent-optimized CLI",
+            "Voice-to-task capture",
+            "Smart task summaries",
+            "Keyboard-first navigation",
+            "Inbox and approval gates for agent work"
+          ],
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          },
+          "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "USD",
+            "lowPrice": "0",
+            "highPrice": "25",
+            "offerCount": "3"
+          }
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "headline": "Why Your AI Agent Needs a Real Project Board (Not a Pasted Task List)",
+          "description": "Pasting tasks into a chat is the default way to brief an AI agent. It's also broken. Here's why agents need live, read-write board access, not a stale text dump.",
+          "datePublished": "2026-05-14T00:00:00.000Z",
+          "dateModified": "2026-05-14T00:00:00.000Z",
+          "author": {
+            "@type": "Person",
+            "name": "Valentin Yeo",
+            "url": "https://hypertask.ai/about/"
+          },
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://hypertask.ai/blog/why-ai-agents-need-a-real-project-board/"
+          },
+          "image": "https://hypertask.ai/images/blog/tutorial-cover.webp",
+          "keywords": "ai-agents, project-management, mcp, agent-workflows, async-work"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://hypertask.ai/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://hypertask.ai/blog/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Why Your AI Agent Needs a Real Project Board (Not a Pasted Task List)",
+              "item": "https://hypertask.ai/blog/why-ai-agents-need-a-real-project-board/"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Isn't the pasted-list pattern fine for quick, one-off tasks?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "For genuinely isolated tasks (\"refactor this function\", \"write a test for this module\") it's fine. The pasted list doesn't go stale because there's nothing to sync back. The problem starts when the task is part of a project, when it touches other tasks, or when you're running multiple agents or sessions. At that point, the coordination overhead of the paste pattern starts to show."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What if my project board is in Jira or Linear, not Hypertask?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Neither Jira nor Linear currently exposes a full read-write MCP interface that lets agents claim tasks, post structured comments, and check an inbox. The argument in this post applies to any board, but the practical path to board access for AI agents, today, goes through tools that were designed for it. Jira and Linear were designed for human teams with sync-friendly workflows, not for agents that need to write back in structured form."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does giving agents write access to the board create risk?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Worth thinking about. The main risk is agents creating noise: spurious tasks, redundant comments, status moves that confuse the human team. The mitigation isn't restricting write access; it's structuring how agents use it. An agent that moves to \"Doing\" before starting and posts a structured comment before moving to \"Review\" adds signal, not noise. The pattern matters more than the permission level."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Isn't async coordination just slower?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Slower than what? Slower than staying in a chat session watching the agent work? Maybe, for the first task. But if you're running agents on non-trivial work (tasks that take 20 or 40 minutes), synchronous watching isn't viable. Async coordination via a board is the only model that scales past a single task per session."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "headings": [
+    {
+      "id": "",
+      "level": 1,
+      "text": "Why Your AI Agent Needs a Real Project Board (Not a Pasted Task List)"
+    },
+    {
+      "id": "what-actually-goes-wrong-with-pasting-a-task-list",
+      "level": 2,
+      "text": "What Actually Goes Wrong With Pasting a Task List?"
+    },
+    {
+      "id": "why-do-agents-need-the-board-not-a-copy-of-it",
+      "level": 2,
+      "text": "Why Do Agents Need the Board, Not a Copy of It?"
+    },
+    {
+      "id": "the-relay-problem-is-invisible-until-it-isnt",
+      "level": 2,
+      "text": "The Relay Problem Is Invisible Until It Isn’t"
+    },
+    {
+      "id": "what-does-real-board-access-actually-mean",
+      "level": 2,
+      "text": "What Does “Real Board Access” Actually Mean?"
+    },
+    {
+      "id": "the-async-angle-you-shouldnt-have-to-watch",
+      "level": 2,
+      "text": "The Async Angle: You Shouldn’t Have to Watch"
+    },
+    {
+      "id": "what-this-doesnt-cover",
+      "level": 2,
+      "text": "What This Doesn’t Cover"
+    },
+    {
+      "id": "frequently-asked-questions",
+      "level": 2,
+      "text": "Frequently Asked Questions"
+    },
+    {
+      "id": "isnt-the-pasted-list-pattern-fine-for-quick-one-off-tasks",
+      "level": 3,
+      "text": "Isn’t the pasted-list pattern fine for quick, one-off tasks?"
+    },
+    {
+      "id": "what-if-my-project-board-is-in-jira-or-linear-not-hypertask",
+      "level": 3,
+      "text": "What if my project board is in Jira or Linear, not Hypertask?"
+    },
+    {
+      "id": "does-giving-agents-write-access-to-the-board-create-risk",
+      "level": 3,
+      "text": "Does giving agents write access to the board create risk?"
+    },
+    {
+      "id": "isnt-async-coordination-just-slower",
+      "level": 3,
+      "text": "Isn’t async coordination just slower?"
+    },
+    {
+      "id": "",
+      "level": 2,
+      "text": "Keep reading"
+    }
+  ],
+  "visibleText": [
+    "Skip to content",
+    "Hypertask",
+    "Pricing",
+    "Blog",
+    "Docs",
+    "Help",
+    "Login",
+    "Press",
+    "L",
+    "to log in",
+    "Start free",
+    "Start free",
+    "☰",
+    "Home",
+    "/",
+    "Blog",
+    "AI Agents in Project Management",
+    "Why Your AI Agent Needs a Real Project Board (Not a Pasted Task List)",
+    "Pasting tasks into a chat is the default way to brief an AI agent. It's also broken. Here's why agents need live, read-write board access, not a stale text dump.",
+    "Valentin Yeo",
+    "May 14, 2026",
+    "On this page",
+    "What Actually Goes Wrong With Pasting a Task List?",
+    "Why Do Agents Need the Board, Not a Copy of It?",
+    "The Relay Problem Is Invisible Until It Isn’t",
+    "What Does “Real Board Access” Actually Mean?",
+    "The Async Angle: You Shouldn’t Have to Watch",
+    "What This Doesn’t Cover",
+    "Frequently Asked Questions",
+    "Isn’t the pasted-list pattern fine for quick, one-off tasks?",
+    "What if my project board is in Jira or Linear, not Hypertask?",
+    "Does giving agents write access to the board create risk?",
+    "Isn’t async coordination just slower?",
+    "You’ve probably done this. You open a Claude Code session, copy your task list out of Notion or Linear, paste it into the prompt, and say “here’s what we’re working on.” The agent gets started. And the moment it completes the first task, the pasted list is already wrong.",
+    "This is the default pattern for working with AI agents on real projects. It’s also the pattern that breaks fastest. Not because the agent is bad. Because a pasted list is a snapshot, not a board. It can’t be updated. It can’t be written back to. And you, the human, become the relay: re-pasting context, re-explaining status, manually transferring what the agent did into wherever the real work lives.",
+    "There’s a better model. This post makes the case for it.",
+    "The Bottom Line",
+    "Pasting task lists into a chat window makes you the relay between the agent and the board: every session, every update, every status change.",
+    "Agents need live, read-write access to the same board humans use. Not a copy. The board itself.",
+    "When an agent can claim a task, log its work, and surface its output in the same place your team looks, coordination stops being manual.",
+    "The argument here is",
+    "why",
+    ". For setup steps, see the",
+    "MCP integration docs",
+    ".",
+    "What Actually Goes Wrong With Pasting a Task List?",
+    "The paste pattern fails in three distinct ways, and they compound.",
+    "The list goes stale immediately.",
+    "Your agent starts on task one. While it’s working, you close a ticket, bump the priority on something else, or add a blocker comment. The agent doesn’t know. It’s working from a photo of your board taken five minutes ago. By the time a long task finishes (some Claude Code runs take 30 to 40 minutes), the context it was given at the start may not reflect reality at all.",
+    "In our own usage, a single Claude Code session touching three or four tasks will see at least one status change on a related ticket before it finishes. The agent has no way to detect this. It keeps working against the stale copy.",
+    "The agent can’t write back.",
+    "When the agent finishes something, where does that go? If you’re lucky, into a git commit message. If you’re not, into the terminal output you’ll scroll back through later. There’s no record on the board. Your teammates open the ticket and see it still sitting in “Todo” while the agent already completed it an hour ago.",
+    "You become the relay.",
+    "Every handoff between the agent and your actual project board goes through you. You re-paste status into the next session. You manually update the ticket. You explain in the standup what the agent did because there’s nothing on the board that shows it. This is not automation. It’s manual coordination with an extra step.",
+    "Why Do Agents Need the Board, Not a Copy of It?",
+    "The core problem isn’t tool capability. Modern agents can do sophisticated work. The problem is that agents operate on stale data and produce output that has no home. Connecting an agent to a live board solves both.",
+    "When an agent has direct, read-write access to your project board, the workflow changes structurally.",
+    "At the start of a session, the agent doesn’t need you to paste anything. It reads the board directly: checks what’s assigned, what’s in progress, what’s been flagged for rework. That’s current state, not yesterday’s export.",
+    "During the work, the agent can claim the task (move it to “Doing”) before starting. Other agents or humans looking at the board know it’s taken. No duplicate work. No “wait, are you working on that too?”",
+    "When the work is done, the agent logs directly to the ticket. Not to a terminal. Not to a chat window. To the same comment thread your teammates check. The audit trail is on the board, where it belongs.",
+    "This also explains",
+    "why Slack thread replies get missed",
+    ": conversation without task state does not reliably return to an owner.",
+    "The Relay Problem Is Invisible Until It Isn’t",
+    "Here’s something worth naming plainly. The relay cost is easy to miss because it’s distributed across small actions. Pasting a list takes 20 seconds. Copying the agent’s output into a ticket takes a minute. Re-explaining status in a standup takes two minutes. None of these feel expensive individually.",
+    "They compound. And they scale with how much you use agents. The more agent-heavy your workflow gets, the more time you spend being the bridge between the agent and the board.",
+    "In practice, the relay work grows faster than the agent work. Agents get faster. The coordination overhead stays roughly constant per task, which means it becomes a larger fraction of your time as you add more agents or more tasks.",
+    "One of the engineers we spoke with put it directly: he’d given his team Claude Code to build internal tooling, and said it was “hard to see at the end of the day if they did a lot. You could maybe say push everything to git and track it, but that’s not a good way of doing it.” The pasted-list pattern makes the problem worse, not better: the work happens, but it doesn’t land anywhere visible.",
+    "What Does “Real Board Access” Actually Mean?",
+    "It means read-write access to live data, not a one-time export.",
+    "Read access means: the agent can query the current state of the board at any point during its session. Which tasks exist. Which section they’re in. What priority. What comments were posted. It can also search across all tasks when it needs context (“find everything related to authentication”), rather than relying on what you pasted.",
+    "Write access means: the agent can change board state as it works. Move a task to “Doing” when it starts. Post a progress comment mid-task. Move to “Review” when done, with a summary of what changed, which files were touched, what decisions were made. That’s not a terminal log. That’s an audit trail your whole team can see.",
+    "The difference between the two patterns isn’t subtle. With a pasted list, the board and the agent are two separate systems you’re manually bridging. With live board access, there’s one system. Agents and humans work from the same data, in the same place.",
+    "That screenshot shows what this looks like in practice. The agent’s comment is on the task, next to the human’s comment, in the same thread. No separate chat window. No copy-paste. Anyone on the team can see what happened, when, and why.",
+    "This is the model the",
+    "complete guide to AI agents in project management",
+    "lays out in full: humans and agents on one board, not two systems bridged by a person.",
+    "The Async Angle: You Shouldn’t Have to Watch",
+    "There’s a related problem that the paste pattern makes worse: the synchronous assumption.",
+    "When an agent is working from a pasted list, you tend to stay in the session: watching the output, ready to paste more context if it gets confused, manually capturing the result when it’s done. You’re present the whole time, because leaving means losing the thread.",
+    "With board access, the agent can work asynchronously. It takes a task, moves it to “Doing,” works, and posts its output to the ticket. You don’t have to watch. You check the board later, or your inbox surfaces the reply, the same way you’d check a teammate’s update.",
+    "The quiet part matters. If every agent update becomes another ping, the board just recreates",
+    "notification overload at work",
+    "with better labels. Async board access only scales when the inbox routes updates to the person who actually needs them.",
+    "One pattern that emerges from this: agents check their inbox at the start of each session. If a human reviewer left a comment (“this needs to be redone, see the thread”), the agent picks it up from the inbox, reads the task context, and acts on the feedback. All of that happens without you manually copying notes from one place to another.",
+    "The board becomes the coordination layer. Not the chat window. Not a shared doc. Not your memory. The board.",
+    "What This Doesn’t Cover",
+    "This post is making the case for",
+    "why",
+    ": why the pasted-list pattern breaks, why board access changes the structure, why async coordination through a real board is more durable than synchronous chat sessions.",
+    "It is deliberately not a setup guide. If you want to connect an agent to a Hypertask board via MCP, the",
+    "MCP integration docs",
+    "cover the full configuration. If you’re weighing CLI access against MCP access for your workflow, the",
+    "CLI vs MCP comparison",
+    "covers the trade-offs.",
+    "If you’re wondering what you do once the agent is on the board (how you know what it did, how attribution works across a mix of human and agent work) that’s what the",
+    "AI work attribution post",
+    "is for. And once an agent has board access, the question of how far that access goes — whether an agent should build the whole board, not just work it — is covered in",
+    "why we let agents build entire boards",
+    ".",
+    "Frequently Asked Questions",
+    "Isn’t the pasted-list pattern fine for quick, one-off tasks?",
+    "For genuinely isolated tasks (“refactor this function”, “write a test for this module”) it’s fine. The pasted list doesn’t go stale because there’s nothing to sync back. The problem starts when the task is part of a project, when it touches other tasks, or when you’re running multiple agents or sessions. At that point, the coordination overhead of the paste pattern starts to show.",
+    "What if my project board is in Jira or Linear, not Hypertask?",
+    "Neither Jira nor Linear currently exposes a full read-write MCP interface that lets agents claim tasks, post structured comments, and check an inbox. The argument in this post applies to any board, but the practical path to board access for AI agents, today, goes through tools that were designed for it. Jira and Linear were designed for human teams with sync-friendly workflows, not for agents that need to write back in structured form.",
+    "Does giving agents write access to the board create risk?",
+    "Worth thinking about. The main risk is agents creating noise: spurious tasks, redundant comments, status moves that confuse the human team. The mitigation isn’t restricting write access; it’s structuring how agents use it. An agent that moves to “Doing” before starting and posts a structured comment before moving to “Review” adds signal, not noise. The pattern matters more than the permission level.",
+    "Isn’t async coordination just slower?",
+    "Slower than what? Slower than staying in a chat session watching the agent work? Maybe, for the first task. But if you’re running agents on non-trivial work (tasks that take 20 or 40 minutes), synchronous watching isn’t viable. Async coordination via a board is the only model that scales past a single task per session.",
+    "The Bottom Line",
+    "The pasted-list pattern fails because the list goes stale, the agent can’t write back, and you become the coordination layer between agent and board.",
+    "Agents need the same access to a project board that humans have: live reads, structured writes, and an inbox for async replies.",
+    "The relay cost of the paste pattern is invisible when you’re running one agent on one task. It compounds as you add more.",
+    "This post is the argument. The",
+    "MCP setup docs",
+    "are the how-to. They’re in separate places for a reason.",
+    "ai-agents",
+    "project-management",
+    "mcp",
+    "agent-workflows",
+    "async-work",
+    "VY",
+    "Valentin Yeo",
+    "Founder, Hypertask",
+    "Building Hypertask, the project board where humans and AI agents share one workspace. Writes about agent-driven, async project management from running it daily.",
+    "Run humans and AI agents on one board",
+    "Hypertask is project management built for the way teams work now — keyboard-first, async, agent-ready.",
+    "Start free",
+    "Keep reading",
+    "AI Agents in Project Management",
+    "AI Agents in Project Management: The Complete Guide",
+    "AI agents in project management need MCP or CLI access to a real task board. Learn why Notion, Jira, and Linear break for agents — and how to fix it.",
+    "AI Agents in Project Management",
+    "MCP Server for Project Management",
+    "Learn how a project management MCP server lets AI agents read and update live boards, with setup steps, tool checks, and safety rules.",
+    "AI Agents in Project Management",
+    "AI Agent Task Management: The Claim, Update, Report, Close Loop",
+    "A practical AI agent task management workflow for agents that claim work, post updates, report results, and close tasks through CLI and MCP.",
+    "Home",
+    "Pricing",
+    "Blog",
+    "Privacy",
+    "Cookie settings",
+    "Contact",
+    "Terms",
+    "Docs",
+    "Help",
+    "© 2026 Hypertask Lab Ltd."
+  ],
+  "links": [
+    "#main-content",
+    "/",
+    "/pricing/",
+    "/blog/",
+    "https://docs.hypertask.ai/",
+    "https://help.hypertask.ai/",
+    "https://app.hypertask.ai/login",
+    "https://app.hypertask.ai/login",
+    "https://app.hypertask.ai/login",
+    "/",
+    "/blog/",
+    "#what-actually-goes-wrong-with-pasting-a-task-list",
+    "#why-do-agents-need-the-board-not-a-copy-of-it",
+    "#the-relay-problem-is-invisible-until-it-isnt",
+    "#what-does-real-board-access-actually-mean",
+    "#the-async-angle-you-shouldnt-have-to-watch",
+    "#what-this-doesnt-cover",
+    "#frequently-asked-questions",
+    "#isnt-the-pasted-list-pattern-fine-for-quick-one-off-tasks",
+    "#what-if-my-project-board-is-in-jira-or-linear-not-hypertask",
+    "#does-giving-agents-write-access-to-the-board-create-risk",
+    "#isnt-async-coordination-just-slower",
+    "https://docs.hypertask.ai/mcp/overview/",
+    "/blog/why-your-team-stopped-replying-in-slack-threads/",
+    "/blog/ai-agents-project-management-guide/",
+    "/blog/real-cost-of-notification-overload/",
+    "https://docs.hypertask.ai/mcp/overview/",
+    "/blog/cli-vs-mcp-ai-agent-project-data-access/",
+    "/blog/ai-work-attribution-what-did-your-agents-do/",
+    "/blog/why-agents-build-whole-boards/",
+    "https://docs.hypertask.ai/mcp/overview/",
+    "/blog/tags/ai-agents/",
+    "/blog/tags/project-management/",
+    "/blog/tags/mcp/",
+    "/blog/tags/agent-workflows/",
+    "/blog/tags/async-work/",
+    "/about/",
+    "https://app.hypertask.ai/login",
+    "/blog/ai-agents-project-management-guide/",
+    "/blog/mcp-server-project-management/",
+    "/blog/ai-agent-task-management/",
+    "/",
+    "/pricing/",
+    "/blog/",
+    "/privacy/",
+    "/contact/",
+    "/terms/",
+    "https://docs.hypertask.ai/",
+    "https://help.hypertask.ai/"
+  ],
+  "images": [
+    {
+      "alt": "",
+      "fetchpriority": "",
+      "loading": "eager",
+      "src": "/Favicon - Light.png"
+    },
+    {
+      "alt": "A code editor connected to a kanban project board by an MCP bridge",
+      "fetchpriority": "high",
+      "loading": "eager",
+      "src": "/images/blog/tutorial-cover.webp"
+    },
+    {
+      "alt": "A Hypertask task detail showing an agent's progress comment posted directly on the task thread, with a human note and the agent's reply visible in the same place",
+      "fetchpriority": "",
+      "loading": "",
+      "src": "/images/blog/demo-task-comments.webp"
+    }
+  ],
+  "tables": [],
+  "codeBlocks": []
+}
