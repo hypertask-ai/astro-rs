@@ -88,6 +88,15 @@ const redirectUrls = (content: string): readonly string[] =>
     .filter((line) => line !== "" && !line.startsWith("#"))
     .flatMap((line) => line.split(/\s+/u).slice(0, 2));
 
+const universalHeaderPatterns = new Set(["/*", "*"]);
+
+const headerUrls = (content: string): readonly string[] =>
+  content
+    .split("\n")
+    .filter(
+      (line) => line.startsWith("/") && !universalHeaderPatterns.has(line)
+    );
+
 export const siteUrls = (file: string, content: string): readonly string[] => {
   if (file.endsWith(".html")) {
     return htmlUrls(content);
@@ -103,6 +112,10 @@ export const siteUrls = (file: string, content: string): readonly string[] => {
 
   if (file.endsWith("_redirects")) {
     return redirectUrls(content);
+  }
+
+  if (file.endsWith("_headers")) {
+    return headerUrls(content);
   }
 
   return [];

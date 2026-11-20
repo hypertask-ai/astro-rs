@@ -175,16 +175,34 @@ export const redirectsFile = (
     )
     .join("\n")}\n`;
 
-export const headersFile = (existing: string, preview = false): string => {
+const mountedHeaderPaths = (existing: string, basePath: string): string =>
+  basePath === ""
+    ? existing
+    : existing
+        .split("\n")
+        .map((line) =>
+          line.startsWith("/") ? addSiteBasePath(basePath, line) : line
+        )
+        .join("\n");
+
+export const headersFile = (existing: string, basePath = ""): string => {
+  const preview = basePath !== "";
+  const mounted = mountedHeaderPaths(existing, basePath);
   const required = requiredHeaderLines(preview);
-  const blocks = headerBlocks(existing);
-  const root = blocks.find((block) => block.pattern === "/*");
+  const blocks = headerBlocks(mounted);
+
+  const root = blocks.find(
+    (block) => block.pattern === addSiteBasePath(basePath, "/*")
+  );
 
   if (root === undefined) {
-    const block = `/*\n${required.map((line) => `  ${line}`).join("\n")}\n`;
-    const separator = existing === "" || existing.endsWith("\n") ? "" : "\n";
+    const block = `${addSiteBasePath(basePath, "/*")}\n${required
+      .map((line) => `  ${line}`)
+      .join("\n")}\n`;
 
-    return `${existing}${separator}${existing === "" ? "" : "\n"}${block}`;
+    const separator = mounted === "" || mounted.endsWith("\n") ? "" : "\n";
+
+    return `${mounted}${separator}${mounted === "" ? "" : "\n"}${block}`;
   }
 
   const merged = [
@@ -193,7 +211,7 @@ export const headersFile = (existing: string, preview = false): string => {
   ];
 
   return merged.length === root.lines.length
-    ? existing
+    ? mounted
     : renderHeaderBlocks(
         blocks.map((block) =>
           block === root ? { lines: merged, pattern: block.pattern } : block
