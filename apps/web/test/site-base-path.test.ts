@@ -117,18 +117,18 @@ describe("site base path", () => {
   });
 
   it("adds the noindex response header once and only for the preview", () => {
-    const preview = headersFile("", true);
+    const preview = headersFile("", basePath);
 
     expect(preview).toContain("X-Robots-Tag: noindex");
-    expect(headersFile(preview, true)).toBe(preview);
-    expect(headersFile("", false)).not.toContain("X-Robots-Tag");
+    expect(headersFile(preview, basePath)).toBe(preview);
+    expect(headersFile("")).not.toContain("X-Robots-Tag");
   });
 
   it("keeps every security header in the root block when another block already has it", () => {
     const shipped =
       "/install\n  Content-Type: text/plain; charset=utf-8\n  X-Content-Type-Options: nosniff\n";
 
-    const preview = headersFile(shipped, true);
+    const preview = headersFile(shipped, basePath);
     const rootBlock = preview.split("\n\n").at(-1) ?? "";
 
     for (const line of securityHeaderLines) {
@@ -136,19 +136,51 @@ describe("site base path", () => {
     }
 
     expect(rootBlock).toContain("  X-Robots-Tag: noindex");
-    expect(headersFile(shipped, false).split("\n\n").at(-1)).toContain(
+    expect(headersFile(shipped).split("\n\n").at(-1)).toContain(
       "  X-Content-Type-Options: nosniff"
     );
   });
 
   it("rewrites an existing root block in place instead of adding a second one", () => {
     const shipped = "/*\n  Strict-Transport-Security: max-age=31536000\n";
-    const preview = headersFile(shipped, true);
+    const preview = headersFile(shipped, basePath);
 
     expect(preview).toContain("  X-Content-Type-Options: nosniff");
     expect(preview).toContain("  X-Robots-Tag: noindex");
     expect(preview.split("/*").length).toBe(2);
-    expect(headersFile(preview, true)).toBe(preview);
+    expect(headersFile(preview, basePath)).toBe(preview);
+  });
+
+  it("mounts every shipped header path inside the prefix", () => {
+    const shipped =
+      "/install\n  Content-Type: text/plain; charset=utf-8\n\n/rss.xml\n  Content-Type: application/xml\n";
+
+    const preview = headersFile(shipped, basePath);
+    const patterns = preview.split("\n").filter((line) => line.startsWith("/"));
+
+    expect(patterns).toEqual([
+      `${basePath}/install`,
+      `${basePath}/rss.xml`,
+      `${basePath}/*`,
+    ]);
+    expect(headersFile(preview, basePath)).toBe(preview);
+  });
+
+  it("leaves the shipped headers byte for byte when the setting is empty", () => {
+    const shipped =
+      "/install\n  Content-Type: text/plain; charset=utf-8\n\n/robots.txt\n  Content-Type: text/plain; charset=utf-8\n";
+
+    expect(headersFile(shipped)).toContain(`/install\n  Content-Type`);
+    expect(headersFile(shipped)).not.toContain(basePath);
+  });
+
+  it("finds the header path that leaves the prefix and lets the root pattern through", () => {
+    const headers = `/*\n  X-Robots-Tag: noindex\n\n/install\n  Content-Type: text/plain\n`;
+
+    expect(escapingUrls(basePath, "_headers", headers)).toEqual(["/install"]);
+    expect(
+      escapingUrls(basePath, "_headers", headersFile(headers, basePath))
+    ).toEqual([]);
   });
 
   it("serves every redirect inside the prefix", () => {

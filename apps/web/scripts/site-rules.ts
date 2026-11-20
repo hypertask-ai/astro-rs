@@ -47,7 +47,7 @@ export const finalizeSiteRules = Effect.fn("site.finalizeSiteRules")(
 
     return yield* fs.writeFileString(
       headersPath,
-      headersFile(existingHeaders, siteBasePathAtBuild !== "")
+      headersFile(existingHeaders, siteBasePathAtBuild)
     );
   },
   Effect.provide(NodeServices.layer)
