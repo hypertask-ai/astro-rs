@@ -5,6 +5,7 @@ import { renderToString } from "foldkit/experimental/server";
 import { initialModel } from "../src/client/app/index.js";
 import type { AppModel } from "../src/client/app/model.js";
 import { renderDocument } from "../src/entry.server.js";
+import { fathomScriptUrl } from "../src/features/analytics/index.js";
 import {
   acceptButtonId,
   bannerLabel,
@@ -51,6 +52,11 @@ const analyticsScriptSources = (html: string): readonly string[] =>
 
     return /analytics|fathom|posthog|relay/iu.test(source) ? [source] : [];
   });
+
+const cookieSettingAnalyticsSources = (html: string): readonly string[] =>
+  analyticsScriptSources(html).filter((source) =>
+    /posthog|relay/iu.test(source)
+  );
 
 const visibleModel: AppModel = { ...initialModel, bannerVisible: true };
 
@@ -111,13 +117,16 @@ describe("cookie banner markup", () => {
     })
   );
 
-  it.effect("loads no analytics script before the visitor chooses", () =>
-    Effect.gen(function* noEarlyScript() {
-      const asked = yield* renderPage(visibleModel);
-      const decided = yield* renderPage(initialModel);
+  it.effect(
+    "loads no cookie-setting analytics before the visitor chooses",
+    () =>
+      Effect.gen(function* noEarlyScript() {
+        const asked = yield* renderPage(visibleModel);
+        const decided = yield* renderPage(initialModel);
 
-      expect(analyticsScriptSources(asked)).toStrictEqual([]);
-      expect(analyticsScriptSources(decided)).toStrictEqual([]);
-    })
+        expect(cookieSettingAnalyticsSources(asked)).toStrictEqual([]);
+        expect(cookieSettingAnalyticsSources(decided)).toStrictEqual([]);
+        expect(analyticsScriptSources(asked)).toStrictEqual([fathomScriptUrl]);
+      })
   );
 });
