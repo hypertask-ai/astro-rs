@@ -121,12 +121,11 @@ export const styles = stylex.create({
     fontStyle: "normal",
     fontWeight: 400,
     marginBlock: "1.6em",
+    marginInline: 0,
     paddingInlineStart: "1em",
   },
-  blockquoteClose: {
+  blockquoteQuotes: {
     "::after": { content: '"\\201D"' },
-  },
-  blockquoteOpen: {
     "::before": { content: '"\\201C"' },
   },
   bodyHeading1: {
@@ -234,7 +233,7 @@ export const styles = stylex.create({
     marginInline: "auto",
     maxWidth: "1100px",
     paddingBlock: { default: "3rem", [lg]: "5rem" },
-    paddingInline: { default: "1rem", [lg]: "2rem", [sm]: "1.5rem" },
+    paddingInline: { default: "1rem", [sm]: "1.5rem", [lg]: "2rem" },
     width: "100%",
   },
   coverImage: {

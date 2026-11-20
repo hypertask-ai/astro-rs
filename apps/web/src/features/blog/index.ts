@@ -117,6 +117,12 @@ const spacingClasses = (
   spacing.last ? styles.spacingResetBottom : false,
 ];
 
+const headingSpacingClasses = (
+  spacing: Spacing
+): readonly (false | stylex.StyleXStyles)[] => [
+  spacing.last ? styles.spacingResetBottom : false,
+];
+
 const renderInline = (
   h: HtmlBuilder<AppMessage>,
   node: Inline
@@ -189,7 +195,9 @@ const renderHeading = (
 
   const attributes = [
     h.Id(heading?.id ?? ""),
-    h.Class(classes(headingStyles[block.level], ...spacingClasses(spacing))),
+    h.Class(
+      classes(headingStyles[block.level], ...headingSpacingClasses(spacing))
+    ),
   ];
 
   return Match.value(block.level).pipe(
@@ -248,7 +256,8 @@ const renderBlocks = (
   h: HtmlBuilder<AppMessage>,
   state: RenderState,
   blocks: readonly Block[],
-  nested = false
+  nested = false,
+  quoted = false
 ): readonly Html[] => {
   const renderListItem = (
     item: Extract<Block, { readonly _tag: "List" }>["items"][number]
@@ -299,7 +308,7 @@ const renderBlocks = (
         Blockquote: (blockquote) =>
           h.blockquote(
             [h.Class(classes(styles.blockquote, ...spacingClasses(spacing)))],
-            renderBlocks(h, state, blockquote.blocks, true)
+            renderBlocks(h, state, blockquote.blocks, true, true)
           ),
         CodeBlock: (codeBlock) => {
           const key = `${state.slug}/${state.codeCount}`;
@@ -338,7 +347,15 @@ const renderBlocks = (
         List: (list) => renderList(list, spacing),
         Paragraph: (paragraph) =>
           h.p(
-            [h.Class(classes(styles.paragraph, ...spacingClasses(spacing)))],
+            [
+              h.Class(
+                classes(
+                  styles.paragraph,
+                  ...spacingClasses(spacing),
+                  quoted ? styles.blockquoteQuotes : false
+                )
+              ),
+            ],
             renderInlines(h, paragraph.content)
           ),
         Table: (table) => {
