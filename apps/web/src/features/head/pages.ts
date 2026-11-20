@@ -22,6 +22,17 @@ const pages = {
       "Get in touch with the Hypertask team for support, partnership, or press inquiries.",
     title: "Contact Us - Hypertask",
   },
+  "/hallmark/": {
+    description:
+      "The best project management app for AI-powered productivity. Turn voice into tasks, get smart summaries, and eliminate project chaos with Hypertask.",
+    noindex: true,
+    title: "Humans and Agents, One Board - Hypertask",
+  },
+  "/hypertask-vs-linear/": {
+    description:
+      "Linear is a great issue tracker for human teams. Hypertask is built for boards where AI agents create, work, and close tasks alongside people. Honest feature-by-feature comparison.",
+    title: "Hypertask vs Linear: an honest comparison",
+  },
   "/pricing/": {
     description:
       "Simple, transparent pricing for AI-powered project management. Get started free with Hypertask.",
@@ -36,6 +47,11 @@ const pages = {
     description:
       "Terms of Service for Hypertask Lab Ltd. Read our terms governing the use of hypertask.ai.",
     title: "Terms of Service - Hypertask",
+  },
+  "/testimonial-ida/": {
+    description:
+      "Case study: How IDA scaled their CRO operations 10x with Hypertask's AI-powered project management platform.",
+    title: "How IDA went from 5 Tests to 50 Tests Monthly - Hypertask",
   },
   "/thank-you/": {
     description: "Your demo has been scheduled successfully.",

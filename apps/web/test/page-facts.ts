@@ -46,13 +46,25 @@ const attributesOf = (source: string): ReadonlyMap<string, string> =>
 const namedEntities = new Map<string, string>([
   ["amp", "&"],
   ["apos", "'"],
+  ["bull", "•"],
   ["copy", "©"],
+  ["deg", "°"],
   ["gt", ">"],
+  ["hellip", "…"],
+  ["larr", "←"],
+  ["ldquo", "“"],
+  ["lsquo", "‘"],
   ["lt", "<"],
+  ["mdash", "—"],
+  ["middot", "·"],
   ["minus", "−"],
   ["nbsp", "\u00A0"],
+  ["ndash", "–"],
   ["quot", '"'],
+  ["rarr", "→"],
+  ["rdquo", "”"],
   ["rsquo", "’"],
+  ["times", "×"],
 ]);
 
 const numericEntity = (name: string): string => {
@@ -85,13 +97,59 @@ const withoutCookieBanner = (html: string): string =>
     ""
   );
 
-const withoutNoise = (html: string): string =>
-  withoutCookieBanner(bodyOf(html))
-    .replaceAll(/<!--[\s\S]*?-->/gu, "")
-    .replaceAll(
-      /<(?<tag>script|style|template)\b[^>]*>[\s\S]*?<\/\k<tag>>/gu,
-      ""
+const commentMarkers = { close: "-->", open: "<!--" } as const;
+
+const withoutComments = (html: string): string => {
+  let text = html;
+
+  for (;;) {
+    const start = text.indexOf(commentMarkers.open);
+
+    if (start === -1) {
+      return text;
+    }
+
+    const end = text.indexOf(
+      commentMarkers.close,
+      start + commentMarkers.open.length
     );
+
+    text =
+      end === -1
+        ? text.slice(0, start)
+        : text.slice(0, start) + text.slice(end + commentMarkers.close.length);
+  }
+};
+
+const blockedElements = ["script", "style", "template"] as const;
+
+const withoutBlockedElements = (html: string): string => {
+  let text = html;
+
+  for (;;) {
+    let changed = false;
+
+    for (const element of blockedElements) {
+      const open = text.indexOf(`<${element}`);
+      const tagEnd = open === -1 ? -1 : text.indexOf(">", open);
+      const close = tagEnd === -1 ? -1 : text.indexOf(`</${element}>`, tagEnd);
+
+      if (open === -1 || tagEnd === -1 || close === -1) {
+        continue;
+      }
+
+      text = text.slice(0, open) + text.slice(close + `</${element}>`.length);
+      changed = true;
+    }
+
+    if (!changed) {
+      return text;
+    }
+  }
+};
+
+const withoutNoise = (html: string): string =>
+  withoutBlockedElements(withoutComments(withoutCookieBanner(bodyOf(html))));
 
 const inlineText = (html: string): string =>
   decodeEntities(html.replaceAll(/<[^>]+>/gu, " "))
@@ -112,7 +170,9 @@ export const headings = (html: string): readonly string[] =>
     ),
   ].map(
     (match) =>
-      `h${match.groups?.level}: ${inlineText(match.groups?.text ?? "")}`
+      `h${match.groups?.level}: ${inlineText(
+        withoutComments(match.groups?.text ?? "")
+      )}`
   );
 
 export const linkTargets = (html: string): readonly string[] =>
@@ -126,7 +186,7 @@ export const images = (html: string): readonly HomeImage[] =>
       const attributes = attributesOf(match.groups?.attributes ?? "");
 
       return {
-        alt: attributes.get("alt") ?? "",
+        alt: decodeEntities(attributes.get("alt") ?? ""),
         fetchpriority: attributes.get("fetchpriority") ?? "",
         height: attributes.get("height") ?? "",
         loading: attributes.get("loading") ?? "",

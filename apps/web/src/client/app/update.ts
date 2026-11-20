@@ -14,6 +14,7 @@ import {
   OpenLogin,
   RejectOptionalCookies,
   ResetCopyLabel,
+  ScrollTestimonials,
 } from "./commands.js";
 import { Message } from "./message.js";
 import type { AppMessage } from "./message.js";
@@ -50,6 +51,10 @@ export const update = (model: AppModel, message: AppMessage): UpdateReturn =>
       model,
     }),
     PressedLoginKey: () => ({ commands: [OpenLogin()], model }),
+    PressedTestimonialDot: ({ index }) => ({
+      commands: [ScrollTestimonials({ index })],
+      model,
+    }),
     Ready: () => ({ model: { ...model, ready: true } }),
     ResetCopyLabel: () => ({ model: { ...model, copyLabel } }),
     Scrolled: ({ scrolled }) => ({ model: { ...model, scrolled } }),
@@ -58,6 +63,9 @@ export const update = (model: AppModel, message: AppMessage): UpdateReturn =>
     }),
     SelectedInstallTab: ({ tab }) => ({
       model: { ...model, copyLabel, installTab: tab },
+    }),
+    SelectedTestimonialSlide: ({ index }) => ({
+      model: { ...model, testimonialSlide: index },
     }),
     ToggledMenu: () => ({ model: { ...model, menuOpen: !model.menuOpen } }),
   });

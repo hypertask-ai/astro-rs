@@ -6,6 +6,7 @@ import type { ConsentState } from "../../consent/index.js";
 import { loginUrl } from "../../features/frame/copy.js";
 import { mountHelpChat } from "../../features/help-chat/index.js";
 import { copyResetMillis } from "../../features/home/copy.js";
+import { testimonialsViewportId } from "../../features/testimonials/copy.js";
 import { BrowserConsentStore } from "./browser-consent-store.js";
 import { Message } from "./message.js";
 
@@ -66,4 +67,34 @@ export const LoadHelpChat = Command.define("LoadHelpChat", {
     mountHelpChat(document);
   }).pipe(Effect.as(Message.Ready())),
   messages: [Message.Ready],
+});
+
+const scrollTestimonial = (index: number): void => {
+  const viewport = document.querySelector(`#${testimonialsViewportId}`);
+
+  if (!(viewport instanceof HTMLElement)) {
+    return;
+  }
+
+  const slide = viewport.children[index];
+
+  if (!(slide instanceof HTMLElement)) {
+    return;
+  }
+
+  viewport.scrollTo({
+    left:
+      slide.getBoundingClientRect().left -
+      viewport.getBoundingClientRect().left +
+      viewport.scrollLeft,
+  });
+};
+
+export const ScrollTestimonials = Command.define("ScrollTestimonials", {
+  args: { index: Schema.Number },
+  execute: ({ index }) =>
+    Effect.sync(() => {
+      scrollTestimonial(index);
+    }).pipe(Effect.as(Message.SelectedTestimonialSlide({ index }))),
+  messages: [Message.SelectedTestimonialSlide],
 });
