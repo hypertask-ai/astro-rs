@@ -65,6 +65,8 @@ export const loginKey = "L";
 
 export const cookieSettingsLabel = "Cookie settings";
 
+export const cookieSettingsId = "cookie-settings";
+
 export const copyrightOwner = "Hypertask Lab Ltd.";
 
 export const footerLabel = "Footer";

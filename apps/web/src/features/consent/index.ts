@@ -6,9 +6,13 @@ import type { AppMessage } from "../../client/app/message.js";
 import type { AppModel } from "../../client/app/model.js";
 import { styles } from "./consent.stylex.js";
 import {
+  acceptButtonId,
   acceptLabel,
   bannerLabel,
   bannerMessage,
+  privacyHref,
+  privacyLabel,
+  rejectButtonId,
   rejectLabel,
 } from "./copy.js";
 
@@ -22,6 +26,7 @@ export const consentBanner = (
   h.section(
     [
       h.Id("cookie-consent"),
+      h.Role("region"),
       h.Class(className(styles.banner)),
       h.AriaLabel(bannerLabel),
       h.Hidden(!model.bannerVisible),
@@ -31,7 +36,16 @@ export const consentBanner = (
         [h.Class(className(styles.copy))],
         [
           h.strong([h.Class(className(styles.copyTitle))], [bannerLabel]),
-          h.p([h.Class(className(styles.copyText))], [bannerMessage]),
+          h.p(
+            [h.Class(className(styles.copyText))],
+            [
+              `${bannerMessage} `,
+              h.a(
+                [h.Href(privacyHref), h.Class(className(styles.privacyLink))],
+                [privacyLabel]
+              ),
+            ]
+          ),
         ]
       ),
       h.div(
@@ -39,6 +53,7 @@ export const consentBanner = (
         [
           h.button(
             [
+              h.Id(acceptButtonId),
               h.Type("button"),
               h.Class(className(styles.action)),
               h.OnClick(Message.ChoseAll()),
@@ -47,6 +62,7 @@ export const consentBanner = (
           ),
           h.button(
             [
+              h.Id(rejectButtonId),
               h.Type("button"),
               h.Class(className(styles.action)),
               h.OnClick(Message.ChoseEssential()),

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "@effect/vitest";
 
 import {
+  CONSENT_COOKIE,
   CONSENT_MAX_AGE_SECONDS,
   allowsAnalytics,
   clearedAnalyticsDomains,
@@ -8,7 +9,11 @@ import {
   expiredCookie,
   isAnalyticsKey,
   parseConsentCookie,
+  sharedCookieDomain,
 } from "../src/consent.js";
+import oldCookieHeaders from "./fixtures/old-cookie-consent.json" with { type: "json" };
+
+const sixMonthsInSeconds = 180 * 86_400;
 
 describe("consent cookie memory", () => {
   it("reads the stored choice from the cookie header", () => {
@@ -20,24 +25,43 @@ describe("consent cookie memory", () => {
     expect(parseConsentCookie()).toBeUndefined();
   });
 
-  it("writes the shared cookie for six months", () => {
-    const cookie = consentCookie("all", "hypertask.ai");
+  it("names the cookie the app and the old site read", () => {
+    expect(CONSENT_COOKIE).toBe("ht_cookie_consent");
+    expect(CONSENT_MAX_AGE_SECONDS).toBe(sixMonthsInSeconds);
+  });
 
-    expect(cookie).toContain("ht_cookie_consent=all");
-    expect(cookie).toContain(`Max-Age=${CONSENT_MAX_AGE_SECONDS}`);
-    expect(cookie).toContain("Path=/");
-    expect(cookie).toContain("SameSite=Lax");
-    expect(cookie).toContain("Secure");
-    expect(cookie).toContain("Domain=.hypertask.ai");
+  it("writes the old cookie header byte for byte", () => {
+    expect(consentCookie("all", "hypertask.ai")).toBe(
+      oldCookieHeaders.consent.allOnSharedDomain
+    );
+    expect(consentCookie("essential", "app.hypertask.ai")).toBe(
+      oldCookieHeaders.consent.essentialOnSharedDomain
+    );
+    expect(consentCookie("all", "astro-rs.pages.dev")).toBe(
+      oldCookieHeaders.consent.allOnOtherHost
+    );
+    expect(consentCookie("essential", "localhost")).toBe(
+      oldCookieHeaders.consent.essentialOnOtherHost
+    );
+  });
+
+  it("expires an old analytics cookie with the header the old site wrote", () => {
+    expect(expiredCookie("ph_phc_example")).toBe(
+      oldCookieHeaders.cleared.hostOnly
+    );
+    expect(expiredCookie("ph_phc_example", "hypertask.ai")).toBe(
+      oldCookieHeaders.cleared.hostDomain
+    );
+    expect(expiredCookie("ph_phc_example", ".hypertask.ai")).toBe(
+      oldCookieHeaders.cleared.sharedDomain
+    );
   });
 
   it("shares the cookie with hypertask.ai subdomains only", () => {
-    expect(consentCookie("essential", "app.hypertask.ai")).toContain(
-      "Domain=.hypertask.ai"
-    );
-    expect(consentCookie("essential", "hypertask.ai.example")).not.toContain(
-      "Domain="
-    );
+    expect(sharedCookieDomain("hypertask.ai")).toBe(".hypertask.ai");
+    expect(sharedCookieDomain("app.hypertask.ai")).toBe(".hypertask.ai");
+    expect(sharedCookieDomain("hypertask.ai.example")).toBeUndefined();
+    expect(sharedCookieDomain("astro-rs.pages.dev")).toBeUndefined();
   });
 });
 
@@ -77,9 +101,5 @@ describe("analytics gate", () => {
       ".hypertask.ai",
     ]);
     expect(clearedAnalyticsDomains("localhost")).toStrictEqual(["localhost"]);
-    expect(expiredCookie("ph_key")).toContain("Max-Age=0");
-    expect(expiredCookie("ph_key", ".hypertask.ai")).toContain(
-      "Domain=.hypertask.ai"
-    );
   });
 });
