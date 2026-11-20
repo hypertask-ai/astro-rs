@@ -151,6 +151,10 @@ Preserve existing work. Inspect status before editing, stage only files changed 
 
 Product rules for the hypertask.ai marketing site. The fence rules below are enforced by lint and hooks and stay exactly as the template ships them. Product intent lives in `VISION.md`.
 
+| Rule | Enforced by |
+| --- | --- |
+| Every customer facing page loads Fathom; no page names Google Analytics. | `apps/web/test/analytics-on-every-page.test.ts` |
+
 - Same address, same pages, same links, same look. The 38 blog addresses, the sitemap, the feed, the redirects and the install scripts are a public contract with search engines and installers. A change that moves or drops one is a bug, not a cleanup.
 - The site keeps its own look. Colours, sizes, fonts and corners come from the old site and arrive in the page-frame step (HTPR-9139). Never copy Rat Stack's look, and never invent a value. The 2px and 4px corner rule belongs to app.hypertask.ai, not to this site.
 - No database, no sign-in, no timed jobs, no visitor accounts. If a change needs one, stop and ask at rung 3.
