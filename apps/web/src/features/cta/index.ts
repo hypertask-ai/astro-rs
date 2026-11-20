@@ -31,6 +31,7 @@ export const ctaStyles = stylex.create({
     gap: "8px",
     justifyContent: "center",
     transitionDuration: { default: "200ms", [reducedMotion]: "0.01ms" },
+    textDecorationLine: "none",
     transitionProperty: "background-color, border-color, color",
     whiteSpace: "nowrap",
   },

@@ -578,15 +578,20 @@ export const view = (
     h,
     copy.testimonialIdaPath,
     [
-      hero(h),
-      metrics(h),
-      challenge(h),
-      featureSection(h, copy.solutionTitle, copy.solutions),
-      results(h),
-      metricsTable(h),
-      featureSection(h, copy.keyFeaturesTitle, copy.keyFeatures),
-      whyItWorks(h),
-      bottomCta(h),
+      h.div(
+        [h.Class(classes(styles.page))],
+        [
+          hero(h),
+          metrics(h),
+          challenge(h),
+          featureSection(h, copy.solutionTitle, copy.solutions),
+          results(h),
+          metricsTable(h),
+          featureSection(h, copy.keyFeaturesTitle, copy.keyFeatures),
+          whyItWorks(h),
+          bottomCta(h),
+        ]
+      ),
     ],
     copy.pageTitle
   );

@@ -34,6 +34,9 @@ const imageOverlayFirst =
 const imageOverlaySecond =
   "radial-gradient(120% 70% at 100% 100%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.0) 70%), linear-gradient(300deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 35%, rgba(0,0,0,0.0) 70%), radial-gradient(60% 45% at 100% 0%, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.0) 80%)";
 
+const systemFontStack =
+  'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+
 export const styles = stylex.create({
   badge: {
     borderRadius: "9999px",
@@ -68,7 +71,9 @@ export const styles = stylex.create({
     borderStyle: "solid",
     borderWidth: "1px",
     padding: { default: "1.5rem", [md]: "2.5rem" },
+    position: "relative",
     width: "100%",
+    zIndex: 1,
   },
   bottomGlow: {
     backgroundImage:
@@ -84,7 +89,7 @@ export const styles = stylex.create({
     inset: 0,
     pointerEvents: "none",
     position: "absolute",
-    zIndex: -10,
+    zIndex: 0,
   },
   bottomTitle: {
     color: white,
@@ -197,15 +202,17 @@ export const styles = stylex.create({
     inset: 0,
     pointerEvents: "none",
     position: "absolute",
-    zIndex: -10,
+    zIndex: 0,
   },
   heroInner: {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     gap: "1.5rem",
+    position: "relative",
     textAlign: "center",
     width: "100%",
+    zIndex: 1,
   },
   heroSubtitle: {
     color: "rgba(255, 255, 255, 0.72)",
@@ -288,6 +295,7 @@ export const styles = stylex.create({
     color: "transparent",
     fontSize: { default: "2.25rem", [md]: "6rem" },
     fontWeight: 700,
+    lineHeight: { default: "2.5rem", [md]: 1 },
   },
   metricsGrid: {
     display: "grid",
@@ -604,5 +612,9 @@ export const styles = stylex.create({
     marginBlock: "0 1rem",
     minHeight: "3.5rem",
     textAlign: "left",
+  },
+  page: {
+    fontFamily: systemFontStack,
+    width: "100%",
   },
 });
