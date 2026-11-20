@@ -25,6 +25,7 @@ export const Model = Schema.Struct({
   menuOpen: Schema.Boolean,
   ready: Schema.Boolean,
   scrolled: Schema.Boolean,
+  testimonialSlide: Schema.Number,
   year: Schema.Number,
 });
 
@@ -40,5 +41,6 @@ export const initialModel: AppModel = {
   menuOpen: false,
   ready: true,
   scrolled: false,
+  testimonialSlide: 0,
   year: DateTime.toPartsUtc(DateTime.nowUnsafe()).year,
 };
