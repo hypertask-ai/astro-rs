@@ -97,25 +97,57 @@ const withoutCookieBanner = (html: string): string =>
     ""
   );
 
-const commentPattern = /<!--[\s\S]*?-->/gu;
+const commentOpen = "<!--";
+const commentClose = "-->";
 
 const withoutComments = (html: string): string => {
   let text = html;
-  let stripped = text.replaceAll(commentPattern, "");
 
-  while (stripped !== text) {
-    text = stripped;
-    stripped = text.replaceAll(commentPattern, "");
+  for (;;) {
+    const start = text.indexOf(commentOpen);
+
+    if (start === -1) {
+      return text;
+    }
+
+    const end = text.indexOf(commentClose, start + commentOpen.length);
+
+    text =
+      end === -1
+        ? text.slice(0, start)
+        : text.slice(0, start) + text.slice(end + commentClose.length);
   }
+};
 
-  return stripped;
+const blockedElements = ["script", "style", "template"] as const;
+
+const withoutBlockedElements = (html: string): string => {
+  let text = html;
+
+  for (;;) {
+    let changed = false;
+
+    for (const element of blockedElements) {
+      const open = text.indexOf(`<${element}`);
+      const tagEnd = open === -1 ? -1 : text.indexOf(">", open);
+      const close = tagEnd === -1 ? -1 : text.indexOf(`</${element}>`, tagEnd);
+
+      if (open === -1 || tagEnd === -1 || close === -1) {
+        continue;
+      }
+
+      text = text.slice(0, open) + text.slice(close + `</${element}>`.length);
+      changed = true;
+    }
+
+    if (!changed) {
+      return text;
+    }
+  }
 };
 
 const withoutNoise = (html: string): string =>
-  withoutComments(withoutCookieBanner(bodyOf(html))).replaceAll(
-    /<(?<tag>script|style|template)\b[^>]*>[\s\S]*?<\/\k<tag>>/gu,
-    ""
-  );
+  withoutBlockedElements(withoutComments(withoutCookieBanner(bodyOf(html))));
 
 const inlineText = (html: string): string =>
   decodeEntities(html.replaceAll(/<[^>]+>/gu, " "))

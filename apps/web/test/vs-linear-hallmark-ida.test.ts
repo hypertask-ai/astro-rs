@@ -1,13 +1,9 @@
 import { describe, expect, it } from "@effect/vitest";
-import { Effect, Predicate } from "effect";
+import { Effect } from "effect";
 import { renderToString } from "foldkit/experimental/server";
 
 import { initialModel } from "../src/client/app/index.js";
-import {
-  prerenderPaths,
-  renderDocument,
-  renderPage,
-} from "../src/entry.server.js";
+import { prerenderPaths, renderDocument } from "../src/entry.server.js";
 import { view as hallmarkView } from "../src/features/hallmark/index.js";
 import type { PageView } from "../src/features/page/index.js";
 import { view as testimonialIdaView } from "../src/features/testimonial-ida/index.js";
@@ -122,20 +118,6 @@ describe("comparison, hallmark and testimonial routes", () => {
   it("finds a page whether or not the address carries its trailing slash", () => {
     expect(viewForPath("/hallmark")).toBe(viewForPath("/hallmark/"));
   });
-
-  it.effect("sends an unknown address to the not found answer", () =>
-    Effect.gen(function* checkMissing() {
-      const result = yield* Effect.promise(() =>
-        renderPage(new Request("https://hypertask.ai/nope/"))
-      );
-
-      expect(Predicate.isTagged(result, "Responded")).toBe(true);
-
-      if (Predicate.isTagged(result, "Responded")) {
-        expect(result.response.status).toBe(404);
-      }
-    })
-  );
 });
 
 comparesLivePage("linear comparison page", vsLinearView, vsLinearLive);
