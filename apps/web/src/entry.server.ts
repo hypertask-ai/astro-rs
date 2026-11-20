@@ -17,6 +17,7 @@ import {
   redirectResponse,
 } from "./hypertask/site-rules.js";
 import { relayPostHogFromRequest } from "./relay-posthog.js";
+import { pageViews, viewForPath } from "./routes.js";
 import { removeSiteBasePath } from "./site-base-path.js";
 import { siteBasePath, sitePreviewResponse } from "./site-base.js";
 
@@ -37,7 +38,9 @@ export const renderDocument: RenderDocument = (
   });
 };
 
-export const prerenderPaths = ["/", ...useCaseViews.keys()];
+export const prerenderPaths = [
+  ...new Set([...pageViews.keys(), ...useCaseViews.keys()]),
+];
 
 const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
   request: Request
@@ -69,8 +72,8 @@ const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
     );
   }
 
-  const knownUseCase = useCaseViewFor(path);
-  const view = path === "/" ? homeView : (knownUseCase ?? homeView);
+  const knownView = viewForPath(path) ?? useCaseViewFor(path);
+  const view = knownView ?? homeView;
 
   if (request.method !== "GET" && request.method !== "HEAD") {
     return Responded(
@@ -89,8 +92,7 @@ const renderRoute = Effect.fn("site.renderRoute")(function* renderRoute(
   });
 
   const isPrerenderedKnownPage =
-    (path === "/" || knownUseCase !== undefined) &&
-    prerenderPaths.includes(path);
+    knownView !== undefined && prerenderPaths.includes(path);
 
   return isPrerenderedKnownPage
     ? Rendered(application)

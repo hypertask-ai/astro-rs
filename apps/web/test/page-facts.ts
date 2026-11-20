@@ -100,10 +100,10 @@ const inlineText = (html: string): string =>
 
 export const visibleText = (html: string): readonly string[] =>
   withoutNoise(html)
-    .replaceAll(/<[^>]+>/gu, "\n")
-    .split("\n")
-    .map((line) => decodeEntities(line).replaceAll(/\s+/gu, " ").trim())
-    .filter((line) => line !== "");
+    .replaceAll(/<[^>]+>/gu, "\u0000")
+    .split("\u0000")
+    .map((text) => decodeEntities(text).replaceAll(/\s+/gu, " ").trim())
+    .filter((text) => text !== "");
 
 export const headings = (html: string): readonly string[] =>
   [

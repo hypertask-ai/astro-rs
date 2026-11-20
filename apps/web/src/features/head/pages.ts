@@ -6,6 +6,11 @@ const pages = {
       "AI project boards, agent native. AI chat, a Kanban board, and Superhuman-style keyboard controls in one place. Your AI agents work the same board via CLI, MCP, and API.",
     title: "The fastest project board — Hypertask",
   },
+  "/about/": {
+    description:
+      "Hypertask is project management built for humans and AI agents on one board. Founded by Valentin Yeo, inspired by Superhuman's keyboard-first philosophy.",
+    title: "About Hypertask — Why We Built It",
+  },
   "/blog/": {
     description:
       "Field notes on running humans and AI agents on one board: async work, agent orchestration, and getting out of project-management chaos.",

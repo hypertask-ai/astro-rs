@@ -97,6 +97,104 @@
       }
     ]
   },
+  "/about/": {
+    "title": "About Hypertask — Why We Built It",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "description": "Hypertask is project management built for humans and AI agents on one board. Founded by Valentin Yeo, inspired by Superhuman's keyboard-first philosophy.",
+    "robots": "index, follow",
+    "og:title": "About Hypertask — Why We Built It",
+    "og:description": "Hypertask is project management built for humans and AI agents on one board. Founded by Valentin Yeo, inspired by Superhuman's keyboard-first philosophy.",
+    "og:image": "https://hypertask.ai/hypertasklogo.avif",
+    "og:image:alt": "Hypertask — AI-powered project management for humans and AI agents",
+    "og:url": "https://hypertask.ai/about/",
+    "og:type": "website",
+    "og:site_name": "Hypertask",
+    "twitter:card": "summary_large_image",
+    "twitter:title": "About Hypertask — Why We Built It",
+    "twitter:description": "Hypertask is project management built for humans and AI agents on one board. Founded by Valentin Yeo, inspired by Superhuman's keyboard-first philosophy.",
+    "twitter:image": "https://hypertask.ai/hypertasklogo.avif",
+    "twitter:image:alt": "Hypertask — AI-powered project management for humans and AI agents",
+    "canonical": "https://hypertask.ai/about/",
+    "ld": [
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://hypertask.ai/#organization",
+            "name": "Hypertask",
+            "legalName": "Hypertask Lab Ltd.",
+            "url": "https://hypertask.ai",
+            "description": "Hypertask is a project management platform where humans and AI agents share one board. Native MCP server and CLI access let autonomous agents read tasks, claim work, post progress, and update tickets without a human relaying every step.",
+            "knowsAbout": [
+              "AI agents",
+              "project management",
+              "Model Context Protocol",
+              "task management",
+              "AI work attribution",
+              "asynchronous collaboration"
+            ],
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://hypertask.ai/hypertasklogo.avif"
+            },
+            "founder": {
+              "@type": "Person",
+              "@id": "https://hypertask.ai/#founder",
+              "name": "Valentin Yeo",
+              "jobTitle": "Founder"
+            },
+            "sameAs": [
+              "https://www.npmjs.com/package/@hypertask/hypertask_cli"
+            ],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer support",
+              "url": "https://hypertask.ai/contact/"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://hypertask.ai/#website",
+            "url": "https://hypertask.ai",
+            "name": "Hypertask",
+            "publisher": {
+              "@id": "https://hypertask.ai/#organization"
+            }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://hypertask.ai/#software",
+            "name": "Hypertask",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "url": "https://hypertask.ai",
+            "description": "AI-powered project management where humans and AI agents share one board. Voice-to-task, smart summaries, keyboard-first navigation, native MCP integration.",
+            "screenshot": "https://hypertask.ai/mainscreen.avif",
+            "featureList": [
+              "Shared board for humans and AI agents",
+              "Native MCP server (15 tools)",
+              "Agent-optimized CLI",
+              "Voice-to-task capture",
+              "Smart task summaries",
+              "Keyboard-first navigation",
+              "Inbox and approval gates for agent work"
+            ],
+            "publisher": {
+              "@id": "https://hypertask.ai/#organization"
+            },
+            "offers": {
+              "@type": "AggregateOffer",
+              "priceCurrency": "USD",
+              "lowPrice": "0",
+              "highPrice": "25",
+              "offerCount": "3"
+            }
+          }
+        ]
+      }
+    ]
+  },
   "/pricing/": {
     "title": "Hypertask Pricing — Free & Paid AI Project Management Plans",
     "viewport": "width=device-width, initial-scale=1.0",

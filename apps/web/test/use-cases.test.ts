@@ -21,7 +21,7 @@ import {
   images,
   linkTargets,
   visibleText,
-} from "./home-page.js";
+} from "./page-facts.js";
 
 const assets = {
   entryScript: "/assets/entry.js",
@@ -112,7 +112,7 @@ describe("use case routes", () => {
   const addresses = useCasePages.map((page) => page.path);
 
   it("prerenders the home page and every use case page", () => {
-    expect(prerenderPaths.toSorted()).toEqual(["/", ...addresses].toSorted());
+    expect(prerenderPaths).toEqual(expect.arrayContaining(["/", ...addresses]));
   });
 
   it("answers each page address with its own view", () => {
