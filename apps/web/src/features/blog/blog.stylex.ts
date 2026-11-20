@@ -1,10 +1,12 @@
 import * as stylex from "@stylexjs/stylex";
 
-const sm = "@media (min-width: 40rem)";
+const sm = "@media (min-width: 640px)";
 
-const lg = "@media (min-width: 64rem)";
+const smToLg = "@media (min-width: 640px) and (max-width: 1023.98px)";
 
-const xl = "@media (min-width: 80rem)";
+const lg = "@media (min-width: 1024px)";
+
+const xl = "@media (min-width: 1280px)";
 
 const system =
   'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
@@ -234,7 +236,7 @@ export const styles = stylex.create({
     marginInline: "auto",
     maxWidth: "1100px",
     paddingBlock: { default: "3rem", [lg]: "5rem" },
-    paddingInline: { default: "1rem", [lg]: "2rem", [sm]: "1.5rem" },
+    paddingInline: { default: "1rem", [lg]: "2rem", [smToLg]: "1.5rem" },
     width: "100%",
   },
   coverImage: {
