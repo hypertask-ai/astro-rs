@@ -8,7 +8,7 @@ import type {
 export type RecordedScript = ObservedScript &
   Readonly<{ order: number; place: ScriptPlacement }>;
 
-const scriptElement = /<script\b(?<attributes>[^>]*)>(?<body>.*?)<\/script>/gsu;
+const scriptElement = /<script\b(?<attributes>[^>]*)>(?<body>.*?)<\/script>/gisu;
 
 const attribute = /(?<name>[^\s=/>]+)(?:="(?<value>[^"]*)")?/gu;
 
