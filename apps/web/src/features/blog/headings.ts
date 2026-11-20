@@ -63,7 +63,6 @@ const slug = (value: string): string =>
   value
     .toLowerCase()
     .trim()
-    .replaceAll(/<[!/a-z].*?>/gu, "")
     .replaceAll(
       /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/gu,
       ""

@@ -1,3 +1,4 @@
+// @effect-diagnostics nodeBuiltinImport:off -- The test reads the shipped blog images and hashes them, a file-system boundary.
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import path from "node:path";

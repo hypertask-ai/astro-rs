@@ -92,32 +92,121 @@ const bodyOf = (html: string): string => {
   return start === -1 || end === -1 ? "" : html.slice(start, end);
 };
 
-const withoutNoise = (html: string): string =>
-  bodyOf(html)
-    .replaceAll(
-      /<section\b[^>]*id="cookie-consent"[^>]*>[\s\S]*?<\/section>/gu,
-      ""
-    )
-    .replaceAll(/<!--[\s\S]*?-->/gu, "")
-    .replaceAll(
-      /<(?<tag>script|style|template)\b[^>]*>[\s\S]*?<\/\k<tag>>/gu,
-      ""
-    );
+const tagNameOf = (markup: string): string | undefined =>
+  /^(?<name>[a-z][\w:-]*)/iu.exec(markup)?.groups?.name.toLowerCase();
+
+const withoutTags = (html: string, separator: string): string => {
+  const parts: string[] = [];
+  let index = 0;
+
+  while (index < html.length) {
+    const open = html.indexOf("<", index);
+
+    if (open === -1) {
+      parts.push(html.slice(index));
+
+      break;
+    }
+
+    const close = html.indexOf(">", open + 1);
+
+    if (close === -1 || close === open + 1) {
+      parts.push(html.slice(index, open + 1));
+      index = open + 1;
+
+      continue;
+    }
+
+    parts.push(html.slice(index, open), separator);
+    index = close + 1;
+  }
+
+  return parts.join("");
+};
+
+const noiseTags = new Set(["script", "style", "template"]);
+
+const consentId = "cookie-consent";
+
+const elementEnd = (
+  html: string,
+  name: string,
+  from: number
+): number | undefined => {
+  const closing = html.toLowerCase().indexOf(`</${name}>`, from);
+
+  return closing === -1 ? undefined : closing + name.length + 3;
+};
+
+const dropsElement = (markup: string): boolean => {
+  const name = tagNameOf(markup);
+
+  return (
+    name !== undefined &&
+    (noiseTags.has(name) ||
+      (name === "section" && attributesOf(markup).get("id") === consentId))
+  );
+};
+
+const withoutNoise = (html: string): string => {
+  const body = bodyOf(html);
+  const parts: string[] = [];
+  let index = 0;
+
+  while (index < body.length) {
+    const open = body.indexOf("<", index);
+
+    if (open === -1) {
+      parts.push(body.slice(index));
+
+      break;
+    }
+
+    if (body.startsWith("<!--", open)) {
+      parts.push(body.slice(index, open));
+      const commentEnd = body.indexOf("-->", open + 4);
+      index = commentEnd === -1 ? body.length : commentEnd + 3;
+
+      continue;
+    }
+
+    const close = body.indexOf(">", open + 1);
+
+    if (close === -1 || close === open + 1) {
+      parts.push(body.slice(index, open + 1));
+      index = open + 1;
+
+      continue;
+    }
+
+    const markup = body.slice(open + 1, close);
+
+    if (dropsElement(markup)) {
+      parts.push(body.slice(index, open));
+      index =
+        elementEnd(body, tagNameOf(markup) ?? "", close + 1) ?? body.length;
+
+      continue;
+    }
+
+    parts.push(body.slice(index, close + 1));
+    index = close + 1;
+  }
+
+  return parts.join("");
+};
 
 const withoutCode = (html: string): string =>
   html.replaceAll(/<pre\b[^>]*>[\s\S]*?<\/pre>/gu, "");
 
 const visibleTextOf = (html: string): readonly string[] =>
-  withoutNoise(withoutCode(html))
-    .replaceAll(/<[^>]+>/gu, "\u0000")
+  withoutTags(withoutNoise(withoutCode(html)), "\u0000")
     .split("\u0000")
     .map((chunk) => decodeEntities(chunk).replaceAll(/\s+/gu, " ").trim())
     .filter((chunk) => chunk !== "");
 
 const inlineText = (html: string): string =>
-  decodeEntities(html.replaceAll(/<[^>]+>/gu, " "))
-    .replaceAll(/\s+/gu, " ")
-    .trim();
+  decodeEntities(withoutTags(html, " ")).replaceAll(/\s+/gu, " ").trim();
 
 const headingsOf = (html: string): readonly BlogHeading[] =>
   [
@@ -174,9 +263,7 @@ const codeBlocksOf = (html: string): readonly BlogCodeBlock[] =>
 
     return {
       language: attributes.get("data-language") ?? "",
-      text: decodeEntities(
-        (match.groups?.body ?? "").replaceAll(/<[^>]+>/gu, "")
-      ),
+      text: decodeEntities(withoutTags(match.groups?.body ?? "", "")),
     };
   });
 
