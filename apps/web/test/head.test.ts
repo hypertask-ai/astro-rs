@@ -99,8 +99,8 @@ const expectedMeta = (old: OldHead): ReadonlyMap<string, string> =>
   );
 
 describe("page head", () => {
-  it("covers the six sample pages and every published post", () => {
-    expect(samplePaths).toHaveLength(6);
+  it("covers every captured page and every published post", () => {
+    expect(samplePaths).toHaveLength(11);
 
     for (const path of expectedPaths) {
       expect(pageHeads.has(path)).toBe(true);

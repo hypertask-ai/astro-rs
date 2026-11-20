@@ -13,7 +13,7 @@ import {
   images,
   linkTargets,
   visibleText,
-} from "./home-page.js";
+} from "./page-facts.js";
 
 const assets = {
   entryScript: "/assets/entry.js",
