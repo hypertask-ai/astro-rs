@@ -3,6 +3,7 @@ import type { Document, Html, HtmlBuilder } from "foldkit/html";
 
 import type { AppMessage } from "../../client/app/message.js";
 import type { AppModel } from "../../client/app/model.js";
+import { siteBuilder } from "../../site-base.js";
 import { ctaLink } from "../cta/index.js";
 import { page } from "../page/index.js";
 import * as copy from "./copy.js";
@@ -291,11 +292,17 @@ const content = (h: HtmlBuilder<AppMessage>): readonly Html[] => [
   ),
 ];
 
-export const view = (model: AppModel, h: HtmlBuilder<AppMessage>): Document =>
-  page(
+export const view = (
+  model: AppModel,
+  builder: HtmlBuilder<AppMessage>
+): Document => {
+  const h = siteBuilder(builder);
+
+  return page(
     model,
     h,
     copy.comparisonPath,
     [h.article([h.Class(classes(styles.page))], content(h))],
     copy.pageTitle
   );
+};

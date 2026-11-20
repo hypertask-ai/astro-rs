@@ -4,9 +4,10 @@ import type { Document, Html, HtmlBuilder } from "foldkit/html";
 import { Message } from "../../client/app/message.js";
 import type { AppMessage } from "../../client/app/message.js";
 import type { AppModel } from "../../client/app/model.js";
+import { siteBuilder } from "../../site-base.js";
 import { copiedLabel } from "../home/copy.js";
-import { pricingModule } from "../pricing/index.js";
 import { page } from "../page/index.js";
+import { pricingModule } from "../pricing/index.js";
 import { testimonialsSection } from "../testimonials/index.js";
 import * as copy from "./copy.js";
 import type { DiptychFeature } from "./copy.js";
@@ -425,8 +426,13 @@ const final = (h: HtmlBuilder<AppMessage>): Html =>
     ]
   );
 
-export const view = (model: AppModel, h: HtmlBuilder<AppMessage>): Document =>
-  page(
+export const view = (
+  model: AppModel,
+  builder: HtmlBuilder<AppMessage>
+): Document => {
+  const h = siteBuilder(builder);
+
+  return page(
     model,
     h,
     copy.hallmarkPath,
@@ -453,3 +459,4 @@ export const view = (model: AppModel, h: HtmlBuilder<AppMessage>): Document =>
     ],
     copy.pageTitle
   );
+};
