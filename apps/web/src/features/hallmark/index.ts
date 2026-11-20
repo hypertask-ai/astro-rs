@@ -5,7 +5,7 @@ import { Message } from "../../client/app/message.js";
 import type { AppMessage } from "../../client/app/message.js";
 import type { AppModel } from "../../client/app/model.js";
 import { copiedLabel } from "../home/copy.js";
-import { pricingModule } from "../home/index.js";
+import { pricingModule } from "../pricing/index.js";
 import { page } from "../page/index.js";
 import { testimonialsSection } from "../testimonials/index.js";
 import * as copy from "./copy.js";
