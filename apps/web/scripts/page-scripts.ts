@@ -9,7 +9,7 @@ export type RecordedScript = ObservedScript &
   Readonly<{ order: number; place: ScriptPlacement }>;
 
 const scriptElement =
-  /<script\b(?<attributes>[^>]*)>(?<body>.*?)<\/script\s*>/gisu;
+  /<script\b(?<attributes>[^>]*)>(?<body>.*?)<\/script[^>]*>/gisu;
 
 const attribute = /(?<name>[^\s=/>]+)(?:="(?<value>[^"]*)")?/gu;
 
