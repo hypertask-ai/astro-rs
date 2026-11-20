@@ -228,18 +228,18 @@ export const styles = stylex.create({
   },
   image: {
     borderRadius: "0.75rem",
-    maxWidth: { [sm]: "40rem" },
-    minHeight: { [sm]: "30rem" },
+    maxWidth: { default: "none", [sm]: "40rem" },
+    minHeight: { default: "auto", [sm]: "30rem" },
     objectFit: "cover",
     objectPosition: "left",
     width: "100%",
   },
   imageCell: {
-    gridColumn: { [lg]: "span 7" },
+    gridColumn: { default: "auto", [lg]: "span 7" },
     position: "relative",
   },
   imageCellReversed: {
-    order: { [lg]: 2 },
+    order: { default: 0, [lg]: 2 },
   },
   item: {
     alignItems: "flex-start",
@@ -393,10 +393,10 @@ export const styles = stylex.create({
     textAlign: "left",
   },
   rowTextCell: {
-    gridColumn: { [lg]: "span 5" },
+    gridColumn: { default: "auto", [lg]: "span 5" },
   },
   rowTextCellReversed: {
-    order: { [lg]: 1 },
+    order: { default: 0, [lg]: 1 },
   },
   rowTitle: {
     color: white,

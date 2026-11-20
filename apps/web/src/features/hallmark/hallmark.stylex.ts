@@ -330,9 +330,12 @@ export const styles = stylex.create({
     display: { default: "flex", [logoPhone]: "grid" },
     flexWrap: "wrap",
     gap: { default: "1.75rem 3rem", [logoPhone]: "1.75rem 1.5rem" },
-    gridTemplateColumns: { [logoPhone]: "repeat(2, minmax(0, 1fr))" },
+    gridTemplateColumns: {
+      default: "none",
+      [logoPhone]: "repeat(2, minmax(0, 1fr))",
+    },
     justifyContent: "center",
-    justifyItems: { [logoPhone]: "center" },
+    justifyItems: { default: "normal", [logoPhone]: "center" },
   },
   note: {
     color: inkFaint,

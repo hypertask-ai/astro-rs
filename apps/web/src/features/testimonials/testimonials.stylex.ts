@@ -129,7 +129,7 @@ export const styles = stylex.create({
   carouselViewport: {
     overflowX: "auto",
     overflowY: "hidden",
-    scrollBehavior: { [motionOk]: "smooth" },
+    scrollBehavior: { default: "auto", [motionOk]: "smooth" },
     scrollSnapType: "x mandatory",
     touchAction: "manipulation",
   },
