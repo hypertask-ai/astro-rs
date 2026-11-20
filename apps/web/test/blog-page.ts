@@ -93,7 +93,7 @@ const bodyOf = (html: string): string => {
 };
 
 const tagNameOf = (markup: string): string | undefined =>
-  /^(?<name>[a-z][\w:-]*)/iu.exec(markup)?.groups?.name.toLowerCase();
+  /^(?<name>[a-z][\w:-]*)/iu.exec(markup)?.groups?.name?.toLowerCase();
 
 const withoutTags = (html: string, separator: string): string => {
   const parts: string[] = [];
