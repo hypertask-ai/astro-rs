@@ -97,13 +97,25 @@ const withoutCookieBanner = (html: string): string =>
     ""
   );
 
+const commentPattern = /<!--[\s\S]*?-->/gu;
+
+const withoutComments = (html: string): string => {
+  let text = html;
+  let stripped = text.replaceAll(commentPattern, "");
+
+  while (stripped !== text) {
+    text = stripped;
+    stripped = text.replaceAll(commentPattern, "");
+  }
+
+  return stripped;
+};
+
 const withoutNoise = (html: string): string =>
-  withoutCookieBanner(bodyOf(html))
-    .replaceAll(/<!--[\s\S]*?-->/gu, "")
-    .replaceAll(
-      /<(?<tag>script|style|template)\b[^>]*>[\s\S]*?<\/\k<tag>>/gu,
-      ""
-    );
+  withoutComments(withoutCookieBanner(bodyOf(html))).replaceAll(
+    /<(?<tag>script|style|template)\b[^>]*>[\s\S]*?<\/\k<tag>>/gu,
+    ""
+  );
 
 const inlineText = (html: string): string =>
   decodeEntities(html.replaceAll(/<[^>]+>/gu, " "))
@@ -125,7 +137,7 @@ export const headings = (html: string): readonly string[] =>
   ].map(
     (match) =>
       `h${match.groups?.level}: ${inlineText(
-        (match.groups?.text ?? "").replaceAll(/<!--[\s\S]*?-->/gu, "")
+        withoutComments(match.groups?.text ?? "")
       )}`
   );
 
