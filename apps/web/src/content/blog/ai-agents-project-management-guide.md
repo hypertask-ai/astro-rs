@@ -195,7 +195,7 @@ Attribution in AI-agent project management requires:
 
 **The agent’s reasoning on the task itself.** When an agent posts a comment saying “Deployed to production — fixed the login timeout by adjusting the session cookie expiry,” that reasoning lives on the task. You don’t need to dig through terminal logs.
 
-**A timestamp trail that matches the task history.** If the board shows a task moved from “Doing” to “Done” at 14:32, and the agent’s comment was posted at 14:31, you can reconstruct what happened without inspecting CI logs.
+**A timestamp trail that matches the task history.** If the board shows a task moved from “Doing” to “Done” at 14\:32, and the agent’s comment was posted at 14\:31, you can reconstruct what happened without inspecting CI logs.
 
 Hypertask’s inbox and comment model provides this automatically when agents use MCP or CLI. Every action (move, comment, create) is recorded against the task with the agent’s identity and timestamp. The full attribution record lives in [AI work attribution — knowing what your agents actually did](/blog/ai-work-attribution-what-did-your-agents-do/).
 

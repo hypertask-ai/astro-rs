@@ -80,7 +80,7 @@ If you want a calendar to pick the best time for your work, Motion has the clear
 
 Calendar-first tools answer this question:
 
-> Given my meetings, deadlines, task durations, and priorities, what should I work on at 2:30 today?
+> Given my meetings, deadlines, task durations, and priorities, what should I work on at 2\:30 today?
 
 Board-first tools answer a different question:
 

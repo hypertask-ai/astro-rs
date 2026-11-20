@@ -1,7 +1,7 @@
 import { Schema } from "effect";
 
-import type { HeadTags } from "./home-page.js";
-import { linkTargets } from "./home-page.js";
+import type { HeadTags } from "./page-facts.js";
+import { linkTargets } from "./page-facts.js";
 
 export interface BlogImage {
   readonly alt: string;
