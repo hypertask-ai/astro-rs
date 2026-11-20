@@ -190,6 +190,7 @@ export const headersFile = (existing: string, basePath = ""): string => {
   const mounted = mountedHeaderPaths(existing, basePath);
   const required = requiredHeaderLines(preview);
   const blocks = headerBlocks(mounted);
+
   const root = blocks.find(
     (block) => block.pattern === addSiteBasePath(basePath, "/*")
   );
@@ -198,6 +199,7 @@ export const headersFile = (existing: string, basePath = ""): string => {
     const block = `${addSiteBasePath(basePath, "/*")}\n${required
       .map((line) => `  ${line}`)
       .join("\n")}\n`;
+
     const separator = mounted === "" || mounted.endsWith("\n") ? "" : "\n";
 
     return `${mounted}${separator}${mounted === "" ? "" : "\n"}${block}`;
