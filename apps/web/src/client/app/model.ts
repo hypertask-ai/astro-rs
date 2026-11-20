@@ -33,7 +33,7 @@ export type AppModel = typeof Model.Type;
 
 export const initialModel: AppModel = {
   analyticsAllowed: false,
-  bannerVisible: true,
+  bannerVisible: false,
   billingPeriod: "yearly",
   choice: Option.none(),
   copyLabel,

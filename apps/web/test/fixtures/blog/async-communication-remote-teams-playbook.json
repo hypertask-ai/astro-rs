@@ -1,0 +1,574 @@
+{
+  "source": {
+    "bytes": 50980,
+    "fetchedAt": "2026-11-15T12:12:09.378Z",
+    "method": "GET",
+    "sha256": "40072550f1088c4f16dcabbd13941eb6079254b9ffa33fbd6300b393d9da498b",
+    "status": 200,
+    "url": "https://hypertask.ai/blog/async-communication-remote-teams-playbook/"
+  },
+  "address": "/blog/async-communication-remote-teams-playbook/",
+  "head": {
+    "canonical": "https://hypertask.ai/blog/async-communication-remote-teams-playbook/",
+    "meta": {
+      "description": "Cut notification chaos with a real async communication playbook: channel hierarchy, response windows, and where decisions actually get recorded.",
+      "robots": "index, follow",
+      "og:title": "Async Communication for Remote Teams: A Practical Playbook — Hypertask Blog",
+      "og:description": "Cut notification chaos with a real async communication playbook: channel hierarchy, response windows, and where decisions actually get recorded.",
+      "og:image": "https://hypertask.ai/images/blog/async-playbook-cover.webp",
+      "og:image:alt": "A remote team's shared task board showing clearly assigned work with comments anchored to each ticket, replacing a cluttered chat channel",
+      "og:url": "https://hypertask.ai/blog/async-communication-remote-teams-playbook/",
+      "og:type": "article",
+      "og:site_name": "Hypertask",
+      "twitter:card": "summary_large_image",
+      "twitter:title": "Async Communication for Remote Teams: A Practical Playbook — Hypertask Blog",
+      "twitter:description": "Cut notification chaos with a real async communication playbook: channel hierarchy, response windows, and where decisions actually get recorded.",
+      "twitter:image": "https://hypertask.ai/images/blog/async-playbook-cover.webp",
+      "twitter:image:alt": "A remote team's shared task board showing clearly assigned work with comments anchored to each ticket, replacing a cluttered chat channel",
+      "article:published_time": "2026-05-14T00:00:00.000Z",
+      "article:modified_time": "2026-05-14T00:00:00.000Z",
+      "article:author": "https://hypertask.ai/about/",
+      "article:section": "Async Work + Inbox Zero"
+    },
+    "title": "Async Communication for Remote Teams: A Practical Playbook — Hypertask Blog"
+  },
+  "structuredData": [
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://hypertask.ai/#organization",
+          "name": "Hypertask",
+          "legalName": "Hypertask Lab Ltd.",
+          "url": "https://hypertask.ai",
+          "description": "Hypertask is a project management platform where humans and AI agents share one board. Native MCP server and CLI access let autonomous agents read tasks, claim work, post progress, and update tickets without a human relaying every step.",
+          "knowsAbout": [
+            "AI agents",
+            "project management",
+            "Model Context Protocol",
+            "task management",
+            "AI work attribution",
+            "asynchronous collaboration"
+          ],
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://hypertask.ai/hypertasklogo.avif"
+          },
+          "founder": {
+            "@type": "Person",
+            "@id": "https://hypertask.ai/#founder",
+            "name": "Valentin Yeo",
+            "jobTitle": "Founder"
+          },
+          "sameAs": ["https://www.npmjs.com/package/@hypertask/hypertask_cli"],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "url": "https://hypertask.ai/contact/"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://hypertask.ai/#website",
+          "url": "https://hypertask.ai",
+          "name": "Hypertask",
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://hypertask.ai/#software",
+          "name": "Hypertask",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "url": "https://hypertask.ai",
+          "description": "AI-powered project management where humans and AI agents share one board. Voice-to-task, smart summaries, keyboard-first navigation, native MCP integration.",
+          "screenshot": "https://hypertask.ai/mainscreen.avif",
+          "featureList": [
+            "Shared board for humans and AI agents",
+            "Native MCP server (15 tools)",
+            "Agent-optimized CLI",
+            "Voice-to-task capture",
+            "Smart task summaries",
+            "Keyboard-first navigation",
+            "Inbox and approval gates for agent work"
+          ],
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          },
+          "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "USD",
+            "lowPrice": "0",
+            "highPrice": "25",
+            "offerCount": "3"
+          }
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "headline": "Async Communication for Remote Teams: A Practical Playbook",
+          "description": "Cut notification chaos with a real async communication playbook: channel hierarchy, response windows, and where decisions actually get recorded.",
+          "datePublished": "2026-05-14T00:00:00.000Z",
+          "dateModified": "2026-05-14T00:00:00.000Z",
+          "author": {
+            "@type": "Person",
+            "name": "Valentin Yeo",
+            "url": "https://hypertask.ai/about/"
+          },
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://hypertask.ai/blog/async-communication-remote-teams-playbook/"
+          },
+          "image": "https://hypertask.ai/images/blog/async-playbook-cover.webp",
+          "keywords": "async-work, remote-teams, team-communication, playbook"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://hypertask.ai/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://hypertask.ai/blog/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Async Communication for Remote Teams: A Practical Playbook",
+              "item": "https://hypertask.ai/blog/async-communication-remote-teams-playbook/"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What's the difference between async communication and slow communication?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Async communication means you don't need to respond immediately — but you do respond within a pre-agreed window. The window is key. A team with a 24-hour response norm for task comments is async. A team where messages get ignored for days because \"we're async\" is just disorganised. The playbook works because it sets explicit expectations, not because it removes them."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do we need to give up Slack to go async?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Slack is useful for the things it's good at: quick coordination, social conversation, lightweight sharing. The problem isn't Slack — it's using Slack for things that belong on the task board. Keep your chat tool. Just stop using it as a substitute for task comments."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do we handle urgent issues in an async team?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Define \"urgent\" explicitly before an incident: a real person is blocked right now and no one else can unblock them. Reserve your fastest channel (direct message, @mention) for that. Everything else waits for the agreed response window. When the team agrees on the definition in advance, the channel doesn't get abused — and people stop feeling like they have to monitor everything constantly."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Where should decisions get recorded?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "In the task they belong to. Not in Slack, not in a separate doc, not in email. When a decision is made about a piece of work, the person who made it should record it as a comment on the relevant task before moving on. The test: if a new team member joined tomorrow and needed to understand why this task looks the way it does, could they find the answer without asking anyone?"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How long does it take for async norms to stick?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Expect two to four weeks of deliberate reinforcement. The first week, people will default to old habits — that's normal. Gently redirect: \"Can you put that question in the task comment?\" After two weeks, the path of least resistance starts to shift. After a month, most of the team will do it without thinking. The key is that someone senior has to model the behaviour consistently from day one."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "headings": [
+    {
+      "id": "",
+      "level": 1,
+      "text": "Async Communication for Remote Teams: A Practical Playbook"
+    },
+    {
+      "id": "why-most-remote-teams-communication-norms-dont-work",
+      "level": 2,
+      "text": "Why Most Remote Teams’ Communication Norms Don’t Work"
+    },
+    {
+      "id": "step-1-build-a-channel-hierarchy",
+      "level": 2,
+      "text": "Step 1: Build a Channel Hierarchy"
+    },
+    {
+      "id": "step-2-define-urgent-before-someone-abuses-it",
+      "level": 2,
+      "text": "Step 2: Define “Urgent” Before Someone Abuses It"
+    },
+    {
+      "id": "step-3-anchor-every-actionable-message-to-a-task",
+      "level": 2,
+      "text": "Step 3: Anchor Every Actionable Message to a Task"
+    },
+    {
+      "id": "step-4-set-working-hours-and-overlap-windows",
+      "level": 2,
+      "text": "Step 4: Set Working Hours and Overlap Windows"
+    },
+    {
+      "id": "step-5-record-decisions-where-theyll-be-found",
+      "level": 2,
+      "text": "Step 5: Record Decisions Where They’ll Be Found"
+    },
+    {
+      "id": "what-this-looks-like-in-practice",
+      "level": 2,
+      "text": "What This Looks Like in Practice"
+    },
+    {
+      "id": "where-ai-fits-into-an-async-playbook",
+      "level": 2,
+      "text": "Where AI Fits Into an Async Playbook"
+    },
+    {
+      "id": "frequently-asked-questions",
+      "level": 2,
+      "text": "Frequently Asked Questions"
+    },
+    {
+      "id": "whats-the-difference-between-async-communication-and-slow-communication",
+      "level": 3,
+      "text": "What’s the difference between async communication and slow communication?"
+    },
+    {
+      "id": "do-we-need-to-give-up-slack-to-go-async",
+      "level": 3,
+      "text": "Do we need to give up Slack to go async?"
+    },
+    {
+      "id": "how-do-we-handle-urgent-issues-in-an-async-team",
+      "level": 3,
+      "text": "How do we handle urgent issues in an async team?"
+    },
+    {
+      "id": "where-should-decisions-get-recorded",
+      "level": 3,
+      "text": "Where should decisions get recorded?"
+    },
+    {
+      "id": "how-long-does-it-take-for-async-norms-to-stick",
+      "level": 3,
+      "text": "How long does it take for async norms to stick?"
+    },
+    {
+      "id": "try-it-this-week",
+      "level": 2,
+      "text": "Try It This Week"
+    },
+    {
+      "id": "",
+      "level": 2,
+      "text": "Keep reading"
+    }
+  ],
+  "visibleText": [
+    "Skip to content",
+    "Hypertask",
+    "Pricing",
+    "Blog",
+    "Docs",
+    "Help",
+    "Login",
+    "Press",
+    "L",
+    "to log in",
+    "Start free",
+    "Start free",
+    "☰",
+    "Home",
+    "/",
+    "Blog",
+    "Async Work + Inbox Zero",
+    "Async Communication for Remote Teams: A Practical Playbook",
+    "Cut notification chaos with a real async communication playbook: channel hierarchy, response windows, and where decisions actually get recorded.",
+    "Valentin Yeo",
+    "May 14, 2026",
+    "On this page",
+    "Why Most Remote Teams’ Communication Norms Don’t Work",
+    "Step 1: Build a Channel Hierarchy",
+    "Step 2: Define “Urgent” Before Someone Abuses It",
+    "Step 3: Anchor Every Actionable Message to a Task",
+    "Step 4: Set Working Hours and Overlap Windows",
+    "Step 5: Record Decisions Where They’ll Be Found",
+    "What This Looks Like in Practice",
+    "Where AI Fits Into an Async Playbook",
+    "Frequently Asked Questions",
+    "What’s the difference between async communication and slow communication?",
+    "Do we need to give up Slack to go async?",
+    "How do we handle urgent issues in an async team?",
+    "Where should decisions get recorded?",
+    "How long does it take for async norms to stick?",
+    "Try It This Week",
+    "Remote teams don’t fail at async communication because they lack tools. They fail because nobody ever agreed on the rules. Define your channel hierarchy, set explicit response windows, and make a single rule non-negotiable: every actionable message lives on the task it concerns, not in a chat thread that’ll disappear by Friday. That’s the entire playbook. The rest is implementation.",
+    "The Bottom Line",
+    "Build a channel hierarchy: give every communication surface one clear purpose and an explicit response window.",
+    "Define “urgent” before anyone abuses it — a real person blocked right now, with no one else able to unblock them.",
+    "Anchor every actionable message to the task it concerns, not a chat thread that disappears by Friday.",
+    "Publish working hours and batch multi-person decisions into the overlap window.",
+    "Record decisions where they’ll be found later: in the task, not in Slack or a doc nobody opens.",
+    "Why Most Remote Teams’ Communication Norms Don’t Work",
+    "The setup is familiar. You adopt Slack, a project board, and email. Then someone asks a question in Slack about a ticket. Someone else answers. A decision gets made. Nobody updates the ticket. Three weeks later, a third person asks the same question — and the answer is buried in a Slack thread from last month, if it exists at all.",
+    "This isn’t a Slack problem. Slack is a fine tool. The problem is that no one decided where decisions live. When communication has no home, it scatters.",
+    "According to Microsoft’s Work Trend Index 2025, knowledge workers now spend 57% of their time communicating and only 43% actually creating (",
+    "Microsoft Work Trend Index, “Breaking Down the Infinite Workday”",
+    ", 2025). The ratio isn’t fixed by switching tools. It’s fixed by fixing norms — which is the whole reason",
+    "async-first is the right default for distributed teams",
+    "in the first place.",
+    "Step 1: Build a Channel Hierarchy",
+    "Before you write any rules, map your channels. Every remote team ends up with more communication surfaces than they planned for. The goal isn’t to reduce the number of tools — it’s to give each one a clear, non-overlapping purpose.",
+    "Here’s a hierarchy that works for most teams:",
+    "Channel",
+    "Use",
+    "Expected Response Window",
+    "Task comments (in your project board)",
+    "Decisions, context, blockers, questions about specific work",
+    "Next working day",
+    "Team chat (Slack / Teams / similar)",
+    "Quick coordination, social, links worth sharing",
+    "Within a few hours during working hours",
+    "Email",
+    "External stakeholders, async updates to people outside your board",
+    "24–48 hours",
+    "Video / voice",
+    "Complex discussions, relationship-building, anything genuinely real-time",
+    "Scheduled in advance",
+    "@mentions / direct message",
+    "Urgent-only: something is blocked right now and nothing else will unblock it",
+    "As fast as possible — but define “urgent”",
+    "The key column is the response window. Without it, every channel feels urgent by default. People check everything constantly because they don’t know what can wait. That’s",
+    "how notification overload starts",
+    ".",
+    "Write these down. Share them with the team. The act of deciding is more important than which specific windows you pick.",
+    "Step 2: Define “Urgent” Before Someone Abuses It",
+    "Every async playbook needs a definition of urgent that isn’t just “whatever I feel is urgent right now.”",
+    "A useful working definition: something is urgent if a real person is blocked from doing their next task and no one else can unblock them. Production is down. A client is waiting on a response and you’re the only one with the information. A deadline passes in the next two hours.",
+    "What isn’t urgent: a question about a task that’s due next week. A status update someone wanted for context. A Slack message that starts with “Hey, quick question.”",
+    "When the team has agreed on this definition, you can enforce the norm that urgent messages go to direct message or @mention — and everything else goes in the task comment where it belongs. The norm holds longer when it’s paired with a daily",
+    "inbox-zero habit that keeps task comments from piling up",
+    ".",
+    "Step 3: Anchor Every Actionable Message to a Task",
+    "This is the one rule that matters most. If you adopt nothing else from this playbook, adopt this.",
+    "When someone has a question about a task, the question goes in the task comment — not in Slack, not in email. When a decision gets made, it gets recorded in the task. When a blocker is resolved, the resolution goes in the task. The task becomes the single source of truth for everything related to that piece of work.",
+    "The alternative is what most teams are currently living with: a situation where the task description says one thing, the Slack thread from three weeks ago says something else, and nobody’s sure which is current.",
+    "This was the problem that led to building Hypertask. On previous teams, people would do the actual work in Jira or Linear but discuss it in Slack. Decisions scattered. Context got lost. New team members couldn’t reconstruct why something was done the way it was done. The task board stopped reflecting reality within days of a sprint starting.",
+    "The fix isn’t a better project tool or a better chat tool. It’s a norm: the task is the thread.",
+    "Step 4: Set Working Hours and Overlap Windows",
+    "Async communication doesn’t mean “you can message me at 3am and I’ll respond when I wake up.” That’s just slow communication. It means you don’t need to respond immediately — but you do respond within the window your team agreed on.",
+    "For distributed teams with little timezone overlap, this requires explicit decisions:",
+    "What hours is each person available? (Publish this. Don’t assume everyone knows.)",
+    "What’s the overlap window where synchronous conversation is possible?",
+    "What happens when something genuinely urgent arrives outside overlap hours?",
+    "A team of five across three timezones with a one-hour daily overlap has different needs than a team of fifteen spread across two continents. The playbook has to fit the actual geography.",
+    "The common failure mode is treating async as a default and then getting frustrated when things move slowly — when the real problem is that decisions requiring multiple people weren’t batched into the overlap window.",
+    "Step 5: Record Decisions Where They’ll Be Found",
+    "A decision recorded in Slack is a decision that’ll be lost within a week. A decision recorded in a Confluence doc is a decision nobody will find because nobody goes to Confluence to understand why a task is structured the way it is. A decision recorded in the task is a decision that’ll be right there when someone needs it.",
+    "This sounds obvious. It’s almost never what teams actually do.",
+    "The reason is friction. Recording a decision in Slack takes one message. Recording it in the task requires switching context, opening the ticket, writing a comment. The path of least resistance is the chat message. So that’s where decisions go — until they’re needed again, at which point they’re gone.",
+    "The teams that do this well don’t have better discipline. They have less friction. The task board is already open. The comment box is right there. The workflow makes the right thing easy enough that people actually do it.",
+    "When a decision starts in a live conversation, the fastest durable record is often a spoken note on the task; Hypertask’s",
+    "voice transcription help article",
+    "covers that capture path.",
+    "What This Looks Like in Practice",
+    "Here’s a concrete example of the playbook applied.",
+    "A designer asks a developer a question about a component. Old pattern: Slack DM, back-and-forth, decision made, nothing recorded. New pattern: the designer opens the task, leaves a comment with the question, @mentions the developer. The developer replies in the task. The decision is in the comment thread. Anyone joining the project later can read the whole conversation in context.",
+    "The designer still uses Slack — for quick social coordination, sharing a link, saying they’re going to lunch. But the question about the component goes in the task. Always.",
+    "This is what a 30-person agency team found when they started applying this norm. The insight from their experience: the inbox structure mattered more than the tool. Once every message had a home, the board stopped feeling chaotic. Updates stopped falling through gaps. New hires could onboard by reading the task history rather than asking someone to reconstruct six months of context from memory.",
+    "Where AI Fits Into an Async Playbook",
+    "An async playbook designed in 2026 has to account for AI agents. If your team is already using Claude Code, Cursor, or similar tools to automate parts of your workflow, those agents are also communicating — leaving comments, updating statuses, creating tasks.",
+    "The same rules apply. Agent output belongs on the task it concerns. An AI agent that posts a build result or a code review summary should post it in the task’s comment thread, not into a general Slack channel where it’ll be ignored. Once that output is anchored to the right task, you can even",
+    "let AI triage the task board updates the playbook generates",
+    "instead of clearing them by hand. The complete operating model is laid out in our guide to",
+    "AI agents in project management",
+    ".",
+    "Hypertask is built around this principle. The inbox surfaces every update — human or agent — anchored to the task it concerns. The AI Triage button reads your inbox, classifies what needs your attention versus what’s safe to archive, and lets you clear it in bulk. The goal is inbox zero for project communication: if everyone reaches it daily, nothing gets buried.",
+    "See how it works at hypertask.ai/features/",
+    ".",
+    "The principle isn’t specific to Hypertask, though. Whatever tool you’re using, the question is the same: when your agent does something, where does that output live? If the answer is “in a channel,” you have the same scattered-context problem you had before, just faster.",
+    "Frequently Asked Questions",
+    "What’s the difference between async communication and slow communication?",
+    "Async communication means you don’t need to respond immediately — but you do respond within a pre-agreed window. The window is key. A team with a 24-hour response norm for task comments is async. A team where messages get ignored for days because “we’re async” is just disorganised. The playbook works because it sets explicit expectations, not because it removes them.",
+    "Do we need to give up Slack to go async?",
+    "No. Slack is useful for the things it’s good at: quick coordination, social conversation, lightweight sharing. The problem isn’t Slack — it’s using Slack for things that belong on the task board. Keep your chat tool. Just stop using it as a substitute for task comments.",
+    "How do we handle urgent issues in an async team?",
+    "Define “urgent” explicitly before an incident: a real person is blocked right now and no one else can unblock them. Reserve your fastest channel (direct message, @mention) for that. Everything else waits for the agreed response window. When the team agrees on the definition in advance, the channel doesn’t get abused — and people stop feeling like they have to monitor everything constantly.",
+    "Where should decisions get recorded?",
+    "In the task they belong to. Not in Slack, not in a separate doc, not in email. When a decision is made about a piece of work, the person who made it should record it as a comment on the relevant task before moving on. The test: if a new team member joined tomorrow and needed to understand why this task looks the way it does, could they find the answer without asking anyone?",
+    "How long does it take for async norms to stick?",
+    "Expect two to four weeks of deliberate reinforcement. The first week, people will default to old habits — that’s normal. Gently redirect: “Can you put that question in the task comment?” After two weeks, the path of least resistance starts to shift. After a month, most of the team will do it without thinking. The key is that someone senior has to model the behaviour consistently from day one.",
+    "Try It This Week",
+    "Pick one meeting your team has that’s really just a status update. Cancel it. Put a standing task comment template in its place: each person posts their update as a comment before end-of-day. See if the information flow actually degrades — or if it improves because people write more clearly when they’re not talking over each other.",
+    "If that update follows a fixed format,",
+    "save it as a Hypertask snippet",
+    "and insert it from the task editor with a keyboard shortcut.",
+    "That’s the smallest version of this playbook. It costs nothing to try.",
+    "If you want the task board that’s designed around this workflow — inbox zero for project communication, AI triage included —",
+    "start for free at app.hypertask.ai/login",
+    ".",
+    "The Bottom Line",
+    "A channel hierarchy with explicit response windows eliminates the “everything feels urgent” problem that makes async communication exhausting.",
+    "The one rule that matters most: every actionable message lives on the task it concerns, not in chat. Decisions recorded in Slack are decisions that get lost.",
+    "“Async” doesn’t mean slow — it means the response window is agreed in advance, not assumed to be immediate.",
+    "Distributed teams need to publish working hours and batch decisions into overlap windows; async norms don’t substitute for real coordination.",
+    "When AI agents are part of your team, the same rules apply — agent output belongs on the task it concerns, not broadcast into a general channel.",
+    "async-work",
+    "remote-teams",
+    "team-communication",
+    "playbook",
+    "VY",
+    "Valentin Yeo",
+    "Founder, Hypertask",
+    "Building Hypertask, the project board where humans and AI agents share one workspace. Writes about agent-driven, async project management from running it daily.",
+    "Run humans and AI agents on one board",
+    "Hypertask is project management built for the way teams work now — keyboard-first, async, agent-ready.",
+    "Start free",
+    "Keep reading",
+    "Async Work + Inbox Zero",
+    "Async Project Management Without Drowning in Notifications",
+    "Async project management means progress without waiting on real-time replies. Here's how to cut notification overload and keep work in the task.",
+    "Async Work + Inbox Zero",
+    "How to Reach Inbox Zero Every Day (Even With a Busy Team)",
+    "Reach inbox zero daily with a practical 3-window routine, one-touch decisions, and AI triage. Works for email and the harder problem: internal project comms.",
+    "Async Work + Inbox Zero",
+    "Why Your Team Stopped Replying in Slack Threads",
+    "Slack threads get lost even on disciplined teams — because a thread has no owner, no due date, no state. Here's the structural fix that actually works.",
+    "Home",
+    "Pricing",
+    "Blog",
+    "Privacy",
+    "Cookie settings",
+    "Contact",
+    "Terms",
+    "Docs",
+    "Help",
+    "© 2026 Hypertask Lab Ltd."
+  ],
+  "links": [
+    "#main-content",
+    "/",
+    "/pricing/",
+    "/blog/",
+    "https://docs.hypertask.ai/",
+    "https://help.hypertask.ai/",
+    "https://app.hypertask.ai/login",
+    "https://app.hypertask.ai/login",
+    "https://app.hypertask.ai/login",
+    "/",
+    "/blog/",
+    "#why-most-remote-teams-communication-norms-dont-work",
+    "#step-1-build-a-channel-hierarchy",
+    "#step-2-define-urgent-before-someone-abuses-it",
+    "#step-3-anchor-every-actionable-message-to-a-task",
+    "#step-4-set-working-hours-and-overlap-windows",
+    "#step-5-record-decisions-where-theyll-be-found",
+    "#what-this-looks-like-in-practice",
+    "#where-ai-fits-into-an-async-playbook",
+    "#frequently-asked-questions",
+    "#whats-the-difference-between-async-communication-and-slow-communication",
+    "#do-we-need-to-give-up-slack-to-go-async",
+    "#how-do-we-handle-urgent-issues-in-an-async-team",
+    "#where-should-decisions-get-recorded",
+    "#how-long-does-it-take-for-async-norms-to-stick",
+    "#try-it-this-week",
+    "https://www.microsoft.com/en-us/worklab/work-trend-index/breaking-down-infinite-workday",
+    "/blog/async-project-management-without-notification-overload/",
+    "/blog/real-cost-of-notification-overload/",
+    "/blog/how-to-reach-inbox-zero-every-day/",
+    "https://help.hypertask.ai/help/voice-transcription-dictate-comments-and-descriptions-with-whisper-v2",
+    "/blog/stop-manually-updating-your-task-board/",
+    "/blog/ai-agents-project-management-guide/",
+    "https://hypertask.ai/features/",
+    "https://help.hypertask.ai/help/docs-features-superhuman-snippets",
+    "https://app.hypertask.ai/login",
+    "/blog/tags/async-work/",
+    "/blog/tags/remote-teams/",
+    "/blog/tags/team-communication/",
+    "/blog/tags/playbook/",
+    "/about/",
+    "https://app.hypertask.ai/login",
+    "/blog/async-project-management-without-notification-overload/",
+    "/blog/how-to-reach-inbox-zero-every-day/",
+    "/blog/why-your-team-stopped-replying-in-slack-threads/",
+    "/",
+    "/pricing/",
+    "/blog/",
+    "/privacy/",
+    "/contact/",
+    "/terms/",
+    "https://docs.hypertask.ai/",
+    "https://help.hypertask.ai/"
+  ],
+  "images": [
+    {
+      "alt": "",
+      "fetchpriority": "",
+      "loading": "eager",
+      "src": "/Favicon - Light.png"
+    },
+    {
+      "alt": "A remote team's shared task board showing clearly assigned work with comments anchored to each ticket, replacing a cluttered chat channel",
+      "fetchpriority": "high",
+      "loading": "eager",
+      "src": "/images/blog/async-playbook-cover.webp"
+    }
+  ],
+  "tables": [
+    [
+      ["Channel", "Use", "Expected Response Window"],
+      [
+        "Task comments (in your project board)",
+        "Decisions, context, blockers, questions about specific work",
+        "Next working day"
+      ],
+      [
+        "Team chat (Slack / Teams / similar)",
+        "Quick coordination, social, links worth sharing",
+        "Within a few hours during working hours"
+      ],
+      [
+        "Email",
+        "External stakeholders, async updates to people outside your board",
+        "24–48 hours"
+      ],
+      [
+        "Video / voice",
+        "Complex discussions, relationship-building, anything genuinely real-time",
+        "Scheduled in advance"
+      ],
+      [
+        "@mentions / direct message",
+        "Urgent-only: something is blocked right now and nothing else will unblock it",
+        "As fast as possible — but define “urgent”"
+      ]
+    ]
+  ],
+  "codeBlocks": []
+}

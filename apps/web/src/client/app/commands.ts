@@ -1,9 +1,12 @@
 import { Effect, Schema } from "effect";
 import { Command } from "foldkit";
+import * as Dom from "foldkit/dom";
 
 import { runConsentMachine } from "../../consent/index.js";
 import type { ConsentState } from "../../consent/index.js";
-import { loginUrl } from "../../features/frame/copy.js";
+import { forwardCampaignTags } from "../../features/consent/campaign.js";
+import { acceptButtonId } from "../../features/consent/copy.js";
+import { cookieSettingsId, loginUrl } from "../../features/frame/copy.js";
 import { mountHelpChat } from "../../features/help-chat/index.js";
 import { copyResetMillis } from "../../features/home/copy.js";
 import { testimonialsViewportId } from "../../features/testimonials/copy.js";
@@ -75,6 +78,29 @@ export const TrackSignUpClicks = Command.define("TrackSignUpClicks", {
     installSignUpClicks(document, (event) => {
       window.fathom?.trackEvent(event);
     });
+  }).pipe(Effect.as(Message.Ready())),
+  messages: [Message.Ready],
+});
+
+const focusCommand = (selector: string) =>
+  Dom.focus(selector, { preventScroll: true }).pipe(
+    Effect.catchCause(() => Effect.void),
+    Effect.as(Message.Ready())
+  );
+
+export const FocusCookieChoices = Command.define("FocusCookieChoices", {
+  execute: focusCommand(`#${acceptButtonId}`),
+  messages: [Message.Ready],
+});
+
+export const FocusCookieSettings = Command.define("FocusCookieSettings", {
+  execute: focusCommand(`#${cookieSettingsId}`),
+  messages: [Message.Ready],
+});
+
+export const ForwardCampaignTags = Command.define("ForwardCampaignTags", {
+  execute: Effect.sync(() => {
+    forwardCampaignTags(document, location.search);
   }).pipe(Effect.as(Message.Ready())),
   messages: [Message.Ready],
 });

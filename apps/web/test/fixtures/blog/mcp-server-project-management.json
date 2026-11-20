@@ -1,0 +1,970 @@
+{
+  "source": {
+    "bytes": 63288,
+    "fetchedAt": "2026-11-15T12:12:09.378Z",
+    "method": "GET",
+    "sha256": "f52ade2f6f2c8d880f824107b8d61b1043e19a42560cce75d21c2c8a5ba839f4",
+    "status": 200,
+    "url": "https://hypertask.ai/blog/mcp-server-project-management/"
+  },
+  "address": "/blog/mcp-server-project-management/",
+  "head": {
+    "canonical": "https://hypertask.ai/blog/mcp-server-project-management/",
+    "meta": {
+      "description": "Learn how a project management MCP server lets AI agents read and update live boards, with setup steps, tool checks, and safety rules.",
+      "robots": "index, follow",
+      "og:title": "MCP Server for Project Management — Hypertask Blog",
+      "og:description": "Learn how a project management MCP server lets AI agents read and update live boards, with setup steps, tool checks, and safety rules.",
+      "og:image": "https://hypertask.ai/images/blog/pillar-cover.webp",
+      "og:image:alt": "A project management MCP server connecting AI agents to a live task board",
+      "og:url": "https://hypertask.ai/blog/mcp-server-project-management/",
+      "og:type": "article",
+      "og:site_name": "Hypertask",
+      "twitter:card": "summary_large_image",
+      "twitter:title": "MCP Server for Project Management — Hypertask Blog",
+      "twitter:description": "Learn how a project management MCP server lets AI agents read and update live boards, with setup steps, tool checks, and safety rules.",
+      "twitter:image": "https://hypertask.ai/images/blog/pillar-cover.webp",
+      "twitter:image:alt": "A project management MCP server connecting AI agents to a live task board",
+      "article:published_time": "2026-08-17T00:00:00.000Z",
+      "article:modified_time": "2026-08-17T00:00:00.000Z",
+      "article:author": "https://hypertask.ai/about/",
+      "article:section": "AI Agents in Project Management"
+    },
+    "title": "MCP Server for Project Management — Hypertask Blog"
+  },
+  "structuredData": [
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://hypertask.ai/#organization",
+          "name": "Hypertask",
+          "legalName": "Hypertask Lab Ltd.",
+          "url": "https://hypertask.ai",
+          "description": "Hypertask is a project management platform where humans and AI agents share one board. Native MCP server and CLI access let autonomous agents read tasks, claim work, post progress, and update tickets without a human relaying every step.",
+          "knowsAbout": [
+            "AI agents",
+            "project management",
+            "Model Context Protocol",
+            "task management",
+            "AI work attribution",
+            "asynchronous collaboration"
+          ],
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://hypertask.ai/hypertasklogo.avif"
+          },
+          "founder": {
+            "@type": "Person",
+            "@id": "https://hypertask.ai/#founder",
+            "name": "Valentin Yeo",
+            "jobTitle": "Founder"
+          },
+          "sameAs": ["https://www.npmjs.com/package/@hypertask/hypertask_cli"],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "url": "https://hypertask.ai/contact/"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://hypertask.ai/#website",
+          "url": "https://hypertask.ai",
+          "name": "Hypertask",
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://hypertask.ai/#software",
+          "name": "Hypertask",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "url": "https://hypertask.ai",
+          "description": "AI-powered project management where humans and AI agents share one board. Voice-to-task, smart summaries, keyboard-first navigation, native MCP integration.",
+          "screenshot": "https://hypertask.ai/mainscreen.avif",
+          "featureList": [
+            "Shared board for humans and AI agents",
+            "Native MCP server (15 tools)",
+            "Agent-optimized CLI",
+            "Voice-to-task capture",
+            "Smart task summaries",
+            "Keyboard-first navigation",
+            "Inbox and approval gates for agent work"
+          ],
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          },
+          "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "USD",
+            "lowPrice": "0",
+            "highPrice": "25",
+            "offerCount": "3"
+          }
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "headline": "MCP Server for Project Management",
+          "description": "Learn how a project management MCP server lets AI agents read and update live boards, with setup steps, tool checks, and safety rules.",
+          "datePublished": "2026-08-17T00:00:00.000Z",
+          "dateModified": "2026-08-17T00:00:00.000Z",
+          "author": {
+            "@type": "Person",
+            "name": "Valentin Yeo",
+            "url": "https://hypertask.ai/about/"
+          },
+          "publisher": {
+            "@id": "https://hypertask.ai/#organization"
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://hypertask.ai/blog/mcp-server-project-management/"
+          },
+          "image": "https://hypertask.ai/images/blog/pillar-cover.webp",
+          "keywords": "mcp, project-management, ai-agents, task-management, agent-tools"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://hypertask.ai/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://hypertask.ai/blog/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "MCP Server for Project Management",
+              "item": "https://hypertask.ai/blog/mcp-server-project-management/"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is an MCP server for project management?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "It is a server that exposes project data and actions as Model Context Protocol tools. Compatible AI clients can discover those tools and, within the authenticated identity's permissions, read projects, manage tasks, post comments, or perform other supported operations."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Which project management tools have MCP servers?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Several established project platforms and newer agent-focused products provide official or community MCP servers. Coverage changes quickly, so verify the product's current documentation, whether the server is official, and which actions and clients it supports."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is MCP better than a project management API?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Neither is universally better. MCP is useful for interactive AI clients because it exposes tool schemas the model can discover. A REST API is better for deterministic application logic and explicit control. Many reliable systems use both."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can MCP let an AI agent update a Kanban board?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, if the server exposes task and section updates and the credential has permission. The agent can read a card, move it between columns, and add a comment. Use confirmation or review rules for high-impact changes."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do I secure a project management MCP server?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Use separate agent identities, narrow scopes, least-privilege board access, revocable credentials, and a visible audit trail. Start read-only, test reversible writes, and keep human approval for destructive or high-risk work."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Hypertask support both MCP and CLI?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Hypertask provides a hosted MCP server for interactive clients and a first-party CLI for terminal agents, scripts, CI, and scheduled work. Both operate the same project system."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "headings": [
+    {
+      "id": "",
+      "level": 1,
+      "text": "MCP Server for Project Management"
+    },
+    {
+      "id": "what-is-a-project-management-mcp-server",
+      "level": 2,
+      "text": "What Is a Project Management MCP Server?"
+    },
+    {
+      "id": "what-can-an-agent-do-through-mcp",
+      "level": 2,
+      "text": "What Can an Agent Do Through MCP?"
+    },
+    {
+      "id": "discovery",
+      "level": 3,
+      "text": "Discovery"
+    },
+    {
+      "id": "task-operations",
+      "level": 3,
+      "text": "Task Operations"
+    },
+    {
+      "id": "collaboration",
+      "level": 3,
+      "text": "Collaboration"
+    },
+    {
+      "id": "agent-operations",
+      "level": 3,
+      "text": "Agent Operations"
+    },
+    {
+      "id": "three-mcp-server-models",
+      "level": 2,
+      "text": "Three MCP Server Models"
+    },
+    {
+      "id": "hypertask-mcp-setup",
+      "level": 2,
+      "text": "Hypertask MCP Setup"
+    },
+    {
+      "id": "1-get-an-api-key",
+      "level": 3,
+      "text": "1. Get an API Key"
+    },
+    {
+      "id": "2-configure-the-client",
+      "level": 3,
+      "text": "2. Configure the Client"
+    },
+    {
+      "id": "3-verify-read-access",
+      "level": 3,
+      "text": "3. Verify Read Access"
+    },
+    {
+      "id": "4-verify-a-reversible-write",
+      "level": 3,
+      "text": "4. Verify a Reversible Write"
+    },
+    {
+      "id": "a-real-agent-workflow",
+      "level": 2,
+      "text": "A Real Agent Workflow"
+    },
+    {
+      "id": "1-check-the-inbox-or-assigned-view",
+      "level": 3,
+      "text": "1. Check the Inbox or Assigned View"
+    },
+    {
+      "id": "2-read-before-writing",
+      "level": 3,
+      "text": "2. Read Before Writing"
+    },
+    {
+      "id": "3-claim-the-task",
+      "level": 3,
+      "text": "3. Claim the Task"
+    },
+    {
+      "id": "4-do-the-work-outside-the-board",
+      "level": 3,
+      "text": "4. Do the Work Outside the Board"
+    },
+    {
+      "id": "5-report-and-hand-off",
+      "level": 3,
+      "text": "5. Report and Hand Off"
+    },
+    {
+      "id": "mcp-vs-rest-api-vs-cli",
+      "level": 2,
+      "text": "MCP vs REST API vs CLI"
+    },
+    {
+      "id": "how-to-evaluate-a-project-management-mcp-server",
+      "level": 2,
+      "text": "How to Evaluate a Project Management MCP Server"
+    },
+    {
+      "id": "tool-coverage",
+      "level": 3,
+      "text": "Tool Coverage"
+    },
+    {
+      "id": "schema-quality",
+      "level": 3,
+      "text": "Schema Quality"
+    },
+    {
+      "id": "authentication-and-scope",
+      "level": 3,
+      "text": "Authentication and Scope"
+    },
+    {
+      "id": "audit-history",
+      "level": 3,
+      "text": "Audit History"
+    },
+    {
+      "id": "destructive-actions",
+      "level": 3,
+      "text": "Destructive Actions"
+    },
+    {
+      "id": "transport-and-reliability",
+      "level": 3,
+      "text": "Transport and Reliability"
+    },
+    {
+      "id": "security-rules-for-agent-driven-boards",
+      "level": 2,
+      "text": "Security Rules for Agent-Driven Boards"
+    },
+    {
+      "id": "common-failure-modes",
+      "level": 2,
+      "text": "Common Failure Modes"
+    },
+    {
+      "id": "the-agent-can-read-but-not-act",
+      "level": 3,
+      "text": "The Agent Can Read but Not Act"
+    },
+    {
+      "id": "the-agent-writes-to-the-wrong-board",
+      "level": 3,
+      "text": "The Agent Writes to the Wrong Board"
+    },
+    {
+      "id": "duplicate-tasks-or-comments-appear",
+      "level": 3,
+      "text": "Duplicate Tasks or Comments Appear"
+    },
+    {
+      "id": "the-board-becomes-noisy",
+      "level": 3,
+      "text": "The Board Becomes Noisy"
+    },
+    {
+      "id": "the-agent-marks-work-done-too-early",
+      "level": 3,
+      "text": "The Agent Marks Work Done Too Early"
+    },
+    {
+      "id": "context-still-gets-copied-manually",
+      "level": 3,
+      "text": "Context Still Gets Copied Manually"
+    },
+    {
+      "id": "minimum-tool-checklist",
+      "level": 2,
+      "text": "Minimum Tool Checklist"
+    },
+    {
+      "id": "human-approval-patterns",
+      "level": 2,
+      "text": "Human Approval Patterns"
+    },
+    {
+      "id": "when-you-do-not-need-mcp",
+      "level": 2,
+      "text": "When You Do Not Need MCP"
+    },
+    {
+      "id": "frequently-asked-questions",
+      "level": 2,
+      "text": "Frequently Asked Questions"
+    },
+    {
+      "id": "what-is-an-mcp-server-for-project-management",
+      "level": 3,
+      "text": "What is an MCP server for project management?"
+    },
+    {
+      "id": "which-project-management-tools-have-mcp-servers",
+      "level": 3,
+      "text": "Which project management tools have MCP servers?"
+    },
+    {
+      "id": "is-mcp-better-than-a-project-management-api",
+      "level": 3,
+      "text": "Is MCP better than a project management API?"
+    },
+    {
+      "id": "can-mcp-let-an-ai-agent-update-a-kanban-board",
+      "level": 3,
+      "text": "Can MCP let an AI agent update a Kanban board?"
+    },
+    {
+      "id": "how-do-i-secure-a-project-management-mcp-server",
+      "level": 3,
+      "text": "How do I secure a project management MCP server?"
+    },
+    {
+      "id": "does-hypertask-support-both-mcp-and-cli",
+      "level": 3,
+      "text": "Does Hypertask support both MCP and CLI?"
+    },
+    {
+      "id": "",
+      "level": 2,
+      "text": "Keep reading"
+    }
+  ],
+  "visibleText": [
+    "Skip to content",
+    "Hypertask",
+    "Pricing",
+    "Blog",
+    "Docs",
+    "Help",
+    "Login",
+    "Press",
+    "L",
+    "to log in",
+    "Start free",
+    "Start free",
+    "☰",
+    "Home",
+    "/",
+    "Blog",
+    "AI Agents in Project Management",
+    "MCP Server for Project Management",
+    "Learn how a project management MCP server lets AI agents read and update live boards, with setup steps, tool checks, and safety rules.",
+    "Valentin Yeo",
+    "August 17, 2026",
+    "On this page",
+    "What Is a Project Management MCP Server?",
+    "What Can an Agent Do Through MCP?",
+    "Discovery",
+    "Task Operations",
+    "Collaboration",
+    "Agent Operations",
+    "Three MCP Server Models",
+    "Hypertask MCP Setup",
+    "1. Get an API Key",
+    "2. Configure the Client",
+    "3. Verify Read Access",
+    "4. Verify a Reversible Write",
+    "A Real Agent Workflow",
+    "1. Check the Inbox or Assigned View",
+    "2. Read Before Writing",
+    "3. Claim the Task",
+    "4. Do the Work Outside the Board",
+    "5. Report and Hand Off",
+    "MCP vs REST API vs CLI",
+    "How to Evaluate a Project Management MCP Server",
+    "Tool Coverage",
+    "Schema Quality",
+    "Authentication and Scope",
+    "Audit History",
+    "Destructive Actions",
+    "Transport and Reliability",
+    "Security Rules for Agent-Driven Boards",
+    "Common Failure Modes",
+    "The Agent Can Read but Not Act",
+    "The Agent Writes to the Wrong Board",
+    "Duplicate Tasks or Comments Appear",
+    "The Board Becomes Noisy",
+    "The Agent Marks Work Done Too Early",
+    "Context Still Gets Copied Manually",
+    "Minimum Tool Checklist",
+    "Human Approval Patterns",
+    "When You Do Not Need MCP",
+    "Frequently Asked Questions",
+    "What is an MCP server for project management?",
+    "Which project management tools have MCP servers?",
+    "Is MCP better than a project management API?",
+    "Can MCP let an AI agent update a Kanban board?",
+    "How do I secure a project management MCP server?",
+    "Does Hypertask support both MCP and CLI?",
+    "An MCP server for project management gives an AI client structured tools for reading and updating live project data. Instead of pasting a ticket into every new chat, the agent can inspect the current board, create or update tasks, post comments, and return work to the right person.",
+    "The protocol solves the connection problem. It does not decide what the agent should be allowed to change, how it should claim work, or when a human must approve the result. Those operating rules matter as much as the server endpoint.",
+    "This guide explains the architecture, compares common server models, shows a Hypertask setup, and gives you a safety checklist for real agent workflows.",
+    "What Is a Project Management MCP Server?",
+    "Model Context Protocol, or MCP, is a standard way for AI clients to discover and call tools exposed by another service.",
+    "In project management, the pieces are:",
+    "Layer",
+    "Job",
+    "Example",
+    "MCP client",
+    "Hosts the AI conversation or agent",
+    "Claude Code, Claude Desktop, Cursor, Codex, or another compatible client",
+    "MCP server",
+    "Publishes tool names, input schemas, and results",
+    "A hosted project-management endpoint",
+    "Project system",
+    "Stores the durable work state",
+    "Boards, tasks, comments, owners, sections, and history",
+    "Identity and permissions",
+    "Decides what the caller may read or change",
+    "User token, agent key, board membership, and scopes",
+    "The client asks the server which tools exist. The model chooses a tool, supplies structured arguments, and receives a structured result. The project system remains the source of truth.",
+    "That is different from copying board text into a prompt. Copied context is a snapshot. An MCP call can read the task after another teammate updates it and can write the result back to the same record.",
+    "What Can an Agent Do Through MCP?",
+    "The exact tools depend on the server. A useful project-management connection usually covers four groups.",
+    "Discovery",
+    "The agent needs to list projects, sections, views, labels, and members before it can act safely. Discovery tools reduce hardcoded IDs and let the agent verify where work belongs.",
+    "Task Operations",
+    "Common tools include listing, searching, reading, creating, and updating tasks. Updates may change status, owner, priority, due date, labels, or description.",
+    "Collaboration",
+    "Comments, mentions, attachments, related tasks, drafts, and inbox operations let the agent coordinate with people. Without this layer, the agent can move a card but cannot explain the work or request a decision.",
+    "Agent Operations",
+    "Agent-oriented systems may also expose identity, time tracking, pages, evidence, saved views, or safe claim mechanisms. These capabilities help when agents work asynchronously rather than waiting inside one human conversation.",
+    "The tool count is not a quality score. A smaller set with precise schemas, scoped access, and clear errors can be safer than a large registry of overlapping actions.",
+    "Three MCP Server Models",
+    "Project-management MCP servers fall into three broad models.",
+    "Model",
+    "How it works",
+    "Strength",
+    "Tradeoff",
+    "Official connector for an existing suite",
+    "Adds MCP access to a broad product such as Jira, Asana, monday.com, Trello, or Linear",
+    "Keeps the system the team already uses",
+    "Agent workflows inherit the suite’s concepts and permission model",
+    "Third-party integration layer",
+    "Provides normalized tools across one or more project APIs",
+    "Faster integration and cross-product coverage",
+    "Adds another service, trust boundary, and translation layer",
+    "Agent-native project board",
+    "Designs the board and programmatic surfaces around agents and people together",
+    "Tighter claim, update, evidence, and review loop",
+    "Usually less suite and portfolio breadth",
+    "Official servers are often the right default when migration cost is high and the existing project tool already serves the team well. A third-party layer can help when an agent must work across several systems. An agent-native board makes sense when the current system requires too much custom glue for task execution and human review.",
+    "Hypertask is in the third category. It gives external agents first-party MCP and CLI access to the same task system humans use.",
+    "Hypertask MCP Setup",
+    "Hypertask’s hosted MCP endpoint is:",
+    "1. Get an API Key",
+    "Sign in at",
+    "app.hypertask.ai",
+    ", open",
+    "Settings",
+    ", and copy the API key from the MCP section. You can also press",
+    "Ctrl+K",
+    "and search for",
+    "MCP",
+    ".",
+    "Treat the key like a password. Do not commit it, print it in logs, or paste it into a public issue.",
+    "2. Configure the Client",
+    "For Claude Code, Claude Desktop, and clients that accept the same JSON shape, use:",
+    "Replace the placeholder in local configuration, then restart the client.",
+    "3. Verify Read Access",
+    "Ask the client to list your Hypertask projects. A successful response confirms discovery and authentication without changing data.",
+    "Then read one known task:",
+    "Read-only verification should come before a write test.",
+    "4. Verify a Reversible Write",
+    "Use a test board or low-risk task. Ask the client to add a clearly labeled comment, confirm the result in the web app, then delete or archive the test through the normal product workflow if appropriate.",
+    "Do not use a production status move as the first connectivity test. The goal is to validate identity, board scope, formatting, and audit history with a change you can inspect.",
+    "See the",
+    "MCP integration reference",
+    "for current client configuration and troubleshooting.",
+    "A Real Agent Workflow",
+    "Connection is only the first step. The server becomes useful when the agent follows a repeatable project protocol.",
+    "1. Check the Inbox or Assigned View",
+    "The agent should start from work already routed to it, not scan every board and invent a priority. An inbox, saved view, or filtered task list keeps selection bounded.",
+    "2. Read Before Writing",
+    "Load the current task and recent comments. Restate the outcome and constraints before making a state change. This catches stale prompts and missing context.",
+    "3. Claim the Task",
+    "Move one task to the working section and post a short claim. If several automated agents pull from the same queue, use a lease or another atomic claim mechanism rather than relying only on a visual status move.",
+    "4. Do the Work Outside the Board",
+    "The agent may work in a repository, browser, data tool, document editor, or another service. The project board does not need every internal step. It needs blockers, decisions, progress checkpoints for long jobs, and the final evidence.",
+    "5. Report and Hand Off",
+    "Post what changed, how it was validated, what remains risky, and what the person should review. Move the task to Review and route the result to the owner.",
+    "This is the",
+    "claim, update, report, close loop",
+    ". MCP makes the operations available, while the workflow keeps the board truthful.",
+    "The same protocol can support software delivery, construction, client work, or operations. The broader guide to",
+    "project management with AI agents across industries",
+    "explains how the board, identity, attribution, and review layers fit together.",
+    "MCP vs REST API vs CLI",
+    "These interfaces can operate the same project data, but they suit different callers.",
+    "Interface",
+    "Best caller",
+    "Main advantage",
+    "Main limitation",
+    "MCP",
+    "Interactive AI client",
+    "Tool discovery and structured schemas inside the agent session",
+    "Model chooses tool calls, so permissions and confirmation rules matter",
+    "REST API",
+    "Application or integration service",
+    "Full control over requests, retries, and application logic",
+    "Requires custom code and schema handling",
+    "CLI",
+    "Shell agent, CI, cron, or operator",
+    "Easy to compose, log, retry, and inspect from a terminal",
+    "Command output and authentication must be managed in the runtime",
+    "MCP should not replace deterministic code merely because a model can call the same endpoint. Use a normal API or CLI command when the workflow is fixed and does not need model judgment.",
+    "Hypertask provides MCP for interactive agents and a first-party CLI for shell-native work. The",
+    "CLI vs MCP guide",
+    "explains how to choose per runtime.",
+    "How to Evaluate a Project Management MCP Server",
+    "Tool Coverage",
+    "List the real actions your agent needs. Reading tasks may be enough for a reporting assistant. An execution agent may also need comments, attachments, status, assignment, inbox, and evidence.",
+    "Do not grant write access simply because the server supports it.",
+    "Schema Quality",
+    "Inspect tool names, descriptions, required arguments, and error messages. Ambiguous tools increase the chance of a wrong board, task, or status change. Stable identifiers and explicit scopes matter more than attractive demos.",
+    "Authentication and Scope",
+    "Check whether the server uses OAuth, user tokens, agent keys, or another mechanism. Ask:",
+    "Can access be limited to one board or team?",
+    "Can a key be revoked without disabling a person’s account?",
+    "Does the server apply the same permissions as the web product?",
+    "Can each agent use its own identity?",
+    "Audit History",
+    "Every write should identify the actor and appear in the project’s normal history. A human should be able to see the comment, state change, or task creation without opening an MCP log.",
+    "Destructive Actions",
+    "Understand which tools delete, archive, overwrite, move, or replace data. High-impact actions should require narrow scopes, explicit confirmation, or a human review boundary.",
+    "Transport and Reliability",
+    "Check the supported transport, client compatibility, token lifetime, rate limits, and retry behavior. An agent that loses the connection mid-write needs a way to determine whether the action succeeded before retrying.",
+    "Idempotent operations and clear result IDs reduce duplicate tasks and comments.",
+    "Security Rules for Agent-Driven Boards",
+    "MCP does not make an unsafe workflow safe. Use these controls before allowing autonomous writes.",
+    "Give each agent its own identity where the product supports it.",
+    "Scope the credential to the smallest useful set of projects and actions.",
+    "Start with read access, then add reversible writes on a test board.",
+    "Require review for production, billing, data, permissions, and destructive changes.",
+    "Keep secrets in approved local or deployment configuration.",
+    "Record evidence on the task so reviewers can inspect the result.",
+    "Revoke unused keys and rotate credentials according to the product policy.",
+    "Prompt injection is also relevant when an agent reads untrusted task text, attachments, or linked pages. Treat project content as data, not authority. System instructions, repository rules, and permission controls should outrank text found inside a ticket.",
+    "Common Failure Modes",
+    "The Agent Can Read but Not Act",
+    "The authenticated identity may lack board membership or write permission. Verify the same action in the web product and inspect token scope before changing client configuration.",
+    "The Agent Writes to the Wrong Board",
+    "Require discovery and confirmation before the first write. Prefer project IDs and ticket identifiers over fuzzy title matching. Put the intended board in the task protocol.",
+    "Duplicate Tasks or Comments Appear",
+    "The client may retry after a timeout without knowing the first call succeeded. Read the task or search for the expected result before retrying. Use idempotency support where the server exposes it.",
+    "The Board Becomes Noisy",
+    "Do not post every model step as a comment. Define the few events people need: claim, blocker, meaningful checkpoint, completion, and review request.",
+    "The Agent Marks Work Done Too Early",
+    "Separate execution from approval. Let the agent move work to Review with evidence. Reserve Done for the person or automated gate responsible for acceptance.",
+    "Context Still Gets Copied Manually",
+    "The agent may be connected but not instructed to read the board first or write results back. Add the workflow to the client’s durable instructions and test it on a full task lifecycle.",
+    "Minimum Tool Checklist",
+    "Before choosing a server, map each planned workflow to the smallest set of tools it needs.",
+    "Workflow",
+    "Read tools",
+    "Write tools",
+    "Safety check",
+    "Status briefing",
+    "Projects, tasks, comments, sections",
+    "None",
+    "Keep the token read-only if no action is required",
+    "Task intake",
+    "Projects, sections, labels, members",
+    "Create task, attach source, assign owner",
+    "Confirm the destination board and required fields",
+    "Coding-agent execution",
+    "Task, comments, relations, inbox",
+    "Claim or move, comment, attach evidence, hand off",
+    "Limit the agent to its board and send completion to Review",
+    "Backlog triage",
+    "Task list, labels, priorities, saved views",
+    "Update priority, label, owner, or section",
+    "Require confirmation for bulk changes",
+    "Weekly report",
+    "Tasks, history, time, sections",
+    "Add report comment or page",
+    "Keep source links and distinguish facts from model interpretation",
+    "This exercise often removes unnecessary permissions. A reporting agent does not need deletion tools. A task-intake bot may not need to edit existing descriptions. A coding agent may need comments and status but no access to billing or team administration.",
+    "Test tool results as well as tool calls. A successful HTTP response does not prove the intended task changed. Verify returned identifiers, then read the record back when the action is important or the connection was interrupted.",
+    "Human Approval Patterns",
+    "Not every write needs a confirmation popup. Match approval to impact.",
+    "Use automatic writes for low-risk, reversible updates with narrow scope, such as posting a progress comment on the assigned task. Use explicit confirmation for bulk changes, moving work between projects, changing ownership, or updating a task outside the agent’s assignment.",
+    "Use human review before production deploys, customer communication, payments, permission changes, deletion, or other actions with a high recovery cost. The agent can prepare the change and attach evidence while the responsible person performs or approves the final action.",
+    "Approval should happen at the last meaningful boundary. Asking a person to approve every read and harmless comment creates confirmation fatigue. Giving the model a blanket approval for destructive actions removes the control entirely.",
+    "When You Do Not Need MCP",
+    "MCP adds value when a model must choose among tools or work with changing project state. It is unnecessary overhead for some jobs.",
+    "Use a direct script when one event always produces one known update. Use a webhook when the project system should react to a deterministic event. Use a read-only export when the model only needs a periodic snapshot. Use a local Markdown list when one person and one short session own all the work.",
+    "The goal is not maximum agent access. The goal is the smallest reliable path between work and the people responsible for it.",
+    "Frequently Asked Questions",
+    "What is an MCP server for project management?",
+    "It is a server that exposes project data and actions as Model Context Protocol tools. Compatible AI clients can discover those tools and, within the authenticated identity’s permissions, read projects, manage tasks, post comments, or perform other supported operations.",
+    "Which project management tools have MCP servers?",
+    "Several established project platforms and newer agent-focused products provide official or community MCP servers. Coverage changes quickly, so verify the product’s current documentation, whether the server is official, and which actions and clients it supports.",
+    "Is MCP better than a project management API?",
+    "Neither is universally better. MCP is useful for interactive AI clients because it exposes tool schemas the model can discover. A REST API is better for deterministic application logic and explicit control. Many reliable systems use both.",
+    "Can MCP let an AI agent update a Kanban board?",
+    "Yes, if the server exposes task and section updates and the credential has permission. The agent can read a card, move it between columns, and add a comment. Use confirmation or review rules for high-impact changes.",
+    "How do I secure a project management MCP server?",
+    "Use separate agent identities, narrow scopes, least-privilege board access, revocable credentials, and a visible audit trail. Start read-only, test reversible writes, and keep human approval for destructive or high-risk work.",
+    "Does Hypertask support both MCP and CLI?",
+    "Yes. Hypertask provides a hosted MCP server for interactive clients and a first-party CLI for terminal agents, scripts, CI, and scheduled work. Both operate the same project system.",
+    "A project management MCP server is valuable when it removes the human relay between an agent and the live board. Pick the server model that fits your existing system, verify identity and permissions, and make the agent follow a task protocol people can audit.",
+    "Start free with Hypertask",
+    ", connect one MCP client, and test a low-risk task from claim through review.",
+    "mcp",
+    "project-management",
+    "ai-agents",
+    "task-management",
+    "agent-tools",
+    "VY",
+    "Valentin Yeo",
+    "Founder, Hypertask",
+    "Building Hypertask, the project board where humans and AI agents share one workspace. Writes about agent-driven, async project management from running it daily.",
+    "Run humans and AI agents on one board",
+    "Hypertask is project management built for the way teams work now — keyboard-first, async, agent-ready.",
+    "Start free",
+    "Keep reading",
+    "AI Agents in Project Management",
+    "AI project management software for agents",
+    "Compare AI project management software by workflow, agent access, human review, planning depth, and setup cost before you choose a tool.",
+    "AI Agents in Project Management",
+    "Claude Code Project Board: A 2-Minute Setup",
+    "Connect Claude Code to a shared project board in two minutes, then use a safe task loop for claims, progress updates, review, and handoff.",
+    "AI Agents in Project Management",
+    "AI Agent Task Management: The Claim, Update, Report, Close Loop",
+    "A practical AI agent task management workflow for agents that claim work, post updates, report results, and close tasks through CLI and MCP.",
+    "Home",
+    "Pricing",
+    "Blog",
+    "Privacy",
+    "Cookie settings",
+    "Contact",
+    "Terms",
+    "Docs",
+    "Help",
+    "© 2026 Hypertask Lab Ltd."
+  ],
+  "links": [
+    "#main-content",
+    "/",
+    "/pricing/",
+    "/blog/",
+    "https://docs.hypertask.ai/",
+    "https://help.hypertask.ai/",
+    "https://app.hypertask.ai/login",
+    "https://app.hypertask.ai/login",
+    "https://app.hypertask.ai/login",
+    "/",
+    "/blog/",
+    "#what-is-a-project-management-mcp-server",
+    "#what-can-an-agent-do-through-mcp",
+    "#discovery",
+    "#task-operations",
+    "#collaboration",
+    "#agent-operations",
+    "#three-mcp-server-models",
+    "#hypertask-mcp-setup",
+    "#1-get-an-api-key",
+    "#2-configure-the-client",
+    "#3-verify-read-access",
+    "#4-verify-a-reversible-write",
+    "#a-real-agent-workflow",
+    "#1-check-the-inbox-or-assigned-view",
+    "#2-read-before-writing",
+    "#3-claim-the-task",
+    "#4-do-the-work-outside-the-board",
+    "#5-report-and-hand-off",
+    "#mcp-vs-rest-api-vs-cli",
+    "#how-to-evaluate-a-project-management-mcp-server",
+    "#tool-coverage",
+    "#schema-quality",
+    "#authentication-and-scope",
+    "#audit-history",
+    "#destructive-actions",
+    "#transport-and-reliability",
+    "#security-rules-for-agent-driven-boards",
+    "#common-failure-modes",
+    "#the-agent-can-read-but-not-act",
+    "#the-agent-writes-to-the-wrong-board",
+    "#duplicate-tasks-or-comments-appear",
+    "#the-board-becomes-noisy",
+    "#the-agent-marks-work-done-too-early",
+    "#context-still-gets-copied-manually",
+    "#minimum-tool-checklist",
+    "#human-approval-patterns",
+    "#when-you-do-not-need-mcp",
+    "#frequently-asked-questions",
+    "#what-is-an-mcp-server-for-project-management",
+    "#which-project-management-tools-have-mcp-servers",
+    "#is-mcp-better-than-a-project-management-api",
+    "#can-mcp-let-an-ai-agent-update-a-kanban-board",
+    "#how-do-i-secure-a-project-management-mcp-server",
+    "#does-hypertask-support-both-mcp-and-cli",
+    "https://app.hypertask.ai/login",
+    "https://docs.hypertask.ai/mcp/overview/",
+    "/blog/ai-agent-task-management/",
+    "/blog/ai-agents-project-management-guide/",
+    "/blog/cli-vs-mcp-ai-agent-project-data-access/",
+    "https://app.hypertask.ai/login",
+    "/blog/tags/mcp/",
+    "/blog/tags/project-management/",
+    "/blog/tags/ai-agents/",
+    "/blog/tags/task-management/",
+    "/blog/tags/agent-tools/",
+    "/about/",
+    "https://app.hypertask.ai/login",
+    "/blog/ai-project-management-software/",
+    "/blog/claude-code-project-board/",
+    "/blog/ai-agent-task-management/",
+    "/",
+    "/pricing/",
+    "/blog/",
+    "/privacy/",
+    "/contact/",
+    "/terms/",
+    "https://docs.hypertask.ai/",
+    "https://help.hypertask.ai/"
+  ],
+  "images": [
+    {
+      "alt": "",
+      "fetchpriority": "",
+      "loading": "eager",
+      "src": "/Favicon - Light.png"
+    },
+    {
+      "alt": "A project management MCP server connecting AI agents to a live task board",
+      "fetchpriority": "high",
+      "loading": "eager",
+      "src": "/images/blog/pillar-cover.webp"
+    }
+  ],
+  "tables": [
+    [
+      ["Layer", "Job", "Example"],
+      [
+        "MCP client",
+        "Hosts the AI conversation or agent",
+        "Claude Code, Claude Desktop, Cursor, Codex, or another compatible client"
+      ],
+      [
+        "MCP server",
+        "Publishes tool names, input schemas, and results",
+        "A hosted project-management endpoint"
+      ],
+      [
+        "Project system",
+        "Stores the durable work state",
+        "Boards, tasks, comments, owners, sections, and history"
+      ],
+      [
+        "Identity and permissions",
+        "Decides what the caller may read or change",
+        "User token, agent key, board membership, and scopes"
+      ]
+    ],
+    [
+      ["Model", "How it works", "Strength", "Tradeoff"],
+      [
+        "Official connector for an existing suite",
+        "Adds MCP access to a broad product such as Jira, Asana, monday.com, Trello, or Linear",
+        "Keeps the system the team already uses",
+        "Agent workflows inherit the suite’s concepts and permission model"
+      ],
+      [
+        "Third-party integration layer",
+        "Provides normalized tools across one or more project APIs",
+        "Faster integration and cross-product coverage",
+        "Adds another service, trust boundary, and translation layer"
+      ],
+      [
+        "Agent-native project board",
+        "Designs the board and programmatic surfaces around agents and people together",
+        "Tighter claim, update, evidence, and review loop",
+        "Usually less suite and portfolio breadth"
+      ]
+    ],
+    [
+      ["Interface", "Best caller", "Main advantage", "Main limitation"],
+      [
+        "MCP",
+        "Interactive AI client",
+        "Tool discovery and structured schemas inside the agent session",
+        "Model chooses tool calls, so permissions and confirmation rules matter"
+      ],
+      [
+        "REST API",
+        "Application or integration service",
+        "Full control over requests, retries, and application logic",
+        "Requires custom code and schema handling"
+      ],
+      [
+        "CLI",
+        "Shell agent, CI, cron, or operator",
+        "Easy to compose, log, retry, and inspect from a terminal",
+        "Command output and authentication must be managed in the runtime"
+      ]
+    ],
+    [
+      ["Workflow", "Read tools", "Write tools", "Safety check"],
+      [
+        "Status briefing",
+        "Projects, tasks, comments, sections",
+        "None",
+        "Keep the token read-only if no action is required"
+      ],
+      [
+        "Task intake",
+        "Projects, sections, labels, members",
+        "Create task, attach source, assign owner",
+        "Confirm the destination board and required fields"
+      ],
+      [
+        "Coding-agent execution",
+        "Task, comments, relations, inbox",
+        "Claim or move, comment, attach evidence, hand off",
+        "Limit the agent to its board and send completion to Review"
+      ],
+      [
+        "Backlog triage",
+        "Task list, labels, priorities, saved views",
+        "Update priority, label, owner, or section",
+        "Require confirmation for bulk changes"
+      ],
+      [
+        "Weekly report",
+        "Tasks, history, time, sections",
+        "Add report comment or page",
+        "Keep source links and distinguish facts from model interpretation"
+      ]
+    ]
+  ],
+  "codeBlocks": [
+    {
+      "language": "text",
+      "text": "https://mcp.hypertask.ai/sse"
+    },
+    {
+      "language": "json",
+      "text": "{\n  \"mcpServers\": {\n    \"hypertasks\": {\n      \"type\": \"sse\",\n      \"url\": \"https://mcp.hypertask.ai/sse\",\n      \"headers\": {\n        \"Authorization\": \"Bearer YOUR_API_KEY\"\n      }\n    }\n  }\n}"
+    },
+    {
+      "language": "text",
+      "text": "Open HTPR-1234 and summarize its outcome, current section, assignees, and recent comments. Do not change anything."
+    }
+  ]
+}

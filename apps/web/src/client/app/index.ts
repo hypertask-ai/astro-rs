@@ -1,5 +1,8 @@
 export {
   AcceptAllCookies,
+  FocusCookieChoices,
+  FocusCookieSettings,
+  ForwardCampaignTags,
   LoadConsent,
   LoadHelpChat,
   OpenLogin,

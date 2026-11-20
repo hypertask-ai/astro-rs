@@ -9,6 +9,7 @@ import {
   runConsentMachine,
 } from "../src/consent/index.js";
 import type { ConsentChoice } from "../src/consent/index.js";
+import oldCookieHeaders from "./fixtures/old-cookie-consent.json" with { type: "json" };
 
 interface JarCookie {
   readonly attributes: ReadonlyMap<string, string>;
@@ -21,8 +22,11 @@ const host = "hypertask.ai";
 
 const makeJar = () => {
   const cookies = new Map<string, JarCookie>();
+  const writes: string[] = [];
 
   const write = (header: string): void => {
+    writes.push(header);
+
     const [pair = "", ...parts] = header.split(";").map((part) => part.trim());
     const separator = pair.indexOf("=");
     const name = pair.slice(0, separator);
@@ -69,7 +73,7 @@ const makeJar = () => {
   const names = (): readonly string[] =>
     [...cookies.values()].map((cookie) => cookie.name).toSorted();
 
-  return { find, names, read, seed, write };
+  return { find, names, read, seed, write, writes };
 };
 
 const makeStorage = (initial: Readonly<Record<string, string>>) => {
@@ -92,7 +96,7 @@ interface Browser {
   readonly session: Record<string, string>;
 }
 
-const installBrowser = (): Browser => {
+const installBrowser = (hostname = host): Browser => {
   const jar = makeJar();
   const events: CustomEvent<{ readonly analytics: boolean }>[] = [];
 
@@ -104,10 +108,10 @@ const installBrowser = (): Browser => {
 
   const session = makeStorage({ __ph_session: "legacy" });
 
-  jar.seed("ph_legacy", `.${host}`, "legacy");
-  jar.seed("_fbp", `.${host}`, "legacy");
-  jar.seed("ph_host_only", host, "legacy");
-  jar.seed("theme", `.${host}`, "dark");
+  jar.seed("ph_legacy", ".hypertask.ai", "legacy");
+  jar.seed("_fbp", ".hypertask.ai", "legacy");
+  jar.seed("ph_host_only", hostname, "legacy");
+  jar.seed("theme", ".hypertask.ai", "dark");
 
   vi.stubGlobal("document", {
     get cookie(): string {
@@ -124,7 +128,7 @@ const installBrowser = (): Browser => {
       return true;
     },
   });
-  vi.stubGlobal("location", { hostname: host });
+  vi.stubGlobal("location", { hostname });
   vi.stubGlobal("localStorage", local);
   vi.stubGlobal("sessionStorage", session);
 
@@ -133,6 +137,13 @@ const installBrowser = (): Browser => {
 
 const runChoice = (choose?: ConsentChoice) =>
   runConsentMachine(choose).pipe(Effect.provide(BrowserConsentStore.layer));
+
+const clearedHeadersFor = (name: string): readonly string[] =>
+  [
+    oldCookieHeaders.cleared.hostOnly,
+    oldCookieHeaders.cleared.hostDomain,
+    oldCookieHeaders.cleared.sharedDomain,
+  ].map((header) => header.replace("ph_phc_example", name));
 
 describe("browser consent store", () => {
   let browser: Browser = installBrowser();
@@ -160,7 +171,7 @@ describe("browser consent store", () => {
     })
   );
 
-  it.effect("stores accept as one cookie the app can read", () =>
+  it.effect("stores accept as the cookie the app reads, byte for byte", () =>
     Effect.gen(function* acceptAll() {
       const state = yield* runChoice("all");
       const cookie = browser.jar.find(CONSENT_COOKIE);
@@ -170,6 +181,9 @@ describe("browser consent store", () => {
         bannerVisible: false,
         choice: "all",
       });
+      expect(browser.jar.writes).toStrictEqual([
+        oldCookieHeaders.consent.allOnSharedDomain,
+      ]);
       expect(cookie?.value).toBe("all");
       expect(cookie?.domain).toBe(`.${host}`);
       expect(cookie?.attributes.get("path")).toBe("/");
@@ -178,36 +192,54 @@ describe("browser consent store", () => {
       expect(Number(cookie?.attributes.get("max-age"))).toBe(
         CONSENT_MAX_AGE_SECONDS
       );
-      expect(CONSENT_MAX_AGE_SECONDS).toBeGreaterThan(170 * 86_400);
-      expect(CONSENT_MAX_AGE_SECONDS).toBeLessThan(360 * 86_400);
       expect(browser.jar.names()).toContain("ph_legacy");
       expect(Object.keys(browser.local)).toContain("ph_legacy");
     })
   );
 
-  it.effect("clears analytics storage when a visitor rejects", () =>
-    Effect.gen(function* rejectOptional() {
-      const state = yield* runChoice("essential");
+  it.effect(
+    "stores reject byte for byte and clears every old analytics key",
+    () =>
+      Effect.gen(function* rejectOptional() {
+        const state = yield* runChoice("essential");
 
-      expect(state).toStrictEqual({
-        analyticsAllowed: false,
+        expect(state).toStrictEqual({
+          analyticsAllowed: false,
+          bannerVisible: false,
+          choice: "essential",
+        });
+        expect(browser.jar.writes).toStrictEqual([
+          oldCookieHeaders.consent.essentialOnSharedDomain,
+          ...clearedHeadersFor("ph_legacy"),
+          ...clearedHeadersFor("_fbp"),
+          ...clearedHeadersFor("ph_host_only"),
+        ]);
+        expect(browser.jar.names()).toStrictEqual([CONSENT_COOKIE, "theme"]);
+        expect(Object.keys(browser.local)).toStrictEqual(["keep_theme"]);
+        expect(Object.keys(browser.session)).toStrictEqual([]);
+      })
+  );
+
+  it.effect("writes no shared domain off hypertask.ai", () =>
+    Effect.gen(function* previewHost() {
+      vi.unstubAllGlobals();
+      browser = installBrowser("astro-rs.pages.dev");
+      expect(yield* runChoice("all")).toStrictEqual({
+        analyticsAllowed: true,
         bannerVisible: false,
-        choice: "essential",
+        choice: "all",
       });
-      expect(browser.jar.find(CONSENT_COOKIE)?.value).toBe("essential");
-      expect(browser.jar.names()).toStrictEqual([CONSENT_COOKIE, "theme"]);
-      expect(Object.keys(browser.local)).toStrictEqual(["keep_theme"]);
-      expect(Object.keys(browser.session)).toStrictEqual([]);
+      expect(browser.jar.writes).toStrictEqual([
+        oldCookieHeaders.consent.allOnOtherHost,
+      ]);
     })
   );
 
   it.effect("drops analytics when the app or another tab withdraws", () =>
     Effect.gen(function* withdrawal() {
       yield* runChoice("all");
-      browser.jar.seed("ph_after_accept", `.${host}`, "fresh");
-      browser.jar.write(
-        `${CONSENT_COOKIE}=essential; Max-Age=15552000; Path=/; SameSite=Lax; Secure; Domain=.${host}`
-      );
+      browser.jar.seed("ph_after_accept", ".hypertask.ai", "fresh");
+      browser.jar.write(oldCookieHeaders.consent.essentialOnSharedDomain);
 
       const state = yield* runChoice();
 
@@ -232,6 +264,25 @@ describe("browser consent store", () => {
       });
       expect(Object.keys(browser.local)).toContain("ph_legacy");
     })
+  );
+
+  it.effect(
+    "ignores Do Not Track and Global Privacy Control, as the old site did",
+    () =>
+      Effect.gen(function* privacySignals() {
+        vi.stubGlobal("navigator", {
+          doNotTrack: "1",
+          globalPrivacyControl: true,
+        });
+
+        expect((yield* runChoice()).bannerVisible).toBe(true);
+        expect(browser.jar.find(CONSENT_COOKIE)).toBeUndefined();
+        expect(browser.jar.writes).toStrictEqual([
+          ...clearedHeadersFor("ph_legacy"),
+          ...clearedHeadersFor("_fbp"),
+          ...clearedHeadersFor("ph_host_only"),
+        ]);
+      })
   );
 
   it.effect("tells the page about each choice", () =>

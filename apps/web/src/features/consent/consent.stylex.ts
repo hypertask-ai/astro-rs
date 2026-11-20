@@ -1,9 +1,18 @@
 import * as stylex from "@stylexjs/stylex";
 
+const focusRing = {
+  outlineColor: "#ffffff",
+  outlineOffset: "3px",
+  outlineStyle: "solid",
+  outlineWidth: "2px",
+};
+
 export const styles = stylex.create({
   action: {
+    ":focus-visible": focusRing,
+    ":hover": { backgroundColor: "#ffffff26" },
     backgroundColor: "#ffffff14",
-    borderColor: "#ffffff4d",
+    borderColor: "#ffffff33",
     borderRadius: "8px",
     borderStyle: "solid",
     borderWidth: "1px",
@@ -31,6 +40,7 @@ export const styles = stylex.create({
     bottom: "16px",
     boxShadow: "0 8px 32px #00000088",
     color: "#ffffff",
+    fontFamily: "system-ui, sans-serif",
     fontSize: "14px",
     left: "16px",
     lineHeight: 1.5,
@@ -49,5 +59,10 @@ export const styles = stylex.create({
   },
   copyTitle: {
     fontSize: "14px",
+  },
+  privacyLink: {
+    ":focus-visible": focusRing,
+    color: "#ffffff",
+    textDecorationLine: "underline",
   },
 });

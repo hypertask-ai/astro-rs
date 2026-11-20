@@ -1,0 +1,13 @@
+{
+  "consent": {
+    "allOnSharedDomain": "ht_cookie_consent=all; Max-Age=15552000; Path=/; SameSite=Lax; Secure; Domain=.hypertask.ai",
+    "essentialOnSharedDomain": "ht_cookie_consent=essential; Max-Age=15552000; Path=/; SameSite=Lax; Secure; Domain=.hypertask.ai",
+    "allOnOtherHost": "ht_cookie_consent=all; Max-Age=15552000; Path=/; SameSite=Lax; Secure",
+    "essentialOnOtherHost": "ht_cookie_consent=essential; Max-Age=15552000; Path=/; SameSite=Lax; Secure"
+  },
+  "cleared": {
+    "hostOnly": "ph_phc_example=; Path=/; Max-Age=0; SameSite=Lax; Secure",
+    "hostDomain": "ph_phc_example=; Path=/; Max-Age=0; SameSite=Lax; Secure; Domain=hypertask.ai",
+    "sharedDomain": "ph_phc_example=; Path=/; Max-Age=0; SameSite=Lax; Secure; Domain=.hypertask.ai"
+  }
+}
