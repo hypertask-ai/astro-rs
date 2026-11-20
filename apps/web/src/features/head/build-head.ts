@@ -1,3 +1,4 @@
+import { addSiteBasePath } from "../../site-base-path.js";
 import { fathomScriptTag } from "../analytics/fathom.js";
 import { organizationGraph } from "./organization.js";
 
@@ -66,16 +67,18 @@ const articleTags = (page: PageHead): readonly string[] =>
         metaProperty("article:section", page.article.section),
       ];
 
-export const buildHead = (path: string, page: PageHead): string => {
+export const buildHead = (
+  path: string,
+  page: PageHead,
+  basePath = ""
+): string => {
   const image = page.image ?? defaultImage;
+  const noindex = page.noindex === true || basePath !== "";
 
   return [
     ...(path === "/" ? [homeRedirect] : []),
     metaName("description", page.description),
-    metaName(
-      "robots",
-      page.noindex === true ? "noindex, follow" : "index, follow"
-    ),
+    metaName("robots", noindex ? "noindex, follow" : "index, follow"),
     metaProperty("og:title", page.title),
     metaProperty("og:description", page.description),
     metaProperty("og:image", image.url),
@@ -89,9 +92,9 @@ export const buildHead = (path: string, page: PageHead): string => {
     metaName("twitter:image", image.url),
     metaName("twitter:image:alt", image.alt),
     jsonLd(organizationGraph),
-    `<link rel="icon" type="image/png" href="/Favicon%20-%20Light.png" media="(prefers-color-scheme: dark)">`,
-    `<link rel="icon" type="image/png" href="/Favicon%20-%20Dark.png" media="(prefers-color-scheme: light)">`,
-    `<link rel="alternate" type="application/rss+xml" title="The Hypertask Blog" href="/rss.xml">`,
+    `<link rel="icon" type="image/png" href="${addSiteBasePath(basePath, "/Favicon%20-%20Light.png")}" media="(prefers-color-scheme: dark)">`,
+    `<link rel="icon" type="image/png" href="${addSiteBasePath(basePath, "/Favicon%20-%20Dark.png")}" media="(prefers-color-scheme: light)">`,
+    `<link rel="alternate" type="application/rss+xml" title="The Hypertask Blog" href="${addSiteBasePath(basePath, "/rss.xml")}">`,
     fathomScriptTag,
     ...(page.extraStructuredData ?? []).map(jsonLd),
   ].join("\n");

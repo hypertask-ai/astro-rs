@@ -1,0 +1,92 @@
+{
+  "headTags": {
+    "canonical": "https://hypertask.ai/contact/",
+    "meta": {
+      "description": "Get in touch with the Hypertask team for support, partnership, or press inquiries.",
+      "robots": "index, follow",
+      "og:title": "Contact Us - Hypertask",
+      "og:description": "Get in touch with the Hypertask team for support, partnership, or press inquiries.",
+      "og:image": "https://hypertask.ai/hypertasklogo.avif",
+      "og:image:alt": "Hypertask — AI-powered project management for humans and AI agents",
+      "og:url": "https://hypertask.ai/contact/",
+      "og:type": "website",
+      "og:site_name": "Hypertask",
+      "twitter:card": "summary_large_image",
+      "twitter:title": "Contact Us - Hypertask",
+      "twitter:description": "Get in touch with the Hypertask team for support, partnership, or press inquiries.",
+      "twitter:image": "https://hypertask.ai/hypertasklogo.avif",
+      "twitter:image:alt": "Hypertask — AI-powered project management for humans and AI agents"
+    },
+    "title": "Contact Us - Hypertask"
+  },
+  "headings": ["h1: Contact Us"],
+  "images": [
+    {
+      "alt": "",
+      "fetchpriority": "",
+      "height": "424",
+      "loading": "eager",
+      "src": "/Favicon - Light.png",
+      "width": "360"
+    }
+  ],
+  "linkTargets": [
+    "#main-content",
+    "/",
+    "/pricing/",
+    "/blog/",
+    "https://docs.hypertask.ai/",
+    "https://help.hypertask.ai/",
+    "https://app.hypertask.ai/login",
+    "https://app.hypertask.ai/login",
+    "https://app.hypertask.ai/login",
+    "mailto:help@hypertask.ai",
+    "/",
+    "/",
+    "/pricing/",
+    "/blog/",
+    "/privacy/",
+    "/contact/",
+    "/terms/",
+    "https://docs.hypertask.ai/",
+    "https://help.hypertask.ai/"
+  ],
+  "source": {
+    "bytes": 19982,
+    "fetchedAt": "2026-11-15T09:43:02.691Z",
+    "method": "GET",
+    "normalisation": "A Cloudflare edge email rewrite is undone: the obfuscated contact address is decoded back to a mailto link, as the site source has it.",
+    "sha256": "c3feb238a976298a3dc28ef25093ca42ac010fc203d642921ce389339f75cab7",
+    "url": "https://hypertask.ai/contact/"
+  },
+  "visibleText": [
+    "Skip to content",
+    "Hypertask",
+    "Pricing",
+    "Blog",
+    "Docs",
+    "Help",
+    "Login",
+    "Press",
+    "L",
+    "to log in",
+    "Start free",
+    "Start free",
+    "☰",
+    "Contact Us",
+    "help@hypertask.ai",
+    "For support, partnership, or press inquiries, please email us or use our",
+    "homepage",
+    "for more information.",
+    "Home",
+    "Pricing",
+    "Blog",
+    "Privacy",
+    "Cookie settings",
+    "Contact",
+    "Terms",
+    "Docs",
+    "Help",
+    "© 2026 Hypertask Lab Ltd."
+  ]
+}
