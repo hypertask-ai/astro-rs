@@ -21,19 +21,19 @@ it.layer(NodeServices.layer)("analytics on every built page", (test) => {
         const client = path.resolve(import.meta.dirname, "../dist/client");
         const listing = yield* fs.readDirectory(client, { recursive: true });
 
-        const pageFiles = listing.filter((file) =>
-          file.split(path.sep).join("/").endsWith(pageSuffix)
-        );
+        const pages = yield* Effect.forEach(
+          listing.filter((file) =>
+            file.split(path.sep).join("/").endsWith(pageSuffix)
+          ),
+          (file) =>
+            Effect.gen(function* readPage() {
+              const pagePath = prerenderedPagePaths([file], path.sep)[0] ?? "";
 
-        const pages = yield* Effect.forEach(pageFiles, (file) =>
-          Effect.gen(function* readPage() {
-            const pagePath = prerenderedPagePaths([file], path.sep)[0] ?? "";
-
-            return {
-              html: yield* fs.readFileString(path.join(client, file)),
-              path: pagePath,
-            } satisfies BuiltPage;
-          })
+              return {
+                html: yield* fs.readFileString(path.join(client, file)),
+                path: pagePath,
+              } satisfies BuiltPage;
+            })
         );
 
         const headSource = yield* fs.readFileString(
