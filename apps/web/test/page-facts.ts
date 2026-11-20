@@ -97,25 +97,27 @@ const withoutCookieBanner = (html: string): string =>
     ""
   );
 
-const commentOpen = "<!--";
-const commentClose = "-->";
+const commentMarkers = { close: "-->", open: "<!--" } as const;
 
 const withoutComments = (html: string): string => {
   let text = html;
 
   for (;;) {
-    const start = text.indexOf(commentOpen);
+    const start = text.indexOf(commentMarkers.open);
 
     if (start === -1) {
       return text;
     }
 
-    const end = text.indexOf(commentClose, start + commentOpen.length);
+    const end = text.indexOf(
+      commentMarkers.close,
+      start + commentMarkers.open.length
+    );
 
     text =
       end === -1
         ? text.slice(0, start)
-        : text.slice(0, start) + text.slice(end + commentClose.length);
+        : text.slice(0, start) + text.slice(end + commentMarkers.close.length);
   }
 };
 

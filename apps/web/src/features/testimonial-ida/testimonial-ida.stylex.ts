@@ -313,6 +313,10 @@ export const styles = stylex.create({
   overlayFirst: {
     backgroundImage: imageOverlayFirst,
   },
+  page: {
+    fontFamily: systemFontStack,
+    width: "100%",
+  },
   quote: {
     color: muted,
     fontSize: { default: "1rem", [md]: "1.125rem" },
@@ -612,9 +616,5 @@ export const styles = stylex.create({
     marginBlock: "0 1rem",
     minHeight: "3.5rem",
     textAlign: "left",
-  },
-  page: {
-    fontFamily: systemFontStack,
-    width: "100%",
   },
 });
