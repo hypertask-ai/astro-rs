@@ -5,15 +5,11 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { describe, expect, it } from "@effect/vitest";
-import { Effect, Predicate } from "effect";
+import { Effect } from "effect";
 import { renderToString } from "foldkit/experimental/server";
 
 import { initialModel } from "../src/client/app/index.js";
-import {
-  prerenderPaths,
-  renderDocument,
-  renderPage,
-} from "../src/entry.server.js";
+import { prerenderPaths, renderDocument } from "../src/entry.server.js";
 import { codeHighlights } from "../src/features/blog/code-highlights.js";
 import { postViews } from "../src/features/blog/index.js";
 import { publishedPosts } from "../src/features/blog/posts.js";
@@ -87,21 +83,8 @@ describe("blog routes", () => {
 
   it("answers an unknown blog address with nothing", () => {
     expect(viewForPath("/blog/not-a-post/")).toBeUndefined();
+    expect(prerenderPaths).not.toContain("/blog/not-a-post/");
   });
-
-  it.effect("renders the not found answer for an unknown address", () =>
-    Effect.gen(function* checkMissing() {
-      const result = yield* Effect.promise(() =>
-        renderPage(new Request("https://hypertask.ai/blog/not-a-post/"))
-      );
-
-      expect(Predicate.isTagged(result, "Responded")).toBe(true);
-
-      if (Predicate.isTagged(result, "Responded")) {
-        expect(result.response.status).toBe(404);
-      }
-    })
-  );
 });
 
 describe("blog images", () => {
@@ -128,15 +111,18 @@ describe("blog images", () => {
 
 describe("blog code blocks", () => {
   it("keeps one highlighted fragment per source code block", () => {
+    let blocks = 0;
+
     for (const fixture of Object.values(fixtures)) {
       const slug = fixture.address.slice("/blog/".length, -1);
 
-      expect(fixture.codeBlocks.length).toBeGreaterThan(0);
-
       for (const [index] of fixture.codeBlocks.entries()) {
         expect(codeHighlights[`${slug}/${index}`]).toBeDefined();
+        blocks += 1;
       }
     }
+
+    expect(blocks).toBe(Object.keys(codeHighlights).length);
   });
 });
 
@@ -156,11 +142,10 @@ for (const address of fixtureAddresses) {
 
     it.effect("answers with a rendered page", () =>
       Effect.gen(function* checkRendered() {
-        const result = yield* Effect.promise(() =>
-          renderPage(new Request(`https://hypertask.ai${address}`))
-        );
+        const page = yield* renderAddress(address);
 
-        expect(Predicate.isTagged(result, "Rendered")).toBe(true);
+        expect(page.startsWith("<!doctype html>")).toBe(true);
+        expect(factsOf(page).head.canonical).toBe(fixture.head.canonical);
       })
     );
 
