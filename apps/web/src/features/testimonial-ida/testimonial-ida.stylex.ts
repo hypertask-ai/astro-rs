@@ -235,6 +235,7 @@ export const styles = stylex.create({
   },
   image: {
     borderRadius: "0.75rem",
+    height: "auto",
     maxWidth: { default: "none", [sm]: "40rem" },
     minHeight: { default: "auto", [sm]: "30rem" },
     objectFit: "cover",
