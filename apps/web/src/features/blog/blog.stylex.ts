@@ -230,6 +230,7 @@ export const styles = stylex.create({
     paddingInline: "0.375rem",
   },
   container: {
+    fontFamily: system,
     marginInline: "auto",
     maxWidth: "1100px",
     paddingBlock: { default: "3rem", [lg]: "5rem" },
