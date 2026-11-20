@@ -70,7 +70,6 @@ export const LoadHelpChat = Command.define("LoadHelpChat", {
   messages: [Message.Ready],
 });
 
-<<<<<<< HEAD
 export const TrackSignUpClicks = Command.define("TrackSignUpClicks", {
   execute: Effect.sync(() => {
     installSignUpClicks(document, (event) => {
@@ -78,7 +77,8 @@ export const TrackSignUpClicks = Command.define("TrackSignUpClicks", {
     });
   }).pipe(Effect.as(Message.Ready())),
   messages: [Message.Ready],
-=======
+});
+
 const scrollTestimonial = (index: number): void => {
   const viewport = document.querySelector(`#${testimonialsViewportId}`);
 
@@ -107,5 +107,4 @@ export const ScrollTestimonials = Command.define("ScrollTestimonials", {
       scrollTestimonial(index);
     }).pipe(Effect.as(Message.SelectedTestimonialSlide({ index }))),
   messages: [Message.SelectedTestimonialSlide],
->>>>>>> origin/site
 });
