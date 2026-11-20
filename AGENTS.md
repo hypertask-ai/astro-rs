@@ -162,7 +162,7 @@ Product rules for the hypertask.ai marketing site. The fence rules below are enf
 - Blog posts are Foldkit markdown, prerendered. A post's address is its file path and never changes after publishing.
 - Feed, sitemap and crawler files are capabilities on contracts, never hand-written routes. Redirects and security headers live in the Website Worker's server rules.
 - Install scripts are static files served byte for byte. Never rewrite, reformat or re-encode them.
-- Cookie choices are an XState machine started under `createEffectActor`. No analytics tag loads before its choice is stored.
+- Cookie choices are an XState machine started under `createEffectActor`. No analytics tag that sets a cookie loads before its choice is stored. Fathom is the exception: it is cookieless and the old site loads it on every page with no gate, so the head writes it for every page.
 - Fathom and the Sign up click are a Foldkit command. Analytics relays are an Effect HTTP client behind a capability.
 - Fonts and media are self-hosted files. No outside font or script tag without a written owner and reason in the ticket that adds it. The help chat script is the one kept outside script, with its reason on HTPR-9124.
 - Nothing is built or tested on our servers. Build, check, test and publish run only in GitHub-hosted Actions. Publishing happens on every merge to `site`, the default branch, through `.github/workflows/publish-ratstack.yml`.

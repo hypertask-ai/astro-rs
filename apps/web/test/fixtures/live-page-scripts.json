@@ -1,0 +1,249 @@
+{
+  "capturedAt": "2026-11-15",
+  "capturedWith": "curl -sS (GET, no redirect following) https://hypertask.ai/ and https://hypertask.ai/blog/ai-task-manager/",
+  "rewrittenBy": "Cloudflare Rocket Loader rewrote every script type in the served HTML. The type recorded here is the source type it replaced, and nothing else in the recording was edited.",
+  "pages": [
+    {
+      "path": "/",
+      "headCount": 3,
+      "scripts": [
+        {
+          "order": 1,
+          "place": "head",
+          "src": null,
+          "type": null,
+          "attributes": [],
+          "graphType": null,
+          "inline": "// HTPR-4648: only returning app users skip the marketing page (the\n        // app sets the ht_in flag cookie). New visitors stay and reach the\n        // demo via the Get Started buttons. ?stay always keeps the page.\n        if (/(?:^|;\\s*)ht_in=1(?:;|$)/.test(document.cookie) && !location.search.includes('stay')) {\n          location.replace('https://app.hypertask.ai/login')\n        }"
+        },
+        {
+          "order": 2,
+          "place": "head",
+          "src": null,
+          "type": "application/ld+json",
+          "attributes": [],
+          "graphType": "Organization",
+          "inline": "{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://hypertask.ai/#organization\",\"name\":\"Hypertask\",\"legalName\":\"Hypertask Lab Ltd.\",\"url\":\"https://hypertask.ai\",\"description\":\"Hypertask is a project management platform where humans and AI agents share one board. Native MCP server and CLI access let autonomous agents read tasks, claim work, post progress, and update tickets without a human relaying every step.\",\"knowsAbout\":[\"AI agents\",\"project management\",\"Model Context Protocol\",\"task management\",\"AI work attribution\",\"asynchronous collaboration\"],\"logo\":{\"@type\":\"ImageObject\",\"url\":\"https://hypertask.ai/hypertasklogo.avif\"},\"founder\":{\"@type\":\"Person\",\"@id\":\"https://hypertask.ai/#founder\",\"name\":\"Valentin Yeo\",\"jobTitle\":\"Founder\"},\"sameAs\":[\"https://www.npmjs.com/package/@hypertask/hypertask_cli\"],\"contactPoint\":{\"@type\":\"ContactPoint\",\"contactType\":\"customer support\",\"url\":\"https://hypertask.ai/contact/\"}},{\"@type\":\"WebSite\",\"@id\":\"https://hypertask.ai/#website\",\"url\":\"https://hypertask.ai\",\"name\":\"Hypertask\",\"publisher\":{\"@id\":\"https://hypertask.ai/#organization\"}},{\"@type\":\"SoftwareApplication\",\"@id\":\"https://hypertask.ai/#software\",\"name\":\"Hypertask\",\"applicationCategory\":\"BusinessApplication\",\"operatingSystem\":\"Web\",\"url\":\"https://hypertask.ai\",\"description\":\"AI-powered project management where humans and AI agents share one board. Voice-to-task, smart summaries, keyboard-first navigation, native MCP integration.\",\"screenshot\":\"https://hypertask.ai/mainscreen.avif\",\"featureList\":[\"Shared board for humans and AI agents\",\"Native MCP server (15 tools)\",\"Agent-optimized CLI\",\"Voice-to-task capture\",\"Smart task summaries\",\"Keyboard-first navigation\",\"Inbox and approval gates for agent work\"],\"publisher\":{\"@id\":\"https://hypertask.ai/#organization\"},\"offers\":{\"@type\":\"AggregateOffer\",\"priceCurrency\":\"USD\",\"lowPrice\":\"0\",\"highPrice\":\"25\",\"offerCount\":\"3\"}}]}"
+        },
+        {
+          "order": 3,
+          "place": "head",
+          "src": "https://cdn.usefathom.com/script.js",
+          "type": null,
+          "attributes": ["data-site=\"SSBYTYUQ\"", "defer"],
+          "graphType": null,
+          "inline": ""
+        },
+        {
+          "order": 4,
+          "place": "body",
+          "src": null,
+          "type": null,
+          "attributes": [],
+          "graphType": null,
+          "inline": "(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).load=e;window.dispatchEvent(new Event(\"astro:load\"));})();"
+        },
+        {
+          "order": 5,
+          "place": "body",
+          "src": null,
+          "type": null,
+          "attributes": [],
+          "graphType": null,
+          "inline": "(()=>{var A=Object.defineProperty;var g=(i,o,a)=>o in i?A(i,o,{enumerable:!0,configurable:!0,writable:!0,value:a}):i[o]=a;var d=(i,o,a)=>g(i,typeof o!=\"symbol\"?o+\"\":o,a);{let i={0:t=>m(t),1:t=>a(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(a(t)),5:t=>new Set(a(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>1/0*t},o=t=>{let[l,e]=t;return l in i?i[l](e):void 0},a=t=>t.map(o),m=t=>typeof t!=\"object\"||t===null?t:Object.fromEntries(Object.entries(t).map(([l,e])=>[l,o(e)]));class y extends HTMLElement{constructor(){super(...arguments);d(this,\"Component\");d(this,\"hydrator\");d(this,\"hydrate\",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest(\"astro-island[ssr]\");if(e){e.addEventListener(\"astro:hydrate\",this.hydrate,{once:!0});return}let c=this.querySelectorAll(\"astro-slot\"),n={},h=this.querySelectorAll(\"template[data-astro-template]\");for(let r of h){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute(\"data-astro-template\")||\"default\"]=r.innerHTML,r.remove())}for(let r of c){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute(\"name\")||\"default\"]=r.innerHTML)}let p;try{p=this.hasAttribute(\"props\")?m(JSON.parse(this.getAttribute(\"props\"))):{}}catch(r){let s=this.getAttribute(\"component-url\")||\"<unknown>\",v=this.getAttribute(\"component-export\");throw v&&(s+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${s}`,this.getAttribute(\"props\"),r),r}let u;await this.hydrator(this)(this.Component,p,n,{client:this.getAttribute(\"client\")}),this.removeAttribute(\"ssr\"),this.dispatchEvent(new CustomEvent(\"astro:hydrate\"))});d(this,\"unmount\",()=>{this.isConnected||this.dispatchEvent(new CustomEvent(\"astro:unmount\"))})}disconnectedCallback(){document.removeEventListener(\"astro:after-swap\",this.unmount),document.addEventListener(\"astro:after-swap\",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute(\"await-children\")||document.readyState===\"interactive\"||document.readyState===\"complete\")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener(\"DOMContentLoaded\",e),c.disconnect(),this.childrenConnectedCallback()},c=new MutationObserver(()=>{var n;((n=this.lastChild)==null?void 0:n.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue===\"astro:end\"&&(this.lastChild.remove(),e())});c.observe(this,{childList:!0}),document.addEventListener(\"DOMContentLoaded\",e)}}async childrenConnectedCallback(){let e=this.getAttribute(\"before-hydration-url\");e&&await import(e),this.start()}async start(){let e=JSON.parse(this.getAttribute(\"opts\")),c=this.getAttribute(\"client\");if(Astro[c]===void 0){window.addEventListener(`astro:${c}`,()=>this.start(),{once:!0});return}try{await Astro[c](async()=>{let n=this.getAttribute(\"renderer-url\"),[h,{default:p}]=await Promise.all([import(this.getAttribute(\"component-url\")),n?import(n):()=>()=>{}]),u=this.getAttribute(\"component-export\")||\"default\";if(!u.includes(\".\"))this.Component=h[u];else{this.Component=h;for(let f of u.split(\".\"))this.Component=this.Component[f]}return this.hydrator=p,this.hydrate},e,this)}catch(n){console.error(`[astro-island] Error hydrating ${this.getAttribute(\"component-url\")}`,n)}}attributeChangedCallback(){this.hydrate()}}d(y,\"observedAttributes\",[\"props\"]),customElements.get(\"astro-island\")||customElements.define(\"astro-island\",y)}})();"
+        },
+        {
+          "order": 6,
+          "place": "body",
+          "src": null,
+          "type": null,
+          "attributes": [],
+          "graphType": null,
+          "inline": "(function() {\n    document.addEventListener('keydown', function(e) {\n      if (e.key !== 'l' && e.key !== 'L') return;\n      if (e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;\n      var t = e.target;\n      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return;\n      var login = document.getElementById('login-button');\n      if (login) window.location.href = login.href;\n    });\n  })();"
+        },
+        {
+          "order": 7,
+          "place": "body",
+          "src": null,
+          "type": null,
+          "attributes": [],
+          "graphType": null,
+          "inline": "(function() {\n    var header = document.getElementById('main-header');\n    if (header && !header.classList.contains('home-header')) {\n      window.addEventListener('scroll', function() {\n        if (window.scrollY > 0) {\n          header.style.borderColor = 'var(--header-border)';\n          header.style.transition = 'border-color 0.3s';\n        } else {\n          header.style.borderColor = 'transparent';\n        }\n      });\n    }\n  })();"
+        },
+        {
+          "order": 8,
+          "place": "body",
+          "src": null,
+          "type": null,
+          "attributes": [],
+          "graphType": null,
+          "inline": "document.querySelectorAll('[data-pricing-module]').forEach((pricing) => {\n    pricing.querySelectorAll('.pricing-toggle button').forEach((button) => {\n      button.addEventListener('click', () => {\n        pricing.querySelectorAll('.pricing-toggle button').forEach((item) => {\n          item.setAttribute('aria-pressed', 'false')\n        })\n        button.setAttribute('aria-pressed', 'true')\n\n        const period = button.dataset.period\n        pricing.querySelectorAll('[data-monthly]').forEach((item) => {\n          item.textContent = item.dataset[period]\n        })\n      })\n    })\n  })"
+        },
+        {
+          "order": 9,
+          "place": "body",
+          "src": null,
+          "type": null,
+          "attributes": [],
+          "graphType": null,
+          "inline": "document.querySelectorAll('[data-install]').forEach(box => {\n    const code = box.querySelector('[data-install-cmd]')\n    const copy = box.querySelector('[data-install-copy]')\n    box.querySelectorAll('[data-cmd]').forEach(tab => {\n      tab.addEventListener('click', () => {\n        box.querySelectorAll('[data-cmd]').forEach(t => t.setAttribute('aria-selected', String(t === tab)))\n        code.textContent = tab.dataset.cmd || ''\n        copy.textContent = 'Copy'\n      })\n    })\n    copy.addEventListener('click', async () => {\n      try {\n        await navigator.clipboard.writeText(code.textContent || '')\n        copy.textContent = 'Copied'\n      } catch { copy.textContent = 'Copy failed' }\n      setTimeout(() => { copy.textContent = 'Copy' }, 1800)\n    })\n  })"
+        },
+        {
+          "order": 10,
+          "place": "body",
+          "src": "/_astro/CookieConsent.astro_astro_type_script_index_0_lang.B8IGwhWr.js",
+          "type": "module",
+          "attributes": [],
+          "graphType": null,
+          "inline": ""
+        },
+        {
+          "order": 11,
+          "place": "body",
+          "src": "https://help.hypertask.ai/widget/widget.js",
+          "type": null,
+          "attributes": [
+            "data-cfasync=\"false\"",
+            "data-mode=\"floating\"",
+            "data-nudge-delay=\"20\""
+          ],
+          "graphType": null,
+          "inline": ""
+        },
+        {
+          "order": 12,
+          "place": "body",
+          "src": null,
+          "type": null,
+          "attributes": [],
+          "graphType": null,
+          "inline": "document.addEventListener('click', (event) => {\n      const link = event.target instanceof Element ? event.target.closest('a[href]') : null\n      if (link && link.href.startsWith('https://app.hypertask.ai')) window.fathom?.trackEvent('Sign up click')\n    })"
+        },
+        {
+          "order": 13,
+          "place": "body",
+          "src": "/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js",
+          "type": null,
+          "attributes": [
+            "data-cf-settings=\"cb2535b77a1a41527c31ca9f-|49\"",
+            "defer"
+          ],
+          "graphType": null,
+          "inline": ""
+        }
+      ]
+    },
+    {
+      "path": "/blog/ai-task-manager/",
+      "headCount": 3,
+      "scripts": [
+        {
+          "order": 1,
+          "place": "head",
+          "src": null,
+          "type": "application/ld+json",
+          "attributes": [],
+          "graphType": "Organization",
+          "inline": "{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://hypertask.ai/#organization\",\"name\":\"Hypertask\",\"legalName\":\"Hypertask Lab Ltd.\",\"url\":\"https://hypertask.ai\",\"description\":\"Hypertask is a project management platform where humans and AI agents share one board. Native MCP server and CLI access let autonomous agents read tasks, claim work, post progress, and update tickets without a human relaying every step.\",\"knowsAbout\":[\"AI agents\",\"project management\",\"Model Context Protocol\",\"task management\",\"AI work attribution\",\"asynchronous collaboration\"],\"logo\":{\"@type\":\"ImageObject\",\"url\":\"https://hypertask.ai/hypertasklogo.avif\"},\"founder\":{\"@type\":\"Person\",\"@id\":\"https://hypertask.ai/#founder\",\"name\":\"Valentin Yeo\",\"jobTitle\":\"Founder\"},\"sameAs\":[\"https://www.npmjs.com/package/@hypertask/hypertask_cli\"],\"contactPoint\":{\"@type\":\"ContactPoint\",\"contactType\":\"customer support\",\"url\":\"https://hypertask.ai/contact/\"}},{\"@type\":\"WebSite\",\"@id\":\"https://hypertask.ai/#website\",\"url\":\"https://hypertask.ai\",\"name\":\"Hypertask\",\"publisher\":{\"@id\":\"https://hypertask.ai/#organization\"}},{\"@type\":\"SoftwareApplication\",\"@id\":\"https://hypertask.ai/#software\",\"name\":\"Hypertask\",\"applicationCategory\":\"BusinessApplication\",\"operatingSystem\":\"Web\",\"url\":\"https://hypertask.ai\",\"description\":\"AI-powered project management where humans and AI agents share one board. Voice-to-task, smart summaries, keyboard-first navigation, native MCP integration.\",\"screenshot\":\"https://hypertask.ai/mainscreen.avif\",\"featureList\":[\"Shared board for humans and AI agents\",\"Native MCP server (15 tools)\",\"Agent-optimized CLI\",\"Voice-to-task capture\",\"Smart task summaries\",\"Keyboard-first navigation\",\"Inbox and approval gates for agent work\"],\"publisher\":{\"@id\":\"https://hypertask.ai/#organization\"},\"offers\":{\"@type\":\"AggregateOffer\",\"priceCurrency\":\"USD\",\"lowPrice\":\"0\",\"highPrice\":\"25\",\"offerCount\":\"3\"}}]}"
+        },
+        {
+          "order": 2,
+          "place": "head",
+          "src": "https://cdn.usefathom.com/script.js",
+          "type": null,
+          "attributes": ["data-site=\"SSBYTYUQ\"", "defer"],
+          "graphType": null,
+          "inline": ""
+        },
+        {
+          "order": 3,
+          "place": "head",
+          "src": null,
+          "type": "application/ld+json",
+          "attributes": [],
+          "graphType": "BlogPosting",
+          "inline": "{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"BlogPosting\",\"headline\":\"AI Task Manager: What Actually Helps\",\"description\":\"Compare AI task managers by the work they automate, then choose between scheduling tools, team suites, and agent-ready project boards.\",\"datePublished\":\"2026-08-17T00:00:00.000Z\",\"dateModified\":\"2026-08-17T00:00:00.000Z\",\"author\":{\"@type\":\"Person\",\"name\":\"Valentin Yeo\",\"url\":\"https://hypertask.ai/about/\"},\"publisher\":{\"@id\":\"https://hypertask.ai/#organization\"},\"mainEntityOfPage\":{\"@type\":\"WebPage\",\"@id\":\"https://hypertask.ai/blog/ai-task-manager/\"},\"image\":\"https://hypertask.ai/images/blog/demo-board.webp\",\"keywords\":\"ai-task-manager, task-management, ai-agents, tool-comparison, async-work\"},{\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://hypertask.ai/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Blog\",\"item\":\"https://hypertask.ai/blog/\"},{\"@type\":\"ListItem\",\"position\":3,\"name\":\"AI Task Manager: What Actually Helps\",\"item\":\"https://hypertask.ai/blog/ai-task-manager/\"}]},{\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"name\":\"What is the best AI task manager?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"The best AI task manager depends on the job. Motion and Reclaim are strong when tasks need automatic calendar time. Taskade helps generate plans and workflows. ClickUp and Asana suit broader team work management. Todoist is simpler for personal tasks. Hypertask fits teams where external AI agents need to update the same board humans review.\"}},{\"@type\":\"Question\",\"name\":\"Can AI automatically prioritize my tasks?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Yes, many AI task managers can suggest or change priority based on dates, workload, dependencies, and workspace context. Treat the result as a recommendation unless the rules are deterministic. A useful system explains enough of the decision for a person to override a bad assumption.\"}},{\"@type\":\"Question\",\"name\":\"Can an AI task manager complete tasks for me?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Some products run built-in agents or automations, while others connect external agents through MCP, APIs, or CLI tools. Check what the agent can actually change, how actions are attributed, and whether completed work reaches a human review queue with evidence.\"}},{\"@type\":\"Question\",\"name\":\"Is an AI task manager safe for company data?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Safety depends on the product, model configuration, permissions, and the data you expose. Review access scopes, retention terms, audit history, and admin controls. Start with one low-risk workflow and use the least privilege needed for the agent to complete it.\"}},{\"@type\":\"Question\",\"name\":\"Should I replace my current task manager?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Only if the new tool removes a measured bottleneck. A scheduling layer can sometimes sit on top of the current system. An external-agent workflow may justify a separate execution board. Avoid keeping the same active task in two systems because status will drift.\"}}]}]}"
+        },
+        {
+          "order": 4,
+          "place": "body",
+          "src": null,
+          "type": null,
+          "attributes": [],
+          "graphType": null,
+          "inline": "(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).load=e;window.dispatchEvent(new Event(\"astro:load\"));})();"
+        },
+        {
+          "order": 5,
+          "place": "body",
+          "src": null,
+          "type": null,
+          "attributes": [],
+          "graphType": null,
+          "inline": "(()=>{var A=Object.defineProperty;var g=(i,o,a)=>o in i?A(i,o,{enumerable:!0,configurable:!0,writable:!0,value:a}):i[o]=a;var d=(i,o,a)=>g(i,typeof o!=\"symbol\"?o+\"\":o,a);{let i={0:t=>m(t),1:t=>a(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(a(t)),5:t=>new Set(a(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>1/0*t},o=t=>{let[l,e]=t;return l in i?i[l](e):void 0},a=t=>t.map(o),m=t=>typeof t!=\"object\"||t===null?t:Object.fromEntries(Object.entries(t).map(([l,e])=>[l,o(e)]));class y extends HTMLElement{constructor(){super(...arguments);d(this,\"Component\");d(this,\"hydrator\");d(this,\"hydrate\",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest(\"astro-island[ssr]\");if(e){e.addEventListener(\"astro:hydrate\",this.hydrate,{once:!0});return}let c=this.querySelectorAll(\"astro-slot\"),n={},h=this.querySelectorAll(\"template[data-astro-template]\");for(let r of h){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute(\"data-astro-template\")||\"default\"]=r.innerHTML,r.remove())}for(let r of c){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute(\"name\")||\"default\"]=r.innerHTML)}let p;try{p=this.hasAttribute(\"props\")?m(JSON.parse(this.getAttribute(\"props\"))):{}}catch(r){let s=this.getAttribute(\"component-url\")||\"<unknown>\",v=this.getAttribute(\"component-export\");throw v&&(s+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${s}`,this.getAttribute(\"props\"),r),r}let u;await this.hydrator(this)(this.Component,p,n,{client:this.getAttribute(\"client\")}),this.removeAttribute(\"ssr\"),this.dispatchEvent(new CustomEvent(\"astro:hydrate\"))});d(this,\"unmount\",()=>{this.isConnected||this.dispatchEvent(new CustomEvent(\"astro:unmount\"))})}disconnectedCallback(){document.removeEventListener(\"astro:after-swap\",this.unmount),document.addEventListener(\"astro:after-swap\",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute(\"await-children\")||document.readyState===\"interactive\"||document.readyState===\"complete\")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener(\"DOMContentLoaded\",e),c.disconnect(),this.childrenConnectedCallback()},c=new MutationObserver(()=>{var n;((n=this.lastChild)==null?void 0:n.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue===\"astro:end\"&&(this.lastChild.remove(),e())});c.observe(this,{childList:!0}),document.addEventListener(\"DOMContentLoaded\",e)}}async childrenConnectedCallback(){let e=this.getAttribute(\"before-hydration-url\");e&&await import(e),this.start()}async start(){let e=JSON.parse(this.getAttribute(\"opts\")),c=this.getAttribute(\"client\");if(Astro[c]===void 0){window.addEventListener(`astro:${c}`,()=>this.start(),{once:!0});return}try{await Astro[c](async()=>{let n=this.getAttribute(\"renderer-url\"),[h,{default:p}]=await Promise.all([import(this.getAttribute(\"component-url\")),n?import(n):()=>()=>{}]),u=this.getAttribute(\"component-export\")||\"default\";if(!u.includes(\".\"))this.Component=h[u];else{this.Component=h;for(let f of u.split(\".\"))this.Component=this.Component[f]}return this.hydrator=p,this.hydrate},e,this)}catch(n){console.error(`[astro-island] Error hydrating ${this.getAttribute(\"component-url\")}`,n)}}attributeChangedCallback(){this.hydrate()}}d(y,\"observedAttributes\",[\"props\"]),customElements.get(\"astro-island\")||customElements.define(\"astro-island\",y)}})();"
+        },
+        {
+          "order": 6,
+          "place": "body",
+          "src": null,
+          "type": null,
+          "attributes": [],
+          "graphType": null,
+          "inline": "(function() {\n    document.addEventListener('keydown', function(e) {\n      if (e.key !== 'l' && e.key !== 'L') return;\n      if (e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;\n      var t = e.target;\n      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return;\n      var login = document.getElementById('login-button');\n      if (login) window.location.href = login.href;\n    });\n  })();"
+        },
+        {
+          "order": 7,
+          "place": "body",
+          "src": null,
+          "type": null,
+          "attributes": [],
+          "graphType": null,
+          "inline": "(function() {\n    var header = document.getElementById('main-header');\n    if (header && !header.classList.contains('home-header')) {\n      window.addEventListener('scroll', function() {\n        if (window.scrollY > 0) {\n          header.style.borderColor = 'var(--header-border)';\n          header.style.transition = 'border-color 0.3s';\n        } else {\n          header.style.borderColor = 'transparent';\n        }\n      });\n    }\n  })();"
+        },
+        {
+          "order": 8,
+          "place": "body",
+          "src": "/_astro/CookieConsent.astro_astro_type_script_index_0_lang.B8IGwhWr.js",
+          "type": "module",
+          "attributes": [],
+          "graphType": null,
+          "inline": ""
+        },
+        {
+          "order": 9,
+          "place": "body",
+          "src": "https://help.hypertask.ai/widget/widget.js",
+          "type": null,
+          "attributes": [
+            "data-cfasync=\"false\"",
+            "data-mode=\"floating\"",
+            "data-nudge-delay=\"20\""
+          ],
+          "graphType": null,
+          "inline": ""
+        },
+        {
+          "order": 10,
+          "place": "body",
+          "src": null,
+          "type": null,
+          "attributes": [],
+          "graphType": null,
+          "inline": "document.addEventListener('click', (event) => {\n      const link = event.target instanceof Element ? event.target.closest('a[href]') : null\n      if (link && link.href.startsWith('https://app.hypertask.ai')) window.fathom?.trackEvent('Sign up click')\n    })"
+        },
+        {
+          "order": 11,
+          "place": "body",
+          "src": "/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js",
+          "type": null,
+          "attributes": [
+            "data-cf-settings=\"0c702a7aba8727a2d533a484-|49\"",
+            "defer"
+          ],
+          "graphType": null,
+          "inline": ""
+        }
+      ]
+    }
+  ]
+}

@@ -6,7 +6,7 @@ export interface HtmlTag {
 const tagPattern = /<(?<name>[a-z][a-z0-9]*)\b(?<source>[^>]*)>/giu;
 
 const attributePattern =
-  /(?<key>[a-z][\w:-]*)\s*=\s*(?:"(?<double>[^"]*)"|'(?<single>[^']*)')/giu;
+  /(?<key>[a-z][\w:-]*)(?:\s*=\s*(?:"(?<double>[^"]*)"|'(?<single>[^']*)'))?/giu;
 
 const parseAttributes = (source: string) =>
   new Map(

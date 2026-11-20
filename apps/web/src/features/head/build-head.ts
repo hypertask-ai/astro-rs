@@ -1,4 +1,5 @@
 import { addSiteBasePath } from "../../site-base-path.js";
+import { fathomScriptTag } from "../analytics/fathom.js";
 import { organizationGraph } from "./organization.js";
 
 export const siteOrigin = "https://hypertask.ai";
@@ -91,9 +92,10 @@ export const buildHead = (
     metaName("twitter:image", image.url),
     metaName("twitter:image:alt", image.alt),
     jsonLd(organizationGraph),
-    ...(page.extraStructuredData ?? []).map(jsonLd),
     `<link rel="icon" type="image/png" href="${addSiteBasePath(basePath, "/Favicon%20-%20Light.png")}" media="(prefers-color-scheme: dark)">`,
     `<link rel="icon" type="image/png" href="${addSiteBasePath(basePath, "/Favicon%20-%20Dark.png")}" media="(prefers-color-scheme: light)">`,
     `<link rel="alternate" type="application/rss+xml" title="The Hypertask Blog" href="${addSiteBasePath(basePath, "/rss.xml")}">`,
+    fathomScriptTag,
+    ...(page.extraStructuredData ?? []).map(jsonLd),
   ].join("\n");
 };

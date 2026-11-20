@@ -10,6 +10,7 @@ import { cookieSettingsId, loginUrl } from "../../features/frame/copy.js";
 import { mountHelpChat } from "../../features/help-chat/index.js";
 import { copyResetMillis } from "../../features/home/copy.js";
 import { testimonialsViewportId } from "../../features/testimonials/copy.js";
+import { installSignUpClicks } from "../analytics/sign-up-click.js";
 import { BrowserConsentStore } from "./browser-consent-store.js";
 import { Message } from "./message.js";
 
@@ -68,6 +69,15 @@ export const ResetCopyLabel = Command.define("ResetCopyLabel", {
 export const LoadHelpChat = Command.define("LoadHelpChat", {
   execute: Effect.sync(() => {
     mountHelpChat(document);
+  }).pipe(Effect.as(Message.Ready())),
+  messages: [Message.Ready],
+});
+
+export const TrackSignUpClicks = Command.define("TrackSignUpClicks", {
+  execute: Effect.sync(() => {
+    installSignUpClicks(document, (event) => {
+      window.fathom?.trackEvent(event);
+    });
   }).pipe(Effect.as(Message.Ready())),
   messages: [Message.Ready],
 });

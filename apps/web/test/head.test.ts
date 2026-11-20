@@ -1,6 +1,7 @@
 import { describe, expect, it } from "@effect/vitest";
 import { Schema } from "effect";
 
+import { fathomScriptUrl } from "../src/features/analytics/index.js";
 import { publishedPosts } from "../src/features/blog/posts.js";
 import {
   buildHead,
@@ -149,13 +150,13 @@ describe("page head", () => {
     expect(head).toContain("a &quot;b&quot; &lt;c&gt; &amp; d");
   });
 
-  it("never loads anything from another host", () => {
+  it("loads only the Fathom script from another host", () => {
     const loaded = samplePaths.flatMap((path) =>
       [...headFor(path).matchAll(/(?:src|href)="(?<url>https?:[^"]+)"/gu)].map(
         (match) => match.groups?.url
       )
     );
 
-    expect(loaded).toEqual([]);
+    expect(new Set(loaded)).toEqual(new Set([fathomScriptUrl]));
   });
 });

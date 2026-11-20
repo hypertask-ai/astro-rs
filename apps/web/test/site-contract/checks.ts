@@ -2,6 +2,7 @@ import { Effect } from "effect";
 
 import { internalHrefs, metaContent, tagsOf, titleOf } from "./html.js";
 import {
+  appOrigin,
   blogSlugs,
   fathomScriptSource,
   fathomSiteId,
@@ -78,9 +79,39 @@ export const fathomViolations = (html: string): readonly string[] => {
     return [`missing Fathom script ${fathomScriptSource}`];
   }
 
-  return tag.attributes.get("data-site") === fathomSiteId
-    ? []
-    : [`Fathom data-site is not ${fathomSiteId}`];
+  const violations: string[] = [];
+
+  if (tag.attributes.get("data-site") !== fathomSiteId) {
+    violations.push(`Fathom data-site is not ${fathomSiteId}`);
+  }
+
+  if (!tag.attributes.has("defer")) {
+    violations.push("Fathom script is not deferred");
+  }
+
+  return violations;
+};
+
+export const signUpViolations = (html: string): readonly string[] => {
+  const appLinks = tagsOf(html, "a").filter(
+    (tag) => tag.attributes.get("href")?.startsWith(appOrigin) === true
+  );
+
+  if (appLinks.length === 0) {
+    return [];
+  }
+
+  const entry = tagsOf(html, "script").find(
+    (tag) =>
+      tag.attributes.get("type") === "module" &&
+      tag.attributes.get("src") !== undefined
+  );
+
+  return entry === undefined
+    ? [
+        `${appLinks.length} app links but no client entry to count a Sign up click`,
+      ]
+    : [];
 };
 
 const maxHops = 5;
@@ -108,9 +139,11 @@ const follow = (fetchPage: SiteFetcher, path: string) =>
   });
 
 const pageViolations = (path: string, html: string): readonly string[] =>
-  [...headViolations(html), ...fathomViolations(html)].map(
-    (violation) => `${path}: ${violation}`
-  );
+  [
+    ...headViolations(html),
+    ...fathomViolations(html),
+    ...signUpViolations(html),
+  ].map((violation) => `${path}: ${violation}`);
 
 export const redirectViolations = (fetchPage: SiteFetcher) =>
   Effect.gen(function* checkRedirects() {
