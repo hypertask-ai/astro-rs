@@ -38,21 +38,20 @@ for (const fixture of Object.values(fixtures)) {
         const { postViews } = yield* Effect.promise(
           () => import("../src/features/blog/index.js")
         );
+
         const { renderDocument } = yield* Effect.promise(
           () => import("../src/entry.server.js")
         );
-        const view = postViews.get(fixture.address);
 
-        if (view === undefined) {
-          return yield* Effect.die(
-            new Error(`No blog view for ${fixture.address}`)
-          );
-        }
+        const view = yield* Effect.fromNullishOr(
+          postViews.get(fixture.address)
+        );
 
         const application = yield* renderToString(
           { init: () => ({ model: initialModel }), view },
           { isHydratable: false }
         );
+
         const html = renderDocument(application, assets);
         const facts = factsOf(html);
 
