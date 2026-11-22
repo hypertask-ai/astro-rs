@@ -19,42 +19,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  engine:
-    name: Pick the verifier engine
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    outputs:
-      engine: ${{ steps.pick.outputs.engine }}
-      codex: ${{ steps.pick.outputs.codex }}
-      claude: ${{ steps.pick.outputs.claude }}
-    steps:
-      - name: Read which verifier setting exists
-        id: pick
-        env:
-          CODEX_AUTH_JSON: ${{ secrets.CODEX_AUTH_JSON }}
-          CODEX_VERIFIER_KEY: ${{ secrets.CODEX_VERIFIER_KEY }}
-          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-        run: |
-          set -euo pipefail
-          codex=no
-          claude=no
-          if [ -n "${CODEX_AUTH_JSON:-}" ] || [ -n "${CODEX_VERIFIER_KEY:-}" ]; then codex=yes; fi
-          if [ -n "${CLAUDE_CODE_OAUTH_TOKEN:-}" ]; then claude=yes; fi
-          if [ "$codex" = "no" ] && [ "$claude" = "no" ]; then
-            engine=none
-            echo "::notice title=Verifier skipped::skipped: no verifier setting. The pstack-verifier check stays neutrally skipped. Add the repository secret CODEX_AUTH_JSON with a Codex plan login file, or CODEX_VERIFIER_KEY with a Codex API key, or CLAUDE_CODE_OAUTH_TOKEN from the Claude plan."
-          elif [ "$codex" = "yes" ]; then
-            engine=codex
-          else
-            engine=claude
-          fi
-          printf 'engine=%s\ncodex=%s\nclaude=%s\n' "$engine" "$codex" "$claude" >> "$GITHUB_OUTPUT"
-          printf 'engine: %s\n' "$engine" >> "$GITHUB_STEP_SUMMARY"
-
   pstack-verifier:
     name: pstack-verifier
-    needs: engine
-    if: needs.engine.outputs.engine != 'none'
     runs-on: ubuntu-latest
     timeout-minutes: 60
     env:
@@ -62,6 +28,10 @@ jobs:
       SERVER_URL: ${{ github.server_url }}
       RUN_ID: ${{ github.run_id }}
       LIVE_URL: https://hypertask.ai
+      SITE_BASE_PATH: /ratstack
+      PREVIEW_ROOT: apps/web/dist/client
+      PREVIEW_PORT: "4173"
+      PREVIEW_URL: http://127.0.0.1:4173/ratstack/
     steps:
       - name: Resolve the pull request, its parent commit and its head commit
         id: target
@@ -136,31 +106,6 @@ jobs:
         if: steps.target.outputs.go == 'yes'
         run: pnpm sources:fetch
 
-      - name: Build the head the way ci.yml builds
-        if: steps.target.outputs.go == 'yes'
-        run: pnpm turbo run build --concurrency=2
-
-      - name: Check out the parent commit into its own tree
-        if: steps.target.outputs.go == 'yes'
-        env:
-          BASE_SHA: ${{ steps.target.outputs.base }}
-        run: git -C "$GITHUB_WORKSPACE" worktree add --detach "$RUNNER_TEMP/parent" "$BASE_SHA"
-
-      - name: Install dependencies for the parent
-        if: steps.target.outputs.go == 'yes'
-        working-directory: ${{ runner.temp }}/parent
-        run: pnpm install --frozen-lockfile
-
-      - name: Fetch pinned source objects for the parent
-        if: steps.target.outputs.go == 'yes'
-        working-directory: ${{ runner.temp }}/parent
-        run: pnpm sources:fetch
-
-      - name: Build the parent the way ci.yml builds
-        if: steps.target.outputs.go == 'yes'
-        working-directory: ${{ runner.temp }}/parent
-        run: pnpm turbo run build --concurrency=2
-
       - name: Install Playwright Chromium for the verifier
         if: steps.target.outputs.go == 'yes'
         run: |
@@ -171,214 +116,313 @@ jobs:
           ln -sfn "$RUNNER_TEMP/browser/node_modules" "$GITHUB_WORKSPACE/verify/node_modules"
           printf 'SCREENS_DIR=%s\n' "$RUNNER_TEMP/screens" >> "$GITHUB_ENV"
 
-      - name: Serve the built sites and try each commit's Worker preview
+      - name: Build this pull request's site the way the publish workflow builds it
         if: steps.target.outputs.go == 'yes'
-        env:
-          BASE_SHA: ${{ steps.target.outputs.base }}
-          SHA: ${{ steps.target.outputs.sha }}
         run: |
           set -euo pipefail
-          cat > "$RUNNER_TEMP/serve-static.mjs" <<'SERVER'
+          pnpm build
+          if [ ! -f apps/web/dist/client/index.html ]; then
+            echo "::error::The build wrote no home page at apps/web/dist/client/index.html, so there is nothing to serve for this pull request. Fix: read the build output above and check that apps/web/vite.config.ts reads SITE_BASE_PATH."
+            exit 1
+          fi
+          if ! grep -q 'X-Robots-Tag: noindex' apps/web/dist/client/_headers; then
+            echo "::error::The build wrote no noindex rule into apps/web/dist/client/_headers, so this is not a build of the site under SITE_BASE_PATH=$SITE_BASE_PATH. Fix: rebuild with SITE_BASE_PATH set and check apps/web/scripts/site-rules.ts."
+            exit 1
+          fi
+
+      - name: Serve the built site on the runner
+        if: steps.target.outputs.go == 'yes'
+        run: |
+          set -euo pipefail
+          cat > "$RUNNER_TEMP/preview-server.mjs" <<'SERVER'
           import { createReadStream } from "node:fs";
-          import { stat } from "node:fs/promises";
+          import { readFile, stat } from "node:fs/promises";
           import { createServer } from "node:http";
           import path from "node:path";
 
-          const root = path.resolve(process.argv[2]);
-          const port = Number(process.argv[3]);
+          const root = path.resolve(process.env.PREVIEW_ROOT ?? "apps/web/dist/client");
+          const port = Number(process.env.PREVIEW_PORT ?? "4173");
+          const host = process.env.PREVIEW_HOST ?? "127.0.0.1";
+          const basePath = (process.env.SITE_BASE_PATH ?? "/ratstack").replace(/\/+$/u, "");
 
-          const types = {
-            ".avif": "image/avif",
-            ".css": "text/css; charset=utf-8",
-            ".html": "text/html; charset=utf-8",
-            ".ico": "image/x-icon",
-            ".jpeg": "image/jpeg",
-            ".jpg": "image/jpeg",
-            ".js": "text/javascript; charset=utf-8",
-            ".json": "application/json; charset=utf-8",
-            ".map": "application/json; charset=utf-8",
-            ".md": "text/markdown; charset=utf-8",
-            ".mjs": "text/javascript; charset=utf-8",
-            ".mp4": "video/mp4",
-            ".png": "image/png",
-            ".svg": "image/svg+xml",
-            ".txt": "text/plain; charset=utf-8",
-            ".wasm": "application/wasm",
-            ".webmanifest": "application/manifest+json",
-            ".webp": "image/webp",
-            ".woff": "font/woff",
-            ".woff2": "font/woff2",
-            ".xml": "application/xml; charset=utf-8",
-          };
+          const contentTypes = new Map([
+            [".avif", "image/avif"],
+            [".css", "text/css; charset=utf-8"],
+            [".html", "text/html; charset=utf-8"],
+            [".ico", "image/x-icon"],
+            [".jpeg", "image/jpeg"],
+            [".jpg", "image/jpeg"],
+            [".js", "text/javascript; charset=utf-8"],
+            [".json", "application/json; charset=utf-8"],
+            [".map", "application/json; charset=utf-8"],
+            [".md", "text/markdown; charset=utf-8"],
+            [".mjs", "text/javascript; charset=utf-8"],
+            [".mp4", "video/mp4"],
+            [".png", "image/png"],
+            [".svg", "image/svg+xml"],
+            [".txt", "text/plain; charset=utf-8"],
+            [".wasm", "application/wasm"],
+            [".webmanifest", "application/manifest+json"],
+            [".webp", "image/webp"],
+            [".woff", "font/woff"],
+            [".woff2", "font/woff2"],
+            [".xml", "application/xml; charset=utf-8"],
+          ]);
 
-          const candidatesFor = (urlPath) => {
-            const base = path.resolve(root, decodeURIComponent(urlPath).replace(/^\/+/u, "").replace(/\/+$/u, ""));
-            if (base !== root && !base.startsWith(`${root}${path.sep}`)) {
-              return [];
+          const readOptional = async (file) => {
+            try {
+              return await readFile(file, "utf-8");
+            } catch {
+              return "";
             }
-            return [base, path.join(base, "index.html"), `${base}.html`];
           };
 
-          const fileAt = async (paths) => {
-            for (const candidate of paths) {
-              try {
-                const info = await stat(candidate);
-                if (info.isFile()) {
-                  return candidate;
-                }
-              } catch {}
+          const parseHeaderRules = (text) => {
+            const rules = [];
+            let current;
+
+            for (const raw of text.split("\n")) {
+              if (raw.trim() === "") {
+                current = undefined;
+                continue;
+              }
+
+              if (!/^\s/u.test(raw)) {
+                current = { headers: [], pattern: raw.trim() };
+                rules.push(current);
+                continue;
+              }
+
+              const separator = raw.indexOf(":");
+
+              if (current === undefined || separator < 1) {
+                continue;
+              }
+
+              current.headers.push([
+                raw.slice(0, separator).trim().toLowerCase(),
+                raw.slice(separator + 1).trim(),
+              ]);
             }
-            return undefined;
+
+            return rules;
           };
 
-          createServer(async (request, response) => {
-            const url = new URL(request.url ?? "/", "http://127.0.0.1");
-            const found = await fileAt(candidatesFor(url.pathname));
-            if (found === undefined) {
-              const fallback = await fileAt([path.join(root, "404.html")]);
-              response.writeHead(404, {
-                "content-type": fallback === undefined ? types[".txt"] : types[".html"],
-              });
-              if (request.method === "HEAD" || fallback === undefined) {
-                response.end(fallback === undefined ? `404 ${url.pathname}\n` : undefined);
+          const parseRedirectRules = (text) =>
+            text.split("\n").flatMap((raw) => {
+              const line = raw.trim();
+
+              if (line === "" || line.startsWith("#")) {
+                return [];
+              }
+
+              const [source, destination, statusText] = line.split(/\s+/u);
+
+              if (source === undefined || destination === undefined) {
+                return [];
+              }
+
+              return [{ destination, source, status: Number(statusText ?? "302") }];
+            });
+
+          const headerRules = parseHeaderRules(await readOptional(path.join(root, "_headers")));
+          const redirectRules = parseRedirectRules(await readOptional(path.join(root, "_redirects")));
+
+          const matchesPattern = (pattern, pathname) => {
+            if (pattern === "*" || pattern === "/*") {
+              return true;
+            }
+
+            if (pattern.endsWith("*")) {
+              return pathname.startsWith(pattern.slice(0, -1));
+            }
+
+            return pathname === pattern;
+          };
+
+          const headersFor = (pathname, file) => {
+            const headers = {
+              "Content-Type": contentTypes.get(path.extname(file)) ?? "application/octet-stream",
+            };
+
+            for (const rule of headerRules) {
+              if (!matchesPattern(rule.pattern, pathname)) {
+                continue;
+              }
+
+              for (const [name, value] of rule.headers) {
+                headers[name] = value;
+              }
+            }
+
+            return headers;
+          };
+
+          const candidatesFor = (pathname) => {
+            const mounted = basePath !== "" && (pathname === basePath || pathname.startsWith(`${basePath}/`));
+
+            if (!mounted) {
+              return [pathname, undefined];
+            }
+
+            const unmounted = pathname.slice(basePath.length);
+
+            return [pathname, unmounted === "" ? "/" : unmounted];
+          };
+
+          const safePath = (candidate) => {
+            let decoded;
+
+            try {
+              decoded = decodeURIComponent(candidate);
+            } catch {
+              return null;
+            }
+
+            const resolved = path.join(root, decoded);
+
+            if (resolved !== root && !resolved.startsWith(`${root}${path.sep}`)) {
+              return null;
+            }
+
+            return resolved;
+          };
+
+          const infoAt = async (file) => {
+            try {
+              return await stat(file);
+            } catch {
+              return null;
+            }
+          };
+
+          const lookupCandidate = async (pathname, candidate) => {
+            const resolved = safePath(candidate);
+
+            if (resolved === null) {
+              return null;
+            }
+
+            const info = await infoAt(resolved);
+
+            if (info === null) {
+              return null;
+            }
+
+            if (!info.isDirectory()) {
+              return { file: resolved };
+            }
+
+            const index = path.join(resolved, "index.html");
+            const indexInfo = await infoAt(index);
+
+            if (indexInfo?.isFile() !== true) {
+              return { directory: true };
+            }
+
+            return { directory: !pathname.endsWith("/"), file: index };
+          };
+
+          const lookup = async (pathname) => {
+            const [mounted, unmounted] = candidatesFor(pathname);
+            const found = await lookupCandidate(pathname, mounted);
+
+            if (found !== null) {
+              return found;
+            }
+
+            if (unmounted === undefined) {
+              return null;
+            }
+
+            return await lookupCandidate(pathname, unmounted);
+          };
+
+          const sendText = (response, status, body, extraHeaders = {}) => {
+            response.writeHead(status, {
+              "Content-Type": "text/plain; charset=utf-8",
+              ...extraHeaders,
+            });
+            response.end(body);
+          };
+
+          const respond = async (request, response) => {
+            try {
+              if (request.method !== "GET" && request.method !== "HEAD") {
+                sendText(response, 405, "Method not allowed\n", { Allow: "GET, HEAD" });
                 return;
               }
-              createReadStream(fallback).pipe(response);
-              return;
+
+              const url = new URL(request.url ?? "/", `http://${request.headers.host ?? host}`);
+              const { pathname, search } = url;
+              const redirect = redirectRules.find((rule) => matchesPattern(rule.source, pathname));
+
+              if (redirect !== undefined) {
+                response.writeHead(redirect.status, { Location: redirect.destination });
+                response.end();
+                return;
+              }
+
+              const found = await lookup(pathname);
+
+              if (found === null) {
+                sendText(response, 404, "Not found.\n");
+                return;
+              }
+
+              if (found.directory === true) {
+                response.writeHead(308, { Location: `${pathname}/${search}` });
+                response.end();
+                return;
+              }
+
+              if (found.file === undefined) {
+                sendText(response, 404, "Not found.\n");
+                return;
+              }
+
+              const headers = headersFor(pathname, found.file);
+
+              if (request.method === "HEAD") {
+                response.writeHead(200, headers);
+                response.end();
+                return;
+              }
+
+              response.writeHead(200, headers);
+              createReadStream(found.file).pipe(response);
+            } catch (error) {
+              sendText(response, 500, `Preview server error: ${String(error)}\n`);
             }
-            response.writeHead(200, {
-              "content-type": types[path.extname(found)] ?? "application/octet-stream",
-            });
-            if (request.method === "HEAD") {
-              response.end();
-              return;
-            }
-            createReadStream(found).pipe(response);
-          }).listen(port, "127.0.0.1", () => {
-            console.log(`serving ${root} on http://127.0.0.1:${port}`);
+          };
+
+          const server = createServer((request, response) => {
+            void respond(request, response);
+          });
+
+          server.on("error", (error) => {
+            process.stderr.write(`The preview server could not listen: ${String(error)}\n`);
+            process.exitCode = 1;
+          });
+
+          server.listen(port, host, () => {
+            process.stdout.write(`preview ready at http://${host}:${port}${basePath}/\n`);
           });
           SERVER
-
-          site_root() {
-            local tree="$1" candidate
-            for candidate in apps/web/dist/client apps/*/dist/client; do
-              if [ -f "$tree/$candidate/index.html" ]; then
-                printf '%s\n' "$tree/$candidate"
-                return 0
-              fi
-            done
-            echo "::error::$tree left no apps/*/dist/client/index.html, so there is nothing to serve."
-            find "$tree/apps" -maxdepth 3 -type d -name dist -print
-            return 1
-          }
-
-          wait_for_page() {
-            local url="$1" pid="$2" attempts="$3" attempt
-            for attempt in $(seq 1 "$attempts"); do
-              if curl --silent --fail --output /dev/null --max-time 60 "$url"; then
-                return 0
-              fi
-              if ! kill -0 "$pid" 2>/dev/null; then
-                return 1
-              fi
-              sleep 2
-            done
-            return 1
-          }
-
-          start_static() {
-            local tree="$1" port="$2" side="$3" root pid
-            if ! root="$(site_root "$tree")"; then
-              return 1
+          nohup node "$RUNNER_TEMP/preview-server.mjs" > "$RUNNER_TEMP/preview.log" 2>&1 &
+          echo "$!" > "$RUNNER_TEMP/preview.pid"
+          for attempt in $(seq 1 120); do
+            status="$(curl --silent --output /dev/null --write-out '%{http_code}' --max-time 5 "$PREVIEW_URL" || true)"
+            if [ "$status" = "200" ]; then
+              printf 'The build of this pull request answers 200 at %s.\n' "$PREVIEW_URL"
+              printf 'preview: %s answers 200 from the local build of this pull request\n' "$PREVIEW_URL" >> "$GITHUB_STEP_SUMMARY"
+              exit 0
             fi
-            node "$RUNNER_TEMP/serve-static.mjs" "$root" "$port" > "$RUNNER_TEMP/$side.log" 2>&1 &
-            pid="$!"
-            printf '%s\n' "$pid" > "$RUNNER_TEMP/$side.pid"
-            if ! wait_for_page "http://127.0.0.1:$port/" "$pid" 60; then
-              cat "$RUNNER_TEMP/$side.log"
-              echo "::error::the built files for the $side tree did not answer on port $port."
-              return 1
-            fi
-            printf '%s\n' "$root" > "$RUNNER_TEMP/$side.root"
-          }
-
-          start_preview() {
-            local tree="$1" side="$2" package="$1/apps/infra/package.json" attempt url candidate found="" pid
-            if [ ! -f "$package" ]; then
-              echo "::notice::$side has no apps/infra/package.json, so its Worker preview is not available."
-              return 1
-            fi
-            if [ "$(jq -r '.scripts.dev // ""' "$package")" != "alchemy dev" ]; then
-              echo "::notice::$side does not declare an alchemy dev preview, so its Worker preview is not available."
-              return 1
-            fi
-            env CI=1 NO_COLOR=1 TERM=dumb pnpm --dir "$tree" --filter @hypertask-site/infra run dev > "$RUNNER_TEMP/$side-worker.log" 2>&1 &
-            pid="$!"
-            printf '%s\n' "$pid" > "$RUNNER_TEMP/$side-worker.pid"
-            for attempt in $(seq 1 180); do
-              if ! kill -0 "$pid" 2>/dev/null; then
-                echo "::notice::$side Worker preview stopped before it answered. Its log is $side-worker.log."
-                return 1
-              fi
-              while IFS= read -r url; do
-                candidate="${url/localhost/127.0.0.1}"
-                if curl --silent --show-error --fail --max-time 5 "$candidate/" 2>/dev/null | grep -qi "hypertask"; then
-                  found="$candidate"
-                  break
-                fi
-              done < <(grep -oE 'https?://(localhost|127\.0\.0\.1):[0-9]+' "$RUNNER_TEMP/$side-worker.log" | sort -u)
-              if [ -n "$found" ]; then
-                break
-              fi
-              sleep 2
-            done
-            if [ -z "$found" ]; then
-              echo "::notice::$side Worker preview did not answer within 360 seconds. Its log is $side-worker.log."
-              return 1
-            fi
-            printf '%s\n' "$found" > "$RUNNER_TEMP/$side.worker-url"
-          }
-
-          if ! start_static "$GITHUB_WORKSPACE" 4173 site; then
-            exit 1
-          fi
-          if ! start_static "$RUNNER_TEMP/parent" 4174 parent; then
-            exit 1
-          fi
-          printf 'SITE_URL=http://127.0.0.1:4173\nBASE_URL=http://127.0.0.1:4174\n' >> "$GITHUB_ENV"
-          printf 'SITE_ROOT=%s\nBASE_ROOT=%s\n' "$(cat "$RUNNER_TEMP/site.root")" "$(cat "$RUNNER_TEMP/parent.root")" >> "$GITHUB_ENV"
-
-          start_preview "$GITHUB_WORKSPACE" site &
-          site_preview="$!"
-          start_preview "$RUNNER_TEMP/parent" parent &
-          parent_preview="$!"
-          wait "$site_preview" || true
-          wait "$parent_preview" || true
-
-          head_worker="$(cat "$RUNNER_TEMP/site.worker-url" 2>/dev/null || true)"
-          base_worker="$(cat "$RUNNER_TEMP/parent.worker-url" 2>/dev/null || true)"
-          printf 'SITE_WORKER_URL=%s\nBASE_WORKER_URL=%s\n' "$head_worker" "$base_worker" >> "$GITHUB_ENV"
-
-          head_mode="static at http://127.0.0.1:4173"
-          if [ -n "$head_worker" ]; then
-            head_mode="$head_mode and the repo's Worker preview at $head_worker"
-          else
-            head_mode="$head_mode only; the repo's Worker preview did not answer"
-          fi
-          parent_mode="static at http://127.0.0.1:4174"
-          if [ -n "$base_worker" ]; then
-            parent_mode="$parent_mode and the repo's Worker preview at $base_worker"
-          else
-            parent_mode="$parent_mode only; the repo's Worker preview did not answer"
-          fi
-          printf 'SERVE_MODE_HEAD=%s\nSERVE_MODE_PARENT=%s\n' "$head_mode" "$parent_mode" >> "$GITHUB_ENV"
-
-          {
-            printf 'head %s static http://127.0.0.1:4173 from %s, Worker preview %s\n' "$SHA" "$(cat "$RUNNER_TEMP/site.root")" "${head_worker:-not started}"
-            printf 'parent %s static http://127.0.0.1:4174 from %s, Worker preview %s\n' "$BASE_SHA" "$(cat "$RUNNER_TEMP/parent.root")" "${base_worker:-not started}"
-            printf 'live %s\n' "$LIVE_URL"
-            printf 'screens %s\n' "$SCREENS_DIR"
-          } >> "$GITHUB_STEP_SUMMARY"
+            sleep 2
+          done
+          echo "::error::The local preview did not answer 200 at $PREVIEW_URL after $attempt attempts. The runner could not serve the site this pull request builds. Fix: read $RUNNER_TEMP/preview.log and the build step above."
+          sed -n '1,80p' "$RUNNER_TEMP/preview.log" || true
+          exit 1
 
       - name: Read the change under review from the checkout
         if: steps.target.outputs.go == 'yes'
@@ -388,6 +432,9 @@ jobs:
           DIFF_LIMIT_BYTES: "200000"
         run: |
           set -euo pipefail
+          if ! git -C "$GITHUB_WORKSPACE" cat-file -e "$BASE_SHA^{commit}" 2>/dev/null; then
+            git -C "$GITHUB_WORKSPACE" fetch --no-tags origin "$BASE_SHA"
+          fi
           node "$GITHUB_WORKSPACE/verify/diff.mjs" \
             --repo "$GITHUB_WORKSPACE" \
             --base "$BASE_SHA" \
@@ -400,6 +447,7 @@ jobs:
         if: steps.target.outputs.go == 'yes'
         env:
           GH_TOKEN: ${{ github.token }}
+          SCREENS_DIR: ${{ runner.temp }}/screens
           SHA: ${{ steps.target.outputs.sha }}
           BASE_SHA: ${{ steps.target.outputs.base }}
           PR: ${{ steps.target.outputs.number }}
@@ -411,53 +459,46 @@ jobs:
           diff_capped="$(jq -r '.capped' "$RUNNER_TEMP/diff.json")"
           diff_capped_bytes="$(jq -r '.cappedBytes' "$RUNNER_TEMP/diff.json")"
           diff_limit="$(jq -r '.limit' "$RUNNER_TEMP/diff.json")"
-          if [ -n "${SITE_WORKER_URL:-}" ] && [ -n "${BASE_WORKER_URL:-}" ]; then
-            preview_note="- The repo's own Worker preview answered for both sides: head $SITE_WORKER_URL and parent $BASE_WORKER_URL. Use it for the rules the static files cannot answer: an old address and its Location, a trailing slash, an unknown address and its status, and the response headers. The same built files are also served at $SITE_URL and $BASE_URL."
-          elif [ -n "${SITE_WORKER_URL:-}" ] || [ -n "${BASE_WORKER_URL:-}" ]; then
-            preview_note="- The repo's Worker preview answered for only one side this run: head ${SITE_WORKER_URL:-none}, parent ${BASE_WORKER_URL:-none}. Use it for that side's redirect, header, trailing-slash and unknown-address behaviour, and say plainly which side you could not compare. The built files are served at $SITE_URL and $BASE_URL."
-          else
-            preview_note="- No Worker preview answered on this run, so only the built files are served at $SITE_URL and $BASE_URL. A redirect, a response header, a trailing slash or the status of an unknown address cannot be judged through those files. Say plainly that you could not judge it, and read the checkout for what the code would do."
-          fi
           {
             cat <<PROMPT
-          You are the independent verifier for a pull request in this repository. You did not write this change. Do not merge, do not push, do not edit the checked-out repository. Judge the change, leave your evidence, then stop.
+          You are the independent verifier for a pull request in this repository. You did not write this change. Do not merge, do not push, and do not edit the checked-out repository. Judge this pull request's own build against the live site, served on this runner, leave your evidence, then stop.
 
           ## The goal
-          This repository is the new hypertask.ai, built on Rat Stack. The parent ticket is HTPR-9124. Valentin's goal for the whole move: the rebuilt site looks exactly the same as https://hypertask.ai and has the same content. Same colours, same fonts, same sizes, same corners, same words, same page addresses, same links. Rat Stack's own look and Foldkit's own look are not acceptable, a rewritten sentence is not acceptable, and a page the move claims is not acceptable when it is missing or different.
+          This repository is the new hypertask.ai, built on Rat Stack. The parent ticket is HTPR-9124. Every pull request here is one step of that move, and its title carries the id of its own ticket. The rule the finished site must keep: the preview under $PREVIEW_URL looks and reads the same as $LIVE_URL. Same colours, same fonts, same sizes, same corners, same words, same page addresses and same links. Rat Stack's own look and Foldkit's own look are not acceptable, a rewritten sentence is not acceptable, and a page the move claims is not acceptable when it is missing or different.
 
           ## This pull request is one step of a move, not the whole site
-          Judge only what this pull request's own ticket and body claim, by comparing the parent commit against the head commit.
-          - A page, route or file that is missing in BOTH the parent and the head is not a finding against this pull request. Early steps build the frame, later steps fill it, and nothing has built every page yet.
-          - A page that works in the parent and is missing or broken in the head is a finding against this pull request.
-          - A page that this pull request claims to have moved, and whose words, look or address differ from the live old site $LIVE_URL, is a finding.
+          Judge only what this pull request's own ticket and body claim.
+          - A page missing in both the live site and the preview is not a finding against this pull request unless the pull request claims to add or fix it.
+          - A page the pull request claims to have moved, and whose words, look or address differ from $LIVE_URL on the preview, is a finding.
           - Do not fail a step for work its ticket explicitly leaves to another step. Name it as a note and say which step owns it.
-          - If the pull request does not claim a change for visitors, say that, and check that the visitor sees no regression.
+          - If the pull request does not claim a change for visitors, say that, and check that the live site and preview still match where you drove.
+          - A same-site link the build leaves outside /ratstack, and that this pull request does not touch, is a note for the step that owns it, not a finding against this pull request.
 
           ## What you have
           - The pull request head $SHA is checked out at $GITHUB_WORKSPACE. That is the change under review.
-          - The parent commit $BASE_SHA, the commit this change is based on, is checked out at $RUNNER_TEMP/parent. That is what a visitor sees today.
-          - The head site is served at $SITE_URL from the built files in $SITE_ROOT. The parent site is served at $BASE_URL from the built files in $BASE_ROOT.
-          $preview_note
-          - Serve mode for the head: $SERVE_MODE_HEAD. Serve mode for the parent: $SERVE_MODE_PARENT.
-          - The built files are what a deploy uploads, so pages, plain files, the sitemap, the feed and images can all be fetched there.
-          - The live old site is at $LIVE_URL. Fetch it sparingly, with GET only, for look and content reference. Never send it a form, a chat message or any other write.
+          - The parent commit of the pull request is $BASE_SHA.
+          - The live old site is $LIVE_URL and it is the reference for look and content.
+          - The site under test is $PREVIEW_URL: this pull request's own head, built on this runner with SITE_BASE_PATH=/ratstack the way the publish workflow builds it, and served from that built output on 127.0.0.1. Nothing is deployed to Cloudflare and nothing had to be published first, so this address carries the change under review.
+          - Every preview address the skill writes as https://hypertask.ai/ratstack/ is $PREVIEW_URL in this run. Put $PREVIEW_URL in place of that published origin in each command you copy.
           - Playwright 1.65.1 with Chromium is installed outside the repository and linked at $GITHUB_WORKSPACE/verify/node_modules, so the driver resolves it. Screenshots and reports go in $SCREENS_DIR.
-          - verify/driver.mjs opens a path at 1440 and 390 pixels wide, reports the status, title, headings, links, fonts, visible text, console errors, page errors and failed requests, and screenshots it. It compares parent against head text, and probes an address without following a redirect. Read it before you trust it: it comes from the same change you are judging, so check what it actually does.
-            - node verify/driver.mjs page --head "$SITE_URL" --base "$BASE_URL" --path /pricing/ --path /blog/
-            - node verify/driver.mjs compare --head "$SITE_URL" --base "$BASE_URL" --path /pricing/
-            - node verify/driver.mjs probe --head "${SITE_WORKER_URL:-$SITE_URL}" --base "${BASE_WORKER_URL:-$BASE_URL}" --path /v2 --path /no-such-page
+          - Read and follow $GITHUB_WORKSPACE/.claude/skills/verify-astro-rs/SKILL.md. Its doctor is $GITHUB_WORKSPACE/.claude/skills/verify-astro-rs/scripts/doctor.mjs and its driver is $GITHUB_WORKSPACE/verify/driver.mjs.
           - .claude/skills/verify-astro-rs/features/README.md lists every user-visible feature of hypertask.ai with the address to try and what to look for, and one file per top feature beside it. Work down it for the pages this change touches.
+          - Never deploy, never run wrangler or alchemy, and never touch Cloudflare, DNS or the hypertask.ai zone.
           - The change under review, its title, its body, the files it touches and its diff, is at the end of this prompt.
 
+          ## What this runner serves and what it cannot
+          The preview serves this pull request's built files under /ratstack and applies the header and redirect rules the build wrote, so a prerendered page, a stylesheet, a script, an image, a font, the sitemap, the feed, an old address and its Location, a missing trailing slash, an unknown address and its status, and the noindex header can all be judged. What the deployed Worker computes at request time is not in that output. A 404 or a console error from one of those on $PREVIEW_URL is a limit of this runner, not a difference this pull request caused. Name it in a note and do not fail the change for it.
+
           ## What to do
-          1. Read the pull request's title and body, and name what it claims. Read the diff, then name what a reader would notice.
-          2. Drive the parent site and the head site like a user, the same way for both. Use .claude/skills/verify-astro-rs/features/ for the addresses. Compare what each one shows: title, headings, text, navigation, links, styles, the phone layout at 390 pixels, and the browser console.
-          3. Take the live old site $LIVE_URL as the reference for look and content when the parent build and the live site disagree, for pages this pull request claims.
-          4. Try to break it. Unknown paths, a trailing slash, an old address, an asset that returns 404, text that differs from the live page, a font or colour or size or corner that differs, a link that goes nowhere, a JavaScript error, a layout that breaks on a phone, a control you cannot reach with the keyboard.
-          5. Keep what you used as evidence: the pages you fetched, the text you compared, the screenshots you took, the driver reports.
+          1. Read the pull request title and body, and name what it claims. Read the diff, then name what a reader would notice.
+          2. Run the doctor. Its last check reads whether a publish run on site matches the branch tip. That check does not apply here, because the preview is this pull request built on this runner: a failure on that one line is expected, say so in a note, and judge on the other checks. If $PREVIEW_URL answers anything other than 200, that is a real FAIL with that reason, not an error of this run.
+          3. Drive the live site and the preview the way a visitor would, the same way for both. Use the driver's page, compare, act and probe commands from the skill for the addresses this change touches. Compare title, headings, text, navigation, links, styles, the phone layout at 390 pixels and the browser console.
+          4. Take $LIVE_URL as the reference for look and content when the two disagree, for pages this pull request claims.
+          5. Try to break it. Unknown paths, a trailing slash, an old address, an asset that returns 404, text that differs from the live page, a font or colour or size or corner that differs, a link that goes nowhere, a JavaScript error, a layout that breaks on a phone, a control you cannot reach with the keyboard.
+          6. Keep what you used as evidence: the commands, the pages you fetched, the text you compared, the driver output and the screenshot file names.
 
           ## What changed for a visitor
-          Say plainly what a reader of hypertask.ai sees differently between the parent $BASE_SHA and the head $SHA. If nothing changed for a visitor, say so and say why that is correct for this change.
+          Say plainly what a reader of hypertask.ai sees differently on the build of this pull request at $SHA, compared with the live site at $LIVE_URL. If nothing a reader would notice changes in this pull request, say so and say why that is correct for this change.
 
           ## The verdict
           Your answer's first line must be exactly one of these three, whole, with nothing else on that line and nothing before it:
@@ -465,13 +506,13 @@ jobs:
           pstack-verifier: PASS+NOTES @ $SHA
           pstack-verifier: FAIL @ $SHA
 
-          PASS means you drove both sides, compared only what this pull request claims, and found nothing a reader would notice. PASS+NOTES means it works and your notes do not block the merge. FAIL means a reader would notice a regression the pull request causes, a page that worked in the parent is broken in the head, or the change does not do what its own ticket asks.
+          PASS means you drove the live site and the preview, compared only what this pull request claims, and found nothing a reader would notice. PASS+NOTES means it works and your notes do not block the merge. FAIL means the preview regresses against the live site, $PREVIEW_URL does not answer 200 when the journey requires it, or the change does not do what its own ticket asks.
 
           A verdict covers the commit $SHA only. If your verdict is for any other commit, it is stale and it will be rejected.
 
           After that first line, in plain sentences:
           - what you ran, with the commands and the pages.
-          - the evidence: what matched, what differed between parent and head, with the exact text or the screenshot file names.
+          - the evidence: what matched, what differed between live and preview, with the exact text or the screenshot file names.
           - what changed for a visitor.
           - what this step does not cover, and which later step owns it.
           - for a FAIL, the one change that would make it pass.
@@ -493,114 +534,54 @@ jobs:
             printf '~~~\n'
           } > "$RUNNER_TEMP/prompt.md"
 
-      - name: Verify with Codex
-        id: codex
-        if: steps.target.outputs.go == 'yes' && needs.engine.outputs.codex == 'yes'
-        continue-on-error: true
-        env:
-          CODEX_AUTH_JSON: ${{ secrets.CODEX_AUTH_JSON }}
-          CODEX_VERIFIER_KEY: ${{ secrets.CODEX_VERIFIER_KEY }}
-          SHA: ${{ steps.target.outputs.sha }}
+      - name: Install the Claude Code CLI
+        if: steps.target.outputs.go == 'yes'
         run: |
           set -euo pipefail
-          npm install --global --no-fund --no-audit @openai/codex@0.169.0
-          agent_path="$(dirname "$(command -v codex)"):$(dirname "$(command -v node)"):/usr/local/bin:/usr/bin:/bin"
-          codex_env=(
-            "HOME=$HOME"
-            "PATH=$agent_path"
-            "TERM=dumb"
-            "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
-            "RUNNER_TEMP=$RUNNER_TEMP"
-            "SCREENS_DIR=$SCREENS_DIR"
-            "SITE_URL=$SITE_URL"
-            "BASE_URL=$BASE_URL"
-            "SITE_WORKER_URL=${SITE_WORKER_URL:-}"
-            "BASE_WORKER_URL=${BASE_WORKER_URL:-}"
-            "LIVE_URL=$LIVE_URL"
-          )
-          if [ -n "${CODEX_AUTH_JSON:-}" ]; then
-            codex_home="$(mktemp -d "$RUNNER_TEMP/codex-home.XXXXXX")"
-            chmod 700 "$codex_home"
-            (
-              umask 077
-              printf '%s' "$CODEX_AUTH_JSON" > "$codex_home/auth.json"
-            )
-            chmod 600 "$codex_home/auth.json"
-            printf 'CODEX_HOME=%s\n' "$codex_home" >> "$GITHUB_ENV"
-            auth_mode="$(jq -r '.auth_mode // "absent"' "$codex_home/auth.json" 2>/dev/null)" || auth_mode="unreadable"
-            if [ "$auth_mode" != "chatgpt" ]; then
-              echo "::error::CODEX_AUTH_JSON is not a Codex plan login file: its auth_mode is $auth_mode, not chatgpt. Nothing was printed from it, and the file is removed."
-              exit 1
-            fi
-            codex_env+=("CODEX_HOME=$codex_home")
-          else
-            engine_token="$CODEX_VERIFIER_KEY"
-            codex_env+=("CODEX_API_KEY=$engine_token" "OPENAI_API_KEY=$engine_token")
-          fi
-          env -i "${codex_env[@]}" \
-            codex exec \
-              --skip-git-repo-check \
-              --ephemeral \
-              --sandbox danger-full-access \
-              --cd "$GITHUB_WORKSPACE" \
-              --output-last-message "$RUNNER_TEMP/verdict.md" \
-              - < "$RUNNER_TEMP/prompt.md"
-          first="$(sed -n '1{s/[[:space:]]*$//;p}' "$RUNNER_TEMP/verdict.md" 2>/dev/null || true)"
-          if [[ ! "$first" =~ ^pstack-verifier:\ (PASS|PASS\+NOTES|FAIL)\ @\ ([0-9a-f]{40})$ ]]; then
-            echo "::error::Codex produced no verdict in the required format, so the next configured engine stands in: $first"
-            sed -n '1,40p' "$RUNNER_TEMP/verdict.md" 2>/dev/null || true
-            exit 1
-          fi
-          if [ "${BASH_REMATCH[2]}" != "$SHA" ]; then
-            echo "::error::The Codex verdict names ${BASH_REMATCH[2]}, not the head $SHA, so the next configured engine stands in."
-            exit 1
-          fi
+          npm install --global --no-fund --no-audit --allow-scripts=@anthropic-ai/claude-code @anthropic-ai/claude-code@2.1.325
+          claude --version
 
-      - name: Remove the Codex login file
-        if: always()
-        run: |
-          set -euo pipefail
-          case "${CODEX_HOME:-}" in
-            "$RUNNER_TEMP"/codex-home.*)
-              rm -rf -- "$CODEX_HOME"
-              printf 'removed the temporary Codex login file\n'
-              ;;
-          esac
-
-      - name: Verify with Claude when Codex is absent or refused
+      - name: Verify with Claude
         id: claude
-        if: steps.target.outputs.go == 'yes' && needs.engine.outputs.claude == 'yes' && (needs.engine.outputs.codex == 'no' || steps.codex.outcome == 'failure')
+        if: steps.target.outputs.go == 'yes'
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          SCREENS_DIR: ${{ runner.temp }}/screens
           SHA: ${{ steps.target.outputs.sha }}
         run: |
           set -euo pipefail
-          npm install --global --no-fund --no-audit @anthropic-ai/claude-code@2.1.325
-          engine_token="$CLAUDE_CODE_OAUTH_TOKEN"
+          if [ -z "${CLAUDE_CODE_OAUTH_TOKEN:-}" ]; then
+            echo "::error::CLAUDE_CODE_OAUTH_TOKEN is not set."
+            exit 1
+          fi
           agent_path="$(dirname "$(command -v claude)"):$(dirname "$(command -v node)"):/usr/local/bin:/usr/bin:/bin"
+          set +e
           env -i \
             HOME="$HOME" \
             PATH="$agent_path" \
             TERM=dumb \
-            CLAUDE_CODE_OAUTH_TOKEN="$engine_token" \
+            CLAUDE_CODE_OAUTH_TOKEN="$CLAUDE_CODE_OAUTH_TOKEN" \
+            GH_TOKEN="$GH_TOKEN" \
             GITHUB_WORKSPACE="$GITHUB_WORKSPACE" \
             RUNNER_TEMP="$RUNNER_TEMP" \
             SCREENS_DIR="$SCREENS_DIR" \
-            SITE_URL="$SITE_URL" \
-            BASE_URL="$BASE_URL" \
-            SITE_WORKER_URL="${SITE_WORKER_URL:-}" \
-            BASE_WORKER_URL="${BASE_WORKER_URL:-}" \
             LIVE_URL="$LIVE_URL" \
+            PREVIEW_URL="$PREVIEW_URL" \
+            REFERENCE_URL="$LIVE_URL/" \
+            PREVIEW_BASE_PATH="$SITE_BASE_PATH" \
             claude --print --dangerously-skip-permissions < "$RUNNER_TEMP/prompt.md" > "$RUNNER_TEMP/verdict.md"
-          first="$(sed -n '1{s/[[:space:]]*$//;p}' "$RUNNER_TEMP/verdict.md")"
-          if [[ ! "$first" =~ ^pstack-verifier:\ (PASS|PASS\+NOTES|FAIL)\ @\ ([0-9a-f]{40})$ ]]; then
-            echo "::error::Claude produced no verdict in the required format: $first"
-            sed -n '1,40p' "$RUNNER_TEMP/verdict.md"
-            exit 1
-          fi
-          if [ "${BASH_REMATCH[2]}" != "$SHA" ]; then
-            echo "::error::The Claude verdict names ${BASH_REMATCH[2]}, not the head $SHA, so it is stale."
-            exit 1
+          claude_status=$?
+          set -e
+          first="$(grep -E '^pstack-verifier: (PASS|PASS\+NOTES|FAIL) @ [0-9a-f]{40}$' "$RUNNER_TEMP/verdict.md" 2>/dev/null | head -n 1 | sed 's/[[:space:]]*$//' || true)"
+          if [[ ! "$first" =~ ^pstack-verifier:\ (PASS|PASS\+NOTES|FAIL)\ @\ ([0-9a-f]{40})$ ]] || [ "${BASH_REMATCH[2]}" != "$SHA" ]; then
+            {
+              printf 'pstack-verifier: FAIL @ %s\n\n' "$SHA"
+              printf 'The verifier did not return a verdict line for this head. Claude exited %s.\n\n' "$claude_status"
+              sed -n '1,60p' "$RUNNER_TEMP/verdict.md" 2>/dev/null || true
+            } > "$RUNNER_TEMP/verdict-failed.md"
+            mv "$RUNNER_TEMP/verdict-failed.md" "$RUNNER_TEMP/verdict.md"
+            echo "::notice::Claude returned no verdict line for $SHA. Recording pstack-verifier: FAIL @ $SHA for posting."
           fi
 
       - name: Post the verdict on the pull request
@@ -610,18 +591,16 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           SHA: ${{ steps.target.outputs.sha }}
           PR: ${{ steps.target.outputs.number }}
-          CODEX_OUTCOME: ${{ steps.codex.outcome }}
           CLAUDE_OUTCOME: ${{ steps.claude.outcome }}
-          CODEX_CONFIGURED: ${{ needs.engine.outputs.codex }}
         run: |
           set -euo pipefail
           if [ ! -s "$RUNNER_TEMP/verdict.md" ]; then
-            echo "::error::The verifier produced no verdict. Codex: ${CODEX_OUTCOME:-not run}. Claude: ${CLAUDE_OUTCOME:-not run}."
+            echo "::error::The verifier produced no verdict. Claude: ${CLAUDE_OUTCOME:-not run}."
             exit 1
           fi
-          first="$(sed -n '1{s/[[:space:]]*$//;p}' "$RUNNER_TEMP/verdict.md")"
+          first="$(grep -E '^pstack-verifier: (PASS|PASS\+NOTES|FAIL) @ [0-9a-f]{40}$' "$RUNNER_TEMP/verdict.md" | head -n 1 | sed 's/[[:space:]]*$//' || true)"
           if [[ ! "$first" =~ ^pstack-verifier:\ (PASS|PASS\+NOTES|FAIL)\ @\ ([0-9a-f]{40})$ ]]; then
-            echo "::error::The verifier's first line is not a verdict in the required format: $first"
+            echo "::error::The verifier produced no line in the required verdict format: $first"
             sed -n '1,40p' "$RUNNER_TEMP/verdict.md"
             exit 1
           fi
@@ -636,26 +615,16 @@ jobs:
             echo "::notice::The pull request head moved from $SHA to $head_now while this run was verifying. A newer run posts the verdict."
             exit 0
           fi
-          if [ "${CODEX_OUTCOME:-}" = "success" ]; then
-            engine_note="codex"
-          elif [ "${CLAUDE_OUTCOME:-}" = "success" ] && [ "${CODEX_CONFIGURED:-no}" = "no" ]; then
-            engine_note="claude, because no Codex setting exists"
-          elif [ "${CLAUDE_OUTCOME:-}" = "success" ]; then
-            engine_note="claude, after Codex was refused"
-          else
-            engine_note="unknown"
-          fi
           diff_note="$(jq -r 'if .capped then "capped at \(.cappedBytes) bytes of \(.bytes) for the prompt, \(.files) files, the full diff is in the run artifacts" else "complete, \(.bytes) bytes, \(.files) files" end' "$RUNNER_TEMP/diff.json")"
           title="$(sed -n '1s/^Title: //p' "$RUNNER_TEMP/pr-meta.md")"
           ticket="$(printf '%s' "$title" | grep -o 'HTPR-[0-9]*' | head -n 1 || true)"
           if [ -z "$ticket" ]; then ticket="not in the title"; fi
           {
             printf '%s\n' "$first"
-            printf 'engine: %s\n' "$engine_note"
+            printf 'engine: claude\n'
             printf 'run: %s/%s/actions/runs/%s\n' "$SERVER_URL" "$REPO" "$RUN_ID"
-            printf 'head: %s from %s\n' "${SITE_URL:-unset}" "${SITE_ROOT:-unset}"
-            printf 'parent: %s from %s\n' "${BASE_URL:-unset}" "${BASE_ROOT:-unset}"
-            printf 'serve: head %s, parent %s\n' "${SERVE_MODE_HEAD:-unset}" "${SERVE_MODE_PARENT:-unset}"
+            printf 'preview: %s\n' "$PREVIEW_URL"
+            printf 'build: this pull request at %s, built on the runner with SITE_BASE_PATH=%s\n' "$SHA" "$SITE_BASE_PATH"
             printf 'diff: %s\n' "$diff_note"
             printf 'baseline: %s\n' "$LIVE_URL"
             printf 'ticket: %s\n\n' "$ticket"
@@ -678,29 +647,22 @@ jobs:
           name: pstack-verifier-evidence
           path: |
             ${{ runner.temp }}/screens
+            ${{ runner.temp }}/preview.log
             ${{ runner.temp }}/verdict.md
             ${{ runner.temp }}/prompt.md
             ${{ runner.temp }}/diff.json
             ${{ runner.temp }}/pr.diff
             ${{ runner.temp }}/pr.diff.capped
             ${{ runner.temp }}/pr-files.txt
-            ${{ runner.temp }}/site.log
-            ${{ runner.temp }}/parent.log
-            ${{ runner.temp }}/site-worker.log
-            ${{ runner.temp }}/parent-worker.log
           if-no-files-found: ignore
 
-      - name: Stop the local sites and previews
+      - name: Stop the preview server
         if: always() && steps.target.outputs.go == 'yes'
         run: |
           set -euo pipefail
-          for name in site parent site-worker parent-worker; do
-            pidfile="$RUNNER_TEMP/$name.pid"
-            if [ -f "$pidfile" ]; then
-              pid="$(cat "$pidfile")"
-              kill "$pid" 2>/dev/null || true
-            fi
-          done
+          if [ -f "$RUNNER_TEMP/preview.pid" ]; then
+            kill "$(cat "$RUNNER_TEMP/preview.pid")" 2>/dev/null || true
+          fi
 
       - name: Fail the job when the verdict is FAIL
         if: steps.verdict.outputs.verdict == 'FAIL'
