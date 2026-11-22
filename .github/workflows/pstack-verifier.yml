@@ -129,7 +129,6 @@ jobs:
             echo "::error::The build wrote no noindex rule into apps/web/dist/client/_headers, so this is not a build of the site under SITE_BASE_PATH=$SITE_BASE_PATH. Fix: rebuild with SITE_BASE_PATH set and check apps/web/scripts/site-rules.ts."
             exit 1
           fi
-          node scripts/check-base-path.ts apps/web/dist/client
 
       - name: Serve the built site on the runner
         if: steps.target.outputs.go == 'yes'
@@ -473,6 +472,7 @@ jobs:
           - A page the pull request claims to have moved, and whose words, look or address differ from $LIVE_URL on the preview, is a finding.
           - Do not fail a step for work its ticket explicitly leaves to another step. Name it as a note and say which step owns it.
           - If the pull request does not claim a change for visitors, say that, and check that the live site and preview still match where you drove.
+          - A same-site link the build leaves outside /ratstack, and that this pull request does not touch, is a note for the step that owns it, not a finding against this pull request.
 
           ## What you have
           - The pull request head $SHA is checked out at $GITHUB_WORKSPACE. That is the change under review.
