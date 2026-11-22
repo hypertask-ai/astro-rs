@@ -19,6 +19,8 @@ There is nothing to build and nothing to start on this server. The instance unde
 
 No dev server, no port, no seed data, no migration, no teardown. A page only counts once the publish run for the commit you mean has finished and passed.
 
+The preview address is read from `PREVIEW_URL`, which defaults to the published `https://hypertask.ai/ratstack/`. The Verifier workflow sets `PREVIEW_URL` to the local build of the pull request under test, served on the runner at `http://127.0.0.1:4173/ratstack/`, so put `$PREVIEW_URL` in place of the published origin in every command below.
+
 The Chromium is already on this machine, under `~/.cache/ms-playwright`. Playwright must resolve from `verify/node_modules`. On the VPS the link is one command and it is gitignored:
 
 ```sh
@@ -52,7 +54,7 @@ The run cannot pass while a preview check fails, even when the two sides look id
 Both hosts take the same command and the same selector. Desktop is 1440 by 900, phone is 390 by 844.
 
 ```sh
-export PREVIEW=https://hypertask.ai/ratstack
+export PREVIEW="${PREVIEW_URL:-https://hypertask.ai/ratstack}"
 export REFERENCE=https://hypertask.ai
 export RUN="$EVIDENCE_ROOT/<stamp>"
 
