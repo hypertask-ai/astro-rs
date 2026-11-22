@@ -12,7 +12,7 @@ const ctaShadow =
 export const styles = stylex.create({
   card: {
     alignItems: "center",
-    backgroundImage: 'url("/gradient1.avif")',
+    backgroundImage: 'url("../gradient1.avif")',
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",

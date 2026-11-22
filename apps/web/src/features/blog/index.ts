@@ -11,6 +11,7 @@ import type { Document, Html, HtmlBuilder } from "foldkit/html";
 
 import type { AppMessage } from "../../client/app/message.js";
 import type { AppModel } from "../../client/app/model.js";
+import { siteBuilder } from "../../site-base.js";
 import type { PageView } from "../page/index.js";
 import { page } from "../page/index.js";
 import { styles } from "./blog.stylex.js";
@@ -693,8 +694,8 @@ const renderPost = (
 
 export const postView =
   (entry: BlogPostContent): PageView =>
-  (model, h) =>
-    renderPost(entry, model, h);
+  (model, builder) =>
+    renderPost(entry, model, siteBuilder(builder));
 
 export const postViews: ReadonlyMap<string, PageView> = new Map(
   publishedPosts.map((entry) => [entry.post.path, postView(entry)] as const)
