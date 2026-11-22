@@ -14,7 +14,24 @@ The blog view passes Foldkit's raw builder to the markdown renderer and the shar
 
 `apps/web/test/blog-preview.test.ts` renders every published blog view with `BASE_URL=/ratstack/`. It checks the complete document with the publish audit's `escapingUrls`, compares every link and image against the existing live fixtures with the mount added once, preserves external and fragment links, and checks the canonical address and visible words. Existing blog tests cover the origin-root build.
 
-GitHub CI runs the test before and after the fix. Nothing is built or tested on the worker server. The fix passes `siteBuilder(builder)` into the existing blog renderer. Content, styles, shared URL rules and the audit stay unchanged.
+The remaining stylesheet failure is the thank-you card's `/gradient1.avif`. The pinned StyleX Vite plugin appends its CSS in `generateBundle`, after Vite has processed CSS asset paths. Its root-relative URL therefore misses Vite's base rewriting. Using `../gradient1.avif` makes the browser resolve the existing public image relative to the emitted stylesheet in `assets/`, both at the origin root and under the preview mount. The image bytes and styling stay the same.
+
+Some posts also author absolute `https://hypertask.ai/...` links. The existing audit only inspects root-relative addresses, so those are not in its failure list. `sitePath` now parses absolute URLs and compares their exact origin with the existing `siteOrigin`. It mounts only that origin and leaves app, docs, external URLs and fragment links alone. Canonical and structured-data URLs do not pass through the builder and stay public. Tests compare preview links with independently resolved live-fixture URLs and cover default ports, lookalike hosts, userinfo, other ports and protocol-relative URLs.
+
+Nothing is built or tested on the worker server. The fix passes `siteBuilder(builder)` into the existing blog renderer and makes the decorative image URL stylesheet-relative. Blog content and the audit stay unchanged. The new pull-request workflow builds with `SITE_BASE_PATH=/ratstack` and runs the same audit as publish, without deploying.
+
+## GitHub reproduction receipts
+
+At `85942408d125cd73c5b70165931cdeca23ca7c26`, before either source fix:
+
+- [CI run 45075763624](https://github.com/hypertask-ai/astro-rs/actions/runs/45075763624) passed lint and typechecks, then failed all 38 new preview tests. The web test output reports 38 failed and 674 passed tests. Each failure names root-relative blog links and images outside the mount.
+- [Preview run 45075763588](https://github.com/hypertask-ai/astro-rs/actions/runs/45075763588) builds the site and fails the publish audit. The first reproduction, [45075472888](https://github.com/hypertask-ai/astro-rs/actions/runs/45075472888), names the same 800 file/link pairs across the same 39 files as the original publish log.
+
+Rules that changed the implementation:
+
+- Find the cause first. Reuse the existing builder instead of editing 38 markdown files or weakening the audit.
+- Make tests detect broken behavior. Render every post under the preview mount and record the failing GitHub run before fixing it.
+- Check the actual artifact. Build and audit the preview in a new GitHub-hosted check, separate from the origin-root CI build.
 
 ## Every flagged file and link
 

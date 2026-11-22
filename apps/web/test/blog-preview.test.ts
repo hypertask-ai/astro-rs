@@ -4,7 +4,7 @@ import { renderToString } from "foldkit/experimental/server";
 import { afterAll, beforeAll, vi } from "vitest";
 
 import { initialModel } from "../src/client/app/model.js";
-import { addSiteBasePath, escapingUrls } from "../src/site-base-path.js";
+import { escapingUrls } from "../src/site-base-path.js";
 import type { BlogFacts } from "./blog-page.js";
 import { factsOf } from "./blog-page.js";
 
@@ -29,6 +29,51 @@ beforeAll(() => {
 afterAll(() => {
   vi.unstubAllEnvs();
   vi.resetModules();
+});
+
+describe("preview URL ownership", () => {
+  it.effect(
+    "mounts this origin without capturing other origins or fragments",
+    () =>
+      Effect.gen(function* checkOrigins() {
+        const { sitePath } = yield* Effect.promise(
+          () => import("../src/site-base.js")
+        );
+
+        const targets = [
+          ["https://hypertask.ai", "/ratstack/"],
+          [
+            "https://hypertask.ai/pricing/?plan=ai#seats",
+            "/ratstack/pricing/?plan=ai#seats",
+          ],
+          ["https://hypertask.ai:443/about/", "/ratstack/about/"],
+          ["https://hypertask.ai/ratstack/about/", "/ratstack/about/"],
+          ["//hypertask.ai/about/", "/ratstack/about/"],
+          ["https://app.hypertask.ai/login", "https://app.hypertask.ai/login"],
+          ["https://docs.hypertask.ai/", "https://docs.hypertask.ai/"],
+          [
+            "https://hypertask.ai.example/about/",
+            "https://hypertask.ai.example/about/",
+          ],
+          [
+            "https://hypertask.ai@example.com/",
+            "https://hypertask.ai@example.com/",
+          ],
+          [
+            "https://hypertask.ai:8443/about/",
+            "https://hypertask.ai:8443/about/",
+          ],
+          ["//cdn.example.com/image.png", "//cdn.example.com/image.png"],
+          ["#heading", "#heading"],
+          ["mailto:support@hypertask.ai", "mailto:support@hypertask.ai"],
+          ["https://[", "https://["],
+        ] as const;
+
+        for (const [target, expected] of targets) {
+          expect(sitePath(target)).toBe(expected);
+        }
+      })
+  );
 });
 
 for (const fixture of Object.values(fixtures)) {
@@ -57,12 +102,19 @@ for (const fixture of Object.values(fixtures)) {
 
         expect(escapingUrls(basePath, "index.html", html)).toEqual([]);
         expect(facts.links).toEqual(
-          fixture.links.map((link) => addSiteBasePath(basePath, link))
+          fixture.links.map((link) => {
+            const target = new URL(link, fixture.source.url);
+
+            return link.startsWith("#") ||
+              target.origin !== "https://hypertask.ai"
+              ? link
+              : `${basePath}${target.pathname}${target.search}${target.hash}`;
+          })
         );
         expect(facts.images).toEqual(
           fixture.images.map((image) => ({
             ...image,
-            src: addSiteBasePath(basePath, image.src),
+            src: `${basePath}${image.src}`,
           }))
         );
         expect(facts.head.canonical).toBe(fixture.head.canonical);

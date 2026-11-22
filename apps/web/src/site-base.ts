@@ -1,13 +1,26 @@
 import type { HtmlBuilder } from "foldkit/html";
 
+import { siteOrigin } from "./features/head/build-head.js";
 import { addSiteBasePath, normalizeSiteBasePath } from "./site-base-path.js";
 
 export const siteBasePath = normalizeSiteBasePath(import.meta.env.BASE_URL);
 
 export const isSitePreview = siteBasePath !== "";
 
-export const sitePath = (path: string): string =>
-  addSiteBasePath(siteBasePath, path);
+export const sitePath = (path: string): string => {
+  if (!isSitePreview) {
+    return path;
+  }
+
+  const url = URL.parse(path, path.startsWith("//") ? siteOrigin : undefined);
+
+  return addSiteBasePath(
+    siteBasePath,
+    url?.origin === siteOrigin
+      ? `${url.pathname}${url.search}${url.hash}`
+      : path
+  );
+};
 
 const srcsetAtSiteBasePath = (value: string): string =>
   value
