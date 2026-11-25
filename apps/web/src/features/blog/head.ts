@@ -2,7 +2,7 @@ import type { JsonLd, JsonValue, PageHead } from "../head/build-head.js";
 import { siteOrigin } from "../head/build-head.js";
 import { faqsFrom } from "./faqs.js";
 import type { BlogPost, BlogPostContent } from "./posts.js";
-import { publishedPosts } from "./posts.js";
+import { blogTags, postsWithTag, publishedPosts, tagHref } from "./posts.js";
 
 const authorUrl = "https://hypertask.ai/about/";
 
@@ -86,4 +86,17 @@ export const postHead = (entry: BlogPostContent): PageHead => {
 
 export const postHeads: ReadonlyMap<string, PageHead> = new Map(
   publishedPosts.map((entry) => [entry.post.path, postHead(entry)] as const)
+);
+
+export const tagHead = (tag: string): PageHead => {
+  const count = postsWithTag(tag).length;
+
+  return {
+    description: `Hypertask blog posts tagged "${tag}" — ${count} ${count === 1 ? "article" : "articles"}.`,
+    title: `${tag} — The Hypertask Blog`,
+  };
+};
+
+export const tagHeads: ReadonlyMap<string, PageHead> = new Map(
+  blogTags.map((tag) => [tagHref(tag), tagHead(tag)] as const)
 );
