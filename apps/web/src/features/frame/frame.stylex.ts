@@ -21,6 +21,7 @@ export const frameStyles = stylex.create({
     color: site.text,
     display: "flex",
     flexDirection: "column",
+    fontFamily: site.fontBody,
     minHeight: "100vh",
   },
   skipLink: {

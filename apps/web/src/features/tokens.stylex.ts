@@ -5,6 +5,8 @@ export const site = stylex.defineVars({
   background: "#000000",
   border: "#222226",
   borderStrong: "oklch(0.3 0 0)",
+  fontBody:
+    'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   fontMono: "'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace",
   fontSans: "'IBM Plex Sans', system-ui, sans-serif",
   muted: "#a1a1aa",
