@@ -92,6 +92,18 @@ const withinBound = (
   return width >= value;
 };
 
+const motionPreference = (text: string): boolean | undefined => {
+  if (/^prefers-reduced-motion\s*:\s*reduce$/u.test(text)) {
+    return false;
+  }
+
+  if (/^prefers-reduced-motion\s*:\s*no-preference$/u.test(text)) {
+    return true;
+  }
+
+  return undefined;
+};
+
 const widthTest = (source: string): ((width: number) => boolean) => {
   const text = source.trim();
 
@@ -113,6 +125,12 @@ const widthTest = (source: string): ((width: number) => boolean) => {
 
   if (unwrapped === "print") {
     return () => false;
+  }
+
+  const preference = motionPreference(unwrapped);
+
+  if (preference !== undefined) {
+    return () => preference;
   }
 
   const match =
