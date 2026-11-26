@@ -353,6 +353,7 @@ export const footerStyles = stylex.create({
     cursor: "pointer",
     fontFamily: "inherit",
     fontSize: "14px",
+    lineHeight: "20px",
     opacity: 0.8,
     paddingBlock: "8px",
     paddingInline: "4px",
@@ -375,6 +376,7 @@ export const footerStyles = stylex.create({
     flexWrap: "wrap",
     justifyContent: "center",
     marginBottom: "16px",
+    rowGap: { default: "16px", [tablet]: "32px" },
   },
   navHome: {
     columnGap: "28px",
