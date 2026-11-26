@@ -13,6 +13,7 @@ const classesOf = (tag: string | undefined): readonly string[] =>
 export const footerMarks = (html: string): FooterMarks => {
   const navTag = /<nav\b[^>]*aria-label="Footer"[^>]*>/u.exec(html)?.[0];
   const navStart = navTag === undefined ? -1 : html.indexOf(navTag);
+
   const linkTag =
     navStart < 0 ? undefined : /<a\b[^>]*>/u.exec(html.slice(navStart))?.[0];
 
@@ -29,7 +30,7 @@ const pixels = (value: string | undefined): number | undefined => {
   const found = /^(?<size>\d+(?:\.\d+)?)px$/u.exec(value ?? "");
   const size = found?.groups?.size;
 
-  return size === undefined ? undefined : Number.parseFloat(size);
+  return size === undefined ? undefined : Number(size);
 };
 
 const declarationValue = (
@@ -40,13 +41,16 @@ const declarationValue = (
     `(?:^|;)\\s*${property}\\s*:\\s*(?<value>[^;]*)`,
     "u"
   ).exec(body ?? "");
+
   const value = found?.groups?.value;
 
   return value === undefined ? undefined : value.trim();
 };
 
 const baseRuleBody = (css: string, className: string): string | undefined =>
-  new RegExp(`(?<![.\\w-])\\.${className}\\s*\\{([^{}]*)\\}`, "u").exec(css)?.[1];
+  new RegExp(`(?<![.\\w-])\\.${className}\\s*\\{([^{}]*)\\}`, "u").exec(
+    css
+  )?.[1];
 
 const ruleBodies = (css: string, className: string): readonly string[] =>
   [
@@ -81,7 +85,7 @@ export const footerRowGaps = (
         .flatMap((body) => declarationValue(body, "row-gap") ?? [])
         .flatMap((value) => pixels(firstToken(value)) ?? [])
     ),
-  ].sort((left, right) => left - right);
+  ].toSorted((left, right) => left - right);
 
 export const footerPhoneRowGap = (
   css: string,
