@@ -31,6 +31,38 @@ const renderedPage = renderToString(
 );
 
 it.layer(NodeServices.layer)("Hallmark testimonial layout", (test) => {
+  test.effect("keeps the phone hero from shifting the stacked cards", () =>
+    Effect.gen(function* checkPhoneHeroSpacing() {
+      const declarations = yield* stylesheetDeclarations;
+      const rendered = yield* renderedPage;
+      const elements = elementsIn(rendered.html);
+      const title = elements.findIndex((element) => element.tag === "h1");
+
+      const hero = ancestorsOf(elements, title).find(
+        (element) => element.tag === "section"
+      );
+
+      const button =
+        /<button\b[^>]*aria-label="Copy CLI install command"[^>]*>/u.exec(
+          rendered.html
+        );
+
+      const [command] = elementsIn(button?.[0] ?? "");
+
+      expect(hero).toBeDefined();
+      expect(command).toBeDefined();
+      expect(
+        winningValue(declarations, hero?.classes ?? [], "padding-bottom", 390)
+      ).toBe("60px");
+      expect(
+        winningValue(declarations, command?.classes ?? [], "font-family", 390)
+      ).toBe("Inter, ui-sans-serif, system-ui, sans-serif");
+      expect(
+        winningValue(declarations, command?.classes ?? [], "line-height", 390)
+      ).toBe("1.5");
+    })
+  );
+
   test.effect(
     "keeps all five phone cards stacked without a horizontal scroll frame",
     () =>
