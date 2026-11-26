@@ -21,7 +21,7 @@ const overlayTextFirstPhone = `radial-gradient(130% 80% at 100% 100%, rgba(0,0,0
 const buttonShadow =
   "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)";
 
-const buttonFocusRing = "0 0 0 1px rgba(59, 130, 246, 0.5)";
+const buttonFocusRing = "0 0 0 0 #ffffff, 0 0 0 1px #d4d4d4";
 
 const buttonRing = `${buttonFocusRing}, ${buttonShadow}`;
 
