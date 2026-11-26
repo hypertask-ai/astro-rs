@@ -269,7 +269,7 @@ const stackedCards = (h: HtmlBuilder<AppMessage>): Html =>
     ],
     [
       h.div(
-        [],
+        [h.Class(classes(styles.hallmarkStack))],
         copy.testimonials
           .slice(0, copy.mobileTestimonialCount)
           .map((testimonial) => card(h, testimonial, true))

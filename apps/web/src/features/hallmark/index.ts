@@ -240,7 +240,7 @@ const terminal = (h: HtmlBuilder<AppMessage>): Html =>
         [h.Class(classes(styles.codeLine))],
         [
           h.span([h.Class(classes(styles.codePrompt))], [copy.cliPrompt]),
-          line.command,
+          ` ${line.command}`,
         ]
       ),
       h.div([h.Class(classes(styles.codeLine, styles.codeOut))], [line.output]),
@@ -332,14 +332,14 @@ const stepExtra = (
             [h.Class(classes(styles.codeLine))],
             [
               h.span([h.Class(classes(styles.codePrompt))], [copy.cliPrompt]),
-              copy.stepCommands[0] ?? "",
+              ` ${copy.stepCommands[0] ?? ""}`,
             ]
           ),
           h.div(
             [h.Class(classes(styles.codeLine))],
             [
               h.span([h.Class(classes(styles.codePrompt))], [copy.cliPrompt]),
-              copy.stepCommands[1] ?? "",
+              ` ${copy.stepCommands[1] ?? ""}`,
             ]
           ),
         ]
@@ -373,11 +373,11 @@ const stepExtra = (
 };
 
 const stepBodyWidth = (number: string): stylex.StyleXStyles => {
-  if (number === "2" || number === "3") {
+  if (number === "2") {
     return styles.stepBodyNarrow;
   }
 
-  return styles.stepBodyWide;
+  return number === "3" ? styles.stepBodyMedium : styles.stepBodyWide;
 };
 
 const stepIndent = (number: string): stylex.StyleXStyles | false => {

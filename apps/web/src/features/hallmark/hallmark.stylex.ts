@@ -34,6 +34,8 @@ const display = "'Space Grotesk', ui-sans-serif, system-ui, sans-serif";
 
 const body = "'Inter', ui-sans-serif, system-ui, sans-serif";
 
+const mono = "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace";
+
 const easeOut = "cubic-bezier(0.22, 1, 0.36, 1)";
 
 const radius = "8px";
@@ -52,7 +54,7 @@ export const styles = stylex.create({
   agentsLabel: {
     color: inkFaint,
     display: "block",
-    fontFamily: body,
+    fontFamily: mono,
     fontSize: "0.72rem",
     letterSpacing: "0.14em",
     marginBottom: "1rem",
@@ -115,7 +117,7 @@ export const styles = stylex.create({
     borderStyle: "solid",
     borderWidth: "1px",
     color: ink,
-    fontFamily: body,
+    fontFamily: mono,
     fontSize: "0.82rem",
     paddingBlock: "0.5rem",
     paddingInline: "0.8rem",
@@ -472,6 +474,9 @@ export const styles = stylex.create({
     lineHeight: 1.6,
     margin: 0,
   },
+  stepBodyMedium: {
+    maxWidth: "40ch",
+  },
   stepBodyNarrow: {
     maxWidth: "34ch",
   },
@@ -493,7 +498,7 @@ export const styles = stylex.create({
     borderWidth: "1px",
     color: accentLight,
     display: "grid",
-    fontFamily: body,
+    fontFamily: mono,
     fontSize: { default: "1rem", [smallPhone]: "0.85rem" },
     fontWeight: 500,
     height: { default: "2.6rem", [smallPhone]: "2.2rem" },
