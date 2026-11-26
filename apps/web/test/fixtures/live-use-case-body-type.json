@@ -1,0 +1,18 @@
+{
+  "390": {
+    "moduleBody": { "fontSize": "16px", "lineHeight": "26px" },
+    "ctaBody": { "fontSize": "16px", "lineHeight": "26px" }
+  },
+  "700": {
+    "moduleBody": { "fontSize": "16px", "lineHeight": "26px" },
+    "ctaBody": { "fontSize": "16px", "lineHeight": "26px" }
+  },
+  "768": {
+    "moduleBody": { "fontSize": "16px", "lineHeight": "24px" },
+    "ctaBody": { "fontSize": "18px", "lineHeight": "28px" }
+  },
+  "1440": {
+    "moduleBody": { "fontSize": "16px", "lineHeight": "24px" },
+    "ctaBody": { "fontSize": "18px", "lineHeight": "28px" }
+  }
+}
