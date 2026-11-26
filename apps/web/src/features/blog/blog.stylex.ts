@@ -411,7 +411,7 @@ export const styles = stylex.create({
     display: "grid",
     gridTemplateColumns: {
       default: "minmax(0, 1fr)",
-      [xl]: "minmax(0, 1fr) minmax(0, 720px) minmax(0, 1fr)",
+      [xl]: "1fr minmax(0, 720px) 1fr",
     },
     marginTop: "3.5rem",
     rowGap: "2rem",
