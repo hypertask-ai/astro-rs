@@ -94,6 +94,109 @@ it.layer(NodeServices.layer)("Linear and Ida live spacing", (test) => {
       })
   );
 
+  test.effect("keeps the code block and buttons at their live sizes", () =>
+    Effect.gen(function* checkComparisonSpacing() {
+      const declarations = yield* stylesheetDeclarations;
+
+      const page = yield* renderToString(
+        { init: () => ({ model: initialModel }), view: linearView },
+        { isHydratable: false }
+      );
+
+      const article = /<article\b[^>]*>(?<content>[\s\S]*?)<\/article>/u.exec(
+        page.html
+      );
+
+      const code = /<pre\b[^>]*>/u.exec(article?.groups?.content ?? "");
+
+      const primary = /<a\b[^>]*>Start free<\/a>/u.exec(
+        article?.groups?.content ?? ""
+      );
+
+      expect(article).not.toBeNull();
+      expect(code).not.toBeNull();
+      expect(primary).not.toBeNull();
+
+      for (const width of [390, 720, 721, 1440]) {
+        expect(
+          winningValue(
+            declarations,
+            classesIn(code?.[0] ?? ""),
+            "margin-block",
+            width
+          ),
+          `Code block at ${width}px`
+        ).toBe(width <= 720 ? "1.75rem 0" : "2rem 0");
+        expect(
+          winningValue(
+            declarations,
+            classesIn(primary?.[0] ?? ""),
+            "border-width",
+            width
+          ),
+          `Primary button at ${width}px`
+        ).toBe("0");
+      }
+    })
+  );
+
+  test.effect("keeps stripes on winners and tint on unstriped winners", () =>
+    Effect.gen(function* checkComparisonStripes() {
+      const declarations = yield* stylesheetDeclarations;
+
+      const page = yield* renderToString(
+        { init: () => ({ model: initialModel }), view: linearView },
+        { isHydratable: false }
+      );
+
+      const body = /<tbody\b[^>]*>(?<rows>[\s\S]*?)<\/tbody>/u.exec(page.html);
+
+      const rows = [
+        ...(body?.groups?.rows ?? "").matchAll(
+          /<tr\b[^>]*>(?<cells>[\s\S]*?)<\/tr>/gu
+        ),
+      ];
+
+      expect(rows).toHaveLength(8);
+
+      for (const width of [390, 1440]) {
+        for (const [index, row] of rows.entries()) {
+          const cells = [
+            ...(row.groups?.cells ?? "").matchAll(/<t[dh]\b[^>]*>/gu),
+          ];
+
+          expect(cells).toHaveLength(3);
+
+          for (const cell of cells) {
+            const classes = classesIn(cell[0]);
+
+            const background = winningValue(
+              declarations,
+              classes,
+              "background-color",
+              width
+            );
+
+            const winner = winningValue(
+              declarations,
+              classes,
+              "box-shadow",
+              width
+            );
+
+            if (index % 2 === 1) {
+              expect(background).toBe("#f4f4f705");
+            } else {
+              expect(background).toBe(
+                winner === undefined ? undefined : "#a235eb24"
+              );
+            }
+          }
+        }
+      }
+    })
+  );
+
   test.effect(
     "keeps Ida phone details and captions at their live line heights",
     () =>

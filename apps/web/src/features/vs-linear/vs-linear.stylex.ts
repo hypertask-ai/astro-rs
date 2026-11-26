@@ -79,6 +79,9 @@ export const styles = stylex.create({
     gridTemplateColumns: "1fr auto 1fr",
     rowGap: "2rem",
   },
+  ctaPrimary: {
+    borderWidth: 0,
+  },
   ctaRule: {
     backgroundColor: line,
     height: "1px",
@@ -186,7 +189,7 @@ export const styles = stylex.create({
     fontSize: { default: "0.84rem", [phone]: "0.75rem" },
     gridColumn: "2",
     lineHeight: 1.75,
-    marginBlock: "2rem 0",
+    marginBlock: { default: "2rem 0", [phone]: "1.75rem 0" },
     marginInline: 0,
     overflowX: "auto",
     padding: {

@@ -107,6 +107,77 @@ const renderUseCasePage = (path: string) =>
 it.layer(NodeServices.layer)("use case glow paint order", (test) => {
   for (const page of useCasePages) {
     test.effect(
+      `${page.path} preserves the live gradient alpha after CSS compilation at both widths`,
+      () =>
+        Effect.gen(function* compareGradientAlpha() {
+          const site = yield* builtSite;
+          const rendered = yield* renderUseCasePage(page.path);
+          const elements = elementsIn(rendered.html);
+          const glows = blurredIndexes(site, elements);
+
+          expect(glows).toHaveLength(2);
+
+          for (const width of [390, 1440]) {
+            for (const glow of glows) {
+              const element = elements[glow];
+
+              if (element === undefined) {
+                throw new Error("A glow index is out of range");
+              }
+
+              const image =
+                winningValue(
+                  site.declarations,
+                  element.classes,
+                  "background-image",
+                  width
+                ) ?? "";
+
+              const alphas = [
+                ...image.matchAll(/var\((?<name>--[\w-]+)\)/gu),
+              ].map((match) =>
+                Number(site.customProperties.get(match.groups?.name ?? ""))
+              );
+
+              expect(alphas, `Glow at ${width}px`).toEqual([0.25, 0.25]);
+            }
+
+            const cards = elements.filter((element) => {
+              const image =
+                winningValue(
+                  site.declarations,
+                  element.classes,
+                  "background-image",
+                  width
+                ) ?? "";
+
+              return image.startsWith("linear-gradient(to bottom,");
+            });
+
+            expect(cards).toHaveLength(1);
+
+            for (const card of cards) {
+              const image =
+                winningValue(
+                  site.declarations,
+                  card.classes,
+                  "background-image",
+                  width
+                ) ?? "";
+
+              const name =
+                /var\((?<name>--[\w-]+)\)/u.exec(image)?.groups?.name ?? "";
+
+              expect(
+                Number(site.customProperties.get(name)),
+                `Card at ${width}px`
+              ).toBe(0.05);
+            }
+          }
+        })
+    );
+
+    test.effect(
       `${page.path} paints its hero and closing glows above the page background`,
       () =>
         Effect.gen(function* compareGlowPaint() {

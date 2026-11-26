@@ -4,7 +4,7 @@ import type { Document, Html, HtmlBuilder } from "foldkit/html";
 import type { AppMessage } from "../../client/app/message.js";
 import type { AppModel } from "../../client/app/model.js";
 import { siteBuilder } from "../../site-base.js";
-import { ctaLink } from "../cta/index.js";
+import { ctaLink, ctaStyles } from "../cta/index.js";
 import { page } from "../page/index.js";
 import * as copy from "./copy.js";
 import type { ComparisonRow } from "./copy.js";
@@ -68,49 +68,52 @@ const row = (
 ): Html => {
   const lastRow = index === copy.comparisonRows.length - 1;
 
-  const rowAttributes =
-    index % 2 === 1 ? [h.Class(classes(styles.tableRow))] : [];
-
-  return h.tr(rowAttributes, [
-    h.th(
-      [
-        h.Scope("row"),
-        h.Class(
-          classes(
-            styles.tableCell,
-            styles.tableRowHeader,
-            ...(lastRow ? [styles.tableCellLastRow] : [])
-          )
-        ),
-      ],
-      [feature.feature]
-    ),
-    h.td(
-      [
-        h.Class(
-          classes(
-            styles.tableCell,
-            ...(feature.winner === "hypertask" ? [styles.winnerCell] : []),
-            ...(lastRow ? [styles.tableCellLastRow] : [])
-          )
-        ),
-      ],
-      [feature.hypertask]
-    ),
-    h.td(
-      [
-        h.Class(
-          classes(
-            styles.tableCell,
-            styles.tableCellLastColumn,
-            ...(feature.winner === "linear" ? [styles.winnerCell] : []),
-            ...(lastRow ? [styles.tableCellLastRow] : [])
-          )
-        ),
-      ],
-      [feature.linear]
-    ),
-  ]);
+  return h.tr(
+    [],
+    [
+      h.th(
+        [
+          h.Scope("row"),
+          h.Class(
+            classes(
+              styles.tableCell,
+              ...(index % 2 === 1 ? [styles.tableRow] : []),
+              styles.tableRowHeader,
+              ...(lastRow ? [styles.tableCellLastRow] : [])
+            )
+          ),
+        ],
+        [feature.feature]
+      ),
+      h.td(
+        [
+          h.Class(
+            classes(
+              styles.tableCell,
+              ...(feature.winner === "hypertask" ? [styles.winnerCell] : []),
+              ...(index % 2 === 1 ? [styles.tableRow] : []),
+              ...(lastRow ? [styles.tableCellLastRow] : [])
+            )
+          ),
+        ],
+        [feature.hypertask]
+      ),
+      h.td(
+        [
+          h.Class(
+            classes(
+              styles.tableCell,
+              styles.tableCellLastColumn,
+              ...(feature.winner === "linear" ? [styles.winnerCell] : []),
+              ...(index % 2 === 1 ? [styles.tableRow] : []),
+              ...(lastRow ? [styles.tableCellLastRow] : [])
+            )
+          ),
+        ],
+        [feature.linear]
+      ),
+    ]
+  );
 };
 
 const comparisonTable = (h: HtmlBuilder<AppMessage>): Html =>
@@ -290,7 +293,23 @@ const content = (h: HtmlBuilder<AppMessage>): readonly Html[] => [
           h.div(
             [h.Class(classes(styles.ctaActions))],
             [
-              ctaLink(h, copy.primaryCta, "primary", "large"),
+              h.a(
+                [
+                  h.Id("get-started-button"),
+                  h.Href(copy.primaryCta.href),
+                  h.Target("_blank"),
+                  h.Rel("noopener noreferrer"),
+                  h.Class(
+                    classes(
+                      ctaStyles.base,
+                      ctaStyles.large,
+                      ctaStyles.primary,
+                      styles.ctaPrimary
+                    )
+                  ),
+                ],
+                [copy.primaryCta.label]
+              ),
               ctaLink(h, copy.secondaryCta, "secondary", "large"),
             ]
           ),
