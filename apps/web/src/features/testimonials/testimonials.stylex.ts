@@ -217,6 +217,26 @@ export const styles = stylex.create({
     gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
     maxWidth: "64rem",
   },
+  hallmarkCardQuote: {
+    lineHeight: "1.75rem",
+  },
+  hallmarkCardText: {
+    lineHeight: { default: "1.5rem", [tabletUp]: "1.75rem" },
+  },
+  hallmarkLede: {
+    lineHeight: "1.75rem",
+  },
+  hallmarkName: {
+    lineHeight: { default: "1.25rem", [tabletUp]: "1.5rem" },
+  },
+  hallmarkRole: {
+    lineHeight: "1.25rem",
+  },
+  hallmarkTitle: {
+    fontFamily: "'Space Grotesk', ui-sans-serif, system-ui, sans-serif",
+    letterSpacing: "-0.02em",
+    lineHeight: { default: "2.25rem", [smOnly]: "2.5rem", [tabletUp]: 1 },
+  },
   lede: {
     color: mutedText,
     fontSize: "1.125rem",

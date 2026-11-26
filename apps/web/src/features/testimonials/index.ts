@@ -30,7 +30,11 @@ const stars = (h: HtmlBuilder<AppMessage>, rating: number): Html =>
     )
   );
 
-const card = (h: HtmlBuilder<AppMessage>, testimonial: Testimonial): Html =>
+const card = (
+  h: HtmlBuilder<AppMessage>,
+  testimonial: Testimonial,
+  hallmark: boolean
+): Html =>
   h.div(
     [h.Class(classes(styles.card, stylex.defaultMarker()))],
     [
@@ -43,12 +47,26 @@ const card = (h: HtmlBuilder<AppMessage>, testimonial: Testimonial): Html =>
             [h.Class(classes(styles.cardQuoteWrap))],
             [
               h.h4(
-                [h.Class(classes(styles.cardQuote))],
+                [
+                  h.Class(
+                    classes(
+                      styles.cardQuote,
+                      hallmark && styles.hallmarkCardQuote
+                    )
+                  ),
+                ],
                 [`“${copy.displayedQuote(testimonial)}”`]
               ),
             ]
           ),
-          h.p([h.Class(classes(styles.cardText))], [testimonial.text]),
+          h.p(
+            [
+              h.Class(
+                classes(styles.cardText, hallmark && styles.hallmarkCardText)
+              ),
+            ],
+            [testimonial.text]
+          ),
           h.div(
             [h.Class(classes(styles.cardFooter))],
             [
@@ -70,11 +88,25 @@ const card = (h: HtmlBuilder<AppMessage>, testimonial: Testimonial): Html =>
                         [h.Class(classes(styles.nameLine))],
                         [
                           h.span(
-                            [h.Class(classes(styles.name))],
+                            [
+                              h.Class(
+                                classes(
+                                  styles.name,
+                                  hallmark && styles.hallmarkName
+                                )
+                              ),
+                            ],
                             [testimonial.name]
                           ),
                           h.span(
-                            [h.Class(classes(styles.role))],
+                            [
+                              h.Class(
+                                classes(
+                                  styles.role,
+                                  hallmark && styles.hallmarkRole
+                                )
+                              ),
+                            ],
                             [testimonial.title]
                           ),
                         ]
@@ -103,7 +135,8 @@ const staggered = (offset: number): readonly Testimonial[] => {
 const column = (
   h: HtmlBuilder<AppMessage>,
   offset: number,
-  direction: "up" | "down"
+  direction: "up" | "down",
+  hallmark: boolean
 ): Html =>
   h.div(
     [h.Class(classes(styles.column, stylex.defaultMarker()))],
@@ -117,7 +150,7 @@ const column = (
             )
           ),
         ],
-        staggered(offset).map((testimonial) => card(h, testimonial))
+        staggered(offset).map((testimonial) => card(h, testimonial, hallmark))
       ),
     ]
   );
@@ -125,7 +158,8 @@ const column = (
 const columns = (
   h: HtmlBuilder<AppMessage>,
   offsets: readonly number[],
-  frame: "desktop" | "tablet"
+  frame: "desktop" | "tablet",
+  hallmark: boolean
 ): Html =>
   h.div(
     [
@@ -146,7 +180,7 @@ const columns = (
           ),
         ],
         offsets.map((offset, index) =>
-          column(h, offset, index % 2 === 0 ? "up" : "down")
+          column(h, offset, index % 2 === 0 ? "up" : "down", hallmark)
         )
       ),
     ]
@@ -189,7 +223,7 @@ const carousel = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
                       [
                         h.div(
                           [h.Class(classes(styles.slideContent))],
-                          [card(h, testimonial)]
+                          [card(h, testimonial, false)]
                         ),
                       ]
                     )
@@ -226,17 +260,61 @@ const carousel = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
     ]
   );
 
+const stackedCards = (h: HtmlBuilder<AppMessage>): Html =>
+  h.div(
+    [
+      h.Class(classes(styles.carousel)),
+      h.Role("region"),
+      h.AriaLabel(copy.sectionTitle),
+    ],
+    [
+      h.div(
+        [],
+        copy.testimonials
+          .slice(0, copy.mobileTestimonialCount)
+          .map((testimonial) => card(h, testimonial, true))
+      ),
+      h.div([h.Class(classes(styles.dots))]),
+    ]
+  );
+
 export const testimonialsSection = (
   model: AppModel,
-  h: HtmlBuilder<AppMessage>
+  h: HtmlBuilder<AppMessage>,
+  presentation: "carousel" | "hallmark" = "carousel"
 ): Html =>
   h.div(
     [h.Class(classes(styles.section))],
     [
-      h.h2([h.Class(classes(styles.title))], [copy.sectionTitle]),
-      h.p([h.Class(classes(styles.lede))], [copy.sectionLede]),
-      columns(h, copy.columnOffsets, "desktop"),
-      columns(h, copy.tabletColumnOffsets, "tablet"),
-      carousel(model, h),
+      h.h2(
+        [
+          h.Class(
+            classes(
+              styles.title,
+              presentation === "hallmark" && styles.hallmarkTitle
+            )
+          ),
+        ],
+        [copy.sectionTitle]
+      ),
+      h.p(
+        [
+          h.Class(
+            classes(
+              styles.lede,
+              presentation === "hallmark" && styles.hallmarkLede
+            )
+          ),
+        ],
+        [copy.sectionLede]
+      ),
+      columns(h, copy.columnOffsets, "desktop", presentation === "hallmark"),
+      columns(
+        h,
+        copy.tabletColumnOffsets,
+        "tablet",
+        presentation === "hallmark"
+      ),
+      presentation === "hallmark" ? stackedCards(h) : carousel(model, h),
     ]
   );
