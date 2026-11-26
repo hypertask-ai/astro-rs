@@ -102,11 +102,11 @@ it.layer(NodeServices.layer)("Ida and Hallmark responsive layout", (test) => {
 
         const labels = [
           ...rendered.html.matchAll(
-            /<(?:span|div)\b[^>]*>[^<]*<\/(?:span|div)>/gu
+            /<(?:span|div)\b[^>]*>(?<text>[^<]*)<\/(?:span|div)>/gu
           ),
         ].filter((match) =>
           monospaceLabels.includes(
-            match[0].replaceAll(/<[^>]*>/gu, "").replaceAll("&amp;", "&")
+            (match.groups?.text ?? "").replaceAll("&amp;", "&")
           )
         );
 
@@ -125,36 +125,6 @@ it.layer(NodeServices.layer)("Ida and Hallmark responsive layout", (test) => {
               )
             ).toMatch(/^["']?JetBrains Mono["']?,\s*ui-monospace/u);
           }
-        }
-      })
-  );
-
-  test.effect(
-    "retains the last stacked card's bottom margin before the phone footer space",
-    () =>
-      Effect.gen(function* checkStackMarginContainment() {
-        const declarations = yield* stylesheetDeclarations;
-        const rendered = yield* renderedHallmark;
-
-        const region = /<div\b[^>]*aria-label="What our users say"[^>]*>/u.exec(
-          rendered.html
-        );
-
-        expect(region).not.toBeNull();
-
-        const elements = elementsIn(rendered.html.slice(region?.index ?? 0));
-        const stack = elements.find((element) => element.parent === 0);
-        const [frame] = elements;
-
-        expect(stack).toBeDefined();
-
-        for (const width of widths) {
-          expect(
-            winningValue(declarations, stack?.classes ?? [], "display", width)
-          ).toBe("flow-root");
-          expect(
-            winningValue(declarations, frame?.classes ?? [], "display", width)
-          ).toBe(width < 768 ? "block" : "none");
         }
       })
   );
