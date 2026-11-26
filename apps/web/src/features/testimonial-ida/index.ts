@@ -4,7 +4,7 @@ import type { Document, Html, HtmlBuilder } from "foldkit/html";
 import type { AppMessage } from "../../client/app/message.js";
 import type { AppModel } from "../../client/app/model.js";
 import { siteBuilder } from "../../site-base.js";
-import { ctaLink } from "../cta/index.js";
+import { ctaStyles } from "../cta/index.js";
 import type { CtaLink } from "../cta/index.js";
 import { page } from "../page/index.js";
 import * as copy from "./copy.js";
@@ -35,10 +35,27 @@ const ctaGroup = (
 ): Html =>
   h.div(
     [h.Class(classes(styles.ctaGroup))],
-    [
-      ctaLink(h, primary, "primary", size),
-      ctaLink(h, secondary, "secondary", size),
-    ]
+    [primary, secondary].map((link, index) =>
+      h.a(
+        [
+          ...(link.id === undefined ? [] : [h.Id(link.id)]),
+          h.Href(link.href),
+          ...(link.external === true
+            ? [h.Target("_blank"), h.Rel("noopener noreferrer")]
+            : []),
+          h.Class(
+            classes(
+              ctaStyles.base,
+              size === "hero" ? ctaStyles.hero : ctaStyles.large,
+              index === 0 ? ctaStyles.primary : ctaStyles.secondary,
+              size === "hero" ? styles.ctaHero : styles.ctaLarge,
+              index === 0 && styles.ctaPrimary
+            )
+          ),
+        ],
+        [link.label]
+      )
+    )
   );
 
 const hero = (h: HtmlBuilder<AppMessage>): Html =>
@@ -537,7 +554,7 @@ const whyItWorks = (h: HtmlBuilder<AppMessage>): Html =>
 
 const bottomCta = (h: HtmlBuilder<AppMessage>): Html =>
   h.section(
-    [h.Id("cta")],
+    [h.Id("cta"), h.Class(classes(styles.bottomSection))],
     [
       h.div(
         [h.Class(classes(styles.section, styles.sectionRelative))],

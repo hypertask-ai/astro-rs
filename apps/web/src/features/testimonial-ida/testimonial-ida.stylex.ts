@@ -91,6 +91,9 @@ export const styles = stylex.create({
     position: "absolute",
     zIndex: 0,
   },
+  bottomSection: {
+    paddingBlock: "60px",
+  },
   bottomTitle: {
     color: white,
     fontSize: { default: "1.5rem", [md]: "2.25rem", [smOnly]: "1.875rem" },
@@ -169,6 +172,15 @@ export const styles = stylex.create({
     flexDirection: { default: "column", [sm]: "row" },
     gap: "1rem",
   },
+  ctaHero: {
+    lineHeight: { default: "1.25rem", [lg]: "1.5rem" },
+  },
+  ctaLarge: {
+    lineHeight: { default: "1.5rem", [lg]: "1.75rem" },
+  },
+  ctaPrimary: {
+    borderWidth: 0,
+  },
   headline: {
     color: white,
     fontSize: "3rem",
@@ -216,13 +228,12 @@ export const styles = stylex.create({
     zIndex: 1,
   },
   heroSubtitle: {
-    color: "rgba(255, 255, 255, 0.72)",
+    color: "#fafafa",
     fontSize: "1rem",
     fontWeight: 400,
     letterSpacing: "0.5px",
     lineHeight: "1.25rem",
     margin: 0,
-    maxWidth: "80%",
     textWrap: "balance",
   },
   heroTitle: {
@@ -236,6 +247,7 @@ export const styles = stylex.create({
   },
   image: {
     borderRadius: "0.75rem",
+    display: "block",
     height: "auto",
     maxWidth: { default: "none", [sm]: "40rem" },
     minHeight: { default: "auto", [sm]: "30rem" },
@@ -258,6 +270,7 @@ export const styles = stylex.create({
   itemDetail: {
     color: softer,
     fontSize: "0.875rem",
+    lineHeight: "1.25rem",
     margin: 0,
   },
   itemIcon: {
@@ -286,6 +299,7 @@ export const styles = stylex.create({
     color: muted,
     fontSize: "1.125rem",
     fontWeight: 500,
+    lineHeight: "1.75rem",
   },
   metricStack: {
     display: "grid",
@@ -350,12 +364,14 @@ export const styles = stylex.create({
   },
   resultLine: {
     fontSize: "1.125rem",
+    lineHeight: "1.75rem",
     margin: 0,
   },
   resultNote: {
     color: "rgba(243, 232, 255, 0.6)",
     fontSize: "0.875rem",
-    marginBlock: "1rem 0",
+    lineHeight: "1.25rem",
+    margin: 0,
   },
   resultTitle: {
     color: purpleLight,
@@ -458,6 +474,7 @@ export const styles = stylex.create({
     borderBottomWidth: "1px",
     color: gray,
     fontSize: "1.125rem",
+    lineHeight: "1.75rem",
     padding: "1rem",
     textAlign: "left",
     verticalAlign: "middle",
@@ -480,6 +497,7 @@ export const styles = stylex.create({
   tableHeadCell: {
     backgroundColor: "rgba(255, 255, 255, 0.05)",
     fontSize: "1.125rem",
+    lineHeight: "1.75rem",
     padding: "1rem",
     textAlign: "left",
     verticalAlign: "middle",
@@ -569,6 +587,7 @@ export const styles = stylex.create({
   },
   visualCaption: {
     fontSize: "0.75rem",
+    lineHeight: "1rem",
     marginBlock: "0.5rem 0",
     textAlign: "center",
   },

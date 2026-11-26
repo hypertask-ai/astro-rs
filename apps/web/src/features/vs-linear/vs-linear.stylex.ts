@@ -321,6 +321,7 @@ export const styles = stylex.create({
       transform: "translateY(-50%)",
       width: "0.5rem",
     },
+    marginBlock: "0.5em",
     paddingLeft: "1.65rem",
     position: "relative",
   },
