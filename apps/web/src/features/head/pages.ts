@@ -1,4 +1,4 @@
-import { postHeads } from "../blog/head.js";
+import { postHeads, tagHeads } from "../blog/head.js";
 import type { PageHead } from "./build-head.js";
 
 const pages = {
@@ -83,4 +83,4 @@ const pages = {
 export const pageHeads: ReadonlyMap<string, PageHead> = new Map<
   string,
   PageHead
->([...Object.entries(pages), ...postHeads]);
+>([...Object.entries(pages), ...postHeads, ...tagHeads]);

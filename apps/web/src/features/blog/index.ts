@@ -19,7 +19,7 @@ import { codeHighlights } from "./code-highlights.js";
 import { headingTree } from "./headings.js";
 import type { TocHeading } from "./headings.js";
 import type { BlogPost, BlogPostContent } from "./posts.js";
-import { publishedPosts, relatedFor } from "./posts.js";
+import { formatDate, publishedPosts, relatedFor, tagHref } from "./posts.js";
 
 const appLoginUrl = "https://app.hypertask.ai/login";
 
@@ -28,21 +28,6 @@ const aboutHref = "/about/";
 const blogHref = "/blog/";
 
 const homeHref = "/";
-
-const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-] as const;
 
 const imageSizes = new Map<string, readonly [string, string]>([
   ["/images/blog/attribution-timeline.webp", ["1376", "768"]],
@@ -74,21 +59,6 @@ const classes = (...entries: readonly (stylex.StyleXStyles | false)[]) =>
   stylex.props(...entries).className ?? "";
 
 const iso = (date: string): string => `${date}T00:00:00.000Z`;
-
-const formatDate = (date: string): string => {
-  const [year = "", month = "1", day = "1"] = date.split("-");
-
-  return `${months[Number(month) - 1] ?? ""} ${Number(day)}, ${year}`;
-};
-
-const tagSlug = (tag: string): string =>
-  tag
-    .toLowerCase()
-    .trim()
-    .replaceAll(/[^\w\s-]/gu, "")
-    .replaceAll(/\s+/gu, "-");
-
-const tagHref = (tag: string): string => `/blog/tags/${tagSlug(tag)}/`;
 
 const initials = (name: string): string =>
   name

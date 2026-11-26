@@ -75,6 +75,36 @@ const authored = (entry: Omit<BlogPost, "path">): BlogPost => ({
   path: `/blog/${entry.slug}/`,
 });
 
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+] as const;
+
+export const formatDate = (date: string): string => {
+  const [year = "", month = "1", day = "1"] = date.split("-");
+
+  return `${months[Number(month) - 1] ?? ""} ${Number(day)}, ${year}`;
+};
+
+export const tagSlug = (tag: string): string =>
+  tag
+    .toLowerCase()
+    .trim()
+    .replaceAll(/[^\w\s-]/gu, "")
+    .replaceAll(/\s+/gu, "-");
+
+export const tagHref = (tag: string): string => `/blog/tags/${tagSlug(tag)}/`;
+
 export const posts: readonly BlogPostContent[] = [
   define(
     authored({
@@ -893,6 +923,13 @@ export const publishedPosts: readonly BlogPostContent[] = posts.filter(
 export const visiblePosts: readonly BlogPostContent[] = publishedPosts.toSorted(
   (a, b) => b.post.date.localeCompare(a.post.date)
 );
+
+export const blogTags: readonly string[] = [
+  ...new Set(visiblePosts.flatMap((entry) => entry.post.tags)),
+].toSorted();
+
+export const postsWithTag = (tag: string): readonly BlogPostContent[] =>
+  visiblePosts.filter((entry) => entry.post.tags.includes(tag));
 
 const postBySlug: ReadonlyMap<string, BlogPostContent> = new Map(
   visiblePosts.map((entry) => [entry.post.slug, entry] as const)

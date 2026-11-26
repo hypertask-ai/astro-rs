@@ -4,6 +4,8 @@ const sm = "@media (min-width: 640px)";
 
 const smToLg = "@media (min-width: 640px) and (max-width: 1023.98px)";
 
+const mdOnly = "@media (min-width: 768px) and (max-width: 1023.98px)";
+
 const lg = "@media (min-width: 1024px)";
 
 const xl = "@media (min-width: 1280px)";
@@ -38,6 +40,32 @@ export const styles = stylex.create({
   alignCenter: { textAlign: "center" },
   alignLeft: { textAlign: "left" },
   alignRight: { textAlign: "right" },
+  archiveContainer: {
+    marginInline: "auto",
+    maxWidth: "1100px",
+    paddingBlock: { default: "3.5rem", [lg]: "6rem" },
+    paddingInline: { default: "1rem", [lg]: "2rem", [smToLg]: "1.5rem" },
+    width: "100%",
+  },
+  archiveHeader: {
+    marginBottom: "3.5rem",
+    maxWidth: "680px",
+  },
+  archiveLede: {
+    color: white60,
+    fontSize: "1.125rem",
+    lineHeight: 1.625,
+    margin: 0,
+    marginTop: "1.25rem",
+  },
+  archiveTitle: {
+    color: "#ffffff",
+    fontSize: { default: "2.5rem", [sm]: "3.25rem" },
+    fontWeight: 700,
+    lineHeight: 1.05,
+    margin: 0,
+    textWrap: "balance",
+  },
   article: {
     color: "#d1d5db",
     display: "block",
@@ -183,6 +211,85 @@ export const styles = stylex.create({
   },
   breadcrumbSeparator: {
     marginInline: "0.5rem",
+  },
+  cardBody: {
+    display: "flex",
+    flexDirection: "column",
+    flexGrow: 1,
+    padding: "1.5rem",
+  },
+  cardCluster: {
+    color: white40,
+    fontSize: "0.75rem",
+    fontWeight: 600,
+    letterSpacing: "0.05em",
+    lineHeight: "1rem",
+    margin: 0,
+    marginBottom: "0.5rem",
+    textTransform: "uppercase",
+  },
+  cardDate: {
+    color: "rgba(255,255,255,0.35)",
+    fontSize: "0.75rem",
+    lineHeight: "1rem",
+    margin: 0,
+    marginTop: "1rem",
+  },
+  cardDescription: {
+    WebkitBoxOrient: "vertical",
+    WebkitLineClamp: 3,
+    color: white50,
+    display: "-webkit-box",
+    flexGrow: 1,
+    fontSize: "0.875rem",
+    lineHeight: 1.625,
+    margin: 0,
+    marginTop: "0.5rem",
+    overflow: "hidden",
+  },
+  cardGrid: {
+    columnGap: "1.5rem",
+    display: "grid",
+    gridTemplateColumns: {
+      default: "minmax(0, 1fr)",
+      [lg]: "repeat(3, minmax(0, 1fr))",
+      [mdOnly]: "repeat(2, minmax(0, 1fr))",
+    },
+    rowGap: "1.5rem",
+  },
+  cardImage: {
+    aspectRatio: "16 / 9",
+    display: "block",
+    objectFit: "cover",
+    width: "100%",
+  },
+  cardImageBlank: {
+    aspectRatio: "16 / 9",
+    backgroundImage:
+      "linear-gradient(to bottom right, rgba(255,255,255,0.06), rgba(255,255,255,0.01))",
+    width: "100%",
+  },
+  cardTitle: {
+    color: "#ffffff",
+    fontSize: "1.125rem",
+    fontWeight: 600,
+    lineHeight: 1.375,
+    margin: 0,
+  },
+  cardWrap: {
+    ":hover": {
+      backgroundColor: "rgba(255,255,255,0.05)",
+      borderColor: "rgba(255,255,255,0.12)",
+    },
+    backgroundColor: fill03,
+    borderColor: border06,
+    borderRadius: "1rem",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    display: "flex",
+    flexDirection: "column",
+    overflow: "hidden",
+    textDecorationLine: "none",
   },
   cluster: {
     color: white50,
@@ -506,6 +613,38 @@ export const styles = stylex.create({
     textDecorationLine: "none",
     transitionDuration: "0.15s",
     transitionProperty: "background-color, color",
+  },
+  tagCount: {
+    color: white50,
+    margin: 0,
+    marginTop: "0.75rem",
+  },
+  tagHeader: {
+    marginBottom: "3rem",
+  },
+  tagLabel: {
+    color: white40,
+    fontSize: "0.875rem",
+    fontWeight: 600,
+    letterSpacing: "0.05em",
+    lineHeight: "1.25rem",
+    margin: 0,
+    marginBottom: "0.5rem",
+    textTransform: "uppercase",
+  },
+  tagList: {
+    columnGap: "0.5rem",
+    display: "flex",
+    flexWrap: "wrap",
+    marginBottom: "2.5rem",
+    rowGap: "0.5rem",
+  },
+  tagTitle: {
+    color: "#ffffff",
+    fontSize: "2.5rem",
+    fontWeight: 700,
+    lineHeight: 1.1,
+    margin: 0,
   },
   tags: {
     columnGap: "0.5rem",

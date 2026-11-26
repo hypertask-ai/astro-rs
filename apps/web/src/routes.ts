@@ -1,4 +1,5 @@
 import { view as aboutView } from "./features/about/index.js";
+import { archiveViews } from "./features/blog/archive.js";
 import { postViews } from "./features/blog/index.js";
 import { view as contactView } from "./features/contact/index.js";
 import { view as hallmarkView } from "./features/hallmark/index.js";
@@ -23,6 +24,7 @@ export const pageViews: ReadonlyMap<string, PageView> = new Map([
   ["/testimonial-ida/", testimonialIdaView],
   ["/hypertask-vs-linear/", vsLinearView],
   ...postViews,
+  ...archiveViews,
 ]);
 
 export const viewForPath = (pathname: string): PageView | undefined =>
