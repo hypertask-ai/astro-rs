@@ -151,7 +151,7 @@ describe("linear comparison table", () => {
 
 describe("hallmark testimonial marquee", () => {
   it.effect(
-    "renders four desktop columns, three tablet columns and one phone strip",
+    "renders four desktop columns, three tablet columns and five phone cards",
     () =>
       Effect.gen(function* checkCards() {
         const html = yield* renderView(hallmarkView);
@@ -167,14 +167,16 @@ describe("hallmark testimonial marquee", () => {
       })
   );
 
-  it.effect("labels every phone dot with its slide", () =>
-    Effect.gen(function* checkDots() {
-      const html = yield* renderView(hallmarkView);
+  it.effect(
+    "keeps all phone cards in the page flow without carousel controls",
+    () =>
+      Effect.gen(function* checkDots() {
+        const html = yield* renderView(hallmarkView);
 
-      expect(html).toContain('aria-label="Go to slide 1"');
-      expect(html).toContain('aria-label="Go to slide 5"');
-      expect(html).not.toContain('aria-label="Go to slide 6"');
-    })
+        expect(html).toContain('aria-label="What our users say"');
+        expect(html).not.toContain('aria-roledescription="carousel"');
+        expect(html).not.toContain('aria-label="Go to slide 1"');
+      })
   );
 });
 

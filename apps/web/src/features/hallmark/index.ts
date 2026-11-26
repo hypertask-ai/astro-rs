@@ -447,7 +447,7 @@ export const view = (
           steps(h),
           h.div(
             [h.Class(classes(styles.sectionRule))],
-            [testimonialsSection(model, h)]
+            [testimonialsSection(model, h, "hallmark")]
           ),
           h.div(
             [h.Class(classes(styles.sectionRule))],
