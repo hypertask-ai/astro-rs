@@ -138,13 +138,20 @@ const comparisonTable = (h: HtmlBuilder<AppMessage>): Html =>
                     [],
                     [
                       h.th(
-                        [h.Scope("col")],
+                        [
+                          h.Scope("col"),
+                          h.Class(
+                            classes(styles.tableCell, styles.tableHeadCell)
+                          ),
+                        ],
                         [h.span([h.Class(classes(styles.srOnly))], ["Feature"])]
                       ),
                       h.th(
                         [
                           h.Scope("col"),
-                          h.Class(classes(styles.tableHeadCell)),
+                          h.Class(
+                            classes(styles.tableCell, styles.tableHeadCell)
+                          ),
                         ],
                         [
                           h.span([
@@ -157,7 +164,13 @@ const comparisonTable = (h: HtmlBuilder<AppMessage>): Html =>
                       h.th(
                         [
                           h.Scope("col"),
-                          h.Class(classes(styles.tableHeadCell)),
+                          h.Class(
+                            classes(
+                              styles.tableCell,
+                              styles.tableHeadCell,
+                              styles.tableCellLastColumn
+                            )
+                          ),
                         ],
                         ["Linear"]
                       ),
