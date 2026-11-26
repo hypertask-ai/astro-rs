@@ -103,9 +103,17 @@ it.layer(NodeServices.layer)("Linear and Ida live spacing", (test) => {
         { isHydratable: false }
       );
 
-      const code = /<pre\b[^>]*>/u.exec(page.html);
-      const primary = /<a\b[^>]*>Start free<\/a>/u.exec(page.html);
+      const article = /<article\b[^>]*>(?<content>[\s\S]*?)<\/article>/u.exec(
+        page.html
+      );
 
+      const code = /<pre\b[^>]*>/u.exec(article?.groups?.content ?? "");
+
+      const primary = /<a\b[^>]*>Start free<\/a>/u.exec(
+        article?.groups?.content ?? ""
+      );
+
+      expect(article).not.toBeNull();
       expect(code).not.toBeNull();
       expect(primary).not.toBeNull();
 
@@ -132,7 +140,7 @@ it.layer(NodeServices.layer)("Linear and Ida live spacing", (test) => {
     })
   );
 
-  test.effect("stripes table cells without tinting winning cells", () =>
+  test.effect("keeps stripes on winners and tint on unstriped winners", () =>
     Effect.gen(function* checkComparisonStripes() {
       const declarations = yield* stylesheetDeclarations;
 
@@ -176,12 +184,12 @@ it.layer(NodeServices.layer)("Linear and Ida live spacing", (test) => {
               width
             );
 
-            if (winner === undefined) {
-              expect(background).toBe(
-                index % 2 === 1 ? "#f4f4f705" : undefined
-              );
+            if (index % 2 === 1) {
+              expect(background).toBe("#f4f4f705");
             } else {
-              expect(background).toBe("#a235eb24");
+              expect(background).toBe(
+                winner === undefined ? undefined : "#a235eb24"
+              );
             }
           }
         }

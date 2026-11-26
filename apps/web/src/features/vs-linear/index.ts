@@ -90,8 +90,8 @@ const row = (
           h.Class(
             classes(
               styles.tableCell,
-              ...(index % 2 === 1 ? [styles.tableRow] : []),
               ...(feature.winner === "hypertask" ? [styles.winnerCell] : []),
+              ...(index % 2 === 1 ? [styles.tableRow] : []),
               ...(lastRow ? [styles.tableCellLastRow] : [])
             )
           ),
@@ -103,9 +103,9 @@ const row = (
           h.Class(
             classes(
               styles.tableCell,
-              ...(index % 2 === 1 ? [styles.tableRow] : []),
               styles.tableCellLastColumn,
               ...(feature.winner === "linear" ? [styles.winnerCell] : []),
+              ...(index % 2 === 1 ? [styles.tableRow] : []),
               ...(lastRow ? [styles.tableCellLastRow] : [])
             )
           ),
