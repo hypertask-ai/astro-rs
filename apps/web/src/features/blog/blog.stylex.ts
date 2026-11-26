@@ -4,7 +4,7 @@ const sm = "@media (min-width: 640px)";
 
 const smToLg = "@media (min-width: 640px) and (max-width: 1023.98px)";
 
-const md = "@media (min-width: 768px)";
+const mdOnly = "@media (min-width: 768px) and (max-width: 1023.98px)";
 
 const lg = "@media (min-width: 1024px)";
 
@@ -44,7 +44,7 @@ export const styles = stylex.create({
     marginInline: "auto",
     maxWidth: "1100px",
     paddingBlock: { default: "3.5rem", [lg]: "6rem" },
-    paddingInline: { default: "1rem", [lg]: "2rem", [sm]: "1.5rem" },
+    paddingInline: { default: "1rem", [lg]: "2rem", [smToLg]: "1.5rem" },
     width: "100%",
   },
   archiveHeader: {
@@ -253,7 +253,7 @@ export const styles = stylex.create({
     gridTemplateColumns: {
       default: "minmax(0, 1fr)",
       [lg]: "repeat(3, minmax(0, 1fr))",
-      [md]: "repeat(2, minmax(0, 1fr))",
+      [mdOnly]: "repeat(2, minmax(0, 1fr))",
     },
     rowGap: "1.5rem",
   },
