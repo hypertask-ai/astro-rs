@@ -107,7 +107,7 @@ const renderUseCasePage = (path: string) =>
 it.layer(NodeServices.layer)("use case glow paint order", (test) => {
   for (const page of useCasePages) {
     test.effect(
-      `${page.path} preserves the live gradient alpha after CSS compilation at both widths`,
+      `${page.path} preserves every live gradient colour stop after CSS compilation at both widths`,
       () =>
         Effect.gen(function* compareGradientAlpha() {
           const site = yield* builtSite;
@@ -133,13 +133,22 @@ it.layer(NodeServices.layer)("use case glow paint order", (test) => {
                   width
                 ) ?? "";
 
-              const alphas = [
+              const stops = [
                 ...image.matchAll(/var\((?<name>--[\w-]+)\)/gu),
-              ].map((match) =>
-                Number(site.customProperties.get(match.groups?.name ?? ""))
-              );
+              ].map((match) => {
+                const colour =
+                  site.customProperties.get(match.groups?.name ?? "") ?? "";
 
-              expect(alphas, `Glow at ${width}px`).toEqual([0.25, 0.25]);
+                return [...colour.matchAll(/[\d.]+/gu)].map((channel) =>
+                  Number(channel[0])
+                );
+              });
+
+              expect(stops, `Glow at ${width}px`).toEqual([
+                [126, 34, 206, 0.25],
+                [192, 38, 211, 0.2],
+                [168, 85, 247, 0.25],
+              ]);
             }
 
             const cards = elements.filter((element) => {
@@ -165,13 +174,21 @@ it.layer(NodeServices.layer)("use case glow paint order", (test) => {
                   width
                 ) ?? "";
 
-              const name =
-                /var\((?<name>--[\w-]+)\)/u.exec(image)?.groups?.name ?? "";
+              const stops = [
+                ...image.matchAll(/var\((?<name>--[\w-]+)\)/gu),
+              ].map((match) => {
+                const colour =
+                  site.customProperties.get(match.groups?.name ?? "") ?? "";
 
-              expect(
-                Number(site.customProperties.get(name)),
-                `Card at ${width}px`
-              ).toBe(0.05);
+                return [...colour.matchAll(/[\d.]+/gu)].map((channel) =>
+                  Number(channel[0])
+                );
+              });
+
+              expect(stops, `Card at ${width}px`).toEqual([
+                [255, 255, 255, 0.05],
+                [255, 255, 255, 0],
+              ]);
             }
           }
         })

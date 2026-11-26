@@ -100,6 +100,52 @@ it.layer(NodeServices.layer)("Hallmark testimonial layout", (test) => {
   );
 
   test.effect(
+    "contains the last phone card margin without changing desktop columns",
+    () =>
+      Effect.gen(function* checkStackMargins() {
+        const declarations = yield* stylesheetDeclarations;
+        const rendered = yield* renderedPage;
+        const elements = elementsIn(rendered.html);
+
+        const quotes = elements.flatMap((element, index) =>
+          element.tag === "h4" ? [index] : []
+        );
+
+        const lastQuote = quotes.at(-1);
+
+        expect(lastQuote).toBeDefined();
+
+        const ancestors = ancestorsOf(elements, lastQuote ?? -1);
+
+        const [card, stack, region] = ancestors.slice(2);
+
+        expect(card).toBeDefined();
+        expect(stack).toBeDefined();
+        expect(region).toBeDefined();
+
+        for (const width of [390, 767, 768, 1440]) {
+          expect(
+            winningValue(
+              declarations,
+              card?.classes ?? [],
+              "margin-bottom",
+              width
+            ),
+            `Last card margin at ${width}px`
+          ).toBe("1.5rem");
+          expect(
+            winningValue(declarations, stack?.classes ?? [], "display", width),
+            `Last card margin containment at ${width}px`
+          ).toBe("flow-root");
+          expect(
+            winningValue(declarations, region?.classes ?? [], "display", width),
+            `Stack visibility at ${width}px`
+          ).toBe(width < 768 ? "block" : "none");
+        }
+      })
+  );
+
+  test.effect(
     "uses the live card line heights at phone, tablet and desktop widths",
     () =>
       Effect.gen(function* checkCardType() {

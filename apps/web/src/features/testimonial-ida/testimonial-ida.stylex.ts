@@ -59,7 +59,7 @@ export const styles = stylex.create({
   bottomBody: {
     color: muted,
     fontSize: { default: "1rem", [md]: "1.125rem" },
-    lineHeight: 1.625,
+    lineHeight: { default: 1.625, [md]: "1.75rem" },
     margin: 0,
     maxWidth: "48rem",
   },
@@ -180,6 +180,9 @@ export const styles = stylex.create({
   },
   ctaPrimary: {
     borderWidth: 0,
+  },
+  ctaSecondary: {
+    backgroundColor: "transparent",
   },
   headline: {
     color: white,
@@ -337,7 +340,7 @@ export const styles = stylex.create({
     color: muted,
     fontSize: { default: "1rem", [md]: "1.125rem" },
     fontStyle: "italic",
-    lineHeight: 1.625,
+    lineHeight: { default: 1.625, [md]: "1.75rem" },
     marginBlock: "0 1rem",
     marginInline: 0,
   },
@@ -411,7 +414,7 @@ export const styles = stylex.create({
   rowDescription: {
     color: muted,
     fontSize: "1rem",
-    lineHeight: 1.625,
+    lineHeight: { default: 1.625, [md]: "1.5rem" },
     marginBlock: "0 1rem",
     whiteSpace: "pre-line",
   },
