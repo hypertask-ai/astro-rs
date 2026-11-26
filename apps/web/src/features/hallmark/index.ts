@@ -16,6 +16,11 @@ import { styles } from "./hallmark.stylex.js";
 const classes = (...entries: readonly (stylex.StyleXStyles | false)[]) =>
   stylex.props(...entries).className ?? "";
 
+const revealClass = "reveal";
+
+const withReveal = (className: string): string =>
+  className === "" ? revealClass : `${className} ${revealClass}`;
+
 const copyIconPath = "M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1";
 
 const checkIconPath = "M5 13l4 4L19 7";
@@ -196,7 +201,7 @@ const hero = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
 
 const humans = (h: HtmlBuilder<AppMessage>): Html =>
   h.section(
-    [h.Class(classes(styles.wrap, styles.split))],
+    [h.Class(withReveal(classes(styles.wrap, styles.split)))],
     [
       h.div(
         [],
@@ -244,7 +249,7 @@ const terminal = (h: HtmlBuilder<AppMessage>): Html =>
 
 const agents = (h: HtmlBuilder<AppMessage>): Html =>
   h.section(
-    [h.Class(classes(styles.wrap, styles.split))],
+    [h.Class(withReveal(classes(styles.wrap, styles.split)))],
     [
       h.figure(
         [h.Class(classes(styles.figure))],
@@ -285,7 +290,7 @@ const agentColumn = (
 
 const band = (h: HtmlBuilder<AppMessage>): Html =>
   h.section(
-    [h.Class(classes(styles.band))],
+    [h.Class(withReveal(classes(styles.band)))],
     [
       h.div(
         [h.Class(classes(styles.bandInner))],
@@ -389,7 +394,7 @@ const stepIndent = (number: string): stylex.StyleXStyles | false => {
 
 const steps = (h: HtmlBuilder<AppMessage>): Html =>
   h.section(
-    [h.Class(classes(styles.wrap, styles.how))],
+    [h.Class(withReveal(classes(styles.wrap, styles.how)))],
     [
       h.div(
         [h.Class(classes(styles.howHead))],
@@ -419,7 +424,7 @@ const steps = (h: HtmlBuilder<AppMessage>): Html =>
 
 const final = (h: HtmlBuilder<AppMessage>): Html =>
   h.section(
-    [h.Class(classes(styles.wrap, styles.final))],
+    [h.Class(withReveal(classes(styles.wrap, styles.final)))],
     [
       h.h2([h.Class(classes(styles.finalTitle))], [copy.finalTitle]),
       ctaRow(h, true),
@@ -446,11 +451,11 @@ export const view = (
           band(h),
           steps(h),
           h.div(
-            [h.Class(classes(styles.sectionRule))],
+            [h.Class(withReveal(classes(styles.sectionRule)))],
             [testimonialsSection(model, h, "hallmark")]
           ),
           h.div(
-            [h.Class(classes(styles.sectionRule))],
+            [h.Class(withReveal(classes(styles.sectionRule)))],
             [pricingModule(model, h)]
           ),
           final(h),
