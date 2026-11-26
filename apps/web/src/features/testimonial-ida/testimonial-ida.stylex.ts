@@ -221,7 +221,7 @@ export const styles = stylex.create({
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
-    gap: "1.5rem",
+    gap: { default: "1.5rem", [lg]: "2rem" },
     position: "relative",
     textAlign: "center",
     width: "100%",
