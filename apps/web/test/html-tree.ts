@@ -80,5 +80,5 @@ export const ancestorsOf = (
 
 export const childrenOf = (
   elements: readonly Element[],
-  index: number
+  index: number | undefined
 ): readonly Element[] => elements.filter((element) => element.parent === index);

@@ -120,7 +120,13 @@ it.layer(NodeServices.layer)("use case glow paint order", (test) => {
           for (const width of [390, 700, 1440]) {
             for (const glow of glows) {
               const wrapper = glowWrapperOf(elements, glow);
-              const wrapperLayer = layerOf(elements[wrapper], site, width);
+              const wrapperElement = elements[wrapper];
+
+              if (wrapperElement === undefined) {
+                throw new Error("A glow wrapper index is out of range");
+              }
+
+              const wrapperLayer = layerOf(wrapperElement, site, width);
 
               const ancestors = ancestorsOf(elements, wrapper).map((ancestor) =>
                 layerOf(ancestor, site, width)
@@ -134,8 +140,8 @@ it.layer(NodeServices.layer)("use case glow paint order", (test) => {
                 width,
               }).toEqual({ paintsOverPageBackground: true, width });
 
-              const siblings = childrenOf(elements, elements[wrapper]?.parent);
-              const content = siblings[siblings.indexOf(elements[wrapper]) + 1];
+              const siblings = childrenOf(elements, wrapperElement.parent);
+              const content = siblings[siblings.indexOf(wrapperElement) + 1];
 
               if (content === undefined) {
                 throw new Error("A glow wrapper has nothing painted beside it");

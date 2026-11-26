@@ -85,7 +85,7 @@ it.layer(NodeServices.layer)("use case body type", (test) => {
               classes: classesOfElementContaining(
                 rendered.html,
                 "div",
-                escapeForPattern(firstModule.body.join("\n\n"))
+                firstModule.body.join("\n\n")
               ),
               live: "moduleBody" as const,
             },
@@ -93,7 +93,7 @@ it.layer(NodeServices.layer)("use case body type", (test) => {
               classes: classesOfElementContaining(
                 rendered.html,
                 "p",
-                escapeForPattern(page.bottomBody)
+                page.bottomBody
               ),
               live: "ctaBody" as const,
             },

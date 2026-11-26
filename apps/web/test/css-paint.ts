@@ -22,7 +22,7 @@ export const customPropertiesIn = (css: string): ReadonlyMap<string, string> =>
   new Map(
     [...css.matchAll(customPropertyPattern)].map(
       (match) =>
-        [match.groups?.name ?? "", match.groups?.value.trim() ?? ""] as const
+        [match.groups?.name ?? "", (match.groups?.value ?? "").trim()] as const
     )
   );
 
