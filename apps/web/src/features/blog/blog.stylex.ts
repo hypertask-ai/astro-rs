@@ -639,6 +639,13 @@ export const styles = stylex.create({
     marginBottom: "2.5rem",
     rowGap: "0.5rem",
   },
+  tagTitle: {
+    color: "#ffffff",
+    fontSize: "2.5rem",
+    fontWeight: 700,
+    lineHeight: 1.1,
+    margin: 0,
+  },
   tags: {
     columnGap: "0.5rem",
     display: "flex",
@@ -647,13 +654,6 @@ export const styles = stylex.create({
     marginTop: "3.5rem",
     maxWidth: "720px",
     rowGap: "0.5rem",
-  },
-  tagTitle: {
-    color: "#ffffff",
-    fontSize: "2.5rem",
-    fontWeight: 700,
-    lineHeight: 1.1,
-    margin: 0,
   },
   thematicBreak: {
     borderColor: border10,

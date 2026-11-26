@@ -18,6 +18,8 @@ import {
 
 const blogHref = "/blog/";
 
+const homeHref = "/";
+
 const blogTitle = "The Hypertask Blog";
 
 const blogLede =
@@ -120,7 +122,7 @@ const renderTag = (
             [h.AriaLabel("Breadcrumb"), h.Class(classes(styles.breadcrumb))],
             [
               h.a(
-                [h.Href("/"), h.Class(classes(styles.breadcrumbLink))],
+                [h.Href(homeHref), h.Class(classes(styles.breadcrumbLink))],
                 ["Home"]
               ),
               h.span([h.Class(classes(styles.breadcrumbSeparator))], ["/"]),

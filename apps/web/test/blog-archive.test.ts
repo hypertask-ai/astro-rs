@@ -39,13 +39,17 @@ const renderAddress = (address: string) =>
     const { initialModel } = yield* Effect.promise(
       () => import("../src/client/app/model.js")
     );
+
     const { renderDocument } = yield* Effect.promise(
       () => import("../src/entry.server.js")
     );
+
     const { viewForPath } = yield* Effect.promise(
       () => import("../src/routes.js")
     );
+
     const view = yield* Effect.fromNullishOr(viewForPath(address));
+
     const application = yield* renderToString(
       { init: () => ({ model: initialModel }), view },
       { isHydratable: false }
@@ -104,6 +108,7 @@ describe("blog archive routes", () => {
       const { blogTags, tagSlug, visiblePosts } = yield* Effect.promise(
         () => import("../src/features/blog/posts.js")
       );
+
       const facts = yield* renderAddress(blogAddress);
 
       for (const tag of blogTags) {
@@ -121,6 +126,7 @@ describe("blog archive routes", () => {
       const { blogTags, tagSlug } = yield* Effect.promise(
         () => import("../src/features/blog/posts.js")
       );
+
       const { viewForPath } = yield* Effect.promise(
         () => import("../src/routes.js")
       );
