@@ -19,10 +19,6 @@ on:
         description: Maximum pixel difference per page, in percent.
         required: false
         default: "0.1"
-  pull_request:
-    paths:
-      - .github/workflows/parity.yml
-      - scripts/astro-parity.ts
 
 permissions:
   contents: read
