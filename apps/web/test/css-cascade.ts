@@ -31,8 +31,11 @@ export const declarationsIn = (css: string): readonly Declaration[] => {
 
     declarations.push({
       media: open
-        .filter((atRule) => atRule.startsWith("@media "))
-        .map((atRule) => atRule.slice("@media ".length).trim())
+        .flatMap((atRule) =>
+          atRule.startsWith("@media ")
+            ? [atRule.slice("@media ".length).trim()]
+            : []
+        )
         .join(" and "),
       order: declarations.length,
       property: declaration.slice(0, separator).trim().toLowerCase(),
@@ -69,6 +72,26 @@ const withoutParens = (text: string): string => {
   return result;
 };
 
+const withinBound = (
+  operator: string,
+  width: number,
+  value: number
+): boolean => {
+  if (operator === "<") {
+    return width < value;
+  }
+
+  if (operator === "<=") {
+    return width <= value;
+  }
+
+  if (operator === ">") {
+    return width > value;
+  }
+
+  return width >= value;
+};
+
 const widthTest = (source: string): ((width: number) => boolean) => {
   const text = source.trim();
 
@@ -98,7 +121,7 @@ const widthTest = (source: string): ((width: number) => boolean) => {
     );
 
   if (match === null) {
-    throw new Error(
+    throw new TypeError(
       `Unreadable media query piece "${text}". Fix: teach css-cascade.ts the shape the build emits.`
     );
   }
@@ -106,29 +129,17 @@ const widthTest = (source: string): ((width: number) => boolean) => {
   const value = Number(match.groups?.value ?? "");
 
   if (Number.isNaN(value)) {
-    throw new Error(
+    throw new TypeError(
       `Unreadable media query width in "${text}". Fix: teach css-cascade.ts the shape the build emits.`
     );
   }
 
   const feature = match.groups?.feature ?? "";
+
   const operator =
     match.groups?.operator ?? (feature === "max-width" ? "<=" : ">=");
 
-  switch (operator) {
-    case "<": {
-      return (width) => width < value;
-    }
-    case "<=": {
-      return (width) => width <= value;
-    }
-    case ">": {
-      return (width) => width > value;
-    }
-    default: {
-      return (width) => width >= value;
-    }
-  }
+  return (width) => withinBound(operator, width, value);
 };
 
 export const matchesWidth = (media: string, width: number): boolean =>

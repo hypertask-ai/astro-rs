@@ -2,11 +2,11 @@ import * as stylex from "@stylexjs/stylex";
 
 import { site } from "../tokens.stylex.js";
 
-const tablet = "@media (min-width: 640px)";
+const min640 = "@media (min-width: 640px)";
 
-const desktop = "@media (min-width: 768px)";
+const min768 = "@media (min-width: 768px)";
 
-const wide = "@media (min-width: 1024px)";
+const min1024 = "@media (min-width: 1024px)";
 
 const glow = `linear-gradient(to right, rgba(126, 34, 206, 0.25), rgba(192, 38, 211, 0.2), rgba(168, 85, 247, 0.25))`;
 
@@ -50,11 +50,11 @@ export const styles = stylex.create({
     marginTop: 0,
   },
   copy: {
-    gridColumn: { default: "auto", [wide]: "span 5 / span 5" },
+    gridColumn: { default: "auto", [min1024]: "span 5 / span 5" },
   },
   copyFirst: {
-    gridColumn: { default: "auto", [wide]: "span 5 / span 5" },
-    order: { default: 0, [wide]: 1 },
+    gridColumn: { default: "auto", [min1024]: "span 5 / span 5" },
+    order: { default: 0, [min1024]: 1 },
   },
   cta: {
     ":focus-visible": {
@@ -75,7 +75,7 @@ export const styles = stylex.create({
   },
   ctaBody: {
     color: "rgba(255, 255, 255, 0.8)",
-    fontSize: { default: "16px", [desktop]: "18px" },
+    fontSize: { default: "16px", [min768]: "18px" },
     lineHeight: 1.625,
     margin: 0,
     maxWidth: "768px",
@@ -87,7 +87,7 @@ export const styles = stylex.create({
     borderRadius: "12px",
     borderStyle: "solid",
     borderWidth: "1px",
-    padding: { default: "24px", [desktop]: "40px" },
+    padding: { default: "24px", [min768]: "40px" },
     width: "100%",
   },
   ctaGlow: {
@@ -106,9 +106,9 @@ export const styles = stylex.create({
     zIndex: -10,
   },
   ctaHero: {
-    fontSize: { default: "14px", [wide]: "16px" },
+    fontSize: { default: "14px", [min1024]: "16px" },
     fontWeight: 600,
-    lineHeight: { default: "20px", [wide]: "24px" },
+    lineHeight: { default: "20px", [min1024]: "24px" },
     paddingBlock: "12px",
     paddingInline: "32px",
   },
@@ -116,16 +116,16 @@ export const styles = stylex.create({
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
-    gap: { default: "16px", [wide]: "24px" },
+    gap: { default: "16px", [min1024]: "24px" },
     textAlign: "center",
     width: "100%",
   },
   ctaLarge: {
-    fontSize: { default: "16px", [wide]: "18px" },
+    fontSize: { default: "16px", [min1024]: "18px" },
     fontWeight: 600,
-    lineHeight: { default: "24px", [wide]: "28px" },
-    paddingBlock: { default: "12px", [wide]: "16px" },
-    paddingInline: { default: "32px", [wide]: "40px" },
+    lineHeight: { default: "24px", [min1024]: "28px" },
+    paddingBlock: { default: "12px", [min1024]: "16px" },
+    paddingInline: { default: "32px", [min1024]: "40px" },
   },
   ctaPrimary: {
     backgroundColor: "#ffffff",
@@ -134,7 +134,7 @@ export const styles = stylex.create({
   ctaRow: {
     alignItems: "center",
     display: "flex",
-    flexDirection: { default: "column", [tablet]: "row" },
+    flexDirection: { default: "column", [min640]: "row" },
     gap: "16px",
   },
   ctaSecondary: {
@@ -151,8 +151,8 @@ export const styles = stylex.create({
     flexDirection: "column",
     marginInline: "auto",
     maxWidth: "1344px",
-    paddingBlock: { default: "48px", [wide]: "64px" },
-    paddingInline: { default: "16px", [wide]: "32px" },
+    paddingBlock: { default: "48px", [min1024]: "64px" },
+    paddingInline: { default: "16px", [min1024]: "32px" },
     position: "relative",
     width: "100%",
   },
@@ -161,10 +161,10 @@ export const styles = stylex.create({
   },
   ctaTitle: {
     color: "#ffffff",
-    fontSize: { default: "24px", [tablet]: "30px", [desktop]: "36px" },
+    fontSize: { default: "24px", [min640]: "30px", [min768]: "36px" },
     fontWeight: 600,
     letterSpacing: "-0.025em",
-    lineHeight: { default: "30px", [tablet]: "36px", [desktop]: "40px" },
+    lineHeight: { default: "30px", [min640]: "36px", [min768]: "40px" },
     margin: 0,
     textWrap: "balance",
   },
@@ -180,23 +180,23 @@ export const styles = stylex.create({
   },
   grid: {
     alignItems: "center",
-    columnGap: { default: "32px", [desktop]: "48px" },
+    columnGap: { default: "32px", [min768]: "48px" },
     display: "grid",
     gridTemplateColumns: {
       default: "1fr",
-      [wide]: "repeat(12, minmax(0, 1fr))",
+      [min1024]: "repeat(12, minmax(0, 1fr))",
     },
-    rowGap: { default: "32px", [desktop]: "48px" },
+    rowGap: { default: "32px", [min768]: "48px" },
     width: "100%",
   },
   hero: {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
-    gap: { default: "20px", [wide]: "24px" },
+    gap: { default: "20px", [min1024]: "24px" },
     paddingBlockEnd: 0,
-    paddingBlockStart: { default: "48px", [desktop]: "96px" },
-    paddingInline: { default: 0, [wide]: "40px" },
+    paddingBlockStart: { default: "48px", [min768]: "96px" },
+    paddingInline: { default: 0, [min1024]: "40px" },
     position: "relative",
     textAlign: "center",
     width: "100%",
@@ -220,7 +220,7 @@ export const styles = stylex.create({
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
-    gap: { default: "24px", [wide]: "32px" },
+    gap: { default: "24px", [min1024]: "32px" },
     textAlign: "center",
     width: "100%",
   },
@@ -246,8 +246,8 @@ export const styles = stylex.create({
     flexDirection: "column",
     marginInline: "auto",
     maxWidth: "1344px",
-    paddingBlock: { default: "48px", [wide]: "64px" },
-    paddingInline: { default: "16px", [wide]: "32px" },
+    paddingBlock: { default: "48px", [min1024]: "64px" },
+    paddingInline: { default: "16px", [min1024]: "32px" },
     width: "100%",
   },
   moduleBody: {
@@ -262,8 +262,8 @@ export const styles = stylex.create({
     borderRadius: "12px",
     display: "block",
     height: "auto",
-    maxWidth: { default: "100%", [tablet]: "40rem" },
-    minHeight: { default: "auto", [tablet]: "30rem" },
+    maxWidth: { default: "100%", [min640]: "40rem" },
+    minHeight: { default: "auto", [min640]: "30rem" },
     objectFit: "cover",
     objectPosition: "left",
     width: "100%",
@@ -273,10 +273,10 @@ export const styles = stylex.create({
   },
   moduleTitle: {
     color: "#ffffff",
-    fontSize: { default: "24px", [tablet]: "30px", [desktop]: "36px" },
+    fontSize: { default: "24px", [min640]: "30px", [min768]: "36px" },
     fontWeight: 600,
     letterSpacing: "-0.025em",
-    lineHeight: { default: "30px", [tablet]: "36px", [desktop]: "40px" },
+    lineHeight: { default: "30px", [min640]: "36px", [min768]: "40px" },
     margin: 0,
     textWrap: "balance",
   },
@@ -287,13 +287,13 @@ export const styles = stylex.create({
     backgroundImage: overlayImageFirstPhone,
   },
   overlayPhone: {
-    display: { default: "block", [tablet]: "none" },
+    display: { default: "block", [min640]: "none" },
     inset: 0,
     pointerEvents: "none",
     position: "absolute",
   },
   overlayTablet: {
-    display: { default: "none", [tablet]: "block" },
+    display: { default: "none", [min640]: "block" },
     inset: 0,
     pointerEvents: "none",
     position: "absolute",
@@ -308,10 +308,10 @@ export const styles = stylex.create({
     position: "relative",
   },
   visualFirst: {
-    gridColumn: { default: "auto", [wide]: "span 7 / span 7" },
+    gridColumn: { default: "auto", [min1024]: "span 7 / span 7" },
   },
   visualSecond: {
-    gridColumn: { default: "auto", [wide]: "span 7 / span 7" },
-    order: { default: 0, [wide]: 2 },
+    gridColumn: { default: "auto", [min1024]: "span 7 / span 7" },
+    order: { default: 0, [min1024]: 2 },
   },
 });
