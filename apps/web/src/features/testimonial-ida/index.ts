@@ -49,7 +49,7 @@ const ctaGroup = (
               size === "hero" ? ctaStyles.hero : ctaStyles.large,
               index === 0 ? ctaStyles.primary : ctaStyles.secondary,
               size === "hero" ? styles.ctaHero : styles.ctaLarge,
-              index === 0 && styles.ctaPrimary
+              index === 0 ? styles.ctaPrimary : styles.ctaSecondary
             )
           ),
         ],

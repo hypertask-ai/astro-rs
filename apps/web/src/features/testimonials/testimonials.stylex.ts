@@ -232,6 +232,9 @@ export const styles = stylex.create({
   hallmarkRole: {
     lineHeight: "1.25rem",
   },
+  hallmarkStack: {
+    display: "flow-root",
+  },
   hallmarkTitle: {
     fontFamily: "'Space Grotesk', ui-sans-serif, system-ui, sans-serif",
     letterSpacing: "-0.02em",

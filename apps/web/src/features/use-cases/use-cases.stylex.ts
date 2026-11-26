@@ -8,12 +8,15 @@ const min768 = "@media (min-width: 768px)";
 
 const min1024 = "@media (min-width: 1024px)";
 
-export const alpha = stylex.defineVars({
-  card: "0.05",
-  glow: "0.25",
+export const paint = stylex.defineVars({
+  cardFrom: "rgb(255 255 255 / 0.05)",
+  cardTo: "rgb(255 255 255 / 0)",
+  glowFrom: "rgb(126 34 206 / 0.25)",
+  glowTo: "rgb(168 85 247 / 0.25)",
+  glowVia: "rgb(192 38 211 / 0.2)",
 });
 
-const glow = `linear-gradient(to right, rgba(126, 34, 206, ${alpha.glow}), rgba(192, 38, 211, 0.2), rgba(168, 85, 247, ${alpha.glow}))`;
+const glow = `linear-gradient(to right, ${paint.glowFrom}, ${paint.glowVia}, ${paint.glowTo})`;
 
 const overlayImageFirstDesktop = `radial-gradient(90% 63% at 100% 100%, rgba(0, 0, 0, 0.35) 10%, rgba(0, 0, 0, 0) 64%), linear-gradient(300deg, rgba(0, 0, 0, 0.85) 8%, rgba(0, 0, 0, 0.25) 30%, rgba(0, 0, 0, 0) 78%), radial-gradient(65% 49% at 100% 0%, rgba(0, 0, 0, 1) 2%, rgba(0, 0, 0, 0) 94%)`;
 
@@ -88,7 +91,7 @@ export const styles = stylex.create({
     maxWidth: "768px",
   },
   ctaCard: {
-    backgroundImage: `linear-gradient(to bottom, rgba(255, 255, 255, ${alpha.card}), transparent)`,
+    backgroundImage: `linear-gradient(to bottom, ${paint.cardFrom}, ${paint.cardTo})`,
     borderColor: "rgba(255, 255, 255, 0.1)",
     borderRadius: "12px",
     borderStyle: "solid",
