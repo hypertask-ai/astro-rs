@@ -13,18 +13,19 @@ import {
 } from "./css-cascade.js";
 import liveHeadingType from "./fixtures/live-use-case-heading-type.json" with { type: "json" };
 
+const stylesheetFiles = (listing: readonly string[]): readonly string[] =>
+  listing
+    .filter((file) => file.endsWith(".css"))
+    .toSorted((left, right) => left.localeCompare(right));
+
 const stylesheetDeclarations = Effect.gen(function* readBuiltStylesheets() {
   const fs = yield* FileSystem.FileSystem;
   const path = yield* Path.Path;
   const client = path.resolve(import.meta.dirname, "../dist/client");
   const listing = yield* fs.readDirectory(client, { recursive: true });
 
-  const stylesheets = listing
-    .filter((file) => file.endsWith(".css"))
-    .toSorted((left, right) => left.localeCompare(right));
-
-  const sheets = yield* Effect.all(
-    stylesheets.map((file) => fs.readFileString(path.join(client, file)))
+  const sheets = yield* Effect.forEach(stylesheetFiles(listing), (file) =>
+    fs.readFileString(path.join(client, file))
   );
 
   return declarationsIn(sheets.join("\n"));
