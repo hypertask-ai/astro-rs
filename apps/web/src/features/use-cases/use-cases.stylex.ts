@@ -21,7 +21,9 @@ const overlayTextFirstPhone = `radial-gradient(130% 80% at 100% 100%, rgba(0,0,0
 const buttonShadow =
   "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)";
 
-const buttonRing = `${buttonShadow}, 0 0 0 1px #d4d4d4`;
+const buttonFocusRing = "0 0 0 0 #ffffff, 0 0 0 1px #d4d4d4";
+
+const buttonRing = `${buttonFocusRing}, ${buttonShadow}`;
 
 export const styles = stylex.create({
   bullet: {
@@ -68,7 +70,7 @@ export const styles = stylex.create({
     gap: "8px",
     justifyContent: "center",
     textDecoration: "none",
-    transitionDuration: "150ms",
+    transitionDuration: "200ms",
     transitionProperty: "color, background-color, border-color",
     transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
     whiteSpace: "nowrap",
@@ -130,6 +132,7 @@ export const styles = stylex.create({
     paddingInline: { default: "32px", [min1024]: "40px" },
   },
   ctaPrimary: {
+    ":hover": { backgroundColor: "#f9fafb" },
     backgroundColor: "#ffffff",
     color: "#000000",
   },
