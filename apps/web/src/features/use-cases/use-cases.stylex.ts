@@ -76,7 +76,7 @@ export const styles = stylex.create({
   ctaBody: {
     color: "rgba(255, 255, 255, 0.8)",
     fontSize: { default: "16px", [min768]: "18px" },
-    lineHeight: 1.625,
+    lineHeight: { default: "26px", [min768]: "28px" },
     margin: 0,
     maxWidth: "768px",
   },
@@ -88,7 +88,9 @@ export const styles = stylex.create({
     borderStyle: "solid",
     borderWidth: "1px",
     padding: { default: "24px", [min768]: "40px" },
+    position: "relative",
     width: "100%",
+    zIndex: 1,
   },
   ctaGlow: {
     backgroundImage: glow,
@@ -103,7 +105,7 @@ export const styles = stylex.create({
     inset: 0,
     pointerEvents: "none",
     position: "absolute",
-    zIndex: -10,
+    zIndex: 0,
   },
   ctaHero: {
     fontSize: { default: "14px", [min1024]: "16px" },
@@ -214,15 +216,17 @@ export const styles = stylex.create({
     inset: 0,
     pointerEvents: "none",
     position: "absolute",
-    zIndex: -10,
+    zIndex: 0,
   },
   heroInner: {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     gap: { default: "24px", [min1024]: "32px" },
+    position: "relative",
     textAlign: "center",
     width: "100%",
+    zIndex: 1,
   },
   heroLede: {
     color: site.text,
@@ -253,7 +257,7 @@ export const styles = stylex.create({
   moduleBody: {
     color: "rgba(255, 255, 255, 0.8)",
     fontSize: "16px",
-    lineHeight: 1.625,
+    lineHeight: { default: "26px", [min768]: "24px" },
     marginBottom: 0,
     marginTop: "16px",
     whiteSpace: "pre-line",
